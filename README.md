@@ -118,7 +118,7 @@
 
 - [ ] 新仓库承载内容
   - [x] 新仓库：https://github.com/TDesignOteam/tdesign-vue-integrate
-  - [ ] 初步设计仓库结构
+  - [x] 初步设计仓库结构
   - [ ] 将 vue3 搬到新仓库，并按照新结构成功运行起来`packages/components/vue3`
   - [ ] 将 vue2 搬到新仓库，并按照新结构成功运行起来`packages/components/vue2`
   - [ ] 将组件用一套代码实现
@@ -130,8 +130,15 @@
 
 ### 4.1 2024.01.08 同步
 
+**本双周：**
+
 1. 确定使用单仓
 2. 确定使用 pnpm
 3. 暂定使用 turbo
 4. 确定升级步骤
 5. 确定 `babel-plugin-transform-vue-jsx` 发包
+
+**下双周：**
+
+1. 完成 vue23 的搬动
+2. 完成 button 的共用
