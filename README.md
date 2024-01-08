@@ -137,6 +137,7 @@
 3. 暂定使用 turbo
 4. 确定升级步骤
 5. 确定 `babel-plugin-transform-vue-jsx` 发包
+6. vue3 搬到新仓库进行中
 
 **下双周：**
 
