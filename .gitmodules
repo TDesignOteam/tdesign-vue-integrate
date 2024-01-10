@@ -1,0 +1,6 @@
+[submodule "packages/components/tdesign-common"]
+	path = packages/components/tdesign-common
+	url = git@github.com:zhangpaopao0609/tdesign-common.git
+[submodule "packages/components/_common"]
+	path = packages/components/_common
+	url = git@github.com:zhangpaopao0609/tdesign-common.git
