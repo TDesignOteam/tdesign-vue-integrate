@@ -6,7 +6,7 @@ import camelCase from 'camelcase';
 import testCoverage from './test-coverage';
 
 // import { compileUsage, getGitTimestamp } from 'common/_common/docs/compile';
-// ! 因为 common/_common 为 cjs 的，所以无法通过 ESM 加载
+// ! zhangpaopao 因为 common/_common 为 cjs 的，所以无法通过 ESM 加载
 // 问题来了，为啥 path 可以呢？ 因为 path 是本地文件，而 workspace 是 node_models(依赖)
 import { compileUsage, getGitTimestamp } from '../../../../packages/common/_common/docs/compile';
 
@@ -198,6 +198,7 @@ async function customRender({ source, file, md }) {
     const usageObj = compileUsage({
       componentName,
       usage: pageData.usage,
+      // ! zhangpaopao 直接走的 node_modules
       demoPath: path.posix.resolve(__dirname, '../../', `node_modules/vue3/src/${componentName}/_usage/index.vue`).replace(/\\/g, '/'),
     });
     if (usageObj) {
@@ -224,6 +225,7 @@ async function customRender({ source, file, md }) {
 
   // 设计指南内容 不展示 design Tab 则不解析
   if (pageData.isComponent && pageData.tdDocTabs.some((item) => item.tab === 'design')) {
+    // ! zhangpaopao 直接走的 node_modules
     const designDocPath = path.resolve(__dirname, '../../', `node_modules/vue3/src/_common/docs/web/design/${componentName}.md`);
 
     if (fs.existsSync(designDocPath)) {

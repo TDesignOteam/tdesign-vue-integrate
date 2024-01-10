@@ -18,6 +18,7 @@ export default {
 
     // 统一换成 common 公共文档内容
     if (fileName && source.includes(':: BASE_DOC ::')) {
+      // ! zhangpaopao 直接走的 node_modules
       const localeDocPath = path.posix.resolve(__dirname, '../../',  `node_modules/common/_common/docs/web/api/${fileName}`);
       const defaultDocPath = path.posix.resolve(__dirname, '../../', `node_modules/common/_common/docs/web/api/${componentName}.md`);
 
