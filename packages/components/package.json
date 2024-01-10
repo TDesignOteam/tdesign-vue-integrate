@@ -8,5 +8,13 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "common": "workspace:^",
+    "lodash": "^4.17.21"
+  },
+  "devDependencies": {
+    "vue": "^3.3.11",
+    "vue3": "workspace:^"
+  }
 }
