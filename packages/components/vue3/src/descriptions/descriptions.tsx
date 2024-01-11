@@ -2,10 +2,13 @@ import isNil from 'lodash/isNil';
 import isArray from 'lodash/isArray';
 import { defineComponent, provide, ref } from 'vue';
 
-import { LayoutEnum } from '../common';
-import { useTNodeJSX } from '../hooks/tnode';
-import { useChildComponentSlots } from '../hooks/slot';
-import { usePrefixClass, useCommonClassName } from '../hooks/useConfig';
+import { LayoutEnum } from 'common/interface';
+// @ts-ignore
+import { useTNodeJSX } from 'adapter';
+// @ts-ignore
+import { useChildComponentSlots } from 'adapter';
+// @ts-ignore
+import { usePrefixClass, useCommonClassName } from 'adapter';
 
 import props from 'vue3/src/descriptions/props';
 import { descriptionsKey } from './const';

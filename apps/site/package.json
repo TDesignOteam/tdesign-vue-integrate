@@ -11,7 +11,6 @@
   "dependencies": {
     "codesandbox": "^2.2.3",
     "lodash-es": "^4.17.21",
-    "prismjs": "^1.29.0",
     "semver": "^7.5.4",
     "tdesign-site-components": "^0.13.20",
     "tdesign-theme-generator": "^1.0.15",
@@ -28,6 +27,7 @@
     "common": "workspace:^",
     "gray-matter": "^4.0.3",
     "less": "^4.2.0",
+    "prismjs": "^1.29.0",
     "tdesign-icons-view": "^0.2.6",
     "typescript": "^5.2.2",
     "vite": "^5.0.8",

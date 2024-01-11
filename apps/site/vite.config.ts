@@ -45,6 +45,16 @@ export const basePlugin = [
   ],
 ];
 
+export const transformAdapter = () => ({
+  name: 'transform-adapter',
+  transform(code, id) {
+    const adapterReg = /from "@adapter/g;
+    code = code.replace(adapterReg, 'from "./vue3');
+    
+    return code;
+  }
+})
+
 export default defineConfig(({ mode }) => ({
   base: publicPathMap[mode],
   resolve: {
@@ -61,8 +71,12 @@ export default defineConfig(({ mode }) => ({
     },
   },
   plugins: [
+    transformAdapter(),
     ...basePlugin,
     VitePWA(PWA),
     TDocPlugin()
   ],
+  optimizeDeps: {
+    include: ['prismjs', 'prismjs/components/prism-bash.js'],
+  },
 }))

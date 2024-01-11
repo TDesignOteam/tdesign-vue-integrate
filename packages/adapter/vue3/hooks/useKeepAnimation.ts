@@ -1,6 +1,12 @@
 import { useConfig } from './useConfig';
-import { EAnimationType } from '../config-provider/context';
+// import { EAnimationType } from '../config-provider/context';
 
+// ! zhangpaopao
+export enum EAnimationType {
+  ripple = 'ripple',
+  expand = 'expand',
+  fade = 'fade',
+}
 const { expand, ripple, fade } = EAnimationType;
 
 export default function useKeepAnimation() {
