@@ -1,5 +1,5 @@
-import _Descriptions from './descriptions';
-import _DescriptionsItem from './descriptions-item';
+import _Descriptions from 'components/vue3/src/descriptions/descriptions';
+import _DescriptionsItem from 'components/vue3/src/descriptions/descriptions-item';
 import withInstall from '../utils/withInstall';
 import { TdDescriptionsProps, TdDescriptionItemProps } from './type';
 

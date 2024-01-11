@@ -153,6 +153,8 @@ importers:
         specifier: ^5.3.3
         version: 5.3.3
 
+  packages/adapter: {}
+
   packages/common: {}
 
   packages/components:
