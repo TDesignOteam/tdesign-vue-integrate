@@ -188,7 +188,7 @@ importers:
         version: 4.14.202
       vue:
         specifier: ^3.3.11
-        version: 3.4.7(typescript@5.3.3)
+        version: 3.4.7
       vue3:
         specifier: workspace:^
         version: link:../vue3
@@ -2700,7 +2700,7 @@ packages:
     dependencies:
       '@vue/compiler-ssr': 3.4.7
       '@vue/shared': 3.4.7
-      vue: 3.4.7(typescript@5.3.3)
+      vue: 3.4.7
 
   /@vue/shared@3.4.7:
     resolution: {integrity: sha512-G+i4glX1dMJk88sbJEcQEGWRQnVm9eIY7CcQbO5dpdsD9SF8jka3Mr5OqZYGjczGN1+D6EUwdu6phcmcx9iuPA==}
@@ -9026,6 +9026,20 @@ packages:
     dependencies:
       '@vue/compiler-sfc': 2.7.14
       csstype: 3.1.3
+
+  /vue@3.4.7:
+    resolution: {integrity: sha512-4urmkWpudekq0CPNMO7p6mBGa9qmTXwJMO2r6CT4EzIJVG7WoSReiysiNb7OSi/WI113oX0Srn9Rz1k/DCXKFQ==}
+    peerDependencies:
+      typescript: '*'
+    peerDependenciesMeta:
+      typescript:
+        optional: true
+    dependencies:
+      '@vue/compiler-dom': 3.4.7
+      '@vue/compiler-sfc': 3.4.7
+      '@vue/runtime-dom': 3.4.7
+      '@vue/server-renderer': 3.4.7(vue@3.4.7)
+      '@vue/shared': 3.4.7
 
   /vue@3.4.7(typescript@5.3.3):
     resolution: {integrity: sha512-4urmkWpudekq0CPNMO7p6mBGa9qmTXwJMO2r6CT4EzIJVG7WoSReiysiNb7OSi/WI113oX0Srn9Rz1k/DCXKFQ==}
