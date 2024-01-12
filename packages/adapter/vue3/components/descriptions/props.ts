@@ -7,7 +7,7 @@
 import { TdDescriptionsProps } from './type';
 import { PropType } from 'vue';
 
-export const descriptionsProps = {
+export default {
   /** 是否带边框 */
   bordered: Boolean,
   /** 字段名右侧是否携带冒号“：” */

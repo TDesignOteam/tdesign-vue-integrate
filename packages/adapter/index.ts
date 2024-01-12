@@ -9,5 +9,3 @@ export declare function withInstall<T>(comp: T, alias?: string, directive?: {
   comp: Directive<T & Plugin>;
 }): T & Plugin
 
-// type: props
-export type * from "./vue3/components";

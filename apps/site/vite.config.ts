@@ -55,29 +55,32 @@ export const transformAdapter = () => ({
   }
 })
 
-export default defineConfig(({ mode }) => ({
-  base: publicPathMap[mode],
-  resolve: {
-    alias: {
-      '@': path.resolve(__dirname),
-    }
-  },
-  server: {
-    host: '0.0.0.0',
-    port: 17000,
-    open: '/',
-    fs: {
-      allow: ['..'],
+export default defineConfig(({ mode }) => {
+  console.log(mode);
+  return {
+    base: publicPathMap[mode],
+    resolve: {
+      alias: {
+        '@': path.resolve(__dirname),
+      }
     },
-  },
-  plugins: [
-    transformAdapter(),
-    ...basePlugin,
-    VitePWA(PWA),
-    TDocPlugin()
-  ],
-  optimizeDeps: {
-    include: ['prismjs', 'prismjs/components/prism-bash.js'],
-    exclude: ['@adapter']
-  },
-}))
+    server: {
+      host: '0.0.0.0',
+      port: 17000,
+      open: '/',
+      fs: {
+        allow: ['..'],
+      },
+    },
+    plugins: [
+      transformAdapter(),
+      ...basePlugin,
+      VitePWA(PWA),
+      TDocPlugin()
+    ],
+    optimizeDeps: {
+      include: ['prismjs', 'prismjs/components/prism-bash.js'],
+      exclude: ['@adapter']
+    },
+  }
+})

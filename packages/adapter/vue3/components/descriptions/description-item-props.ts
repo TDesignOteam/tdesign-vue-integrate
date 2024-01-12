@@ -7,7 +7,7 @@
 import { TdDescriptionItemProps } from '../descriptions/type';
 import { PropType } from 'vue';
 
-export const descriptionItemProps =  {
+export default {
   /** 内容垂直对齐方式，DescriptionItem.align 优先级高于 Descriptions.align */
   align: {
     type: String as PropType<TdDescriptionItemProps['align']>,

@@ -4,11 +4,14 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "pnpm run dev:vue3",
+    "dev:vue3": "vite --mode vue3",
+    "dev:vue2": "vite --mode vue2",
     "build": "vue-tsc && vite build",
     "preview": "vite preview"
   },
   "dependencies": {
+    "adapter": "workspace:^",
     "codesandbox": "^2.2.3",
     "components": "workspace:^",
     "lodash-es": "^4.17.21",
