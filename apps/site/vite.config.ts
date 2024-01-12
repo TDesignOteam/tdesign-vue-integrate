@@ -78,5 +78,6 @@ export default defineConfig(({ mode }) => ({
   ],
   optimizeDeps: {
     include: ['prismjs', 'prismjs/components/prism-bash.js'],
+    exclude: ['@adapter']
   },
 }))
