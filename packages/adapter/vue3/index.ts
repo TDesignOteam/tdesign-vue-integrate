@@ -8,14 +8,7 @@ export {
 
 // hooks
 export * from './hooks'
-import * as T from "./hooks/tnode";
-
-export {
-   T
-}
 
 // props
-
-
 // type
 export * from './components'
