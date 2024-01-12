@@ -19,7 +19,7 @@
     "vue3": "workspace:^"
   },
   "devDependencies": {
-    "@configs/typescript-config": "workspace:^",
+    "tsconfig": "workspace:^",
     "@types/node": "^20.10.6",
     "@vitejs/plugin-vue": "^4.5.2",
     "@vitejs/plugin-vue-jsx": "^3.1.0",
