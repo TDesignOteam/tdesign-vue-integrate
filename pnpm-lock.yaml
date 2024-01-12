@@ -8,7 +8,7 @@ importers:
 
   .:
     devDependencies:
-      '@configs/eslint-config':
+      eslint-config:
         specifier: workspace:*
         version: link:configs/eslint-config
       prettier:
@@ -26,6 +26,9 @@ importers:
       codesandbox:
         specifier: ^2.2.3
         version: 2.2.3
+      components:
+        specifier: workspace:^
+        version: link:../../packages/components
       lodash-es:
         specifier: ^4.17.21
         version: 4.17.21
@@ -44,9 +47,6 @@ importers:
       vue-router:
         specifier: ^4.2.5
         version: 4.2.5(vue@3.4.7)
-      vue3:
-        specifier: workspace:^
-        version: link:../../packages/vue3
     devDependencies:
       '@types/node':
         specifier: ^20.10.6
@@ -140,15 +140,39 @@ importers:
 
   packages/components:
     dependencies:
+      '@popperjs/core':
+        specifier: ^2.11.8
+        version: 2.11.8
       adapter:
         specifier: workspace:^
         version: link:../adapter
+      clipboard:
+        specifier: ^2.0.11
+        version: 2.0.11
       common:
         specifier: workspace:^
         version: link:../common
+      components:
+        specifier: workspace:^
+        version: 'link:'
+      dayjs:
+        specifier: ^1.11.10
+        version: 1.11.10
       lodash:
         specifier: ^4.17.21
         version: 4.17.21
+      raf:
+        specifier: ^3.4.1
+        version: 3.4.1
+      sortablejs:
+        specifier: ^1.15.1
+        version: 1.15.1
+      tdesign-icons-vue-next:
+        specifier: ^0.2.2
+        version: 0.2.2(vue@3.4.7)
+      validator:
+        specifier: ^13.11.0
+        version: 13.11.0
     devDependencies:
       '@types/lodash':
         specifier: ^4.14.202
@@ -156,9 +180,12 @@ importers:
       vue:
         specifier: ^3.3.11
         version: 3.4.7(typescript@5.3.3)
-      vue3:
+
+  packages/script:
+    dependencies:
+      components:
         specifier: workspace:^
-        version: link:../vue3
+        version: link:../components
 
   packages/vue3:
     dependencies:

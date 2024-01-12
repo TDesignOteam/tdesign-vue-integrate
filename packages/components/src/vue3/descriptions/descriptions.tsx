@@ -10,9 +10,9 @@ import { useChildComponentSlots } from 'adapter';
 // @ts-ignore
 import { usePrefixClass, useCommonClassName } from 'adapter';
 
-import props from 'vue3/src/descriptions/props';
+import props from 'components/helper/descriptions/props';
 import { descriptionsKey } from './const';
-import { TdDescriptionsProps } from 'vue3/src/descriptions/type';
+import { TdDescriptionsProps } from 'components/helper/descriptions/type';
 import DescriptionsRow from './descriptions-row';
 import { renderCustomNode, itemTypeIsProps } from './utils';
 import { ItemsType, TdDescriptionItem } from './interface';

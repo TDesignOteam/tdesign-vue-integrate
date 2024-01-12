@@ -1,11 +1,11 @@
 import _Descriptions from './descriptions';
 import _DescriptionsItem from './descriptions-item';
 import { withInstall } from 'adapter';
-import { TdDescriptionsProps, TdDescriptionItemProps } from 'vue3/src/descriptions/type';
+import { TdDescriptionsProps, TdDescriptionItemProps } from 'components/helper/descriptions/type';
 
 import './style';
 
-export * from 'vue3/src/descriptions/type';
+export * from 'components/helper/descriptions/type';
 export type DescriptionsProps = TdDescriptionsProps;
 export type DescriptionsItemProps = TdDescriptionItemProps;
 

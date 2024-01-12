@@ -1,5 +1,5 @@
 import { createApp } from 'vue';
-import TDesign from 'vue3';
+import TDesign from 'components';
 import App from './App.vue';
 import router from './routes';
 

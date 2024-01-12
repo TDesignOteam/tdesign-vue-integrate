@@ -1,5 +1,5 @@
 import type { VNode } from 'vue';
-import { TdDescriptionItemProps } from 'vue3/src/descriptions/type';
+import { TdDescriptionItemProps } from 'components/helper/descriptions/type';
 
 export enum ItemsType {
   props = 'props',
