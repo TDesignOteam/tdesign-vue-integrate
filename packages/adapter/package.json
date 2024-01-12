@@ -14,7 +14,7 @@
     "vue": "^3.3.11"
   },
   "dependencies": {
-    "common": "workspace:^",
-    "lodash": "^4.17.21"
+    "lodash": "^4.17.21",
+    "shared": "workspace:^"
   }
 }

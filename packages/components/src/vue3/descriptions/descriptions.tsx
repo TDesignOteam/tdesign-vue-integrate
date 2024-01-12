@@ -2,7 +2,7 @@ import isNil from 'lodash/isNil';
 import isArray from 'lodash/isArray';
 import { defineComponent, provide, ref } from 'vue';
 
-import { LayoutEnum } from 'common/interface';
+import { LayoutEnum } from 'shared/interface';
 // @ts-ignore
 import { useTNodeJSX } from 'adapter';
 // @ts-ignore
@@ -10,9 +10,8 @@ import { useChildComponentSlots } from 'adapter';
 // @ts-ignore
 import { usePrefixClass, useCommonClassName } from 'adapter';
 
-import props from 'components/helper/descriptions/props';
+import { PROPS, TYPES } from 'adapter';
 import { descriptionsKey } from './const';
-import { TdDescriptionsProps } from 'components/helper/descriptions/type';
 import DescriptionsRow from './descriptions-row';
 import { renderCustomNode, itemTypeIsProps } from './utils';
 import { ItemsType, TdDescriptionItem } from './interface';
@@ -33,8 +32,8 @@ import { ItemsType, TdDescriptionItem } from './interface';
 
 export default defineComponent({
   name: 'TDescriptions',
-  props,
-  setup(props: TdDescriptionsProps) {
+  props: PROPS.descriptionsProps,
+  setup(props: TYPES.TdDescriptionsType) {
     const COMPONENT_NAME = usePrefixClass('descriptions');
     const { SIZE } = useCommonClassName();
     const getChildByName = useChildComponentSlots();

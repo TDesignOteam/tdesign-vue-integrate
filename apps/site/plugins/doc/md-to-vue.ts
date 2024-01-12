@@ -5,10 +5,10 @@ import camelCase from 'camelcase';
 
 import testCoverage from './test-coverage';
 
-// import { compileUsage, getGitTimestamp } from 'common/_common/docs/compile';
+// import { compileUsage, getGitTimestamp } from 'shared/_common/docs/compile';
 // ! zhangpaopao 因为 common/_common 为 cjs 的，所以无法通过 ESM 加载
 // 问题来了，为啥 path 可以呢？ 因为 path 是本地文件，而 workspace 是 node_models(依赖)
-import { compileUsage, getGitTimestamp } from '../../../../packages/common/_common/docs/compile';
+import { compileUsage, getGitTimestamp } from '../../../../packages/shared/_common/docs/compile';
 
 const DEFAULT_TABS = [
   { tab: 'demo', name: '示例' },

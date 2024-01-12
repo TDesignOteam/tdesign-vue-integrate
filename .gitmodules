@@ -1,3 +1,3 @@
-[submodule "packages/common/_common"]
-	path = packages/common/_common
+[submodule "packages/shared/_common"]
+	path = packages/shared/_common
 	url = git@github.com:zhangpaopao0609/tdesign-common.git

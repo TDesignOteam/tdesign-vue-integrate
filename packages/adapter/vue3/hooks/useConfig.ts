@@ -6,8 +6,8 @@ import isString from 'lodash/isString';
 import { InjectionKey, ComputedRef } from 'vue';
 import _mergeWith from 'lodash/mergeWith';
 import merge from 'lodash/merge';
-import defaultConfig from 'common/_common/js/global-config/default-config';
-import defaultZhLocale from 'common/_common/js/global-config/locale/zh_CN';
+import defaultConfig from 'shared/_common/js/global-config/default-config';
+import defaultZhLocale from 'shared/_common/js/global-config/locale/zh_CN';
 // import { GlobalConfigProvider } from './type';
 import isArray from 'lodash/isArray';
 

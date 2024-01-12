@@ -1,13 +1,14 @@
 import _Descriptions from './descriptions';
 import _DescriptionsItem from './descriptions-item';
 import { withInstall } from 'adapter';
-import { TdDescriptionsProps, TdDescriptionItemProps } from 'components/helper/descriptions/type';
+import { TYPES } from 'adapter';
 
 import './style';
 
-export * from 'components/helper/descriptions/type';
-export type DescriptionsProps = TdDescriptionsProps;
-export type DescriptionsItemProps = TdDescriptionItemProps;
+// !zhangpaopao
+export * from 'adapter';
+export type DescriptionsProps = TYPES.TdDescriptionsProps;
+export type DescriptionsItemProps = TYPES.TdDescriptionItemProps;
 
 export const Descriptions = withInstall(_Descriptions);
 export const DescriptionsItem = withInstall(_DescriptionsItem);
