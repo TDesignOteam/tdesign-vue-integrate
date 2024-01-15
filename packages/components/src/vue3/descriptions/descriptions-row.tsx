@@ -2,7 +2,7 @@ import { defineComponent, inject, PropType } from 'vue';
 
 import { LayoutEnum } from 'shared/interface';
 // @ts-ignore
-import { usePrefixClass } from 'adapter';
+import { usePrefixClass } from '@adapter';
 
 import { descriptionsKey } from './const';
 import { ItemsType, TdDescriptionItem } from './interface';

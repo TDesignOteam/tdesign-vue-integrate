@@ -7,6 +7,19 @@ import { VitePWA } from 'vite-plugin-pwa';
 import TDocPlugin from './plugins/doc';
 import PWA from "./configs/pwa";
 
+import { searchForWorkspaceRoot } from 'vite'
+
+const workspaceRoot = searchForWorkspaceRoot(process.cwd())
+const pathFromWorkspaceRoot = (...args: string[]) => path.posix.resolve(workspaceRoot, ...args)
+
+
+const resolveConfig = (vueVersion: number) => {
+  return {
+    '@adapter': pathFromWorkspaceRoot(`packages/adapter/vue${vueVersion}`),
+  }
+}
+
+
 const publicPathMap = {
   preview: '/',
   intranet: '/vue-next/',
@@ -16,18 +29,6 @@ const publicPathMap = {
 
 // ! vue-next 中是从 ../script/vite.base.config 引入
 const isCustomElement = (tag) => tag.startsWith('td-') || tag.startsWith('tdesign-theme');
-
-// ! vue-next 中是从 ../script/vite.base.config 引入
-export const resolveConfig = {
-  alias: {
-    '@': path.resolve(__dirname, '../'),
-    '@test': path.resolve(__dirname, '../test'),
-    '@/src': path.resolve(__dirname, '../src/'),
-    '@common': path.resolve(__dirname, '../src/_common'),
-    'tdesign-vue-next/es': path.resolve(__dirname, '../src'),
-    'tdesign-vue-next': path.resolve(__dirname, '../src'),
-  },
-};
 
 // ! vue-next 中是从 ../script/vite.base.config 引入
 export const basePlugin = [
@@ -48,7 +49,7 @@ export const basePlugin = [
 export const transformAdapter = () => ({
   name: 'transform-adapter',
   transform(code, id) {
-    const adapterReg = /from "@adapter/g;
+    const adapterReg = /from "TDesign\/Adapter/g;
     code = code.replace(adapterReg, 'from "./vue3');
     
     return code;
@@ -56,11 +57,13 @@ export const transformAdapter = () => ({
 })
 
 export default defineConfig(({ mode }) => {
-  console.log(mode);
+  const vueVersion = mode === 'vue2' ? 2 : 3;
+  
   return {
     base: publicPathMap[mode],
     resolve: {
       alias: {
+        ...resolveConfig(vueVersion),
         '@': path.resolve(__dirname),
       }
     },
@@ -80,7 +83,6 @@ export default defineConfig(({ mode }) => {
     ],
     optimizeDeps: {
       include: ['prismjs', 'prismjs/components/prism-bash.js'],
-      exclude: ['@adapter']
     },
   }
 })
