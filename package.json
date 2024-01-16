@@ -9,8 +9,8 @@
   },
   "devDependencies": {
     "eslint-config": "workspace:*",
-    "tsconfig": "workspace:*",
     "prettier": "^3.1.1",
+    "tsconfig": "workspace:*",
     "turbo": "latest"
   },
   "packageManager": "pnpm@8.9.0",

@@ -1,31 +1,31 @@
 {
-  "name": "site",
+  "name": "@site/vue2",
   "private": true,
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "pnpm run dev:vue3",
-    "dev:vue3": "vite --mode vue3",
-    "dev:vue2": "vite --mode vue2",
+    "dev": "vite",
     "build": "vue-tsc && vite build",
     "preview": "vite preview"
   },
   "dependencies": {
     "adapter": "workspace:^",
-    "codesandbox": "^2.2.3",
     "components": "workspace:^",
     "lodash-es": "^4.17.21",
     "semver": "^7.5.4",
     "shared": "workspace:^",
     "tdesign-site-components": "^0.13.20",
     "tdesign-theme-generator": "^1.0.15",
-    "vue": "^3.3.11",
-    "vue-router": "^4.2.5"
+    "vue": "^2.7.16",
+    "vue-router": "^3.6.5"
   },
   "devDependencies": {
     "@types/node": "^20.10.6",
     "@vitejs/plugin-vue": "^4.5.2",
     "@vitejs/plugin-vue-jsx": "^3.1.0",
+    "@vitejs/plugin-vue2": "^2.3.1",
+    "@vitejs/plugin-vue2-jsx": "^1.1.1",
+    "@vue/babel-helper-vue-jsx-merge-props": "^1.4.0",
     "camelcase": "^8.0.0",
     "gray-matter": "^4.0.3",
     "less": "^4.2.0",
@@ -33,9 +33,11 @@
     "tdesign-icons-view": "^0.2.6",
     "tsconfig": "workspace:^",
     "typescript": "^5.2.2",
+    "unplugin-vue2-script-setup": "^0.11.4",
     "vite": "^5.0.8",
     "vite-plugin-pwa": "^0.17.4",
     "vite-plugin-tdoc": "^2.0.4",
+    "vite-plugin-vue2": "^2.0.3",
     "vue-tsc": "^1.8.25"
   }
 }

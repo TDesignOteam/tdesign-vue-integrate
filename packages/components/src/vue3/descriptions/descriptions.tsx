@@ -4,9 +4,7 @@ import { defineComponent, provide, ref } from 'vue';
 
 import { LayoutEnum } from 'shared/interface';
 
-import { useTNodeJSX } from '@adapter';
-import { useChildComponentSlots } from '@adapter';
-import { usePrefixClass, useCommonClassName } from '@adapter';
+import { useTNodeJSX, useChildComponentSlots, usePrefixClass, useCommonClassName } from '@adapter';
 
 import { TdDescriptionsProps } from '@adapter/components/descriptions/type';
 import props from '@adapter/components/descriptions/props';

@@ -1,13 +1,15 @@
-import { defineConfig } from 'vite'
-import vue from '@vitejs/plugin-vue'
-import vueJsx from '@vitejs/plugin-vue-jsx';
+import { defineConfig, searchForWorkspaceRoot } from 'vite'
 import * as path from 'path';
 import { VitePWA } from 'vite-plugin-pwa';
 
 import TDocPlugin from './plugins/doc';
 import PWA from "./configs/pwa";
 
-import { searchForWorkspaceRoot } from 'vite'
+import ScriptSetup from 'unplugin-vue2-script-setup/vite';
+// import vue2Jsx from '@vitejs/plugin-vue2-jsx';
+// import vue2 from '@vitejs/plugin-vue2';
+import { createVuePlugin } from 'vite-plugin-vue2';
+
 
 const workspaceRoot = searchForWorkspaceRoot(process.cwd())
 const pathFromWorkspaceRoot = (...args: string[]) => path.posix.resolve(workspaceRoot, ...args)
@@ -19,7 +21,6 @@ const resolveConfig = (vueVersion: number) => {
   }
 }
 
-
 const publicPathMap = {
   preview: '/',
   intranet: '/vue-next/',
@@ -30,21 +31,6 @@ const publicPathMap = {
 // ! vue-next 中是从 ../script/vite.base.config 引入
 const isCustomElement = (tag) => tag.startsWith('td-') || tag.startsWith('tdesign-theme');
 
-// ! vue-next 中是从 ../script/vite.base.config 引入
-export const basePlugin = [
-  [
-    vue({
-      template: {
-        compilerOptions: {
-          isCustomElement,
-        },
-      },
-    }),
-    vueJsx({
-      isCustomElement,
-    }),
-  ],
-];
 
 export const transformAdapter = () => ({
   name: 'transform-adapter',
@@ -57,32 +43,40 @@ export const transformAdapter = () => ({
 })
 
 export default defineConfig(({ mode }) => {
-  const vueVersion = mode === 'vue2' ? 2 : 3;
-  
   return {
     base: publicPathMap[mode],
     resolve: {
       alias: {
-        ...resolveConfig(vueVersion),
+        ...resolveConfig(2),
         '@': path.resolve(__dirname),
       }
     },
     server: {
       host: '0.0.0.0',
-      port: 17000,
+      port: 16000,
       open: '/',
       fs: {
         allow: ['..'],
       },
     },
     plugins: [
-      transformAdapter(),
-      ...basePlugin,
+      // transformAdapter(),
+      // vue2({
+      // }),
+      // vue2Jsx({
+      //   include: /(\.md)$/,
+      //   vModel: true,
+      // }),
+      createVuePlugin({
+        include: /(\.md|\.vue)$/,
+        jsx: true,
+      }),
+      ScriptSetup({}),
       VitePWA(PWA),
-      TDocPlugin()
+      TDocPlugin(),
     ],
     optimizeDeps: {
-      include: ['prismjs', 'prismjs/components/prism-bash.js'],
+      include: ['prismjs', 'prismjs/components/prism-bash.js', '@vue/babel-helper-vue-jsx-merge-props'],
     },
   }
 })

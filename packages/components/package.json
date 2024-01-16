@@ -24,7 +24,6 @@
   "devDependencies": {
     "@types/lodash": "^4.14.202",
     "@types/node": "^20.10.6",
-    "vite": "^5.0.11",
-    "vue": "^3.3.11"
+    "vite": "^5.0.11"
   }
 }
