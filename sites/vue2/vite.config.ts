@@ -76,7 +76,7 @@ export default defineConfig(({ mode }) => {
       TDocPlugin(),
     ],
     optimizeDeps: {
-      include: ['prismjs', 'prismjs/components/prism-bash.js', '@vue/babel-helper-vue-jsx-merge-props'],
+      include: ['prismjs', 'prismjs/components/prism-bash.js', '@vue/babel-helper-vue-jsx-merge-props', '@vue/composition-api'],
     },
   }
 })

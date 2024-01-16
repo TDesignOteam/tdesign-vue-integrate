@@ -1,4 +1,4 @@
-import { defineComponent, inject, PropType } from 'vue';
+import { defineComponent, inject, PropType } from '@vue/composition-api';
 
 import { LayoutEnum } from 'shared/interface';
 

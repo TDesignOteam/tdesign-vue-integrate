@@ -1,4 +1,4 @@
-import { computed, ref, inject } from 'vue';
+import { computed, ref, inject } from '@vue/composition-api';
 
 // 处理正则表达式
 const t = function <T> (pattern: T, ...args: any[]) {
@@ -27,7 +27,7 @@ export function useConfig<T extends keyof any>(
   componentLocale?: any[T],
 ) {
   const injectGlobalConfig = inject<any>('globalConfig', null);
-  const mergedGlobalConfig = injectGlobalConfig || {};
+  const mergedGlobalConfig = injectGlobalConfig || { classPrefix: 't', };
 
   // eslint-disable-next-line
   const global = computed(() => Object.assign({}, mergedGlobalConfig[componentName], componentLocale));

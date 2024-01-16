@@ -1,5 +1,5 @@
-import { h, ComponentPublicInstance } from 'vue';
-import { VNode } from 'vue';
+import { h, ComponentPublicInstance } from '@vue/composition-api';
+import { VNode } from '@vue/composition-api';
 import isEmpty from 'lodash/isEmpty';
 import isString from 'lodash/isString';
 import isFunction from 'lodash/isFunction';

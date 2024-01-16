@@ -1,4 +1,4 @@
-import { ref, Ref, getCurrentInstance } from 'vue';
+import { ref, Ref, getCurrentInstance } from '@vue/composition-api';
 
 type ChangeHandler<T, P extends any[]> = (value: T, ...args: P) => void;
 

@@ -1,4 +1,4 @@
-import { computed, getCurrentInstance } from 'vue';
+import { computed, getCurrentInstance } from '@vue/composition-api';
 
 export function useFormDisabled() {
   const formDisabled = computed(() => {

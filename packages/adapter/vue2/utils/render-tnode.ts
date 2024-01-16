@@ -1,5 +1,5 @@
 import Vue from 'vue';
-import { ComponentRenderProxy, h } from 'vue';
+import { ComponentRenderProxy, h } from '@vue/composition-api';
 import {
   PropType, CreateElement, VNode, VNodeChildren, RenderContext,
 } from 'vue/types/umd';
