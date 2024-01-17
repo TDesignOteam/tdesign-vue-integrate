@@ -16,22 +16,13 @@ export default defineComponent({
     rows: Array as PropType<TdDescriptionItem[][]>,
     itemType: String as PropType<ItemsType>,
   },
-  setup() {
+  setup(props) {
     const descriptionsProps = inject<TdDescriptionsProps>(descriptionsKey);
     const COMPONENT_NAME = usePrefixClass('descriptions');
     const { SIZE } = useCommonClassName();
 
-    return {
-      descriptionsProps,
-      COMPONENT_NAME,
-      SIZE,
-    };
-  },
-  render() {
-    const props = this.$props;
-
     const label = (node: TdDescriptionItem, layout: LayoutEnum = LayoutEnum.HORIZONTAL) => {
-      const labelClass = [`${this.COMPONENT_NAME}__label`];
+      const labelClass = [`${COMPONENT_NAME.value}__label`];
 
       let label = null;
       let span = null;
@@ -46,15 +37,15 @@ export default defineComponent({
       const labelSpan = layout === LayoutEnum.HORIZONTAL ? 1 : span;
 
       return (
-        <td colspan={labelSpan} class={labelClass} {...{ style: this.descriptionsProps.labelStyle }}>
+        <td colspan={labelSpan} class={labelClass} {...{ style: descriptionsProps.labelStyle }}>
           {label}
-          {this.descriptionsProps.colon && ':'}
+          {descriptionsProps.colon && ':'}
         </td>
       );
     };
 
     const content = (node: TdDescriptionItem, layout: LayoutEnum = LayoutEnum.HORIZONTAL) => {
-      const contentClass = [`${this.COMPONENT_NAME}__content`];
+      const contentClass = [`${COMPONENT_NAME.value}__content`];
 
       let content = null;
       let span = null;
@@ -69,7 +60,7 @@ export default defineComponent({
       const contentSpan = span > 1 && layout === LayoutEnum.HORIZONTAL ? span * 2 - 1 : span;
 
       return (
-        <td colspan={contentSpan} class={contentClass} {...{ style: this.descriptionsProps.contentStyle }}>
+        <td colspan={contentSpan} class={contentClass} {...{ style: descriptionsProps.contentStyle }}>
           {content}
         </td>
       );
@@ -96,25 +87,25 @@ export default defineComponent({
     const vv = (row: TdDescriptionItem[]) => row.map((node) => [<tr>{label(node)}</tr>, <tr>{content(node)}</tr>]);
 
     const renderRow = (row: TdDescriptionItem[]) => {
-      if (this.descriptionsProps.layout === LayoutEnum.HORIZONTAL) {
-        if (this.descriptionsProps.itemLayout === LayoutEnum.HORIZONTAL) {
+      if (descriptionsProps.layout === LayoutEnum.HORIZONTAL) {
+        if (descriptionsProps.itemLayout === LayoutEnum.HORIZONTAL) {
           return hh(row);
         }
         return hv(row);
       }
-      if (this.descriptionsProps.itemLayout === LayoutEnum.HORIZONTAL) {
+      if (descriptionsProps.itemLayout === LayoutEnum.HORIZONTAL) {
         return vh(row);
       }
       return vv(row);
     };
 
     const tableClass = [
-      `${this.COMPONENT_NAME}__body`,
-      this.SIZE[this.descriptionsProps.size],
-      { [`${this.COMPONENT_NAME}__body--border`]: this.descriptionsProps.bordered },
+      `${COMPONENT_NAME.value}__body`,
+      SIZE.value[descriptionsProps.size],
+      { [`${COMPONENT_NAME.value}__body--border`]: descriptionsProps.bordered },
     ];
 
-    return (
+    return () => (
       <table class={tableClass}>
         <tbody>{props.rows.map((row) => renderRow(row))}</tbody>
       </table>

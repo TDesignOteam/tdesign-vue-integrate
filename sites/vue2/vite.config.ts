@@ -6,9 +6,9 @@ import TDocPlugin from './plugins/doc';
 import PWA from "./configs/pwa";
 
 import ScriptSetup from 'unplugin-vue2-script-setup/vite';
-// import vue2Jsx from '@vitejs/plugin-vue2-jsx';
 // import vue2 from '@vitejs/plugin-vue2';
 import { createVuePlugin } from 'vite-plugin-vue2';
+import vue2Jsx from '@vitejs/plugin-vue2-jsx';
 
 
 const workspaceRoot = searchForWorkspaceRoot(process.cwd())
@@ -63,14 +63,18 @@ export default defineConfig(({ mode }) => {
       // transformAdapter(),
       // vue2({
       // }),
-      // vue2Jsx({
-      //   include: /(\.md)$/,
-      //   vModel: true,
-      // }),
+
       createVuePlugin({
         include: /(\.md|\.vue)$/,
         jsx: true,
+        jsxOptions: {
+          vModel: true,
+          compositionAPI: true,
+        }
       }),
+      // vue2Jsx({
+      //   vModel: true,
+      // }),
       ScriptSetup({}),
       VitePWA(PWA),
       TDocPlugin(),

@@ -121,20 +121,12 @@ export default defineComponent({
 
     provide(descriptionsKey, props);
 
-    return {
-      title,
-      getRows,
-      itemsType,
-      COMPONENT_NAME,
-    };
-  },
-  render() {
-    const renderHeader = () => (this.title ? <div class={`${this.COMPONENT_NAME}__header`}>{this.title}</div> : '');
+    const renderHeader = () => (title ? <div class={`${COMPONENT_NAME.value}__header`}>{title}</div> : '');
 
-    return (
-      <div class={this.COMPONENT_NAME}>
+    return () => (
+      <div class={COMPONENT_NAME.value}>
         {renderHeader()}
-        <DescriptionsBody item-type={this.itemsType} rows={this.getRows()} />
+        <DescriptionsBody item-type={itemsType.value} rows={getRows()} />
       </div>
     );
   },
