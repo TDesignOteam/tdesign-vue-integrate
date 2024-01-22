@@ -31,7 +31,6 @@ const publicPathMap = {
 // ! vue-next 中是从 ../script/vite.base.config 引入
 const isCustomElement = (tag) => tag.startsWith('td-') || tag.startsWith('tdesign-theme');
 
-
 export const transformAdapter = () => ({
   name: 'transform-adapter',
   transform(code, id) {
@@ -47,13 +46,13 @@ export default defineConfig(({ mode }) => {
     base: publicPathMap[mode],
     resolve: {
       alias: {
-        ...resolveConfig(2),
+        ...resolveConfig(2.6),
         '@': path.resolve(__dirname),
       }
     },
     server: {
       host: '0.0.0.0',
-      port: 16000,
+      port: 15000,
       open: '/',
       fs: {
         allow: ['..'],
