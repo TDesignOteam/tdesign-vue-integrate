@@ -5,7 +5,6 @@ import { VitePWA } from 'vite-plugin-pwa';
 import TDocPlugin from './plugins/doc';
 import PWA from "./configs/pwa";
 
-import ScriptSetup from 'unplugin-vue2-script-setup/vite';
 // import vue2 from '@vitejs/plugin-vue2';
 import { createVuePlugin } from 'vite-plugin-vue2';
 import vue2Jsx from '@vitejs/plugin-vue2-jsx';
@@ -75,12 +74,11 @@ export default defineConfig(({ mode }) => {
       // vue2Jsx({
       //   vModel: true,
       // }),
-      ScriptSetup({}),
       VitePWA(PWA),
       TDocPlugin(),
     ],
     optimizeDeps: {
-      include: ['prismjs', 'prismjs/components/prism-bash.js', '@vue/babel-helper-vue-jsx-merge-props', '@vue/composition-api'],
+      include: ['prismjs', 'prismjs/components/prism-bash.js', '@vue/babel-helper-vue-jsx-merge-props', 'vue'],
     },
   }
 })

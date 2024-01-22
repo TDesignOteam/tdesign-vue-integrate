@@ -12,4 +12,4 @@ export * from './useResizeObserver';
 export * from './useVirtualScrollNew';
 export * from './useVModel';
 export * from './useImagePreviewUrl';
-export * from './tnode';
+export * from "./tnode";

@@ -1,4 +1,4 @@
-import { Ref, watch, onBeforeUnmount } from '@vue/composition-api';
+import { Ref, watch, onBeforeUnmount } from 'vue';
 
 export default function useResizeObserver(
   container: Ref<HTMLElement>,

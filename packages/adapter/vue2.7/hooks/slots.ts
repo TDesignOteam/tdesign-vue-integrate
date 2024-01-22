@@ -1,4 +1,4 @@
-import { getCurrentInstance } from '@vue/composition-api';
+import { getCurrentInstance } from 'vue';
 import isArray from 'lodash/isArray';
 import { VNode } from 'vue/types/umd';
 import { ScopedSlot } from 'vue/types/vnode';
@@ -13,11 +13,12 @@ import { ScopedSlot } from 'vue/types/vnode';
  * @example getChildComponentByName('TStepItem')
  */
 export function useChildComponentSlots() {
-  const instance = getCurrentInstance();
+  const instance = getCurrentInstance().proxy;
   return (childComponentName: string, slots?: ScopedSlot): VNode[] => {
     if (!slots) {
+      // @ts-ignore
       // eslint-disable-next-line
-      slots = instance.setupContext?.slots;
+      slots = instance.$scopedSlots;
     }
     // @ts-ignore
     const content = slots?.default?.() || [];

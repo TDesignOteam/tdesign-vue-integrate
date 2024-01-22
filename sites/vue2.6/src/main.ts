@@ -1,7 +1,7 @@
 /* eslint-disable */
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-import TDesign from 'components/vue2.js';
+import TDesign from 'components/vue2.6.js';
 import routes from './routes';
 import App from './App.vue';
 

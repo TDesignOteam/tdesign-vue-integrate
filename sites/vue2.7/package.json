@@ -9,7 +9,6 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@vue/composition-api": "^1.7.2",
     "adapter": "workspace:^",
     "components": "workspace:^",
     "lodash-es": "^4.17.21",
@@ -17,7 +16,7 @@
     "shared": "workspace:^",
     "tdesign-site-components": "^0.13.20",
     "tdesign-theme-generator": "^1.0.15",
-    "vue": "2.6.10",
+    "vue": "^2.7.14",
     "vue-router": "^3.6.5"
   },
   "devDependencies": {
@@ -34,12 +33,10 @@
     "tdesign-icons-view": "^0.2.6",
     "tsconfig": "workspace:^",
     "typescript": "^5.2.2",
-    "unplugin-vue2-script-setup": "^0.11.4",
     "vite": "^5.0.8",
     "vite-plugin-pwa": "^0.17.4",
     "vite-plugin-tdoc": "^2.0.4",
     "vite-plugin-vue2": "^2.0.3",
-    "vue-template-compiler": "2.6.10",
     "vue-tsc": "^1.8.25"
   }
 }

@@ -1,4 +1,5 @@
 import camelCase from 'lodash/camelCase';
+import type { Styles } from '../common';
 
 export function omit(obj: object, fields: string[]): object {
   const shallowCopy = {
@@ -145,7 +146,7 @@ export function pxCompat(param: string | number) {
  * 设置transform的值兼容低版本浏览器
  * @param value string
  */
-export function setTransform(value: string): object {
+export function setTransform(value: string): Styles {
   return {
     transform: value,
     '-ms-transform': value,

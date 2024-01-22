@@ -1,4 +1,6 @@
-import { computed, ref, inject } from '@vue/composition-api';
+import {
+  inject, h, ref, computed,
+} from 'vue';
 
 // 处理正则表达式
 const t = function <T> (pattern: T, ...args: any[]) {
@@ -22,6 +24,13 @@ const t = function <T> (pattern: T, ...args: any[]) {
   return '';
 };
 
+
+/**
+ * component global config
+ * @param componentName
+ * @returns {t, global}
+ * useConfig('pagination')
+ */
 export function useConfig<T extends keyof any>(
   componentName: T = undefined,
   componentLocale?: any[T],

@@ -1,15 +1,15 @@
-import { computed, getCurrentInstance } from '@vue/composition-api';
+import { computed, getCurrentInstance } from 'vue';
 
 export function useFormDisabled() {
   const formDisabled = computed(() => {
-    const currentInstance = getCurrentInstance();
+    const currentInstance = getCurrentInstance().proxy;
     if (!currentInstance) return null;
-    let { parent } = currentInstance;
-    while (parent) {
-      if (parent.proxy.$options.name === 'TForm') {
-        return parent.props.disabled as boolean;
+    let { $parent } = currentInstance;
+    while ($parent) {
+      if ($parent.$options.name === 'TForm') {
+        return $parent.$props.disabled as boolean;
       }
-      parent = parent.parent;
+      $parent = $parent.$parent;
     }
     return false;
   });

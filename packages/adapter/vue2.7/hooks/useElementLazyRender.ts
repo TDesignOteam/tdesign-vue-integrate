@@ -1,6 +1,6 @@
 import {
   onBeforeUnmount, onMounted, Ref, ref, watch,
-} from '@vue/composition-api';
+} from 'vue';
 import observe from 'shared/_common/js/utils/observe';
 
 export function useElementLazyRender(labelRef: Ref<HTMLElement>, lazyLoad: Ref<boolean>) {
