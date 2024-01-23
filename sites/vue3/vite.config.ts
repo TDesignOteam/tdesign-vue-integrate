@@ -94,7 +94,7 @@ export default defineConfig(({ mode }) => {
       ...CONFIG[mode].plugins
     ],
     optimizeDeps: {
-      include: ['prismjs', 'prismjs/components/prism-bash.js'],
+      include: ['prismjs', 'prismjs/components/prism-bash.js', 'tdesign-icons-vue-next'],
     },
   }
 })

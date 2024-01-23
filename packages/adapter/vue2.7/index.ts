@@ -9,6 +9,8 @@ export {
 // hooks
 export * from './hooks'
 
-// props
-// type
-export * from './components'
+import useVModel from "./hooks/useVModel";
+
+export {
+  useVModel
+}

@@ -6,9 +6,11 @@ export {
   withInstall
 }
 
+import useVModel from "./hooks/useVModel";
+
+export {
+  useVModel
+}
+
 // hooks
 export * from './hooks'
-
-// props
-// type
-export * from './components'

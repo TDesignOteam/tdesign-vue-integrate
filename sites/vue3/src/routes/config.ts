@@ -353,14 +353,14 @@ export const docs = [
   //       component: () => import('vue3/src/slider/slider.md'),
   //       componentEn: () => import('vue3/src/slider/slider.en-US.md'),
   //     },
-  //     {
-  //       title: 'Switch 开关',
-  //       titleEn: 'Switch',
-  //       name: 'switch',
-  //       path: '/vue-next/components/switch',
-  //       component: () => import('vue3/src/switch/switch.md'),
-  //       componentEn: () => import('vue3/src/switch/switch.en-US.md'),
-  //     },
+      {
+        title: 'Switch 开关',
+        titleEn: 'Switch',
+        name: 'switch',
+        path: '/vue-next/components/switch',
+        component: () => import('@adapter/components/switch/switch.md'),
+        componentEn: () => import('@adapter/components/switch/switch.en-US.md'),
+      },
   //     {
   //       title: 'Textarea 多行文本框',
   //       titleEn: 'Textarea',

@@ -1,6 +1,7 @@
 import { defineConfig, searchForWorkspaceRoot } from 'vite'
 import * as path from 'path';
 import { VitePWA } from 'vite-plugin-pwa';
+import ScriptSetup from 'unplugin-vue2-script-setup/vite';
 
 import TDocPlugin from './plugins/doc';
 import PWA from "./configs/pwa";
@@ -62,7 +63,7 @@ export default defineConfig(({ mode }) => {
       // transformAdapter(),
       // vue2({
       // }),
-
+      ScriptSetup({}),
       createVuePlugin({
         include: /(\.md|\.vue)$/,
         jsx: true,
@@ -71,14 +72,14 @@ export default defineConfig(({ mode }) => {
           compositionAPI: true,
         }
       }),
-      // vue2Jsx({
-      //   vModel: true,
-      // }),
+      vue2Jsx({
+        vModel: true,
+      }),
       VitePWA(PWA),
       TDocPlugin(),
     ],
     optimizeDeps: {
-      include: ['prismjs', 'prismjs/components/prism-bash.js', '@vue/babel-helper-vue-jsx-merge-props', 'vue'],
+      include: ['prismjs', 'prismjs/components/prism-bash.js', '@vue/babel-helper-vue-jsx-merge-props', 'tdesign-icons-vue-next'],
     },
   }
 })
