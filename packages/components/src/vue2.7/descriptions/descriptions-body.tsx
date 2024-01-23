@@ -99,16 +99,16 @@ export default defineComponent({
       return vv(row);
     };
 
-    const tableClass = [
-      `${COMPONENT_NAME.value}__body`,
-      SIZE.value[descriptionsProps.size],
-      { [`${COMPONENT_NAME.value}__body--border`]: descriptionsProps.bordered },
-    ];
+    return () => {
+      const tableClass = [
+        `${COMPONENT_NAME.value}__body`,
+        SIZE.value[descriptionsProps.size],
+        { [`${COMPONENT_NAME.value}__body--border`]: descriptionsProps.bordered },
+      ];
 
-    return () => (
-      <table class={tableClass}>
-        <tbody>{props.rows.map((row) => renderRow(row))}</tbody>
-      </table>
-    );
+      return <table class={tableClass}>
+          <tbody>{props.rows.map((row) => renderRow(row))}</tbody>
+        </table>
+    }
   },
 });
