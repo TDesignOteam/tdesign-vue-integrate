@@ -185,7 +185,7 @@ importers:
         version: 5.3.3
       unplugin-vue2-script-setup:
         specifier: ^0.11.4
-        version: 0.11.4(@vue/composition-api@1.7.2)(@vue/runtime-dom@3.4.14)(rollup@2.79.1)
+        version: 0.11.4(@vue/composition-api@1.7.2)(@vue/runtime-dom@3.4.15)(rollup@2.79.1)
       vite:
         specifier: ^5.0.8
         version: 5.0.11(@types/node@20.11.4)(less@4.2.0)
@@ -279,7 +279,7 @@ importers:
         version: 5.3.3
       unplugin-vue2-script-setup:
         specifier: ^0.11.4
-        version: 0.11.4(@vue/composition-api@1.7.2)(@vue/runtime-dom@3.4.14)(rollup@2.79.1)
+        version: 0.11.4(@vue/composition-api@1.7.2)(@vue/runtime-dom@3.4.15)(rollup@2.79.1)
       vite:
         specifier: ^5.0.8
         version: 5.0.11(@types/node@20.10.6)(less@4.2.0)
@@ -8363,7 +8363,7 @@ packages:
     engines: {node: '>= 0.4.0'}
     dev: true
 
-  /unplugin-vue2-script-setup@0.11.4(@vue/composition-api@1.7.2)(@vue/runtime-dom@3.4.14)(rollup@2.79.1):
+  /unplugin-vue2-script-setup@0.11.4(@vue/composition-api@1.7.2)(@vue/runtime-dom@3.4.15)(rollup@2.79.1):
     resolution: {integrity: sha512-HOJn7PwKBq36vvtAkx2QXpmMmXk9owIX4H77d4cF5RpiPuSY/u4P3nWF6a276LHrBGtb0/UHmCbeUeGeeJ1DWg==}
     peerDependencies:
       '@vue/composition-api': '*'
@@ -8384,7 +8384,7 @@ packages:
       '@vue/compiler-dom': 3.4.14
       '@vue/composition-api': 1.7.2(vue@2.6.10)
       '@vue/reactivity-transform': 3.3.13
-      '@vue/runtime-dom': 3.4.14
+      '@vue/runtime-dom': 3.4.15
       '@vue/shared': 3.4.14
       defu: 6.1.4
       magic-string: 0.30.5

@@ -18,7 +18,7 @@ export interface DisabledContext {
  */
 export function useDisabled(context?: DisabledContext) {
   const currentInstance = getCurrentInstance();
-  const componentDisabled = computed(() => currentInstance?.props?.disabled as boolean);
+  const componentDisabled = computed(() => currentInstance?.proxy.$props.disabled as boolean);
 
   const formDisabled = inject<FormDisabledProvider>('formDisabled', Object.create(null));
 

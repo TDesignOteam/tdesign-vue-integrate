@@ -8,7 +8,3 @@ export {
 
 // hooks
 export * from './hooks'
-
-// props
-// type
-export * from './components'
