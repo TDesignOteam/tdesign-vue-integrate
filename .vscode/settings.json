@@ -2,6 +2,7 @@
   "explorer.fileNesting.enabled": true,
   "explorer.fileNesting.expand": false,
   "explorer.fileNesting.patterns": {
+    "vue3.ts": "vue*.ts",
     "package.json": ".npmrc, pnpm-lock.yaml,  pnpm-workspace.yaml",
     ".gitignore": ".gitmodules"
   },
