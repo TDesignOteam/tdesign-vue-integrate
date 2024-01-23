@@ -1,4 +1,10 @@
 {
+  "explorer.fileNesting.enabled": true,
+  "explorer.fileNesting.expand": false,
+  "explorer.fileNesting.patterns": {
+    "package.json": ".npmrc, pnpm-lock.yaml,  pnpm-workspace.yaml",
+    ".gitignore": ".gitmodules"
+  },
   "eslint.workingDirectories": [
     {
       "mode": "auto"
