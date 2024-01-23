@@ -125,10 +125,10 @@
 - [ ] 新仓库承载内容
   - [x] 新仓库：https://github.com/TDesignOteam/tdesign-vue-integrate
   - [x] 初步设计仓库结构
-  - [ ] 将 vue3 搬到新仓库，并按照新结构成功运行起来`packages/components/vue3`
-  - [ ] 将 vue2 搬到新仓库，并按照新结构成功运行起来`packages/components/vue2`
-  - [ ] 将组件用一套代码实现
-    - [ ] 先实现 button 
+  - [x] 将 vue3 搬到新仓库，并按照新结构成功运行起来`packages/components/vue3`
+  - [x] 将 vue2 搬到新仓库，并按照新结构成功运行起来`packages/components/vue2`
+  - [x] 将组件用一套代码实现
+    - [ ] 先实现 switch 
     - [ ] 然后逐步实现
 - [ ] 将新仓库内容更新到 vue3 仓库
 
