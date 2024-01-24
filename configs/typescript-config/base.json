@@ -29,6 +29,12 @@
       "@adapter/*": [
         "packages/adapter/vue3/*"
       ],
+      "@td/vue": [
+        "packages/tdvue/vue3"
+      ],
+      "@td/vue/*": [
+        "packages/tdvue/vue3/*"
+      ],
     }
   },
   "exclude": ["node_modules"]
