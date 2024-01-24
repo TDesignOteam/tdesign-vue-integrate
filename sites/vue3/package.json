@@ -11,7 +11,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "intel": "workspace:^",
+    "@td/intel": "workspace:^",
     "codesandbox": "^2.2.3",
     "components": "workspace:^",
     "lodash-es": "^4.17.21",
