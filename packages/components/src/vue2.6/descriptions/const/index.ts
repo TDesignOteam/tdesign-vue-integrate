@@ -1,5 +1,5 @@
 import type { InjectionKey } from '@vue/composition-api';
-import { TdDescriptionsProps } from '@adapter/components/descriptions/type';
+import { TdDescriptionsProps } from '@intel/components/descriptions/type';
 
 const descriptionsKey: InjectionKey<TdDescriptionsProps> = Symbol('TDescriptions');
 

@@ -358,8 +358,8 @@ export const docs = [
         titleEn: 'Switch',
         name: 'switch',
         path: '/vue-next/components/switch',
-        component: () => import('@adapter/components/switch/switch.md'),
-        componentEn: () => import('@adapter/components/switch/switch.en-US.md'),
+        component: () => import('@intel/components/switch/switch.md'),
+        componentEn: () => import('@intel/components/switch/switch.en-US.md'),
       },
   //     {
   //       title: 'Textarea 多行文本框',
@@ -463,8 +463,8 @@ export const docs = [
         titleEn: 'Descriptions',
         name: 'descriptions',
         path: '/vue-next/components/descriptions',
-        component: () => import('@adapter/components/descriptions/descriptions.md'),
-        componentEn: () => import('@adapter/components/descriptions/descriptions.en-US.md'),
+        component: () => import('@intel/components/descriptions/descriptions.md'),
+        componentEn: () => import('@intel/components/descriptions/descriptions.en-US.md'),
       },
   //     {
   //       title: 'Image 图片',

@@ -9,7 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "adapter": "workspace:^",
+    "intel": "workspace:^",
     "components": "workspace:^",
     "lodash-es": "^4.17.21",
     "semver": "^7.5.4",

@@ -4,10 +4,10 @@ import { defineComponent, provide, ref } from 'vue';
 
 import { LayoutEnum } from 'shared/interface';
 
-import { useTNodeJSX, useChildComponentSlots, usePrefixClass } from '@adapter';
+import { useTNodeJSX, useChildComponentSlots, usePrefixClass } from '@intel';
 
-import props from '@adapter/components/descriptions/props';
-import { TdDescriptionsProps } from '@adapter/components/descriptions/type';
+import props from '@intel/components/descriptions/props';
+import { TdDescriptionsProps } from '@intel/components/descriptions/type';
 
 import descriptionsKey from './const';
 import DescriptionsBody from './descriptions-body';

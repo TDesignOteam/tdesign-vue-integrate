@@ -1,11 +1,11 @@
 import _Descriptions from './descriptions';
 import _DescriptionsItem from './descriptions-item';
-import { withInstall } from '@adapter';
-import { TdDescriptionsProps, TdDescriptionItemProps } from '@adapter/components/descriptions/type';
+import { withInstall } from '@intel';
+import { TdDescriptionsProps, TdDescriptionItemProps } from '@intel/components/descriptions/type';
 
 import './style';
 
-export * from '@adapter/components/descriptions/type';
+export * from '@intel/components/descriptions/type';
 
 export type DescriptionsProps = TdDescriptionsProps;
 export type DescriptionsItemProps = TdDescriptionItemProps;

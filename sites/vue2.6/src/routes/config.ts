@@ -463,8 +463,8 @@ export const docs = [
         titleEn: 'Descriptions',
         name: 'descriptions',
         path: '/vue/components/descriptions',
-        component: () => import('@adapter/components/descriptions/descriptions.md'),
-        componentEn: () => import('@adapter/components/descriptions/descriptions.en-US.md'),
+        component: () => import('@intel/components/descriptions/descriptions.md'),
+        componentEn: () => import('@intel/components/descriptions/descriptions.en-US.md'),
       },
   //     {
   //       title: 'Image 图片',

@@ -2,12 +2,12 @@ import { defineComponent, inject, PropType } from '@vue/composition-api';
 
 import { LayoutEnum } from 'shared/interface';
 
-import { usePrefixClass, useCommonClassName } from '@adapter';
+import { usePrefixClass, useCommonClassName } from '@intel';
 
 import descriptionsKey from './const';
 import { ItemsType, TdDescriptionItem } from './interface';
 import { renderVNodeTNode, itemTypeIsProps } from './utils';
-import { TdDescriptionsProps } from '@adapter/components/descriptions/type';
+import { TdDescriptionsProps } from '@intel/components/descriptions/type';
 
 
 export default defineComponent({

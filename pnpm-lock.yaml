@@ -47,7 +47,7 @@ importers:
 
   configs/typescript-config: {}
 
-  packages/adapter:
+  packages/intel:
     dependencies:
       lodash:
         specifier: ^4.17.21
@@ -63,7 +63,7 @@ importers:
         specifier: ^3.4.15
         version: 3.4.15
 
-  packages/adapter/vue2.6:
+  packages/intel/vue2.6:
     devDependencies:
       tsconfig:
         specifier: workspace:^
@@ -72,7 +72,7 @@ importers:
         specifier: ~2.6.10
         version: 2.6.10
 
-  packages/adapter/vue2.7:
+  packages/intel/vue2.7:
     devDependencies:
       tsconfig:
         specifier: workspace:^
@@ -81,7 +81,7 @@ importers:
         specifier: ~2.7.14
         version: 2.7.14
 
-  packages/adapter/vue3:
+  packages/intel/vue3:
     devDependencies:
       tsconfig:
         specifier: workspace:^
@@ -95,9 +95,9 @@ importers:
       '@popperjs/core':
         specifier: ^2.11.8
         version: 2.11.8
-      adapter:
+      intel:
         specifier: workspace:^
-        version: link:../adapter
+        version: link:../intel
       clipboard:
         specifier: ^2.0.11
         version: 2.0.11
@@ -299,26 +299,34 @@ importers:
         specifier: ^13.13.1
         version: 13.13.1
 
-  packages/tdvue:
-    devDependencies:
-      tsconfig:
-        specifier: workspace:^
-        version: link:../../configs/typescript-config
+  packages/td: {}
 
-  packages/tdvue/vue2.7:
+  packages/td/hooks:
     devDependencies:
       tsconfig:
         specifier: workspace:^
         version: link:../../../configs/typescript-config
+
+  packages/td/vue:
+    devDependencies:
+      tsconfig:
+        specifier: workspace:^
+        version: link:../../../configs/typescript-config
+
+  packages/td/vue/vue2.7:
+    devDependencies:
+      tsconfig:
+        specifier: workspace:^
+        version: link:../../../../configs/typescript-config
       vue:
         specifier: ~2.7.14
         version: 2.7.14
 
-  packages/tdvue/vue3:
+  packages/td/vue/vue3:
     devDependencies:
       tsconfig:
         specifier: workspace:^
-        version: link:../../../configs/typescript-config
+        version: link:../../../../configs/typescript-config
       vue:
         specifier: ^3.4.15
         version: 3.4.15
@@ -328,9 +336,9 @@ importers:
       '@vue/composition-api':
         specifier: ^1.7.2
         version: 1.7.2(vue@2.6.10)
-      adapter:
+      intel:
         specifier: workspace:^
-        version: link:../../packages/adapter
+        version: link:../../packages/intel
       components:
         specifier: workspace:^
         version: link:../../packages/components
@@ -419,9 +427,9 @@ importers:
 
   sites/vue2.7:
     dependencies:
-      adapter:
+      intel:
         specifier: workspace:^
-        version: link:../../packages/adapter
+        version: link:../../packages/intel
       components:
         specifier: workspace:^
         version: link:../../packages/components
@@ -510,9 +518,9 @@ importers:
 
   sites/vue3:
     dependencies:
-      adapter:
+      intel:
         specifier: workspace:^
-        version: link:../../packages/adapter
+        version: link:../../packages/intel
       codesandbox:
         specifier: ^2.2.3
         version: 2.2.3
@@ -6976,7 +6984,7 @@ packages:
       webpack: 4.43.0(webpack-cli@3.3.11)
     dev: false
 
-  /css-select-base-adapter@0.1.1:
+  /css-select-base-intel@0.1.1:
     resolution: {integrity: sha512-jQVeeRG70QI08vSTwf1jHxp74JoZsr2XSgETae8/xC8ovSnL2WF87GTLO86Sbwdt2lK4Umg4HnnwMO4YF3Ce7w==}
     dev: true
 
@@ -15381,7 +15389,7 @@ packages:
       chalk: 2.4.2
       coa: 2.0.2
       css-select: 2.1.0
-      css-select-base-adapter: 0.1.1
+      css-select-base-intel: 0.1.1
       css-tree: 1.0.0-alpha.37
       csso: 4.2.0
       js-yaml: 3.14.1

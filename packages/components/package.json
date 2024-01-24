@@ -11,7 +11,7 @@
   "license": "ISC",
   "dependencies": {
     "@popperjs/core": "^2.11.8",
-    "adapter": "workspace:^",
+    "intel": "workspace:^",
     "clipboard": "^2.0.11",
     "dayjs": "^1.11.10",
     "lodash": "^4.17.21",

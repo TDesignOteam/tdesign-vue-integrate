@@ -108,7 +108,7 @@
 │   └── typescript-config
 ├── package.json
 ├── packages
-│   ├── adapter	# 适配器
+│   ├── intel	# 适配器
 │   ├── common	# 公共方法
 │   └── components # 组件
 │       ├── common	# 可共用一套代码的组件

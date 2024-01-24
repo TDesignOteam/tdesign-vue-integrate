@@ -23,17 +23,17 @@
     "allowJs": true,
     "baseUrl": "../../",
     "paths": {
-      "@adapter": [
-        "packages/adapter/vue3"
+      "@intel": [
+        "packages/intel/vue3"
       ],
-      "@adapter/*": [
-        "packages/adapter/vue3/*"
+      "@intel/*": [
+        "packages/intel/vue3/*"
       ],
-      "@td/vue": [
-        "packages/tdvue/vue3"
+      "@adapter/vue": [
+        "packages/adapter/vue/vue3"
       ],
-      "@td/vue/*": [
-        "packages/tdvue/vue3/*"
+      "@adapter/vue/*": [
+        "packages/adapter/vue/vue3/*"
       ],
     }
   },

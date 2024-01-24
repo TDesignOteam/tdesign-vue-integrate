@@ -1,5 +1,5 @@
 {
-  "name": "@adapter/vue2.6",
+  "name": "@td/adapter-vue3",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -11,6 +11,6 @@
   "license": "ISC",
   "devDependencies": {
     "tsconfig": "workspace:^",
-    "vue": "~2.6.10"
+    "vue": "^3.4.15"
   }
 }

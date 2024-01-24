@@ -17,7 +17,7 @@ const pathFromWorkspaceRoot = (...args: string[]) => path.posix.resolve(workspac
 
 const resolveConfig = (vueVersion: number) => {
   return {
-    '@adapter': pathFromWorkspaceRoot(`packages/adapter/vue${vueVersion}`),
+    '@intel': pathFromWorkspaceRoot(`packages/intel/vue${vueVersion}`),
   }
 }
 
@@ -48,11 +48,11 @@ export const basePlugin = [
   ],
 ];
 
-export const transformAdapter = () => ({
-  name: 'transform-adapter',
+export const transformIntel = () => ({
+  name: 'transform-intel',
   transform(code, id) {
-    const adapterReg = /from "TDesign\/Adapter/g;
-    code = code.replace(adapterReg, 'from "./vue3');
+    const intelReg = /from "TDesign\/intel/g;
+    code = code.replace(intelReg, 'from "./vue3');
     
     return code;
   }
@@ -88,7 +88,7 @@ export default defineConfig(({ mode }) => {
       },
     },
     plugins: [
-      transformAdapter(),
+      transformIntel(),
       VitePWA(PWA),
       TDocPlugin(),
       ...CONFIG[mode].plugins
