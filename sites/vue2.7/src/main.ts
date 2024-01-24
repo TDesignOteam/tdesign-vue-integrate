@@ -1,4 +1,3 @@
-/* eslint-disable */
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import TDesign from 'components/vue2.7.js';
@@ -9,9 +8,10 @@ import Codesandbox from './components/codesandbox/index.vue';
 import Stackblitz from './components/stackblitz/index.vue';
 import BaseUsage from './components/base-usage.vue';
 
-// import tdesign style;
-// import 'tdesign-vue/style/index.js';
-// import '@common/style/web/docs.less';
+import 'tdesign-site-components';
+import 'tdesign-site-components/lib/styles/style.css';
+import 'tdesign-site-components/lib/styles/prism-theme.less';
+import 'tdesign-site-components/lib/styles/prism-theme-dark.less';
 
 // import site webcomponents
 import 'tdesign-site-components';

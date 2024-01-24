@@ -1,5 +1,5 @@
 import { createApp } from 'vue';
-import TDesign from 'components/vue3.js';
+import TDesign from 'components/vue3';
 import App from './App.vue';
 import router from './routes';
 
@@ -8,8 +8,9 @@ import CodeSandbox from './components/codeSandbox/index.vue';
 import BaseUsage from './components/base-usage.vue';
 
 // import tdesign style
-// import 'tdesign-vue-next/style/index.js';
-// import '@common/style/web/docs.less';
+import 'shared/_common/style/web/_global.less';
+import 'shared/_common/style/web/theme/_index.less';
+import 'shared/_common/style/web/docs.less';
 
 // import site webComponents
 import 'tdesign-site-components';

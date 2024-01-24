@@ -182,7 +182,7 @@ async function customRender({ source, file, md }) {
       componentName,
       usage: pageData.usage,
       // ! zhangpaopao 直接走的 node_modules
-      demoPath: path.posix.resolve(__dirname, '../../', `node_modules/intel/vue2.6/components/${componentName}/_usage/index.vue`).replace(/\\/g, '/'),
+      demoPath: path.posix.resolve(__dirname, '../../', `node_modules/@td/intel/vue2.6/components/${componentName}/_usage/index.vue`).replace(/\\/g, '/'),
     });
     if (usageObj) {
       mdSegment.usage = usageObj;
