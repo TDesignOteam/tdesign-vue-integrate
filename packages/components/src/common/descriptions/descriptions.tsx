@@ -88,10 +88,9 @@ export default defineComponent({
         if (itemTypeIsProps(itemsType.value, item)) {
           span = isNil(item.span) ? span : item.span;
         } else {
-          const propsData: Record<string, any> = item.componentOptions.propsData || {};
-          span = isNil(propsData?.span) ? span : propsData.span;
-          propsData.span = span;
-          Object.assign(item.componentOptions, { ...item.componentOptions, propsData });
+          item.props = item.props || {};
+          span = isNil(item.props?.span) ? span : item.props.span;
+          item.props.span = span;
         }
 
         if (reset >= span) {
@@ -108,11 +107,9 @@ export default defineComponent({
         if (index === items.length - 1) {
           // 最后一个
           if (itemTypeIsProps(itemsType.value, item)) {
-            Object.assign(item, { span: item.span + reset });
+            item.span += reset;
           } else {
-            const propsData: Record<string, any> = item.componentOptions.propsData || {};
-            propsData.span += reset;
-            Object.assign(item.componentOptions, { ...item.componentOptions, propsData });
+            item.props.span += reset;
           }
           res.push(temp);
         }

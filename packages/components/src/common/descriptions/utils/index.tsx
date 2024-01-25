@@ -1,11 +1,9 @@
-import { h } from '@td/adapter-vue';
-import type { ComponentInternalInstance, VNode } from '@td/adapter-vue';
+import { VNode, Slots, h, ComponentOptions } from '@td/adapter-vue';
 import isFunction from 'lodash/isFunction';
 import isString from 'lodash/isString';
 
-import { ItemsType } from '../interface';
-import type { TdDescriptionItem } from '../interface';
-import type { TdDescriptionItemProps } from '@td/adapter-intel/components/descriptions/type';
+import { ItemsType, TdDescriptionItem } from '../interface';
+import { TdDescriptionItemProps } from '@td/adapter-intel/components/descriptions/type';
 
 /**
  * ! 处理 node string / <div> / () => <div> / Component
@@ -16,7 +14,7 @@ import type { TdDescriptionItemProps } from '@td/adapter-intel/components/descri
  * @param params
  * @returns
  */
-export function renderCustomNode(node: string | ((...args: any[]) => any) | ComponentInternalInstance, params = {}) {
+export function renderCustomNode(node: string | ((...args: any[]) => any) | ComponentOptions, params = {}) {
   if (isString(node)) {
     return node;
   }
@@ -24,7 +22,7 @@ export function renderCustomNode(node: string | ((...args: any[]) => any) | Comp
     return node(h, params);
   }
   if (isFunction(node.render)) {
-    return <node />;
+    return node.render(h, params);
   }
 
   return node;
@@ -37,14 +35,16 @@ export function renderCustomNode(node: string | ((...args: any[]) => any) | Comp
  * @param name2 slot 别名
  * @returns
  */
-export function renderVNodeTNode(node: VNode | ComponentInternalInstance, name1: string, name2?: string) {
-  const prop = node.componentOptions.propsData?.[name1];
+export function renderVNodeTNode(node: VNode, name1: string, name2?: string) {
+  const prop = node.props?.[name1];
   if (prop) return prop;
 
-  const slot = node.data.scopedSlots?.[name1]?.() || node.data.scopedSlots?.[name2]?.();
-  if (slot) return slot;
+  const children = node.children as Slots;
+  const slot = children?.[name1] || (name2 && children?.[name2]);
 
-  return node.componentOptions.children;
+  if (slot) return slot?.();
+
+  return null;
 }
 
 /**

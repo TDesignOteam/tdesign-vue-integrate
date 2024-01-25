@@ -33,8 +33,7 @@ export default defineComponent({
         span = node.span;
       } else {
         label = renderVNodeTNode(node, 'label');
-        const propsData: Record<string, any> = node.componentOptions.propsData || {};
-        span = propsData.span;
+        span = node.props?.span;
       }
       const labelSpan = layout === LayoutEnum.HORIZONTAL ? 1 : span;
 
@@ -56,8 +55,7 @@ export default defineComponent({
         span = node.span;
       } else {
         content = renderVNodeTNode(node, 'content', 'default');
-        const propsData: Record<string, any> = node.componentOptions.propsData || {};
-        span = propsData.span;
+        span = node.props?.span;
       }
       const contentSpan = span > 1 && layout === LayoutEnum.HORIZONTAL ? span * 2 - 1 : span;
 
