@@ -78,6 +78,9 @@ importers:
       tsconfig:
         specifier: workspace:^
         version: link:../../../../configs/tsconfig
+      vue:
+        specifier: ~2.7.16
+        version: 2.7.16
 
   packages/adapter/hooks/vue3:
     dependencies:
@@ -378,6 +381,9 @@ importers:
 
   sites/vue2.7:
     dependencies:
+      '@td/adapter-intel-vue2.7':
+        specifier: workspace:^
+        version: link:../../packages/adapter/intel/vue2.7
       '@td/components':
         specifier: workspace:^
         version: link:../../packages/components

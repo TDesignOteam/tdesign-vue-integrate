@@ -15,6 +15,7 @@
   },
   "devDependencies": {
     "@types/lodash": "^4.14.202",
-    "tsconfig": "workspace:^"
+    "tsconfig": "workspace:^",
+    "vue": "~2.7.16"
   }
 }

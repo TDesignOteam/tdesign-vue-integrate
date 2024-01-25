@@ -17,9 +17,10 @@ const pathFromWorkspaceRoot = (...args: string[]) => path.posix.resolve(workspac
 
 const resolveConfig = (vueVersion: number) => {
   return {
-    '@intel': pathFromWorkspaceRoot(`packages/intel/vue${vueVersion}`),
     '@adapter/vue': pathFromWorkspaceRoot(`packages/adapter/vue/vue${vueVersion}`),
     '@adapter/hooks': pathFromWorkspaceRoot(`packages/adapter/hooks/vue${vueVersion}`),
+    '@adapter/utils': pathFromWorkspaceRoot(`packages/adapter/utils/vue${vueVersion}`),
+    '@td/adapter-intel': pathFromWorkspaceRoot(`packages/adapter/intel/vue${vueVersion}`),
   }
 }
 

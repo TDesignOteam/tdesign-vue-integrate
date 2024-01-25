@@ -8,6 +8,11 @@ import Codesandbox from './components/codesandbox/index.vue';
 import Stackblitz from './components/stackblitz/index.vue';
 import BaseUsage from './components/base-usage.vue';
 
+// import tdesign style
+import '@td/shared/_common/style/web/_global.less';
+import '@td/shared/_common/style/web/theme/_index.less';
+import '@td/shared/_common/style/web/docs.less';
+
 import 'tdesign-site-components';
 import 'tdesign-site-components/lib/styles/style.css';
 import 'tdesign-site-components/lib/styles/prism-theme.less';

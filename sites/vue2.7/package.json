@@ -9,10 +9,11 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@td/adapter-intel-vue2.7": "workspace:^",
     "@td/components": "workspace:^",
+    "@td/shared": "workspace:^",
     "lodash-es": "^4.17.21",
     "semver": "^7.5.4",
-    "@td/shared": "workspace:^",
     "tdesign-icons-vue-next": "^0.2.2",
     "tdesign-site-components": "^0.13.20",
     "tdesign-theme-generator": "^1.0.15",
