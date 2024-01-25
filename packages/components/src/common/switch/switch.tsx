@@ -1,20 +1,17 @@
-import { defineComponent, h, computed, watch, toRefs } from '@td/adapter-vue';
-import type { VNodeChild } from "@td/adapter-vue";
-import { usePrefixClass, useCommonClassName } from '@td/adapter-hooks';
-import props from '@td/adapter-intel/components/descriptions/props';
-import type { TNodeReturnValue } from '@td/shared/interface';
-
-// hooks
-import { useDisabled } from '@td/adapter-hooks';
-import { useVModel } from '@td/adapter-hooks';
-import isFunction from 'lodash/isFunction';
-import isString from 'lodash/isString';
 import isArray from 'lodash/isArray';
+import isString from 'lodash/isString';
+import isFunction from 'lodash/isFunction';
+import type { VNodeChild } from "@td/adapter-vue";
+import { defineComponent, h, computed, watch, toRefs } from '@td/adapter-vue';
+
+import type { TNodeReturnValue } from '@td/shared/interface';
+import { usePrefixClass, useCommonClassName, useDisabled, useVModel  } from '@td/adapter-hooks';
+
+import props from '@td/adapter-intel/components/switch/props';
 
 export default defineComponent({
   name: 'TSwitch',
-  props: { ...props },
-
+  props,
   setup(props, { slots }) {
     const disabled = useDisabled();
     const COMPONENT_NAME = usePrefixClass('switch');

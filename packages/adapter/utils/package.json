@@ -1,0 +1,20 @@
+{
+  "name": "@td/adapter-utils",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/lodash": "^4.14.202",
+    "vue": "^3.4.15"
+  },
+  "dependencies": {
+    "lodash": "^4.17.21",
+    "@td/shared": "workspace:^"
+  }
+}

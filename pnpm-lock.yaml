@@ -95,23 +95,11 @@ importers:
         specifier: workspace:^
         version: link:../../../../configs/tsconfig
 
-  packages/adapter/intel:
+  packages/adapter/intel/vue2.7:
     dependencies:
       '@td/shared':
         specifier: workspace:^
-        version: link:../../shared
-      lodash:
-        specifier: ^4.17.21
-        version: 4.17.21
-    devDependencies:
-      '@types/lodash':
-        specifier: ^4.14.202
-        version: 4.14.202
-      vue:
-        specifier: ^3.4.15
-        version: 3.4.15(typescript@5.3.3)
-
-  packages/adapter/intel/vue2.7:
+        version: link:../../../shared
     devDependencies:
       tsconfig:
         specifier: workspace:^
@@ -121,6 +109,10 @@ importers:
         version: 2.7.16
 
   packages/adapter/intel/vue3:
+    dependencies:
+      '@td/shared':
+        specifier: workspace:^
+        version: link:../../../shared
     devDependencies:
       tsconfig:
         specifier: workspace:^
@@ -177,6 +169,9 @@ importers:
       '@td/adapter-hooks':
         specifier: workspace:^
         version: link:../adapter/hooks
+      '@td/adapter-utils':
+        specifier: workspace:^
+        version: link:../adapter/utils
       '@td/adapter-vue':
         specifier: workspace:^
         version: link:../adapter/vue
@@ -383,9 +378,6 @@ importers:
 
   sites/vue2.7:
     dependencies:
-      '@td/adapter-intel':
-        specifier: workspace:^
-        version: link:../../packages/adapter/utils
       '@td/components':
         specifier: workspace:^
         version: link:../../packages/components
@@ -474,9 +466,6 @@ importers:
 
   sites/vue3:
     dependencies:
-      '@td/adapter-intel':
-        specifier: workspace:^
-        version: link:../../packages/adapter/utils
       '@td/components':
         specifier: workspace:^
         version: link:../../packages/components
