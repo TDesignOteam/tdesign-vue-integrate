@@ -1,28 +1,35 @@
-import { h, getCurrentInstance, SetupContext } from '@vue/composition-api';
-import { VNode } from 'vue';
-// import { h, getCurrentInstance, ComponentInternalInstance, VNode } from 'vue';
-import isEmpty from 'lodash/isEmpty';
+import { h, getCurrentInstance, ComponentInternalInstance, VNode } from '@td/adapter-vue';
 import isFunction from 'lodash/isFunction';
 import camelCase from 'lodash/camelCase';
 import kebabCase from 'lodash/kebabCase';
-import {
-  getDefaultNode, getParams, OptionsType, JSXRenderContext,
-} from './render-tnode';
-// import log from '../_common/js/log';
+import { getDefaultNode, getParams, OptionsType, JSXRenderContext, getSlotFirst } from './useRenderTnode';
 
 // 兼容处理插槽名称，同时支持驼峰命名和中划线命名，示例：value-display 和 valueDisplay
-function handleSlots(slots: SetupContext['slots'], name: string, params: Record<string, any>) {
-  const finaleParams = h;
-  if (params) {
-    Object.assign(finaleParams, params);
-  }
-  // 检查是否存在 驼峰命名 的插槽
-  let node = slots[camelCase(name)]?.(finaleParams);
-  if (node) return node;
+function handleSlots(instance: ComponentInternalInstance, name: string, params: Record<string, any>) {
+  // 2023-08 new Function 触发部分使用场景安全策略问题（Chrome插件/eletron等）
+  // // 每个 slots 需要单独的 h 函数 否则直接assign会重复把不同 slots 的 params 都注入
+  // const finalParams = new Function('return ' + h.toString())();
+  // if (params) {
+  //   Object.assign(finalParams, params);
+  // }
+
+  // 检查是否存在 驼峰命名 的插槽（过滤注释节点）
+  let node = instance.slots[camelCase(name)]?.(params);
+  if (node && node.filter((t) => t.type.toString() !== 'Symbol(v-cmt)').length) return node;
   // 检查是否存在 中划线命名 的插槽
-  node = slots[kebabCase(name)]?.(finaleParams);
-  if (node) return node;
+  node = instance.slots[kebabCase(name)]?.(params);
+  if (node && node.filter((t) => t.type.toString() !== 'Symbol(v-cmt)').length) return node;
   return null;
+}
+
+/**
+ * 是否为空节点，需要过滤掉注释节点。注释节点也会被认为是空节点
+ */
+function isEmptyNode(node: any) {
+  if ([undefined, null, ''].includes(node)) return true;
+  const innerNodes = node instanceof Array ? node : [node];
+  const r = innerNodes.filter((node) => node?.type?.toString() !== 'Symbol(Comment)');
+  return !r.length;
 }
 
 /**
@@ -43,7 +50,7 @@ export const useTNodeJSX = () => {
     // assemble params && defaultNode
     const params = getParams(options);
     const defaultNode = getDefaultNode(options);
-    const { slots } = instance.setupContext;
+    const slotFirst = getSlotFirst(options);
 
     // 处理 props 类型的Node
     let propsNode;
@@ -51,21 +58,23 @@ export const useTNodeJSX = () => {
       propsNode = instance.props[name];
     }
 
-    // 同名插槽和属性同时存在，则提醒用户只需要选择一种方式即可
-    // if (slots[name] && propsNode && propsNode !== true) {
+    // 是否静默日志
+    // const isSilent = Boolean(isObject(options) && 'silent' in options && options.silent);
+    // // 同名插槽和属性同时存在，则提醒用户只需要选择一种方式即可
+    // if (instance.slots[name] && propsNode && propsNode !== true && !isSilent) {
     //   log.warn('', `Both slots.${name} and props.${name} exist, props.${name} is preferred`);
     // }
     // propsNode 为 false 不渲染
     if (propsNode === false) return;
     if (propsNode === true) {
-      return handleSlots(slots, name, params) || defaultNode;
+      return handleSlots(instance, name, params) || defaultNode;
     }
 
     // 同名 props 和 slot 优先处理 props
     if (isFunction(propsNode)) return propsNode(h, params);
     const isPropsEmpty = [undefined, params, ''].includes(propsNode);
-    if (isPropsEmpty && (slots[camelCase(name)] || slots[kebabCase(name)])) {
-      return handleSlots(slots, name, params);
+    if ((isPropsEmpty || slotFirst) && (instance.slots[camelCase(name)] || instance.slots[kebabCase(name)])) {
+      return handleSlots(instance, name, params);
     }
     return propsNode;
   };
@@ -111,7 +120,7 @@ export const useContent = () => {
     const node1 = renderTNodeJSX(name1, toParams);
     const node2 = renderTNodeJSX(name2, toParams);
 
-    const res = isEmpty(node1) ? node2 : node1;
-    return isEmpty(res) ? defaultNode : res;
+    const res = isEmptyNode(node1) ? node2 : node1;
+    return isEmptyNode(res) ? defaultNode : res;
   };
 };

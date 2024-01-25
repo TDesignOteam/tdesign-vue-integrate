@@ -1,5 +1,4 @@
-import { h, ComponentPublicInstance } from '@vue/composition-api';
-import { VNode } from 'vue';
+import { h, ComponentPublicInstance, VNode, isVNode } from '@td/adapter-vue';
 import isEmpty from 'lodash/isEmpty';
 import isString from 'lodash/isString';
 import isFunction from 'lodash/isFunction';
@@ -10,17 +9,12 @@ import kebabCase from 'lodash/kebabCase';
 export interface JSXRenderContext {
   defaultNode?: VNode | string;
   params?: Record<string, any>;
+  slotFirst?: boolean;
   // 是否不打印 LOG
   silent?: boolean;
 }
 
 export type OptionsType = VNode | JSXRenderContext | string;
-
-export const isVNode = (obj: OptionsType) => {
-  const vNode = h('span', '');
-  const VNode = vNode.constructor;
-  return obj instanceof VNode;
-};
 
 export function getDefaultNode(options?: OptionsType) {
   let defaultNode;
@@ -34,20 +28,20 @@ export function getDefaultNode(options?: OptionsType) {
 }
 
 export function getParams(options?: OptionsType) {
-  return isObject(options) && 'params' in options ? options.params : null;
+  return isObject(options) && 'params' in options ? options.params : {};
+}
+
+export function getSlotFirst(options?: OptionsType) {
+  return isObject(options) && 'slotFirst' in options ? options.slotFirst : {};
 }
 
 // 同时支持驼峰命名和中划线命名的插槽，示例：value-display 和 valueDisplay
 export function handleSlots(instance: ComponentPublicInstance, params: Record<string, any>, name: string) {
-  const finaleParams = h;
-  if (params) {
-    Object.assign(finaleParams, params);
-  }
   // 检查是否存在 驼峰命名 的插槽
-  let node = instance.$slots[camelCase(name)]?.(finaleParams);
+  let node = instance.$slots[camelCase(name)]?.(params);
   if (node) return node;
   // 检查是否存在 中划线命名 的插槽
-  node = instance.$slots[kebabCase(name)]?.(finaleParams);
+  node = instance.$slots[kebabCase(name)]?.(params);
   if (node) return node;
   return null;
 }
@@ -74,7 +68,7 @@ export const renderTNodeJSX = (instance: ComponentPublicInstance, name: string, 
 
   // 是否静默日志
   // const isSilent = Boolean(isObject(options) && 'silent' in options && options.silent);
-  // 同名插槽和属性同时存在，则提醒用户只需要选择一种方式即可
+  // // 同名插槽和属性同时存在，则提醒用户只需要选择一种方式即可
   // if (instance.$slots[name] && propsNode && propsNode !== true && !isSilent) {
   //   console.warn(`Both $slots.${name} and $props.${name} exist, $props.${name} is preferred`);
   // }

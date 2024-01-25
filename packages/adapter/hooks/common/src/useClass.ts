@@ -1,7 +1,8 @@
-import { useConfig } from '../config-provider/useConfig';
+import { ref, computed } from '@td/adapter-vue';
 
-export default function useCommonClassName() {
-  const { classPrefix } = useConfig();
+export function useCommonClassName() {
+  // ! 应该从 useConfig 中导入的
+  const classPrefix = ref('t')
 
   const sizeClassNames = {
     small: `${classPrefix.value}-size-s`,
@@ -30,7 +31,6 @@ export default function useCommonClassName() {
     expanded: `${classPrefix.value}-is-expanded`,
     indeterminate: `${classPrefix.value}-is-indeterminate`,
   };
-
   return {
     classPrefix,
     sizeClassNames,
@@ -43,3 +43,13 @@ export default function useCommonClassName() {
 }
 
 export type CommonClassNameType = ReturnType<typeof useCommonClassName>;
+
+
+export function usePrefixClass(componentName?: string) {
+    // ! 应该从 useConfig 中导入的
+    const classPrefix = ref('t')
+
+  return computed(() => {
+    return componentName ? `${classPrefix.value}-${componentName}` : classPrefix.value;
+  });
+}
