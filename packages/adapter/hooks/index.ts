@@ -1,1 +1,2 @@
-export * from './useIcon';
+// export * from './common';
+export * from "@adapter/hooks"

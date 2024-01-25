@@ -36,6 +36,12 @@
       "@adapter/vue/*": [
         "packages/adapter/vue/vue3/*"
       ],
+      "@adapter/hooks": [
+        "packages/adapter/vue/vue3"
+      ],
+      "@adapter/hooks/*": [
+        "packages/adapter/vue/vue3/*"
+      ],
     }
   },
   "exclude": ["node_modules"]
