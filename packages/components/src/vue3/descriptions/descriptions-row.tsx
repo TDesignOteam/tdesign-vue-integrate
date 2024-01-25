@@ -1,6 +1,6 @@
 import { defineComponent, inject, PropType } from 'vue';
 
-import { LayoutEnum } from 'shared/interface';
+import { LayoutEnum } from '@td/shared/interface';
 // @ts-ignore
 import { usePrefixClass } from '@intel';
 

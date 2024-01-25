@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-import TDesign from 'components/vue2.7.js';
+import TDesign from '@td/components/vue2.7';
 import routes from './routes';
 import App from './App.vue';
 

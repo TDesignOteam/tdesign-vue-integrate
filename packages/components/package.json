@@ -1,5 +1,5 @@
 {
-  "name": "components",
+  "name": "@td/components",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -11,12 +11,13 @@
   "license": "ISC",
   "dependencies": {
     "@popperjs/core": "^2.11.8",
-    "@td/adapter": "workspace:^",
+    "@td/adapter-hooks": "workspace:^",
+    "@td/adapter-vue": "workspace:^",
     "clipboard": "^2.0.11",
     "dayjs": "^1.11.10",
     "lodash": "^4.17.21",
     "raf": "^3.4.1",
-    "shared": "workspace:^",
+    "@td/shared": "workspace:^",
     "sortablejs": "^1.15.2",
     "tdesign-icons-vue-next": "^0.2.2",
     "validator": "^13.11.0"

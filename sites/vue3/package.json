@@ -11,12 +11,12 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@td/intel": "workspace:^",
+    "@td/adapter-intel": "workspace:^",
     "codesandbox": "^2.2.3",
-    "components": "workspace:^",
+    "@td/components": "workspace:^",
     "lodash-es": "^4.17.21",
     "semver": "^7.5.4",
-    "shared": "workspace:^",
+    "@td/shared": "workspace:^",
     "tdesign-icons-vue-next": "^0.2.2",
     "tdesign-site-components": "^0.13.20",
     "tdesign-theme-generator": "^1.0.15",

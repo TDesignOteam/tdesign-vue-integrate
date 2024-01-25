@@ -1,9 +1,11 @@
-import { VNode, Slots, h, ComponentOptions } from 'vue';
+import { h } from '@td/adapter-vue';
+import type { VNode, Slots, ComponentOptions } from '@td/adapter-vue';
 import isFunction from 'lodash/isFunction';
 import isString from 'lodash/isString';
 
-import { ItemsType, TdDescriptionItem } from '../interface';
-import { TdDescriptionItemProps } from '../type';
+import { ItemsType } from '../interface';
+import type { TdDescriptionItem } from '../interface';
+import type { TdDescriptionItemProps } from '@intel/components/descriptions/type';
 
 /**
  * ! 处理 node string / <div> / () => <div> / Component

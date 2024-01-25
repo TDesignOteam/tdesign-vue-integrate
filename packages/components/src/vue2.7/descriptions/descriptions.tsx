@@ -2,7 +2,7 @@ import isNil from 'lodash/isNil';
 import isArray from 'lodash/isArray';
 import { defineComponent, provide, ref } from 'vue';
 
-import { LayoutEnum } from 'shared/interface';
+import { LayoutEnum } from '@td/shared/interface';
 
 import { useTNodeJSX, useChildComponentSlots, usePrefixClass } from '@intel';
 
