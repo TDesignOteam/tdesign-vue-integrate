@@ -71,7 +71,8 @@ export default defineComponent({
           itemsType.value = ItemsType.slots;
         }
       }
-
+      console.log(items, 'items');
+      
       // 2. 判断布局，如果整体布局为 LayoutEnum.VERTICAL，那么直接返回即可。
       if (layout === LayoutEnum.VERTICAL) {
         return [items];

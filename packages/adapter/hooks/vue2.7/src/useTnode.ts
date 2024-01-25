@@ -39,7 +39,7 @@ function handleSlots(slots: SetupContext['slots'], name: string, params: Record<
  * @example renderTNodeJSX('closeBtn', { defaultNode: <close-icon />, params })。 params 为渲染节点时所需的参数
  */
 export const useTNodeJSX = () => {
-  const instance = getCurrentInstance().proxy;
+  const instance = getCurrentInstance();
   return function (name: string, options?: OptionsType) {
     // assemble params && defaultNode
     const params = getParams(options);
@@ -47,8 +47,8 @@ export const useTNodeJSX = () => {
 
     // 处理 props 类型的Node
     let propsNode;
-    if (Object.keys(instance.$props).includes(name)) {
-      propsNode = instance.$props[name];
+    if (Object.keys(instance?.props || {}).includes(name)) {
+      propsNode = instance?.props[name];
     }
 
     // 同名插槽和属性同时存在，则提醒用户只需要选择一种方式即可
