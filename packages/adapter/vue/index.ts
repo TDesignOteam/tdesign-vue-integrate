@@ -1,1 +1,1 @@
-export * from "@td/vue";
+export * from "@adapter/vue";

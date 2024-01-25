@@ -1,7 +1,8 @@
-import { defineComponent, h, VNodeChild, computed, watch, toRefs } from 'vue';
+import { defineComponent, h, computed, watch, toRefs } from '@td/adapter';
+import type { VNodeChild } from "@td/adapter";
 import { usePrefixClass, useCommonClassName } from '@intel/hooks/useConfig';
 import props from '@intel/components/switch/props';
-import { TNodeReturnValue } from 'shared/interface';
+import type { TNodeReturnValue } from 'shared/interface';
 
 // hooks
 import { useDisabled } from '@intel/hooks/useDisabled';

@@ -1,6 +1,6 @@
 import _Switch from './switch';
 import withInstall from '@intel/utils/withInstall';
-import { TdSwitchProps } from '@intel/components/switch/type';
+import type { TdSwitchProps } from '@intel/components/switch/type';
 
 import './style';
 
