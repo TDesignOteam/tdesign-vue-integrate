@@ -39,6 +39,7 @@ export default defineComponent({
     const linkClass = usePrefixClass('link');
     const maxLengthClass = usePrefixClass('breadcrumb__inner');
     const textFlowClass = usePrefixClass('breadcrumb--text-overflow');
+    const renderTNodeJSX = useTNodeJSX();
 
     const { ChevronRightIcon } = useGlobalIcon({ ChevronRightIcon: TdChevronRightIcon });
     const maxWithStyle = computed(() => {
@@ -71,6 +72,7 @@ export default defineComponent({
         props.replace ? router.replace(props.to) : router.push(props.to);
       }
     };
+
     const bindEvent = (e: MouseEvent) => {
       if (!props.disabled)
         if (props.target === '_blank') {
@@ -82,7 +84,6 @@ export default defineComponent({
     };
 
     return () => {
-      const renderTNodeJSX = useTNodeJSX();
 
       const itemClass = [COMPONENT_NAME.value, themeClassName.value];
       const textClass = [textFlowClass.value];
@@ -90,7 +91,7 @@ export default defineComponent({
       if (props.disabled) {
         textClass.push(disableClass.value);
       }
-
+      
       const listeners = {
         onClick: (e: MouseEvent) => {
           if (props.disabled) {
@@ -99,15 +100,16 @@ export default defineComponent({
           }
         },
       };
+
       const textContent = (
-        <span {...{ class: maxLengthClass.value, style: maxWithStyle.value }}>
+        <span class={maxLengthClass.value} style={maxWithStyle.value }>
           {renderTNodeJSX('icon')}
           <span ref={breadcrumbText} class={`${maxLengthClass.value}-text`}>
             {renderTNodeJSX('default')}
           </span>
         </span>
       );
-      let itemContent = <span {...{ class: textClass, ...listeners }}>{textContent}</span>;
+      let itemContent = <span class={textClass} {...listeners }>{textContent}</span>;
 
       if ((props.href || props.to) && !props.disabled) {
         textClass.push(linkClass.value);
@@ -117,6 +119,7 @@ export default defineComponent({
           </a>
         );
       }
+
       return (
         <div class={itemClass} {...attrs}>
           {/* {isCutOff.value ? <Tooltip content={() => slots?.default()}>{itemContent}</Tooltip> : itemContent} */}

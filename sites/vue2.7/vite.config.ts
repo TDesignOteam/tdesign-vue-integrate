@@ -73,7 +73,8 @@ export default defineConfig(({ mode }) => {
         compositionAPI: { importSource: '@td/adapter-vue' },
       }),
       createVuePlugin({
-        include: /(\.md|\.vue)$/
+        include: /(\.md|\.vue)$/,
+        exclude: /\.tsx$/
       }),
       VitePWA(PWA),
       TDocPlugin(),
