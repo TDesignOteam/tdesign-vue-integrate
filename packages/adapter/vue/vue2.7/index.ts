@@ -5,7 +5,9 @@ function getCurrentInstance() {
   const innerInstance = Vue.getCurrentInstance()?.proxy;
   const instance = {
     ...innerInstance,
-    props: innerInstance?.$props
+    props: innerInstance?.$props,
+    vnode: innerInstance?.$vnode,
+    emit: innerInstance?.$emit.bind(innerInstance)
   }
 
   return instance;

@@ -50,7 +50,7 @@ export default defineComponent({
     // classes
     const classes = computed(() => [
       `${COMPONENT_NAME.value}`,
-      SIZE.value[props.size],
+      SIZE.value[props.size!],
       {
         [STATUS.value.disabled]: disabled.value,
         [STATUS.value.loading]: props.loading,
@@ -69,7 +69,7 @@ export default defineComponent({
     const contentClasses = computed(() => {
       return [
         `${COMPONENT_NAME.value}__content`,
-        SIZE.value[props.size],
+        SIZE.value[props.size!],
         {
           [STATUS.value.disabled]: disabled.value,
         },

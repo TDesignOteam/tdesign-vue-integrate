@@ -9,31 +9,43 @@ export interface UseVModelParams<T> {
   propName?: string;
 }
 
-export function useVModel<T, P extends any[]>(
-  value: Ref<T>,
-  defaultValue: T,
-  onChange: ChangeHandler<T, P>,
-  eventName = 'change',
+/**
+ * 统一处理 value, v-model, xxx.sync
+ * @doc https://v2.vuejs.org/v2/guide/components-custom-events.html#Customizing-Component-v-model
+ * @param value 绑定值 v-model
+ * @param defaultValue 默认值
+ * @param onChange 值变化时触发的回调
+ * @param propName v-model
+ * @param eventName 
+ * @param alias 
+ * @returns 
+ */
+export function useVModelVue27<T, P extends any[]>(
+  value: Ref<T | undefined>,
+  defaultValue: T | undefined,
+  onChange: ChangeHandler<T, P> | undefined,
   propName = 'value',
+  eventName = 'change',
   // 除了 value + onChange，还支持其他同含义字段和事件
   alias: UseVModelParams<T>[] = [],
-): [Ref<T>, ChangeHandler<T, P>] {
+): [Ref<T | undefined>, ChangeHandler<T, P>] {
   const instance = getCurrentInstance();
   const internalValue = ref<T>();
   internalValue.value = defaultValue;
 
-  const isControlled = Object.prototype.hasOwnProperty.call(instance.$vnode.componentOptions.propsData, propName)
-    || Object.prototype.hasOwnProperty.call(instance.$vnode.componentOptions.propsData, kebabCase(propName));
+  const isControlled = Object.prototype.hasOwnProperty.call(instance?.vnode?.componentOptions?.propsData, propName)
+    || Object.prototype.hasOwnProperty.call(instance?.vnode?.componentOptions?.propsData, kebabCase(propName));
+    
   // 受控模式
   if (isControlled) {
     return [
       value,
       (newValue, ...args) => {
         // input 事件为 v-model 语法糖
-        instance.$emit?.('input', newValue, ...args);
+        instance?.emit?.('input', newValue, ...args);
         onChange?.(newValue, ...args);
         if (eventName && eventName !== 'input') {
-          instance.$emit?.(eventName, newValue, ...args);
+          instance?.emit?.(eventName, newValue, ...args);
         }
       },
     ];
@@ -42,15 +54,18 @@ export function useVModel<T, P extends any[]>(
   // controlled, other fields, upload.files.etc.
   for (let i = 0, len = alias.length; i < len; i++) {
     const item = alias[i];
-    if (Object.prototype.hasOwnProperty.call(instance.$vnode.componentOptions.propsData, item.propName)) {
+    if (
+      item.propName !== undefined && 
+      Object.prototype.hasOwnProperty.call(instance?.vnode?.componentOptions?.propsData, item.propName)
+    ) {
       return [
         item.value,
         (newValue, ...args) => {
           // .sync support
-          instance.$emit?.(`update:${item.propName}`, newValue, ...args);
+          instance?.emit?.(`update:${item.propName}`, newValue, ...args);
           onChange?.(newValue, ...args);
           if (item.eventName && item.eventName !== 'input') {
-            instance.$emit?.(item.eventName, newValue, ...args);
+            instance?.emit?.(item.eventName, newValue, ...args);
           }
         },
       ];
@@ -64,10 +79,20 @@ export function useVModel<T, P extends any[]>(
       internalValue.value = newValue;
       onChange?.(newValue, ...args);
       if (eventName && eventName !== 'input') {
-        instance.$emit?.(eventName, newValue, ...args);
+        instance?.emit?.(eventName, newValue, ...args);
       }
     },
   ];
 }
 
-export default useVModel;
+export function useVModel<T, P extends any[]>(
+  value: Ref<T | undefined>,
+  modelValue: Ref<T | undefined>,
+  defaultValue: T | undefined,
+  onChange: ChangeHandler<T, P> | undefined,
+  propName = 'value',
+  eventName = 'change',
+  alias: UseVModelParams<T>[] = [],
+): [Ref<T | undefined>, ChangeHandler<T, P>] {
+  return useVModelVue27<T, P>(value, defaultValue, onChange, propName, eventName, alias)
+}

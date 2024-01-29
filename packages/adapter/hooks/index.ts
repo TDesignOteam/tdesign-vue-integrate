@@ -1,2 +1,2 @@
 export * from './common';
-export * from "@adapter/hooks"
+export * from "@adapter/hooks";
