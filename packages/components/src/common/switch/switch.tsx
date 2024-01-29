@@ -2,7 +2,7 @@ import isArray from 'lodash/isArray';
 import isString from 'lodash/isString';
 import isFunction from 'lodash/isFunction';
 import type { VNodeChild } from "@td/adapter-vue";
-import { defineComponent, computed, watch, toRefs } from '@td/adapter-vue';
+import { defineComponent, computed, watch, toRefs, h } from '@td/adapter-vue';
 
 import type { TNodeReturnValue } from '@td/shared/interface';
 import { usePrefixClass, useCommonClassName, useDisabled, useVModel  } from '@td/adapter-hooks';

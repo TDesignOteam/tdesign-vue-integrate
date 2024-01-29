@@ -14,7 +14,8 @@
     "vue": "^3.4.15"
   },
   "dependencies": {
+    "@td/shared": "workspace:^",
     "lodash": "^4.17.21",
-    "@td/shared": "workspace:^"
+    "raf": "^3.4.1"
   }
 }

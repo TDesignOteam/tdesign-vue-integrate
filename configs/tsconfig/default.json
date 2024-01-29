@@ -9,6 +9,7 @@
     "jsxImportSource": "vue",
     "noImplicitThis": true,
     "strict": true,
+    // 应该设置为 true 的，但因 adapter 导出 type，所以设置为 false 了 
     "verbatimModuleSyntax": false,
     "target": "ESNext",
     "useDefineForClassFields": true,
