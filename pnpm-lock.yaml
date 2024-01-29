@@ -418,6 +418,24 @@ importers:
         specifier: ^3.6.5
         version: 3.6.5(vue@2.7.16)
     devDependencies:
+      '@babel/core':
+        specifier: ^7.23.2
+        version: 7.23.7
+      '@babel/helper-module-imports':
+        specifier: ^7.22.15
+        version: 7.22.15
+      '@babel/plugin-syntax-import-meta':
+        specifier: ^7.10.4
+        version: 7.10.4(@babel/core@7.23.7)
+      '@babel/plugin-syntax-jsx':
+        specifier: ^7.23.3
+        version: 7.23.3(@babel/core@7.23.7)
+      '@babel/plugin-transform-typescript':
+        specifier: ^7.23.6
+        version: 7.23.6(@babel/core@7.23.7)
+      '@rollup/pluginutils':
+        specifier: ^5.1.0
+        version: 5.1.0(rollup@2.79.1)
       '@types/node':
         specifier: ^20.11.6
         version: 20.11.6
@@ -436,18 +454,51 @@ importers:
       '@vue/babel-helper-vue-jsx-merge-props':
         specifier: ^1.4.0
         version: 1.4.0
+      '@vue/babel-plugin-transform-vue-jsx':
+        specifier: ^1.4.0
+        version: 1.4.0(@babel/core@7.23.7)
+      '@vue/babel-preset-jsx':
+        specifier: ^1.4.0
+        version: 1.4.0(@babel/core@7.23.7)(vue@2.7.16)
+      '@vue/babel-sugar-composition-api-inject-h':
+        specifier: ^1.4.0
+        version: 1.4.0(@babel/core@7.23.7)
+      '@vue/babel-sugar-composition-api-render-instance':
+        specifier: ^1.4.0
+        version: 1.4.0(@babel/core@7.23.7)
+      '@vue/babel-sugar-functional-vue':
+        specifier: ^1.4.0
+        version: 1.4.0(@babel/core@7.23.7)
+      '@vue/babel-sugar-inject-h':
+        specifier: ^1.4.0
+        version: 1.4.0(@babel/core@7.23.7)
+      '@vue/babel-sugar-v-model':
+        specifier: ^1.4.0
+        version: 1.4.0(@babel/core@7.23.7)
+      '@vue/babel-sugar-v-on':
+        specifier: ^1.4.0
+        version: 1.4.0(@babel/core@7.23.7)
       camelcase:
         specifier: ^8.0.0
         version: 8.0.0
       gray-matter:
         specifier: ^4.0.3
         version: 4.0.3
+      html-tags:
+        specifier: ^3.3.1
+        version: 3.3.1
       less:
         specifier: ^4.2.0
         version: 4.2.0
+      lodash.kebabcase:
+        specifier: ^4.1.1
+        version: 4.1.1
       prismjs:
         specifier: ^1.29.0
         version: 1.29.0
+      svg-tags:
+        specifier: ^1.0.0
+        version: 1.0.0
       tdesign-icons-view:
         specifier: ^0.2.6
         version: 0.2.6

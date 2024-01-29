@@ -8,7 +8,8 @@ import PWA from "./configs/pwa";
 
 // import vue2 from '@vitejs/plugin-vue2';
 import { createVuePlugin } from 'vite-plugin-vue2';
-import vue2Jsx from '@vitejs/plugin-vue2-jsx';
+// import vue2Jsx from '@vitejs/plugin-vue2-jsx';
+import vue2Jsx from './plugins/vue2Jsx';
 
 
 const workspaceRoot = searchForWorkspaceRoot(process.cwd())
@@ -67,16 +68,12 @@ export default defineConfig(({ mode }) => {
       // vue2({
       // }),
       ScriptSetup({}),
-      createVuePlugin({
-        include: /(\.md|\.vue)$/,
-        jsx: true,
-        jsxOptions: {
-          vModel: true,
-          compositionAPI: true,
-        }
-      }),
       vue2Jsx({
         vModel: true,
+        compositionAPI: { importSource: '@td/adapter-vue' },
+      }),
+      createVuePlugin({
+        include: /(\.md|\.vue)$/
       }),
       VitePWA(PWA),
       TDocPlugin(),
