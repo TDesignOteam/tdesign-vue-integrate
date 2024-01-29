@@ -2,7 +2,7 @@ import isArray from 'lodash/isArray';
 import isString from 'lodash/isString';
 import isFunction from 'lodash/isFunction';
 import type { VNodeChild } from "@td/adapter-vue";
-import { defineComponent, computed, watch, toRefs, h } from '@td/adapter-vue';
+import { defineComponent, computed, watch, toRefs, H } from '@td/adapter-vue';
 
 import type { TNodeReturnValue } from '@td/shared/interface';
 import { usePrefixClass, useCommonClassName, useDisabled, useVModel  } from '@td/adapter-hooks';
@@ -90,7 +90,7 @@ export default defineComponent({
 
     const content = computed<VNodeChild>(() => {
       if (isFunction(props.label)) {
-        return props.label(h, { value: innerValue.value });
+        return props.label(H, { value: innerValue.value });
       }
       if (isString(props.label)) {
         return props.label;
@@ -102,7 +102,7 @@ export default defineComponent({
           return label;
         }
         if (isFunction(label)) {
-          return label(h);
+          return label(H);
         }
       }
       if (slots.label) {

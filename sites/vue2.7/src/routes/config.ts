@@ -168,14 +168,14 @@ export const docs = [
   //       component: () => import('@td/adapter-intel/components/back-top/back-top.md'),
   //       componentEn: () => import('@td/adapter-intel/components/back-top/back-top.en-US.md'),
   //     },
-  //     {
-  //       title: 'Breadcrumb 面包屑',
-  //       titleEn: 'Breadcrumb',
-  //       name: 'breadcrumb',
-  //       path: '/vue/components/breadcrumb',
-  //       component: () => import('@td/adapter-intel/components/breadcrumb/breadcrumb.md'),
-  //       componentEn: () => import('@td/adapter-intel/components/breadcrumb/breadcrumb.en-US.md'),
-  //     },
+      {
+        title: 'Breadcrumb 面包屑',
+        titleEn: 'Breadcrumb',
+        name: 'breadcrumb',
+        path: '/vue/components/breadcrumb',
+        component: () => import('@td/adapter-intel/components/breadcrumb/breadcrumb.md'),
+        componentEn: () => import('@td/adapter-intel/components/breadcrumb/breadcrumb.en-US.md'),
+      },
   //     {
   //       title: 'Dropdown 下拉菜单',
   //       titleEn: 'Dropdown',

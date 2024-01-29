@@ -1,4 +1,4 @@
-import { VNode, getCurrentInstance } from "vue";
+import { VNode, getCurrentInstance, h as H } from "vue";
 
 function getVNode(node: VNode) {
   return node
@@ -7,6 +7,7 @@ function getVNode(node: VNode) {
 export * from 'vue';
 export {
   getCurrentInstance,
-  getVNode
+  getVNode,
+  H
 };
 

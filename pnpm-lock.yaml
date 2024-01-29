@@ -103,6 +103,9 @@ importers:
       '@td/shared':
         specifier: workspace:^
         version: link:../../../shared
+      tdesign-icons-vue:
+        specifier: ^0.2.2
+        version: 0.2.2(vue@2.7.16)
     devDependencies:
       tsconfig:
         specifier: workspace:^
@@ -15108,6 +15111,16 @@ packages:
       classnames: 2.5.1
       vue: 2.7.14
     dev: true
+
+  /tdesign-icons-vue@0.2.2(vue@2.7.16):
+    resolution: {integrity: sha512-aAHrd5K2O9pQSUZb09A58qIH9b6fOP9pUapvxzvByuc5Ri3YLLgoz+6/XZcRu5S8insx7OzfhH951qjKxfzLtg==}
+    peerDependencies:
+      vue: ^2.6.12
+    dependencies:
+      '@babel/runtime': 7.23.8
+      classnames: 2.5.1
+      vue: 2.7.16
+    dev: false
 
   /tdesign-site-components@0.13.20:
     resolution: {integrity: sha512-j2f0kV2Vzs6kwVpCAQywYTBdzgDaRLQRAnvLpa3vQycsbD9iWm2ks2SIUBOg+fHXAE0YoOdxo8sIIt+UpxNnYg==}

@@ -14,6 +14,7 @@
     "vue": "~2.7.16"
   },
   "dependencies": {
-    "@td/shared": "workspace:^"
+    "@td/shared": "workspace:^",
+    "tdesign-icons-vue": "^0.2.2"
   }
 }

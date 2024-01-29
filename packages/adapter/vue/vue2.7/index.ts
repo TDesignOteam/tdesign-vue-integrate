@@ -1,4 +1,5 @@
 import * as Vue from "vue";
+import { h as H } from "vue";
 import type { VNode} from "vue";
 
 function getCurrentInstance() {
@@ -21,9 +22,9 @@ function getVNode(node: VNode) {
   }
 }
 
-
 export * from 'vue'
 export {
   getVNode,
   getCurrentInstance,
+  H,
 }
