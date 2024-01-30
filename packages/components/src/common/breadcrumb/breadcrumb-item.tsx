@@ -5,7 +5,7 @@ import { defineComponent, VNode, inject, ref, computed, getCurrentInstance, onMo
 // import Tooltip from '../tooltip/index';
 
 import { isNodeOverflow } from '@td/adapter-utils';
-import { usePrefixClass, useGlobalIcon, useTNodeJSX } from "@td/adapter-hooks";
+import { usePrefixClass, useGlobalIcon, useTNodeJSX, useEmitEvent } from "@td/adapter-hooks";
 
 import props from '@td/adapter-intel/components/breadcrumb/breadcrumb-item-props';
 interface LocalTBreadcrumb {
@@ -28,7 +28,7 @@ export default defineComponent({
   name: 'TBreadcrumbItem',
   inheritAttrs: false,
   props,
-  setup(props, { slots, attrs }) {
+  setup(props, { slots, attrs, emit }) {
     const breadcrumbText = ref<HTMLElement>();
     const localTBreadcrumb = inject('tBreadcrumb', localTBreadcrumbOrigin);
     const themeClassName = ref(localTBreadcrumb?.theme);
@@ -40,6 +40,7 @@ export default defineComponent({
     const maxLengthClass = usePrefixClass('breadcrumb__inner');
     const textFlowClass = usePrefixClass('breadcrumb--text-overflow');
     const renderTNodeJSX = useTNodeJSX();
+    const emitEvent = useEmitEvent();
 
     const { ChevronRightIcon } = useGlobalIcon({ ChevronRightIcon: TdChevronRightIcon });
     const maxWithStyle = computed(() => {
@@ -67,9 +68,8 @@ export default defineComponent({
     const beforeClick = (e: MouseEvent) => {
       if (props.disabled) {
         e.stopPropagation();
-        return;
       } else {
-        props.onClick?.({ e })
+        emitEvent('click', { e });
       }
     }
 

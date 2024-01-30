@@ -4,12 +4,12 @@ import type { VNode} from "vue";
 
 function getCurrentInstance() {
   const innerInstance = Vue.getCurrentInstance()?.proxy;
-  const instance = {
+  const instance = innerInstance ? {
     ...innerInstance,
-    props: innerInstance?.$props,
-    vnode: innerInstance?.$vnode,
-    emit: innerInstance?.$emit.bind(innerInstance)
-  }
+    props: innerInstance.$props,
+    vnode: innerInstance.$vnode,
+    emit: innerInstance.$emit.bind(innerInstance)
+  } : undefined
 
   return instance;
 }
