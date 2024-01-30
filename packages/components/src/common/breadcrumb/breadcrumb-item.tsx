@@ -1,13 +1,13 @@
-import { defineComponent, VNode, inject, ref, computed, getCurrentInstance, onMounted, onBeforeUpdate } from '@td/adapter-vue';
+import isFunction from 'lodash/isFunction';
 import { ChevronRightIcon as TdChevronRightIcon } from 'tdesign-icons-vue-next';
+import { defineComponent, VNode, inject, ref, computed, getCurrentInstance, onMounted, onBeforeUpdate } from '@td/adapter-vue';
 
-import props from '@td/adapter-intel/components/breadcrumb/breadcrumb-item-props';
 // import Tooltip from '../tooltip/index';
 
 import { isNodeOverflow } from '@td/adapter-utils';
 import { usePrefixClass, useGlobalIcon, useTNodeJSX } from "@td/adapter-hooks";
-import isFunction from 'lodash/isFunction';
 
+import props from '@td/adapter-intel/components/breadcrumb/breadcrumb-item-props';
 interface LocalTBreadcrumb {
   separator: (() => void) | string;
   theme: string;
@@ -21,7 +21,7 @@ const localTBreadcrumbOrigin: LocalTBreadcrumb = {
   separator: '',
   theme: 'light',
   slots: { separator: '' },
-  maxItemWidth: undefined,
+  maxItemWidth: '',
 };
 
 export default defineComponent({
@@ -49,10 +49,11 @@ export default defineComponent({
     });
 
     onMounted(() => {
-      isCutOff.value = isNodeOverflow(breadcrumbText.value);
+      isCutOff.value = isNodeOverflow(breadcrumbText.value!);
     });
+    
     onBeforeUpdate(() => {
-      isCutOff.value = isNodeOverflow(breadcrumbText.value);
+      isCutOff.value = isNodeOverflow(breadcrumbText.value!);
     });
 
     const separatorPropContent = localTBreadcrumb?.separator;
@@ -63,43 +64,40 @@ export default defineComponent({
     const separatorContent = separatorPropContent || separatorSlot || '>';
     const instance = getCurrentInstance();
 
-    const handleClick = () => {
-      if (props.href) {
-        window.location.href = props.href;
+    const beforeClick = (e: MouseEvent) => {
+      if (props.disabled) {
+        e.stopPropagation();
+        return;
+      } else {
+        props.onClick?.({ e })
       }
-      const router = props.router || instance?.$router; // instance 上有这个吗？
-      if (props.to && router) {
-        props.replace ? router.replace(props.to) : router.push(props.to);
-      }
-    };
+    }
 
-    const bindEvent = (e: MouseEvent) => {
-      if (!props.disabled)
+    const handleItemClick = (e: MouseEvent) => {
+      beforeClick(e);
+      if (!props.disabled) {
         if (props.target === '_blank') {
           props.href ? window.open(props.href) : window.open(props.to as string);
         } else {
           e.preventDefault();
-          handleClick();
+          if (props.href) {
+            window.location.href = props.href;
+          }
+          const router = props.router || instance?.$router; // instance 上有这个吗？
+          if (props.to && router) {
+            props.replace ? router.replace(props.to) : router.push(props.to);
+          }
         }
+      }
     };
 
     return () => {
-
       const itemClass = [COMPONENT_NAME.value, themeClassName.value];
       const textClass = [textFlowClass.value];
 
       if (props.disabled) {
         textClass.push(disableClass.value);
       }
-      
-      const listeners = {
-        onClick: (e: MouseEvent) => {
-          if (props.disabled) {
-            e.stopPropagation();
-            return;
-          }
-        },
-      };
 
       const textContent = (
         <span class={maxLengthClass.value} style={maxWithStyle.value }>
@@ -109,12 +107,12 @@ export default defineComponent({
           </span>
         </span>
       );
-      let itemContent = <span class={textClass} {...listeners }>{textContent}</span>;
+      let itemContent = <span class={textClass} onClick={beforeClick}>{textContent}</span>;
 
       if ((props.href || props.to) && !props.disabled) {
         textClass.push(linkClass.value);
         itemContent = (
-          <a class={textClass} href={props.href} target={props.target} {...listeners} onClick={bindEvent}>
+          <a class={textClass} href={props.href} target={props.target} onClick={handleItemClick}>
             {textContent}
           </a>
         );

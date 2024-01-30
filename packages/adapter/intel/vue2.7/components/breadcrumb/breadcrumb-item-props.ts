@@ -51,4 +51,5 @@ export default {
   to: {
     type: [String, Object] as PropType<TdBreadcrumbItemProps['to']>,
   },
+  onClick: Function as PropType<TdBreadcrumbItemProps['onClick']>,
 };
