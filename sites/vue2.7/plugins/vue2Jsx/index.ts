@@ -2,7 +2,7 @@ import { createHash } from 'node:crypto'
 import path from 'node:path'
 import type { types } from '@babel/core'
 import * as babel from '@babel/core'
-import jsx from './vue-babel-preset-jsx'
+import jsx from '@td/libs-vue-babel-preset-jsx'
 // @ts-expect-error missing type
 import importMeta from '@babel/plugin-syntax-import-meta'
 import { createFilter } from '@rollup/pluginutils'

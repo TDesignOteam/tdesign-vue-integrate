@@ -1,6 +1,6 @@
 import syntaxJsx from '@babel/plugin-syntax-jsx'
 import { addDefault } from '@babel/helper-module-imports'
-import kebabcase from 'lodash.kebabcase'
+import kebabCase from 'lodash.kebabcase'
 import htmlTags from 'html-tags'
 import svgTags from 'svg-tags'
 
@@ -202,7 +202,7 @@ const parseAttributeJSXAttribute = (t, path, attributes, tagName, elementType) =
         attributes.scopedSlots = value;
         return;
       } else {
-        name = kebabcase(name.substr(1))
+        name = kebabCase(name.substr(1))
         prefix = 'directives';
       }
     } else {
