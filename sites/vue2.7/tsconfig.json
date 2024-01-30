@@ -1,5 +1,5 @@
 {
-  "extends": "tsconfig/default.json",
+  "extends": "@td/ts-config/default.json",
   "compilerOptions": {
     "paths": {
       "@/*": [

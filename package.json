@@ -8,9 +8,9 @@
     "format": "prettier --write \"**/*.{ts,tsx,md}\""
   },
   "devDependencies": {
-    "eslint-config": "workspace:^",
-    "prettier": "^3.2.4",
+    "@td/eslint-config": "workspace:^",
     "@td/ts-config": "workspace:^",
+    "prettier": "^3.2.4",
     "turbo": "latest"
   },
   "packageManager": "pnpm@8.9.0",

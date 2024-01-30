@@ -8,15 +8,15 @@ importers:
 
   .:
     devDependencies:
-      eslint-config:
-        specifier: workspace:*
+      '@td/eslint-config':
+        specifier: workspace:^
         version: link:configs/eslintconfig
+      '@td/ts-config':
+        specifier: workspace:^
+        version: link:configs/tsconfig
       prettier:
         specifier: ^3.2.4
         version: 3.2.4
-      tsconfig:
-        specifier: workspace:*
-        version: link:configs/tsconfig
       turbo:
         specifier: latest
         version: 1.11.3
@@ -35,9 +35,6 @@ importers:
       eslint-config-prettier:
         specifier: ^9.1.0
         version: 9.1.0(eslint@8.56.0)
-      eslint-config-turbo:
-        specifier: ^1.11.3
-        version: 1.11.3(eslint@8.56.0)
       eslint-plugin-only-warn:
         specifier: ^1.1.0
         version: 1.1.0
@@ -92,12 +89,12 @@ importers:
         specifier: ^4.17.21
         version: 4.17.21
     devDependencies:
+      '@td/ts-config':
+        specifier: workspace:^
+        version: link:../../../configs/tsconfig
       '@types/lodash':
         specifier: ^4.14.202
         version: 4.14.202
-      tsconfig:
-        specifier: workspace:^
-        version: link:../../../configs/tsconfig
 
   packages/adapter/hooks/vue2.7:
     dependencies:
@@ -108,12 +105,12 @@ importers:
         specifier: ^4.17.21
         version: 4.17.21
     devDependencies:
+      '@td/ts-config':
+        specifier: workspace:^
+        version: link:../../../../configs/tsconfig
       '@types/lodash':
         specifier: ^4.14.202
         version: 4.14.202
-      tsconfig:
-        specifier: workspace:^
-        version: link:../../../../configs/tsconfig
       vue:
         specifier: ~2.7.16
         version: 2.7.16
@@ -127,12 +124,12 @@ importers:
         specifier: ^4.17.21
         version: 4.17.21
     devDependencies:
+      '@td/ts-config':
+        specifier: workspace:^
+        version: link:../../../../configs/tsconfig
       '@types/lodash':
         specifier: ^4.14.202
         version: 4.14.202
-      tsconfig:
-        specifier: workspace:^
-        version: link:../../../../configs/tsconfig
 
   packages/adapter/intel/vue2.7:
     dependencies:
@@ -143,7 +140,7 @@ importers:
         specifier: ^0.2.2
         version: 0.2.2(vue@2.7.16)
     devDependencies:
-      tsconfig:
+      '@td/ts-config':
         specifier: workspace:^
         version: link:../../../../configs/tsconfig
       vue:
@@ -156,7 +153,7 @@ importers:
         specifier: workspace:^
         version: link:../../../shared
     devDependencies:
-      tsconfig:
+      '@td/ts-config':
         specifier: workspace:^
         version: link:../../../../configs/tsconfig
       vue:
@@ -184,13 +181,13 @@ importers:
 
   packages/adapter/vue:
     devDependencies:
-      tsconfig:
+      '@td/ts-config':
         specifier: workspace:^
         version: link:../../../configs/tsconfig
 
   packages/adapter/vue/vue2.7:
     devDependencies:
-      tsconfig:
+      '@td/ts-config':
         specifier: workspace:^
         version: link:../../../../configs/tsconfig
       vue:
@@ -199,7 +196,7 @@ importers:
 
   packages/adapter/vue/vue3:
     devDependencies:
-      tsconfig:
+      '@td/ts-config':
         specifier: workspace:^
         version: link:../../../../configs/tsconfig
       vue:
@@ -469,6 +466,9 @@ importers:
       '@td/libs-vue-babel-preset-jsx':
         specifier: workspace:^
         version: link:../../libs/vue-babel-preset-jsx
+      '@td/ts-config':
+        specifier: workspace:^
+        version: link:../../configs/tsconfig
       '@types/node':
         specifier: ^20.11.6
         version: 20.11.6
@@ -496,9 +496,6 @@ importers:
       tdesign-icons-view:
         specifier: ^0.2.6
         version: 0.2.6
-      tsconfig:
-        specifier: workspace:^
-        version: link:../../configs/tsconfig
       typescript:
         specifier: ^5.3.3
         version: 5.3.3
@@ -557,6 +554,9 @@ importers:
         specifier: ^4.2.5
         version: 4.2.5(vue@3.4.15)
     devDependencies:
+      '@td/ts-config':
+        specifier: workspace:^
+        version: link:../../configs/tsconfig
       '@types/node':
         specifier: ^20.11.6
         version: 20.11.6
@@ -581,9 +581,6 @@ importers:
       tdesign-icons-view:
         specifier: ^0.2.6
         version: 0.2.6
-      tsconfig:
-        specifier: workspace:^
-        version: link:../../configs/tsconfig
       typescript:
         specifier: ^5.3.3
         version: 5.3.3
@@ -7370,11 +7367,6 @@ packages:
       is-obj: 2.0.0
     dev: true
 
-  /dotenv@16.0.3:
-    resolution: {integrity: sha512-7GO6HghkA5fYG9TYnNxi14/7K9f5occMlp3zXAuSxn7CKCxt9xbNWG7yF8hTCSUchlfWSe3uLmlPfigevRItzQ==}
-    engines: {node: '>=12'}
-    dev: true
-
   /duplexer3@0.1.5:
     resolution: {integrity: sha512-1A8za6ws41LQgv9HrE/66jyC5yuSjQ3L/KOpFtoBilsAK2iA2wuS5rTt1OCzIvtS2V7nVmedsUU+DGRcjBmOYA==}
     dev: false
@@ -7718,15 +7710,6 @@ packages:
       eslint: 8.56.0
     dev: true
 
-  /eslint-config-turbo@1.11.3(eslint@8.56.0):
-    resolution: {integrity: sha512-v7CHpAHodBKlj+r+R3B2DJlZbCjpZLnK7gO/vCRk/Lc+tlD/f04wM6rmHlerevOlchtmwARilRLBnmzNLffTyQ==}
-    peerDependencies:
-      eslint: '>6.6.0'
-    dependencies:
-      eslint: 8.56.0
-      eslint-plugin-turbo: 1.11.3(eslint@8.56.0)
-    dev: true
-
   /eslint-import-resolver-alias@1.1.2(eslint-plugin-import@2.29.1):
     resolution: {integrity: sha512-WdviM1Eu834zsfjHtcGHtGfcu+F30Od3V7I9Fi57uhBEwPkjDcii7/yW8jAT+gOhn4P/vOxxNAXbFAKsrrc15w==}
     engines: {node: '>= 4'}
@@ -8025,15 +8008,6 @@ packages:
     dependencies:
       '@microsoft/tsdoc': 0.14.2
       '@microsoft/tsdoc-config': 0.16.2
-    dev: true
-
-  /eslint-plugin-turbo@1.11.3(eslint@8.56.0):
-    resolution: {integrity: sha512-R5ftTTWQzEYaKzF5g6m/MInCU8pIN+2TLL+S50AYBr1enwUovdZmnZ1HDwFMaxIjJ8x5ah+jvAzql5IJE9VWaA==}
-    peerDependencies:
-      eslint: '>6.6.0'
-    dependencies:
-      dotenv: 16.0.3
-      eslint: 8.56.0
     dev: true
 
   /eslint-plugin-unicorn@48.0.1(eslint@8.56.0):
