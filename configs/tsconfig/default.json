@@ -48,7 +48,7 @@
       ],
       "@td/adapter-intel/*": [
         "packages/adapter/intel/vue3/*"
-      ]
+      ],
     }
   },
   "exclude": ["node_modules"]

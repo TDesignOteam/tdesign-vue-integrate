@@ -12,15 +12,15 @@ import { searchForWorkspaceRoot } from 'vite'
 
 
 const workspaceRoot = searchForWorkspaceRoot(process.cwd())
-const pathFromWorkspaceRoot = (...args: string[]) => path.posix.resolve(workspaceRoot, ...args)
+const getRootPath = (...args: string[]) => path.posix.resolve(workspaceRoot, ...args)
 
 
 const resolveConfig = (vueVersion: number) => {
   return {
-    '@adapter/vue': pathFromWorkspaceRoot(`packages/adapter/vue/vue${vueVersion}`),
-    '@adapter/hooks': pathFromWorkspaceRoot(`packages/adapter/hooks/vue${vueVersion}`),
-    '@adapter/utils': pathFromWorkspaceRoot(`packages/adapter/utils/vue${vueVersion}`),
-    '@td/adapter-intel': pathFromWorkspaceRoot(`packages/adapter/intel/vue${vueVersion}`),
+    '@adapter/vue': getRootPath(`packages/adapter/vue/vue${vueVersion}`),
+    '@adapter/hooks': getRootPath(`packages/adapter/hooks/vue${vueVersion}`),
+    '@adapter/utils': getRootPath(`packages/adapter/utils/vue${vueVersion}`),
+    '@td/adapter-intel': getRootPath(`packages/adapter/intel/vue${vueVersion}`),
   }
 }
 
