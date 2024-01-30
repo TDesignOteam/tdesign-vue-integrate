@@ -35,7 +35,7 @@
     "less": "^4.2.0",
     "prismjs": "^1.29.0",
     "tdesign-icons-view": "^0.2.6",
-    "tsconfig": "workspace:^",
+    "@td/ts-config": "workspace:^",
     "typescript": "^5.3.3",
     "unplugin-vue2-script-setup": "^0.11.4",
     "vite": "^5.0.12",

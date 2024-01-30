@@ -10,7 +10,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "tsconfig": "workspace:^",
+    "@td/ts-config": "workspace:^",
     "vue": "^3.4.15"
   }
 }
