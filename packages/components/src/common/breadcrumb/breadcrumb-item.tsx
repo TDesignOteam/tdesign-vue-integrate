@@ -59,10 +59,10 @@ export default defineComponent({
 
     const separatorPropContent = localTBreadcrumb?.separator;
     const separatorSlot = localTBreadcrumb?.slots?.separator;
-    // const separatorContent = separatorPropContent || separatorSlot || (
-    //   <ChevronRightIcon {...{ color: 'rgba(0,0,0,.3)' }} />
-    // );
-    const separatorContent = separatorPropContent || separatorSlot || '>';
+    const separatorContent = separatorPropContent || separatorSlot || (
+      <TdChevronRightIcon {...{ color: 'rgba(0,0,0,.3)' }} />
+    );
+    // const separatorContent = separatorPropContent || separatorSlot || '>';
     const instance = getCurrentInstance();
 
     const beforeClick = (e: MouseEvent) => {

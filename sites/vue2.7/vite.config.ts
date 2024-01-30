@@ -36,11 +36,11 @@ const publicPathMap = {
 const isCustomElement = (tag) => tag.startsWith('td-') || tag.startsWith('tdesign-theme');
 
 
-export const transformintel = () => ({
+export const transformTDIcon = () => ({
   name: 'transform-intel',
   transform(code, id) {
-    const intelReg = /from "TDesign\/intel/g;
-    code = code.replace(intelReg, 'from "./vue3');
+    const intelReg = /from ['"]tdesign-icons-vue-next['"]/g;
+    code = code.replace(intelReg, 'from \'tdesign-icons-vue\'');
     
     return code;
   }
@@ -64,9 +64,7 @@ export default defineConfig(({ mode }) => {
       },
     },
     plugins: [
-      // transformintel(),
-      // vue2({
-      // }),
+      transformTDIcon(),
       ScriptSetup({}),
       vue2Jsx({
         vModel: true,
@@ -80,7 +78,7 @@ export default defineConfig(({ mode }) => {
       TDocPlugin(),
     ],
     optimizeDeps: {
-      include: ['prismjs', 'prismjs/components/prism-bash.js', '@vue/babel-helper-vue-jsx-merge-props', 'tdesign-icons-vue-next'],
+      include: ['prismjs', 'prismjs/components/prism-bash.js', '@vue/babel-helper-vue-jsx-merge-props', 'tdesign-icons-vue'],
     },
   }
 })

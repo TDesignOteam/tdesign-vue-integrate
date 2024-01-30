@@ -435,7 +435,7 @@ importers:
       semver:
         specifier: ^7.5.4
         version: 7.5.4
-      tdesign-icons-vue-next:
+      tdesign-icons-vue:
         specifier: ^0.2.2
         version: 0.2.2(vue@2.7.16)
       tdesign-site-components:
@@ -15056,15 +15056,6 @@ packages:
       tvision-color: 1.6.0
       vue: 2.7.14
     dev: true
-
-  /tdesign-icons-vue-next@0.2.2(vue@2.7.16):
-    resolution: {integrity: sha512-ZKleBME7ZF1IVgnRXmIBPjfNa2Mef1nrK56f2xwn1Aa5mvXxB3fSxEzwhObR7bhzf/K42mz/Knnbll5Y7vCBjg==}
-    peerDependencies:
-      vue: ^3.0.0
-    dependencies:
-      '@babel/runtime': 7.23.8
-      vue: 2.7.16
-    dev: false
 
   /tdesign-icons-vue-next@0.2.2(vue@3.4.15):
     resolution: {integrity: sha512-ZKleBME7ZF1IVgnRXmIBPjfNa2Mef1nrK56f2xwn1Aa5mvXxB3fSxEzwhObR7bhzf/K42mz/Knnbll5Y7vCBjg==}
