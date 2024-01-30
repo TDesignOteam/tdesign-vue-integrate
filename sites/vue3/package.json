@@ -4,9 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "pnpm run dev:vue3",
-    "dev:vue3": "vite --mode vue3",
-    "dev:vue2": "vite --mode vue2",
+    "dev": "pnpm run dev",
     "build": "vue-tsc && vite build",
     "preview": "vite preview"
   },

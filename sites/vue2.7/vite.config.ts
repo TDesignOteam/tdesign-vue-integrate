@@ -1,22 +1,19 @@
-import { defineConfig, searchForWorkspaceRoot } from 'vite'
 import * as path from 'path';
 import { VitePWA } from 'vite-plugin-pwa';
-import ScriptSetup from 'unplugin-vue2-script-setup/vite';
-
-import TDocPlugin from './plugins/doc';
-import PWA from "./configs/pwa";
-
 // import vue2 from '@vitejs/plugin-vue2';
 import { createVuePlugin } from 'vite-plugin-vue2';
+import ScriptSetup from 'unplugin-vue2-script-setup/vite';
+import { defineConfig, searchForWorkspaceRoot } from 'vite'
+
+import PWA from "./configs/pwa";
+import TDocPlugin from './plugins/doc';
 // import vue2Jsx from '@vitejs/plugin-vue2-jsx';
 import vue2Jsx from './plugins/vue2Jsx';
-
 
 const workspaceRoot = searchForWorkspaceRoot(process.cwd())
 const getRootPath = (...args: string[]) => path.posix.resolve(workspaceRoot, ...args)
 
-
-const resolveConfig = (vueVersion: number) => {
+const resolveAlias = (vueVersion: number) => {
   return {
     '@adapter/vue': getRootPath(`packages/adapter/vue/vue${vueVersion}`),
     '@adapter/hooks': getRootPath(`packages/adapter/hooks/vue${vueVersion}`),
@@ -51,7 +48,7 @@ export default defineConfig(({ mode }) => {
     base: publicPathMap[mode],
     resolve: {
       alias: {
-        ...resolveConfig(2.7),
+        ...resolveAlias(2.7),
         '@': path.resolve(__dirname),
       }
     },
