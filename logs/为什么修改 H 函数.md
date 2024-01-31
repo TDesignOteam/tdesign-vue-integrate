@@ -1,0 +1,1 @@
+vue2 render 自动注入 h  
