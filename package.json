@@ -11,7 +11,7 @@
     "@td/eslint-config": "workspace:^",
     "@td/ts-config": "workspace:^",
     "prettier": "^3.2.4",
-    "turbo": "latest"
+    "turbo": "~1.11.3"
   },
   "packageManager": "pnpm@8.9.0",
   "engines": {
