@@ -40,7 +40,7 @@ export default defineConfig(({ mode }) => {
     },
     server: {
       host: '0.0.0.0',
-      port: 1700,
+      port: 17000,
       open: '/',
       fs: {
         allow: ['..'],
