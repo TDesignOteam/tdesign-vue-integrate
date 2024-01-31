@@ -21,13 +21,13 @@
     "vue-router": "^3.6.5"
   },
   "devDependencies": {
-    "@babel/core": "^7.23.2",
+    "@babel/core": "^7.23.9",
     "@babel/plugin-syntax-import-meta": "^7.10.4",
     "@babel/plugin-transform-typescript": "^7.23.6",
     "@rollup/pluginutils": "^5.1.0",
     "@td/libs-vue-babel-preset-jsx": "workspace:^",
     "@td/ts-config": "workspace:^",
-    "@types/node": "^20.11.6",
+    "@types/node": "^20.11.13",
     "@vitejs/plugin-vue2": "^2.3.1",
     "@vitejs/plugin-vue2-jsx": "^1.1.1",
     "@vue/babel-helper-vue-jsx-merge-props": "^1.4.0",
@@ -39,7 +39,7 @@
     "typescript": "^5.3.3",
     "unplugin-vue2-script-setup": "^0.11.4",
     "vite": "^5.0.12",
-    "vite-plugin-pwa": "^0.17.4",
+    "vite-plugin-pwa": "^0.17.5",
     "vite-plugin-tdoc": "^2.0.4",
     "vite-plugin-vue2": "^2.0.3",
     "vue-tsc": "^1.8.27"
