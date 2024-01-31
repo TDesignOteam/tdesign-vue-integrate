@@ -255,6 +255,37 @@ importers:
         specifier: ^3.4.15
         version: 3.4.15(typescript@5.3.3)
 
+  packages/intel: {}
+
+  packages/intel/vue2.7:
+    dependencies:
+      '@td/shared':
+        specifier: workspace:^
+        version: link:../../shared
+      tdesign-icons-vue:
+        specifier: ^0.2.2
+        version: 0.2.2(vue@2.7.16)
+    devDependencies:
+      '@td/ts-config':
+        specifier: workspace:^
+        version: link:../../../configs/tsconfig
+      vue:
+        specifier: ~2.7.16
+        version: 2.7.16
+
+  packages/intel/vue3:
+    dependencies:
+      '@td/shared':
+        specifier: workspace:^
+        version: link:../../shared
+    devDependencies:
+      '@td/ts-config':
+        specifier: workspace:^
+        version: link:../../../configs/tsconfig
+      vue:
+        specifier: ^3.4.15
+        version: 3.4.15(typescript@5.3.3)
+
   packages/shared: {}
 
   packages/shared/_common:
@@ -422,7 +453,10 @@ importers:
     dependencies:
       '@td/adapter-intel-vue2.7':
         specifier: workspace:^
-        version: link:../../packages/adapter/intel/vue2.7
+        version: link:../../packages/intel/vue2.7
+      '@td/adapter-vue':
+        specifier: workspace:^
+        version: link:../../packages/adapter/vue
       '@td/components':
         specifier: workspace:^
         version: link:../../packages/components
@@ -522,7 +556,7 @@ importers:
     dependencies:
       '@td/adapter-intel-vue3':
         specifier: workspace:^
-        version: link:../../packages/adapter/intel/vue3
+        version: link:../../packages/intel/vue3
       '@td/components':
         specifier: workspace:^
         version: link:../../packages/components

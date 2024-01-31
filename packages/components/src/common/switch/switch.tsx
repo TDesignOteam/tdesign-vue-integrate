@@ -7,7 +7,7 @@ import { defineComponent, computed, watch, toRefs, H } from '@td/adapter-vue';
 import type { TNodeReturnValue } from '@td/shared/interface';
 import { usePrefixClass, useCommonClassName, useDisabled, useVModel  } from '@td/adapter-hooks';
 
-import props from '@td/adapter-intel/components/switch/props';
+import props from '@td/intel/components/switch/props';
 
 export default defineComponent({
   name: 'TSwitch',

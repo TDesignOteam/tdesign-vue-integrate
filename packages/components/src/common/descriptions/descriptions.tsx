@@ -6,8 +6,8 @@ import { LayoutEnum } from '@td/shared/interface';
 
 import { useTNodeJSX, useChildComponentSlots, usePrefixClass } from '@td/adapter-hooks';
 
-import props from '@td/adapter-intel/components/descriptions/props';
-import type { TdDescriptionsProps } from '@td/adapter-intel/components/descriptions/type';
+import props from '@td/intel/components/descriptions/props';
+import type { TdDescriptionsProps } from '@td/intel/components/descriptions/type';
 
 import descriptionsKey from './const';
 import DescriptionsBody from './descriptions-body';

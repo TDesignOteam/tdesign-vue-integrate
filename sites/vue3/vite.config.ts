@@ -16,7 +16,7 @@ const resolveAlias = (vueVersion: number) => {
     '@adapter/vue': getRootPath(`packages/adapter/vue/vue${vueVersion}`),
     '@adapter/hooks': getRootPath(`packages/adapter/hooks/vue${vueVersion}`),
     '@adapter/utils': getRootPath(`packages/adapter/utils/vue${vueVersion}`),
-    '@td/adapter-intel': getRootPath(`packages/adapter/intel/vue${vueVersion}`),
+    '@td/intel': getRootPath(`packages/intel/vue${vueVersion}`),
   }
 }
 

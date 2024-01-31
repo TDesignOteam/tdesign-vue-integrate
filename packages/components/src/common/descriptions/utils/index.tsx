@@ -3,7 +3,7 @@ import isFunction from 'lodash/isFunction';
 import isString from 'lodash/isString';
 
 import { ItemsType, TdDescriptionItem } from '../interface';
-import { TdDescriptionItemProps } from '@td/adapter-intel/components/descriptions/type';
+import { TdDescriptionItemProps } from '@td/intel/components/descriptions/type';
 
 /**
  * ! 处理 node string / <div> / () => <div> / Component

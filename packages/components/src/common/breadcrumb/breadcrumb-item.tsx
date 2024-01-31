@@ -7,7 +7,7 @@ import { defineComponent, VNode, inject, ref, computed, getCurrentInstance, onMo
 import { isNodeOverflow } from '@td/adapter-utils';
 import { usePrefixClass, useGlobalIcon, useTNodeJSX, useEmitEvent } from "@td/adapter-hooks";
 
-import props from '@td/adapter-intel/components/breadcrumb/breadcrumb-item-props';
+import props from '@td/intel/components/breadcrumb/breadcrumb-item-props';
 interface LocalTBreadcrumb {
   separator: (() => void) | string;
   theme: string;

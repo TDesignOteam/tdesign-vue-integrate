@@ -43,11 +43,11 @@
       "@adapter/utils/*": [
         "packages/adapter/utils/vue3/*"
       ],
-      "@td/adapter-intel": [
-        "packages/adapter/intel/vue3"
+      "@td/intel": [
+        "packages/intel/vue3"
       ],
-      "@td/adapter-intel/*": [
-        "packages/adapter/intel/vue3/*"
+      "@td/intel/*": [
+        "packages/intel/vue3/*"
       ],
     }
   },

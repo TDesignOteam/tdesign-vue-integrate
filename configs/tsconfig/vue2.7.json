@@ -20,11 +20,11 @@
       "@adapter/utils/*": [
         "packages/adapter/utils/vue2.7/*"
       ],
-      "@td/adapter-intel": [
-        "packages/adapter/intel/vue2.7"
+      "@td/intel": [
+        "packages/intel/vue2.7"
       ],
-      "@td/adapter-intel/*": [
-        "packages/adapter/intel/vue2.7/*"
+      "@td/intel/*": [
+        "packages/intel/vue2.7/*"
       ]
     }
   }

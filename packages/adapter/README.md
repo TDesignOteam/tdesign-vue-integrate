@@ -11,16 +11,3 @@
 
 ## @td/adapter-utils
 用于导出所有的 utils
-
-## @td/adapter-intel
-用于导出组件的其它信息
-- props
-- types
-- example
-- test
-- usage
-
-## icon ？
-icon 怎么适配呢？如果按照相同的思路来， tree shaking 是个大问题
-
-有一个办法，那就是直接在编译的时候硬替换

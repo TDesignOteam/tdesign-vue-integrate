@@ -9,7 +9,7 @@ import descriptionsKey from './const';
 import { ItemsType } from './interface';
 import type { TdDescriptionItem } from './interface';
 import { renderVNodeTNode, itemTypeIsProps } from './utils';
-import type { TdDescriptionsProps } from '@td/adapter-intel/components/descriptions/type';
+import type { TdDescriptionsProps } from '@td/intel/components/descriptions/type';
 
 
 export default defineComponent({
