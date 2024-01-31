@@ -34,14 +34,14 @@ const isCustomElement = (tag) => tag.startsWith('td-') || tag.startsWith('tdesig
 
 
 export const transformTDIcon = () => ({
-  name: 'transform-intel',
+  name: 'transform-icon',
   transform(code, id) {
     const intelReg = /from ['"]tdesign-icons-vue-next['"]/g;
     code = code.replace(intelReg, 'from \'tdesign-icons-vue\'');
     
     return code;
   }
-})
+});
 
 export default defineConfig(({ mode }) => {
   return {

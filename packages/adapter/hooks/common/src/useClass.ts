@@ -36,7 +36,6 @@ export function useCommonClassName() {
 
 export type CommonClassNameType = ReturnType<typeof useCommonClassName>;
 
-
 export function usePrefixClass(componentName?: string) {
     // ! 应该从 useConfig 中导入的
     const classPrefix = ref('t')

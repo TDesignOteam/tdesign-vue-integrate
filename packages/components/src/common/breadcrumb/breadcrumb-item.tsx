@@ -100,7 +100,7 @@ export default defineComponent({
       }
 
       const textContent = (
-        <span class={maxLengthClass.value} style={maxWithStyle.value }>
+        <span class={maxLengthClass.value} style={maxWithStyle.value}>
           {renderTNodeJSX('icon')}
           <span ref={breadcrumbText} class={`${maxLengthClass.value}-text`}>
             {renderTNodeJSX('default')}

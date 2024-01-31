@@ -1,5 +1,5 @@
 {
-  "extends": "@td/ts-config/default.json",
+  "extends": "@td/ts-config/vue2.7.json",
   "compilerOptions": {
     "paths": {
       "@/*": [
