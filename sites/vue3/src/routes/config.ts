@@ -594,14 +594,14 @@ export const docs = [
   //   titleEn: 'Notifications',
   //   type: 'component', // 组件文档
   //   children: [
-  //     {
-  //       title: 'Alert 警告提醒',
-  //       titleEn: 'Alert',
-  //       name: 'alert',
-  //       path: '/vue-next/components/alert',
-  //       component: () => import('@td/intel/components/alert/alert.md'),
-  //       componentEn: () => import('@td/intel/components/alert/alert.en-US.md'),
-  //     },
+      {
+        title: 'Alert 警告提醒',
+        titleEn: 'Alert',
+        name: 'alert',
+        path: '/vue-next/components/alert',
+        component: () => import('@td/intel/components/alert/alert.md'),
+        componentEn: () => import('@td/intel/components/alert/alert.en-US.md'),
+      },
   //     {
   //       title: 'Dialog 对话框',
   //       titleEn: 'Dialog',

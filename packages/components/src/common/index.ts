@@ -8,3 +8,4 @@ export * from './timeline';
 export * from './swiper';
 export * from './badge';
 export * from './steps';
+export * from './alert';

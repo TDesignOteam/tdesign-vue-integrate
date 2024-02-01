@@ -10,7 +10,8 @@ function getCurrentInstance() {
     ...innerInstance,
     props: innerInstance.$props,
     vnode: innerInstance.$vnode,
-    emit: innerInstance.$emit.bind(innerInstance)
+    emit: innerInstance.$emit.bind(innerInstance),
+    slots: innerInstance.$scopedSlots
   } : undefined
 
   return instance;
