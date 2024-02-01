@@ -1,4 +1,4 @@
-import { VNode, Slots, h, ComponentOptions, getVNode } from '@td/adapter-vue';
+import { VNode, Slots, h, ComponentOptions } from '@td/adapter-vue';
 import isFunction from 'lodash/isFunction';
 import isString from 'lodash/isString';
 
@@ -36,11 +36,10 @@ export function renderCustomNode(node: string | ((...args: any[]) => any) | Comp
  * @returns
  */
 export function renderVNodeTNode(node: VNode, name1: string, name2?: string) {
-  const vNode = getVNode(node);
-  const prop = vNode.props?.[name1];
+  const prop = node.props?.[name1];
   if (prop) return prop;
 
-  const children = vNode.children as Slots;
+  const children = node.children as Slots;
   const slot = children?.[name1] || (name2 && children?.[name2]);
 
   if (slot) return slot?.();

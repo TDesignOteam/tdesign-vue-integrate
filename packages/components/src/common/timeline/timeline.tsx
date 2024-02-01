@@ -49,7 +49,6 @@ export default defineComponent({
       const getChildComponentSlots = useChildComponentSlots();
       let timelineItems = getChildComponentSlots('TTimelineItem');
       if (props.reverse) timelineItems = timelineItems.reverse();
-      timelineItems = timelineItems.map(node => getVNode(node))
       
       return (
         <ul
