@@ -416,14 +416,14 @@ export const docs = [
   //       component: () => import('@td/intel/components/avatar/avatar.md'),
   //       componentEn: () => import('@td/intel/components/avatar/avatar.en-US.md'),
   //     },
-  //     {
-  //       title: 'Badge 徽标',
-  //       titleEn: 'Badge',
-  //       name: 'badge',
-  //       path: '/vue-next/components/badge',
-  //       component: () => import('@td/intel/components/badge/badge.md'),
-  //       componentEn: () => import('@td/intel/components/badge/badge.en-US.md'),
-  //     },
+      {
+        title: 'Badge 徽标',
+        titleEn: 'Badge',
+        name: 'badge',
+        path: '/vue-next/components/badge',
+        component: () => import('@td/intel/components/badge/badge.md'),
+        componentEn: () => import('@td/intel/components/badge/badge.en-US.md'),
+      },
   //     {
   //       title: 'Calendar 日历',
   //       titleEn: 'Calendar',
