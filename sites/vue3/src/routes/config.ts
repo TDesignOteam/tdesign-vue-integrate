@@ -200,14 +200,14 @@ export const docs = [
   //       component: () => import('@td/intel/components/pagination/pagination.md'),
   //       componentEn: () => import('@td/intel/components/pagination/pagination.en-US.md'),
   //     },
-  //     {
-  //       title: 'Steps 步骤条',
-  //       titleEn: 'Steps',
-  //       name: 'steps',
-  //       path: '/vue-next/components/steps',
-  //       component: () => import('@td/intel/components/steps/steps.md'),
-  //       componentEn: () => import('@td/intel/components/steps/steps.en-US.md'),
-  //     },
+      {
+        title: 'Steps 步骤条',
+        titleEn: 'Steps',
+        name: 'steps',
+        path: '/vue-next/components/steps',
+        component: () => import('@td/intel/components/steps/steps.md'),
+        componentEn: () => import('@td/intel/components/steps/steps.en-US.md'),
+      },
   //     {
   //       title: 'StickyTool 侧边栏',
   //       titleEn: 'StickyTool',
