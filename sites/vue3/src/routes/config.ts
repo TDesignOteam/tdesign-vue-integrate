@@ -522,14 +522,14 @@ export const docs = [
   //       component: () => import('@td/intel/components/statistic/statistic.md'),
   //       componentEn: () => import('@td/intel/components/statistic/statistic.en-US.md'),
   //     },
-  //     {
-  //       title: 'Swiper 轮播框',
-  //       titleEn: 'Swiper',
-  //       name: 'swiper',
-  //       path: '/vue-next/components/swiper',
-  //       component: () => import('@td/intel/components/swiper/swiper.md'),
-  //       componentEn: () => import('@td/intel/components/swiper/swiper.en-US.md'),
-  //     },
+      {
+        title: 'Swiper 轮播框',
+        titleEn: 'Swiper',
+        name: 'swiper',
+        path: '/vue-next/components/swiper',
+        component: () => import('@td/intel/components/swiper/swiper.md'),
+        componentEn: () => import('@td/intel/components/swiper/swiper.en-US.md'),
+      },
   //     {
   //       title: 'Table 表格',
   //       titleEn: 'Table',
