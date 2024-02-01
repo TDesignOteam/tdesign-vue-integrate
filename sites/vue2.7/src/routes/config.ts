@@ -90,14 +90,14 @@ export const docs = [
   //       component: () => import('@td/intel/components/icon/icon.md'),
   //       componentEn: () => import('@td/intel/components/icon/icon.en-US.md'),
   //     },
-  //     {
-  //       title: 'Link 链接',
-  //       titleEn: 'Link',
-  //       name: 'link',
-  //       path: '/vue/components/link',
-  //       component: () => import('@td/intel/components/link/link.md'),
-  //       componentEn: () => import('@td/intel/components/link/link.en-US.md'),
-  //     },
+      {
+        title: 'Link 链接',
+        titleEn: 'Link',
+        name: 'link',
+        path: '/vue/components/link',
+        component: () => import('@td/intel/components/link/link.md'),
+        componentEn: () => import('@td/intel/components/link/link.en-US.md'),
+      },
   //   ],
   // },
   // {
