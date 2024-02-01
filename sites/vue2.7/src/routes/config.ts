@@ -570,14 +570,14 @@ export const docs = [
   //       component: () => import('@td/intel/components/tree/tree.md'),
   //       componentEn: () => import('@td/intel/components/tree/tree.en-US.md'),
   //     },
-  //     {
-  //       title: 'Watermark 水印',
-  //       titleEn: 'Watermark',
-  //       name: 'watermark',
-  //       path: '/vue/components/watermark',
-  //       component: () => import('@td/intel/components/watermark/watermark.md'),
-  //       componentEn: () => import('@td/intel/components/watermark/watermark.en-US.md'),
-  //     },
+      {
+        title: 'Watermark 水印',
+        titleEn: 'Watermark',
+        name: 'watermark',
+        path: '/vue/components/watermark',
+        component: () => import('@td/intel/components/watermark/watermark.md'),
+        componentEn: () => import('@td/intel/components/watermark/watermark.en-US.md'),
+      },
   //     {
   //       title: 'Rate 评分',
   //       titleEn: 'Rate',
