@@ -4,3 +4,4 @@ export * from './breadcrumb';
 export * from './link';
 export * from './progress';
 export * from './watermark';
+export * from './timeline';

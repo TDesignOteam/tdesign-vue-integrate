@@ -546,14 +546,14 @@ export const docs = [
   //       component: () => import('@td/intel/components/tag/tag.md'),
   //       componentEn: () => import('@td/intel/components/tag/tag.en-US.md'),
   //     },
-  //     {
-  //       title: 'Timeline 时间轴',
-  //       titleEn: 'Timeline',
-  //       name: 'timeline',
-  //       path: '/vue-next/components/timeline',
-  //       component: () => import('@td/intel/components/timeline/timeline.md'),
-  //       componentEn: () => import('@td/intel/components/timeline/timeline.en-US.md'),
-  //     },
+      {
+        title: 'Timeline 时间轴',
+        titleEn: 'Timeline',
+        name: 'timeline',
+        path: '/vue-next/components/timeline',
+        component: () => import('@td/intel/components/timeline/timeline.md'),
+        componentEn: () => import('@td/intel/components/timeline/timeline.en-US.md'),
+      },
   //     {
   //       title: 'Tooltip 文字提示',
   //       titleEn: 'Tooltip',
