@@ -1,4 +1,4 @@
-import { computed, defineComponent } from 'vue';
+import { computed, defineComponent } from '@td/adapter-vue';
 import { useDisabled, useContent, useTNodeJSX, usePrefixClass, useCommonClassName, useEmitEvent } from '@td/adapter-hooks';
 import props from '@td/intel/components/link/props';
 

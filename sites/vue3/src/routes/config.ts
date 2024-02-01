@@ -498,14 +498,14 @@ export const docs = [
   //       component: () => import('@td/intel/components/loading/loading.md'),
   //       componentEn: () => import('@td/intel/components/loading/loading.en-US.md'),
   //     },
-  //     {
-  //       title: 'Progress 进度条',
-  //       titleEn: 'Progress',
-  //       name: 'progress',
-  //       path: '/vue-next/components/progress',
-  //       component: () => import('@td/intel/components/progress/progress.md'),
-  //       componentEn: () => import('@td/intel/components/progress/progress.en-US.md'),
-  //     },
+      {
+        title: 'Progress 进度条',
+        titleEn: 'Progress',
+        name: 'progress',
+        path: '/vue-next/components/progress',
+        component: () => import('@td/intel/components/progress/progress.md'),
+        componentEn: () => import('@td/intel/components/progress/progress.en-US.md'),
+      },
   //     {
   //       title: 'Skeleton 骨架屏',
   //       titleEn: 'Skeleton',
