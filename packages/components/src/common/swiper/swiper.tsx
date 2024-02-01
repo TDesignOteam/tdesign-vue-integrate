@@ -100,6 +100,7 @@ export default defineComponent({
       swiperItemLength.value = swiperItemList.length;
       const items = swiperItemList.map((swiperItem: any, index) => {
         const p = { ...props, ...swiperItem.props };
+        
         return (
           <TSwiperItem
             index={index}

@@ -1,4 +1,4 @@
-import { getCurrentInstance } from '@td/adapter-vue';
+import { getCurrentInstance, getVNode } from '@td/adapter-vue';
 import isArray from 'lodash/isArray';
 import { VNode } from 'vue/types/umd';
 import { ScopedSlot } from 'vue/types/vnode';
@@ -14,7 +14,7 @@ import { ScopedSlot } from 'vue/types/vnode';
  */
 export function useChildComponentSlots() {
   const instance = getCurrentInstance();
-  return (childComponentName: string, slots?: ScopedSlot): VNode[] => {
+  return (childComponentName: string, slots?: ScopedSlot) => {
     if (!slots) {
       // @ts-ignore
       // eslint-disable-next-line
@@ -38,7 +38,9 @@ export function useChildComponentSlots() {
       return childList;
     };
 
-    return getChildren(content)?.filter((item: VNode) => item.tag?.endsWith(childComponentName)) as VNode[];
+    return getChildren(content)
+      ?.filter((item: VNode) => item.tag?.endsWith(childComponentName))
+      ?.map((item) => getVNode(item));
   };
 }
 
