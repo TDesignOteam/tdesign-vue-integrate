@@ -28,7 +28,7 @@
     "@rollup/pluginutils": "^5.1.0",
     "@td/libs-vue-babel-preset-jsx": "workspace:^",
     "@td/ts-config": "workspace:^",
-    "@types/node": "^20.11.13",
+    "@types/node": "^20.11.16",
     "@vitejs/plugin-vue2": "^2.3.1",
     "@vitejs/plugin-vue2-jsx": "^1.1.1",
     "@vue/babel-helper-vue-jsx-merge-props": "^1.4.0",
