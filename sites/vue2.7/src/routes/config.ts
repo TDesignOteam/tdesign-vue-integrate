@@ -160,14 +160,14 @@ export const docs = [
   //       component: () => import('@td/intel/components/anchor/anchor.md'),
   //       componentEn: () => import('@td/intel/components/anchor/anchor.en-US.md'),
   //     },
-  //     {
-  //       title: 'BackTop 回到顶部',
-  //       titleEn: 'BackTop',
-  //       name: 'back-top',
-  //       path: '/vue/components/back-top',
-  //       component: () => import('@td/intel/components/back-top/back-top.md'),
-  //       componentEn: () => import('@td/intel/components/back-top/back-top.en-US.md'),
-  //     },
+      {
+        title: 'BackTop 回到顶部',
+        titleEn: 'BackTop',
+        name: 'back-top',
+        path: '/vue/components/back-top',
+        component: () => import('@td/intel/components/back-top/back-top.md'),
+        componentEn: () => import('@td/intel/components/back-top/back-top.en-US.md'),
+      },
       {
         title: 'Breadcrumb 面包屑',
         titleEn: 'Breadcrumb',

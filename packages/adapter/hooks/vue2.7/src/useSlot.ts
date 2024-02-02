@@ -1,4 +1,4 @@
-import { getCurrentInstance, getVNode } from '@td/adapter-vue';
+import { getCurrentInstance, getVNode, H } from '@td/adapter-vue';
 import isArray from 'lodash/isArray';
 import { VNode } from 'vue/types/umd';
 import { ScopedSlot } from 'vue/types/vnode';
@@ -44,4 +44,32 @@ export function useChildComponentSlots() {
   };
 }
 
-export default useChildComponentSlots;
+// ! 这个是我临时搬运的，需要后面细细看
+
+/**
+ * 渲染default slot，获取slot child
+ * @param childComponentName
+ * @param slots
+ * @example const getChildSlots = useChildSlots()
+ * @example getChildSlots()
+ */
+export function useChildSlots() {
+
+  return () => {
+    const instance = getCurrentInstance();
+    const content = instance?.slots?.default?.(H) || [];
+
+    return content
+      .filter((item) => {
+        if (!item.children) {
+          return false;
+        }
+        return true;
+      })
+      .map((item) => {
+        if (item.children && isArray(item.children)) return item.children;
+        return item;
+      })
+      .flat();
+  };
+}

@@ -9,3 +9,4 @@ export * from './swiper';
 export * from './badge';
 export * from './steps';
 export * from './alert';
+export * from './back-top';
