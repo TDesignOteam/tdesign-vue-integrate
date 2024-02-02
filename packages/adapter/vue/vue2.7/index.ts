@@ -3,6 +3,7 @@ import { h as H } from "vue";
 import type { VNode} from "vue";
 import clone from "lodash/clone";
 import merge from "lodash/merge";
+import Teleport from "./components/Teleport";
 
 function getCurrentInstance() {
   const innerInstance = Vue.getCurrentInstance()?.proxy;
@@ -50,5 +51,6 @@ export {
   getCurrentInstance,
   H,
   cloneVNode,
-  isVNode
+  isVNode,
+  Teleport
 }

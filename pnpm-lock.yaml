@@ -131,35 +131,6 @@ importers:
         specifier: ^4.14.202
         version: 4.14.202
 
-  packages/adapter/intel/vue2.7:
-    dependencies:
-      '@td/shared':
-        specifier: workspace:^
-        version: link:../../../shared
-      tdesign-icons-vue:
-        specifier: ^0.2.2
-        version: 0.2.2(vue@2.7.16)
-    devDependencies:
-      '@td/ts-config':
-        specifier: workspace:^
-        version: link:../../../../configs/tsconfig
-      vue:
-        specifier: ~2.7.16
-        version: 2.7.16
-
-  packages/adapter/intel/vue3:
-    dependencies:
-      '@td/shared':
-        specifier: workspace:^
-        version: link:../../../shared
-    devDependencies:
-      '@td/ts-config':
-        specifier: workspace:^
-        version: link:../../../../configs/tsconfig
-      vue:
-        specifier: ^3.4.15
-        version: 3.4.15(typescript@5.3.3)
-
   packages/adapter/utils:
     dependencies:
       '@td/shared':
