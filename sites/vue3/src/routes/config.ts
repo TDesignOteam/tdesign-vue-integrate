@@ -361,14 +361,14 @@ export const docs = [
         component: () => import('@td/intel/components/switch/switch.md'),
         componentEn: () => import('@td/intel/components/switch/switch.en-US.md'),
       },
-  //     {
-  //       title: 'Textarea 多行文本框',
-  //       titleEn: 'Textarea',
-  //       name: 'textarea',
-  //       path: '/vue-next/components/textarea',
-  //       component: () => import('@td/intel/components/textarea/textarea.md'),
-  //       componentEn: () => import('@td/intel/components/textarea/textarea.en-US.md'),
-  //     },
+      {
+        title: 'Textarea 多行文本框',
+        titleEn: 'Textarea',
+        name: 'textarea',
+        path: '/vue-next/components/textarea',
+        component: () => import('@td/intel/components/textarea/textarea.md'),
+        componentEn: () => import('@td/intel/components/textarea/textarea.en-US.md'),
+      },
   //     {
   //       title: 'Transfer 穿梭框',
   //       titleEn: 'Transfer',

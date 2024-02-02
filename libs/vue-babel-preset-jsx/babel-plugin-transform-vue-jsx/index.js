@@ -286,7 +286,11 @@ const getAttributes = (t, paths, tag, openingElementPath) => {
       attributesArray.map(el => {
         if (el.type === 'vueSpread') {
           // !todo zhangpaopao: 将所有 {...xxx} 都编译成 props={xxx}
-          return t.objectExpression([t.objectProperty(t.stringLiteral('props'), el.argument)]);
+          return t.objectExpression(
+            [
+              t.objectProperty(t.stringLiteral('props'), el.argument), 
+              t.objectProperty(t.stringLiteral('attrs'), el.argument),
+            ]);
         } else {
           return transformAttributes(t, el)
         }

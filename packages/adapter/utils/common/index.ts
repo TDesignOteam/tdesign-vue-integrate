@@ -1,2 +1,3 @@
 export *  from "./src/dom";
 export *  from "./src/easing";
+export *  from "./src/helper";
