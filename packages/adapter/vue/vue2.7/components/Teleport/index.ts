@@ -1,4 +1,4 @@
-import { defineComponent, ref, onMounted, computed, onBeforeUnmount, getCurrentInstance, H } from '../../index';
+import { defineComponent, ref, onMounted, computed, onBeforeUnmount, getCurrentInstance, H, watch } from '../../index';
 
 /**
  * 实现非常的简单，就是 dom 操作
@@ -54,9 +54,10 @@ export default defineComponent({
       return instance?.$el.childNodes;
     }
 
-    const moveToTarget = (childNodes: NodeListOf<ChildNode>) => {
+    const moveToTarget = () => {
       if (target.value) {
-        target.value.appendChild(markNode(childNodes))
+        const childNodes = getChildNodes();
+        childNodes && target.value.appendChild(markNode(childNodes))
       }
     }
 
@@ -70,9 +71,16 @@ export default defineComponent({
       }
     }
 
+    watch(
+      [() => props.to, () => props.disabled], 
+      () => {
+        removeInTarget();
+        moveToTarget();
+      }
+    )
+
     onMounted(() => {
-      const childNodes = getChildNodes();
-      childNodes && moveToTarget(childNodes);
+      moveToTarget()
     });
 
     onBeforeUnmount(() => {
