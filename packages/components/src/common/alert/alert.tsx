@@ -45,20 +45,12 @@ export default defineComponent({
     const collapsed = ref(true);
 
     const renderIcon = () => {
-      // const Component = {
-      //   info: InfoCircleFilledIcon,
-      //   success: CheckCircleFilledIcon,
-      //   warning: ErrorCircleFilledIcon,
-      //   error: ErrorCircleFilledIcon,
-      //   question: HelpCircleFilledIcon,
-      // };
-      // ! icon 要换哈
       const Component = {
-        info: TdInfoCircleFilledIcon,
-        success: TdCheckCircleFilledIcon,
-        warning: TdErrorCircleFilledIcon,
-        error: TdErrorCircleFilledIcon,
-        question: TdHelpCircleFilledIcon,
+        info: InfoCircleFilledIcon,
+        success: CheckCircleFilledIcon,
+        warning: ErrorCircleFilledIcon,
+        error: ErrorCircleFilledIcon,
+        question: HelpCircleFilledIcon,
       };
       const iconContent = renderIconTNode('icon', Component);
       return iconContent ? <div class={`${COMPONENT_NAME.value}__icon`}>{iconContent}</div> : null;
@@ -68,7 +60,7 @@ export default defineComponent({
       const { close } = props;
       let closeContent = null;
       if (close === true || close === '') {
-        closeContent = <TdCloseIcon />;
+        closeContent = <CloseIcon />;
       } else if (isString(close)) {
         closeContent = close;
       } else {
