@@ -506,14 +506,14 @@ export const docs = [
         component: () => import('@td/intel/components/progress/progress.md'),
         componentEn: () => import('@td/intel/components/progress/progress.en-US.md'),
       },
-  //     {
-  //       title: 'Skeleton 骨架屏',
-  //       titleEn: 'Skeleton',
-  //       name: 'skeleton',
-  //       path: '/vue-next/components/skeleton',
-  //       component: () => import('@td/intel/components/skeleton/skeleton.md'),
-  //       componentEn: () => import('@td/intel/components/skeleton/skeleton.en-US.md'),
-  //     },
+      {
+        title: 'Skeleton 骨架屏',
+        titleEn: 'Skeleton',
+        name: 'skeleton',
+        path: '/vue-next/components/skeleton',
+        component: () => import('@td/intel/components/skeleton/skeleton.md'),
+        componentEn: () => import('@td/intel/components/skeleton/skeleton.en-US.md'),
+      },
   //     {
   //       title: 'Statistic 统计数值',
   //       titleEn: 'Statistic',
