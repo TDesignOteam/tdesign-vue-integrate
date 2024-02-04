@@ -1,5 +1,5 @@
 import Vue, { h as H, getCurrentInstance as getCurrentInstanceInner } from "vue";
-import type { VNode} from "vue";
+import type { VNode, VueConstructor, PluginObject } from "vue";
 import clone from "lodash/clone";
 import merge from "lodash/merge";
 import Teleport from "./components/Teleport";
@@ -47,6 +47,27 @@ const isVNode = (obj: OptionsType) => {
 const Transition = Vue.component('Transition');
 const TransitionGroup = Vue.component('TransitionGroup');
 
+const createApp = (rootComp: VueConstructor, rootProps: Record<string, any> = {}) => {
+  const comp = Vue.extend(rootComp)
+  const ins = new comp({ propsData: rootProps });
+  const mount = (el: string | HTMLElement) => {
+    ins.$mount(el);
+    return ins;
+  };
+  return { ...ins, mount };
+};
+
+const pluginInstall = (app: VueConstructor, plugin: Plugin, path1: string, path2: string = '') => {
+  if(path2) {
+    const path1Obj = app.prototype[path1]
+    if(path1Obj) {
+      path1Obj[path2] = plugin;
+    }
+  } else {
+    app.prototype[path1] = plugin;
+  }
+};
+
 export * from 'vue'
 export {
   getVNode,
@@ -57,4 +78,6 @@ export {
   Teleport,
   Transition,
   TransitionGroup,
+  createApp,
+  pluginInstall
 }

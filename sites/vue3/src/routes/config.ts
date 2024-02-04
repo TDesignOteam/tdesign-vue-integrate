@@ -634,14 +634,14 @@ export const docs = [
   //       component: () => import('@td/intel/components/message/message.md'),
   //       componentEn: () => import('@td/intel/components/message/message.en-US.md'),
   //     },
-  //     {
-  //       title: 'Notification 消息通知',
-  //       titleEn: 'Notification',
-  //       name: 'notification',
-  //       path: '/vue-next/components/notification',
-  //       component: () => import('@td/intel/components/notification/notification.md'),
-  //       componentEn: () => import('@td/intel/components/notification/notification.en-US.md'),
-  //     },
+      {
+        title: 'Notification 消息通知',
+        titleEn: 'Notification',
+        name: 'notification',
+        path: '/vue-next/components/notification',
+        component: () => import('@td/intel/components/notification/notification.md'),
+        componentEn: () => import('@td/intel/components/notification/notification.en-US.md'),
+      },
   //     {
   //       title: 'Popconfirm 气泡确认框',
   //       titleEn: 'Popconfirm',

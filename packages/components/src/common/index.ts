@@ -14,3 +14,4 @@ export * from './skeleton';
 export * from './textarea';
 export * from './statistic';
 export * from './collapse';
+export * from './notification';

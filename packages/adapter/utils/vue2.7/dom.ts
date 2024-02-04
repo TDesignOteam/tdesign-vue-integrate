@@ -118,20 +118,6 @@ export function removeClass(el: Element, cls: string): any {
   }
 }
 
-export const getAttach = (node: any, triggerNode?: any): HTMLElement => {
-  const attachNode = typeof node === 'function' ? node(triggerNode) : node;
-  if (!attachNode) {
-    return document.body;
-  }
-  if (isString(attachNode)) {
-    return document.querySelector(attachNode);
-  }
-  if (attachNode instanceof HTMLElement) {
-    return attachNode;
-  }
-  return document.body;
-};
-
 /**
  * 获取滚动容器
  * 因为document不存在scroll等属性, 因此排除document

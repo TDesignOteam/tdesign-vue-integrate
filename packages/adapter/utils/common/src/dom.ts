@@ -1,4 +1,6 @@
 import raf from 'raf';
+import isString from 'lodash/isString';
+import isFunction from 'lodash/isFunction';
 import { easeInOutCubic, EasingFunction } from './easing';
 
 type ScrollTarget = HTMLElement | Window | Document;
@@ -72,3 +74,17 @@ export function scrollTo(target: number, opt: ScrollTopOptions) {
     raf(fnc);
   });
 }
+
+export const getAttach = (node: any, triggerNode?: any): HTMLElement | Element | null => {
+  const attachNode = isFunction(node) ? node(triggerNode) : node;
+  if (!attachNode) {
+    return document.body;
+  }
+  if (isString(attachNode)) {
+    return document.querySelector(attachNode);
+  }
+  if (attachNode instanceof HTMLElement) {
+    return attachNode;
+  }
+  return document.body;
+};
