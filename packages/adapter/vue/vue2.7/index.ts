@@ -57,16 +57,21 @@ const createApp = (rootComp: VueConstructor, rootProps: Record<string, any> = {}
   return { ...ins, mount };
 };
 
-const pluginInstall = (app: VueConstructor, plugin: Plugin, path1: string, path2: string = '') => {
-  if(path2) {
-    const path1Obj = app.prototype[path1]
-    if(path1Obj) {
-      path1Obj[path2] = plugin;
+const pluginInstall = (app: VueConstructor, plugin: Plugin, ...paths: string[]) => {
+  let lastObject = app.prototype;
+  for (let i = 0; i < paths.length - 1; i++) {
+    const path = paths[i];
+    if (!path) throw new Error(`Path ${i} is empty`);
+    if (!(path in lastObject)) {
+      lastObject[path] = {};
     }
-  } else {
-    app.prototype[path1] = plugin;
+    lastObject = lastObject[path];
   }
+  const lastPath = paths[paths.length - 1];
+  if (!lastPath) throw new Error('Last path is empty');
+  lastObject[lastPath] = plugin;
 };
+
 
 export * from 'vue'
 export {
