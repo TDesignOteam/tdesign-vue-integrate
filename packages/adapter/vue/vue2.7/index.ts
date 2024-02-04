@@ -1,12 +1,11 @@
-import * as Vue from "vue";
-import { h as H } from "vue";
+import Vue, { h as H, getCurrentInstance as getCurrentInstanceInner } from "vue";
 import type { VNode} from "vue";
 import clone from "lodash/clone";
 import merge from "lodash/merge";
 import Teleport from "./components/Teleport";
 
 function getCurrentInstance() {
-  const innerInstance = Vue.getCurrentInstance()?.proxy;
+  const innerInstance = getCurrentInstanceInner()?.proxy;
   const instance = innerInstance ? {
     ...innerInstance,
     props: innerInstance.$props,
@@ -45,6 +44,9 @@ const isVNode = (obj: OptionsType) => {
   return obj instanceof VNode;
 };
 
+const Transition = Vue.component('Transition');
+const TransitionGroup = Vue.component('TransitionGroup');
+
 export * from 'vue'
 export {
   getVNode,
@@ -52,5 +54,7 @@ export {
   H,
   cloneVNode,
   isVNode,
-  Teleport
+  Teleport,
+  Transition,
+  TransitionGroup,
 }
