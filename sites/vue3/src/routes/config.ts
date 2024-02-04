@@ -514,14 +514,14 @@ export const docs = [
         component: () => import('@td/intel/components/skeleton/skeleton.md'),
         componentEn: () => import('@td/intel/components/skeleton/skeleton.en-US.md'),
       },
-  //     {
-  //       title: 'Statistic 统计数值',
-  //       titleEn: 'Statistic',
-  //       name: 'statistic',
-  //       path: '/vue-next/components/statistic',
-  //       component: () => import('@td/intel/components/statistic/statistic.md'),
-  //       componentEn: () => import('@td/intel/components/statistic/statistic.en-US.md'),
-  //     },
+      {
+        title: 'Statistic 统计数值',
+        titleEn: 'Statistic',
+        name: 'statistic',
+        path: '/vue-next/components/statistic',
+        component: () => import('@td/intel/components/statistic/statistic.md'),
+        componentEn: () => import('@td/intel/components/statistic/statistic.en-US.md'),
+      },
       {
         title: 'Swiper 轮播框',
         titleEn: 'Swiper',

@@ -12,3 +12,4 @@ export * from './alert';
 export * from './back-top';
 export * from './skeleton';
 export * from './textarea';
+export * from './statistic';
