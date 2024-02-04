@@ -1,11 +1,13 @@
+import isArray from 'lodash/isArray';
 import { ComponentPublicInstance, defineComponent, provide, Ref, toRefs } from '@td/adapter-vue';
+
+import { useTNodeJSX, usePrefixClass, useVModel, useEmitEvent } from '@td/adapter-hooks';
+
 import TTabPanel from './tab-panel';
 import TTabNav from './tab-nav';
-import { TabValue, TdTabsProps } from '@td/intel/components/tabs/type';
-import props from '@td/intel/components/tabs/props';
 
-import { useTNodeJSX, usePrefixClass, useVModel } from '@td/adapter-hooks';
-import isArray from 'lodash/isArray';
+import props from '@td/intel/components/tabs/props';
+import { TabValue, TdTabsProps } from '@td/intel/components/tabs/type';
 
 export interface InjectTabs {
   value: Ref<TabValue>;
@@ -13,13 +15,12 @@ export interface InjectTabs {
 
 export default defineComponent({
   name: 'TTabs',
-
   props,
-
   setup(props) {
     const COMPONENT_NAME = usePrefixClass('tabs');
     const classPrefix = usePrefixClass();
     const renderTNodeJSX = useTNodeJSX();
+    const emitEvent = useEmitEvent();
 
     const { value, modelValue } = toRefs(props);
     const [tabValue, setTabValue] = useVModel(value, modelValue, props.defaultValue || '', props.onChange);
@@ -28,13 +29,13 @@ export default defineComponent({
 
     // methods
     const onTabAdd = (context: { e: MouseEvent }) => {
-      props.onAdd?.({ e: context.e });
+      emitEvent('add', { e: context.e })
     };
     const onTabChange = (value: TabValue) => {
       setTabValue(value);
     };
     const onTabRemove = ({ e, value, index }: Parameters<TdTabsProps['onRemove']>[0]) => {
-      props.onRemove({ value, index, e });
+      emitEvent('remove', { value, index, e })
     };
 
     // render

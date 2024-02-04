@@ -1,22 +1,19 @@
 import { computed, defineComponent, inject, ref, watch } from '@td/adapter-vue';
 import props from '@td/intel/components/tabs/tab-panel-props';
-import { usePrefixClass, useCommonClassName } from '../hooks/useConfig';
-import useDestroyOnClose from '../hooks/useDestroyOnClose';
-import { useContent } from '../hooks/tnode';
+import { usePrefixClass, useCommonClassName, useContent } from '@td/adapter-hooks';
 
 import type { InjectTabs } from './tabs';
 
 export default defineComponent({
   name: 'TTabPanel',
-
-  props: { ...props },
-
+  props,
   setup(props) {
     const COMPONENT_NAME = usePrefixClass('tab-panel');
     const { STATUS } = useCommonClassName();
     const renderTNodeContent = useContent();
 
-    useDestroyOnClose();
+    // ! 记得检查这里是否有问题，useDestroyOnClose 被 ResizeObserver 替代了，但还是检查一下
+    // useDestroyOnClose();
 
     const tabs = inject<InjectTabs>('tabs');
     const isActive = computed(() => props.value === tabs.value.value);

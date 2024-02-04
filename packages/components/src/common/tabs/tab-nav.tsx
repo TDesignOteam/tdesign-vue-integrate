@@ -17,9 +17,8 @@ import TTabNavItem from './tab-nav-item';
 import TTabNavBar from './tab-nav-bar';
 
 // hooks
-// import { useResize } from '../hooks/useListener';
-
-import { usePrefixClass, useCommonClassName, useGlobalIcon } from '@td/adapter-hooks';
+import { usePrefixClass, useCommonClassName, useGlobalIcon, useResize } from '@td/adapter-hooks';
+// ! 看看怎么处理吧
 // import useDragSort from '../hooks/useDragSort';
 
 const { calculateCanToLeft, calculateCanToRight, calcScrollLeft, scrollToLeft, scrollToRight, moveActiveTabIntoView } =
@@ -27,6 +26,7 @@ const { calculateCanToLeft, calculateCanToRight, calcScrollLeft, scrollToLeft, s
 
 export default defineComponent({
   name: 'TTabNav',
+  // ! 这是拿来干什么的
   ...{ resizeObserver: null },
   props: {
     theme: tabProps.theme,
@@ -153,7 +153,7 @@ export default defineComponent({
     watch([scrollLeft, () => props.placement, () => props.panels], totalAdjust);
 
     // life times
-    // useResize(debounce(totalAdjust), navsContainerRef.value);
+    useResize(debounce(totalAdjust), navsContainerRef.value);
 
     onMounted(() => {
       calculateMountedScrollLeft();
