@@ -121,14 +121,14 @@ export const docs = [
         component: () => import('@td/intel/components/grid/grid.md'),
         componentEn: () => import('@td/intel/components/grid/grid.en-US.md'),
       },
-  //     {
-  //       title: 'Layout 布局',
-  //       titleEn: 'Layout',
-  //       name: 'layout',
-  //       path: '/vue/components/layout',
-  //       component: () => import('@td/intel/components/layout/layout.md'),
-  //       componentEn: () => import('@td/intel/components/layout/layout.en-US.md'),
-  //     },
+      {
+        title: 'Layout 布局',
+        titleEn: 'Layout',
+        name: 'layout',
+        path: '/vue/components/layout',
+        component: () => import('@td/intel/components/layout/layout.md'),
+        componentEn: () => import('@td/intel/components/layout/layout.en-US.md'),
+      },
   //     {
   //       title: 'Space 间距',
   //       titleEn: 'Space',
