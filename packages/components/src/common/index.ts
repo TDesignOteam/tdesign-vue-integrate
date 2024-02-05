@@ -15,7 +15,7 @@ export * from './textarea';
 export * from './statistic';
 export * from './collapse';
 export * from './notification';
-export * from './loading'
 export * from './grid';
 export * from './layout';
 export * from './space';
+export * from './loading'

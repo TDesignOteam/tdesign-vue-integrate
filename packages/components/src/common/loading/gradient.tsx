@@ -11,7 +11,7 @@ export default defineComponent({
   setup() {
     const classPrefix = usePrefixClass();
     onMounted(() => {
-      const circleElem = getCurrentInstance()?.refs.circle as HTMLElement;
+      const circleElem = getCurrentInstance()?.refs?.circle as HTMLElement;
       nextTick(() => {
         circleAdapter(circleElem);
       });

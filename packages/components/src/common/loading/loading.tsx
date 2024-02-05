@@ -187,7 +187,7 @@ export default defineComponent({
       // Loading is wrapping a HTMLElement.
       if (hasContent.value) {
         return (
-          <div class={relativeClass} {...attrs}>
+          <div class={relativeClass.value} {...attrs}>
             {renderContent("default", "content")}
             {showWrapLoading.value && (
               <div class={withContentClasses} style={styles.value}>
