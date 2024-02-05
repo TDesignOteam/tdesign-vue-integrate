@@ -19,3 +19,5 @@ export * from './grid';
 export * from './layout';
 export * from './space';
 export * from './loading'
+export * from './divider';
+export * from './radio';

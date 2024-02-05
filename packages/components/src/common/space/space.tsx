@@ -54,6 +54,7 @@ export default defineComponent({
     function renderChildren() {
       const children = getChildSlots();
       const separatorContent = renderTNodeJSX('separator');
+      
       return children.map((child, index) => {
         // filter last child
         const showSeparator = index + 1 !== children.length && separatorContent;

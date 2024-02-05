@@ -6,3 +6,4 @@ export * from './src/useConfig';
 export * from './src/useCollapseAnimation';
 export * from './src/useListener';
 export * from './src/useTeleport';
+export * from './src/useResizeObserver';

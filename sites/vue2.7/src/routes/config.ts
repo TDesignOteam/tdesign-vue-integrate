@@ -100,19 +100,19 @@ export const docs = [
       },
   //   ],
   // },
-  // {
-  //   title: '布局',
-  //   titleEn: 'Layout',
-  //   type: 'component',
-  //   children: [
-  //     {
-  //       title: 'Divider 分割线',
-  //       titleEn: 'Divider',
-  //       name: 'divider',
-  //       path: '/vue/components/divider',
-  //       component: () => import('@td/intel/components/divider/divider.md'),
-  //       componentEn: () => import('@td/intel/components/divider/divider.en-US.md'),
-  //     },
+  {
+    title: '布局',
+    titleEn: 'Layout',
+    type: 'component',
+    children: [
+      {
+        title: 'Divider 分割线',
+        titleEn: 'Divider',
+        name: 'divider',
+        path: '/vue/components/divider',
+        component: () => import('@td/intel/components/divider/divider.md'),
+        componentEn: () => import('@td/intel/components/divider/divider.en-US.md'),
+      },
       {
         title: 'Grid 栅格',
         titleEn: 'Grid',
@@ -137,8 +137,8 @@ export const docs = [
         component: () => import('@td/intel/components/space/space.md'),
         componentEn: () => import('@td/intel/components/space/space.en-US.md'),
       },
-  //   ],
-  // },
+    ],
+  },
   // {
   //   title: '导航',
   //   titleEn: 'Navigation',
@@ -312,14 +312,14 @@ export const docs = [
   //       component: () => import('@td/intel/components/tag-input/tag-input.md'),
   //       componentEn: () => import('@td/intel/components/tag-input/tag-input.en-US.md'),
   //     },
-  //     {
-  //       title: 'Radio 单选框',
-  //       titleEn: 'Radio',
-  //       name: 'radio',
-  //       path: '/vue/components/radio',
-  //       component: () => import('@td/intel/components/radio/radio.md'),
-  //       componentEn: () => import('@td/intel/components/radio/radio.en-US.md'),
-  //     },
+      {
+        title: 'Radio 单选框',
+        titleEn: 'Radio',
+        name: 'radio',
+        path: '/vue/components/radio',
+        component: () => import('@td/intel/components/radio/radio.md'),
+        componentEn: () => import('@td/intel/components/radio/radio.en-US.md'),
+      },
   //     {
   //       title: 'RangeInput 范围输入框',
   //       titleEn: 'RangeInput',
