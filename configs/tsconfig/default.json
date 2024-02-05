@@ -49,6 +49,7 @@
       "@td/intel/*": [
         "packages/intel/vue3/*"
       ],
+      "@td/shared/*":[ "packages/shared/*"]
     }
   },
   "exclude": ["node_modules"]

@@ -15,3 +15,4 @@ export * from './textarea';
 export * from './statistic';
 export * from './collapse';
 export * from './notification';
+export * from './loading'

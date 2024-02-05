@@ -4,18 +4,16 @@
 /* eslint-disable no-param-reassign */
 /* eslint-disable no-undef */
 import { ComponentPublicInstance, VNode } from 'vue';
-import raf from 'raf';
 import isString from 'lodash/isString';
 import isFunction from 'lodash/isFunction';
 import isArray from 'lodash/isArray';
-import { easeInOutCubic, EasingFunction } from './easing';
-import { ScrollContainer, ScrollContainerElement } from '../common';
+import { ScrollContainer, ScrollContainerElement } from '@td/shared/interface';
 
 export const isServer = typeof window === 'undefined';
 const trim = (str: string): string => (str || '').replace(/^[\s\uFEFF]+|[\s\uFEFF]+$/g, '');
 
 export const on = ((): any => {
-  if (!isServer && document.addEventListener) {
+  if (!isServer) {
     return (
       element: Node,
       event: string,
@@ -35,7 +33,7 @@ export const on = ((): any => {
 })();
 
 export const off = ((): any => {
-  if (!isServer && document.removeEventListener) {
+  if (!isServer) {
     return (
       element: Node,
       event: string,

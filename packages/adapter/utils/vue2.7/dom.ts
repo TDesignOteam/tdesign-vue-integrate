@@ -3,17 +3,15 @@
  */
 /* eslint-disable no-param-reassign */
 import Vue from 'vue';
-import raf from 'raf';
 import isString from 'lodash/isString';
-import { easeInOutCubic, EasingFunction } from './easing';
-import { ScrollContainer, ScrollContainerElement } from '../common';
+import { ScrollContainer, ScrollContainerElement } from '@td/shared/interface';
 
 export const isServer = Vue.prototype.$isServer || typeof window === 'undefined';
 
 export const trim = (str: string): string => (str || '').replace(/^[\s\uFEFF]+|[\s\uFEFF]+$/g, '');
 
 export const on = ((): any => {
-  if (!isServer && document.addEventListener) {
+  if (!isServer) {
     return (
       element: Node,
       event: string,
@@ -35,7 +33,7 @@ export const on = ((): any => {
 })();
 
 export const off = ((): any => {
-  if (!isServer && document.removeEventListener) {
+  if (!isServer) {
     return (
       element: Node,
       event: string,

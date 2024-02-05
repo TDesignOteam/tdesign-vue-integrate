@@ -490,14 +490,14 @@ export const docs = [
   //       component: () => import('@td/intel/components/list/list.md'),
   //       componentEn: () => import('@td/intel/components/list/list.en-US.md'),
   //     },
-  //     {
-  //       title: 'Loading 加载',
-  //       titleEn: 'Loading',
-  //       name: 'loading',
-  //       path: '/vue-next/components/loading',
-  //       component: () => import('@td/intel/components/loading/loading.md'),
-  //       componentEn: () => import('@td/intel/components/loading/loading.en-US.md'),
-  //     },
+      {
+        title: 'Loading 加载',
+        titleEn: 'Loading',
+        name: 'loading',
+        path: '/vue-next/components/loading',
+        component: () => import('@td/intel/components/loading/loading.md'),
+        componentEn: () => import('@td/intel/components/loading/loading.en-US.md'),
+      },
       {
         title: 'Progress 进度条',
         titleEn: 'Progress',
