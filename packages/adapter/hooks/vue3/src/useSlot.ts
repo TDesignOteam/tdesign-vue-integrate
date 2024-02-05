@@ -73,7 +73,7 @@ export function useChildSlots(): () => (
   return () => {
     const { slots } = instance;
     const content = slots?.default?.() || [];
-
+    console.log(content, 'content');
     return content
       .filter((item) => {
         if (typeof item.type === 'symbol' && !item.children) {
