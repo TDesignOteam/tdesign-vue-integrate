@@ -18,3 +18,4 @@ export * from './notification';
 export * from './grid';
 export * from './layout';
 export * from './space';
+export * from './divider';

@@ -100,19 +100,19 @@ export const docs = [
       },
   //   ],
   // },
-  // {
-  //   title: '布局',
-  //   titleEn: 'Layout',
-  //   type: 'component',
-  //   children: [
-  //     {
-  //       title: 'Divider 分割线',
-  //       titleEn: 'Divider',
-  //       name: 'divider',
-  //       path: '/vue-next/components/divider',
-  //       component: () => import('@td/intel/components/divider/divider.md'),
-  //       componentEn: () => import('@td/intel/components/divider/divider.en-US.md'),
-  //     },
+  {
+    title: '布局',
+    titleEn: 'Layout',
+    type: 'component',
+    children: [
+      {
+        title: 'Divider 分割线',
+        titleEn: 'Divider',
+        name: 'divider',
+        path: '/vue-next/components/divider',
+        component: () => import('@td/intel/components/divider/divider.md'),
+        componentEn: () => import('@td/intel/components/divider/divider.en-US.md'),
+      },
       {
         title: 'Grid 栅格',
         titleEn: 'Grid',
@@ -137,8 +137,8 @@ export const docs = [
         component: () => import('@td/intel/components/space/space.md'),
         componentEn: () => import('@td/intel/components/space/space.en-US.md'),
       },
-  //   ],
-  // },
+    ],
+  },
   // {
   //   title: '导航',
   //   titleEn: 'Navigation',
