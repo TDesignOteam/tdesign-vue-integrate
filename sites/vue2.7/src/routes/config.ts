@@ -129,14 +129,14 @@ export const docs = [
         component: () => import('@td/intel/components/layout/layout.md'),
         componentEn: () => import('@td/intel/components/layout/layout.en-US.md'),
       },
-  //     {
-  //       title: 'Space 间距',
-  //       titleEn: 'Space',
-  //       name: 'space',
-  //       path: '/vue/components/space',
-  //       component: () => import('@td/intel/components/space/space.md'),
-  //       componentEn: () => import('@td/intel/components/space/space.en-US.md'),
-  //     },
+      {
+        title: 'Space 间距',
+        titleEn: 'Space',
+        name: 'space',
+        path: '/vue/components/space',
+        component: () => import('@td/intel/components/space/space.md'),
+        componentEn: () => import('@td/intel/components/space/space.en-US.md'),
+      },
   //   ],
   // },
   // {
