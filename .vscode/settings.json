@@ -17,8 +17,35 @@
   "better-comments.highlightPlainText": true,
   "better-comments.tags": [
     {
-      "tag": "vue23",
+      "tag": "vue23:*",
       "color": "#F48564",
+      "strikethrough": false,
+      "underline": false,
+      "backgroundColor": "transparent",
+      "bold": false,
+      "italic": false
+    },
+    {
+      "tag": "vue23:??",
+      "color": "#E25530",
+      "strikethrough": false,
+      "underline": false,
+      "backgroundColor": "transparent",
+      "bold": false,
+      "italic": false
+    },
+    {
+      "tag": "vue23:todo",
+      "color": "#FF8C00",
+      "strikethrough": false,
+      "underline": false,
+      "backgroundColor": "transparent",
+      "bold": false,
+      "italic": false
+    },
+    {
+      "tag": "vue23:!",
+      "color": "#FF2D00",
       "strikethrough": false,
       "underline": false,
       "backgroundColor": "transparent",
