@@ -21,7 +21,7 @@ function getValidAttrs(obj: Record<string, any>): Record<string, any> {
 export default defineComponent({
   name: 'TRadio',
   inheritAttrs: false,
-  props: { ...props },
+  props,
 
   setup(props, { attrs }) {
     const inputRef = ref();
