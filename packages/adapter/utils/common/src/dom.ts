@@ -1,7 +1,10 @@
 import raf from 'raf';
 import isString from 'lodash/isString';
 import isFunction from 'lodash/isFunction';
+import { ComponentPublicInstance } from 'vue';
 import { easeInOutCubic, EasingFunction } from './easing';
+
+export const isServer = typeof window === 'undefined';
 
 type ScrollTarget = HTMLElement | Window | Document;
 
@@ -88,3 +91,95 @@ export const getAttach = (node: any, triggerNode?: any): HTMLElement | Element |
   }
   return document.body;
 };
+
+// 用于判断节点内容是否溢出
+export const isNodeOverflow = (
+  ele: ComponentPublicInstance | Element | ComponentPublicInstance[] | Element[],
+): boolean => {
+  const { clientWidth = 0, scrollWidth = 0 } = ele as Element & { clientWidth: number; scrollWidth: number };
+  return scrollWidth > clientWidth;
+};
+
+export const on = ((): any => {
+  if (!isServer && !!document.addEventListener) {
+    return (
+      element: Node,
+      event: string,
+      handler: EventListenerOrEventListenerObject,
+      options?: boolean | AddEventListenerOptions,
+    ): any => {
+      if (element && event && handler) {
+        element.addEventListener(event, handler, options);
+      }
+    };
+  }
+  return (element: Node, event: string, handler: EventListenerOrEventListenerObject): any => {
+    if (element && event && handler) {
+      (element as any).attachEvent(`on${event}`, handler);
+    }
+  };
+})();
+
+export const off = ((): any => {
+  if (!isServer && !!document.removeEventListener) {
+    return (
+      element: Node,
+      event: string,
+      handler: EventListenerOrEventListenerObject,
+      options?: boolean | AddEventListenerOptions,
+    ): any => {
+      if (element && event) {
+        element.removeEventListener(event, handler, options);
+      }
+    };
+  }
+  return (element: Node, event: string, handler: EventListenerOrEventListenerObject): any => {
+    if (element && event) {
+      (element as any).detachEvent(`on${event}`, handler);
+    }
+  };
+})();
+
+export function once(
+  element: Node,
+  event: string,
+  handler: EventListenerOrEventListenerObject,
+  options?: boolean | AddEventListenerOptions,
+) {
+  const handlerFn = isFunction(handler) ? handler : handler.handleEvent;
+  const callback = (evt: any) => {
+    handlerFn(evt);
+    off(element, event, callback, options);
+  };
+
+  on(element, event, callback, options);
+}
+
+export function hasClass(el: Element, cls: string): any {
+  if (!el || !cls) return false;
+  if (cls.indexOf(' ') !== -1) throw new Error('className should not contain space.');
+  if (el.classList) {
+    return el.classList.contains(cls);
+  }
+  return ` ${el.className} `.indexOf(` ${cls} `) > -1;
+}
+
+export function addClass(el: Element, cls: string): any {
+  if (!el) return;
+  let curClass = el.className;
+  const classes = (cls || '').split(' ');
+
+  for (let i = 0, j = classes.length; i < j; i++) {
+    const clsName = classes[i];
+    if (!clsName) continue;
+
+    if (el.classList) {
+      el.classList.add(clsName);
+    } else if (!hasClass(el, clsName)) {
+      curClass += ` ${clsName}`;
+    }
+  }
+  if (!el.classList) {
+    el.className = curClass;
+  }
+}
