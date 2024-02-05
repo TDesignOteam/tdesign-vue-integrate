@@ -113,14 +113,14 @@ export const docs = [
   //       component: () => import('@td/intel/components/divider/divider.md'),
   //       componentEn: () => import('@td/intel/components/divider/divider.en-US.md'),
   //     },
-  //     {
-  //       title: 'Grid 栅格',
-  //       titleEn: 'Grid',
-  //       name: 'grid',
-  //       path: '/vue-next/components/grid',
-  //       component: () => import('@td/intel/components/grid/grid.md'),
-  //       componentEn: () => import('@td/intel/components/grid/grid.en-US.md'),
-  //     },
+      {
+        title: 'Grid 栅格',
+        titleEn: 'Grid',
+        name: 'grid',
+        path: '/vue-next/components/grid',
+        component: () => import('@td/intel/components/grid/grid.md'),
+        componentEn: () => import('@td/intel/components/grid/grid.en-US.md'),
+      },
   //     {
   //       title: 'Layout 布局',
   //       titleEn: 'Layout',
