@@ -1,7 +1,8 @@
-import { getSSRAttach, getAttach } from '../../../utils';
-import { computed, Ref, onMounted, ref, watch } from '@td/adapter-vue';
-import { AttachNode } from '@td/shared/interface';
 import isFunction from 'lodash/isFunction';
+
+import { getAttach } from '@td/adapter-utils';
+import { AttachNode } from '@td/shared/interface';
+import { computed, Ref, onMounted, ref, watch } from '@td/adapter-vue';
 
 /**
  * @description 返回挂载的节点, 用于teleport
@@ -11,20 +12,17 @@ import isFunction from 'lodash/isFunction';
 export const useTeleport = (
   attach: (() => AttachNode) | Ref<AttachNode>,
   triggerNode?: (() => any) | Ref<any>,
-): Ref<string | Element> => {
+): Ref<Element> => {
   // 如果是函数, 则使用computed包裹 否则直接使用ref
   const to = isFunction(attach) ? computed(attach) : ref(attach);
   const innerTriggerNode = isFunction(triggerNode) ? computed(triggerNode) : ref(triggerNode);
 
-  const element = ref<string | Element>();
+  const element = ref<Element>(document.body);
+  const getElement = () => element.value = getAttach(to.value, innerTriggerNode.value) || document.body;
+  
+  onMounted(getElement);
 
-  const getElement = () => {
-    element.value = getAttach(to.value, innerTriggerNode.value) || 'body';
-  };
+  watch([to, innerTriggerNode], getElement);
 
-  onMounted(() => getElement());
-
-  watch([to, innerTriggerNode], () => getElement());
-
-  return element as Ref<string | Element> ;
+  return element;
 };

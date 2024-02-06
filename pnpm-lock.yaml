@@ -82,6 +82,9 @@ importers:
 
   packages/adapter/hooks:
     dependencies:
+      '@td/adapter-utils':
+        specifier: workspace:^
+        version: link:../utils
       '@td/adapter-vue':
         specifier: workspace:^
         version: link:../vue
