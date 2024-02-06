@@ -10,8 +10,9 @@
 </template>
 
 <script>
-const demoVueReq = import.meta.globEager('../../../src/**/_example/*.vue');
-const demoJsxReq = import.meta.globEager('../../../src/**/_example/*.jsx');
+const demoVueReq = import.meta.glob('../../node_modules/@td/intel-vue3/components/**/_example/*.vue', { eager: true } );
+const demoJsxReq = import.meta.glob('../../node_modules/@td/intel-vue3/components/**/_example/*.jsx', { eager: true } );
+
 
 const demoReq = { ...demoVueReq, ...demoJsxReq };
 const demoObject = {};

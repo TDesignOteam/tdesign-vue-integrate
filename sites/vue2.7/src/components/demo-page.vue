@@ -10,7 +10,7 @@
 </template>
 
 <script>
-const demoReq = import.meta.globEager('../../../src/**/_example/*.vue');
+const demoReq = import.meta.glob('../../node_modules/@td/intel-vue2.7/components/**/_example/*.vue', { eager: true } );
 
 const demoObject = {};
 const demoList = {};

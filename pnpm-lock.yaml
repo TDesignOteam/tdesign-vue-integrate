@@ -438,15 +438,15 @@ importers:
 
   sites/vue2.7:
     dependencies:
-      '@td/adapter-intel-vue2.7':
-        specifier: workspace:^
-        version: link:../../packages/intel/vue2.7
       '@td/adapter-vue':
         specifier: workspace:^
         version: link:../../packages/adapter/vue
       '@td/components':
         specifier: workspace:^
         version: link:../../packages/components
+      '@td/intel-vue2.7':
+        specifier: workspace:^
+        version: link:../../packages/intel/vue2.7
       '@td/shared':
         specifier: workspace:^
         version: link:../../packages/shared
@@ -541,12 +541,12 @@ importers:
 
   sites/vue3:
     dependencies:
-      '@td/adapter-intel-vue3':
-        specifier: workspace:^
-        version: link:../../packages/intel/vue3
       '@td/components':
         specifier: workspace:^
         version: link:../../packages/components
+      '@td/intel-vue3':
+        specifier: workspace:^
+        version: link:../../packages/intel/vue3
       '@td/shared':
         specifier: workspace:^
         version: link:../../packages/shared

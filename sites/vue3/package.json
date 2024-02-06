@@ -9,7 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@td/adapter-intel-vue3": "workspace:^",
+    "@td/intel-vue3": "workspace:^",
     "@td/components": "workspace:^",
     "@td/shared": "workspace:^",
     "codesandbox": "^2.2.3",
