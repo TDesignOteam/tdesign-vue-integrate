@@ -1,7 +1,7 @@
 import { defineComponent, ref, computed, Ref, CSSProperties } from '@td/adapter-vue';
 
 import { usePrefixClass } from '@td/adapter-hooks';
-import { TdNotificationProps, NotificationOptions } from '@td/intel/components/notification/type';
+import type { TdNotificationProps, NotificationOptions } from '@td/intel/components/notification/type';
 
 import Notification from './notification';
 import { DEFAULT_Z_INDEX, PLACEMENT_OFFSET, DISTANCE } from './const';

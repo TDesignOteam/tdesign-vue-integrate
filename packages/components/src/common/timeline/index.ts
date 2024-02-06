@@ -1,7 +1,7 @@
 import _Timeline from './timeline';
 import _TimelineItem from './timeline-item';
 import { withInstall } from '@td/adapter-utils';
-import { TdTimelineProps } from '@td/intel/components/timeline/type';
+import type { TdTimelineProps } from '@td/intel/components/timeline/type';
 
 import './style';
 

@@ -1,4 +1,5 @@
-import { App, Plugin, createApp, defineComponent, h, reactive,pluginInstall } from '@td/adapter-vue';
+import type { App, Plugin } from '@td/adapter-vue';
+import { createApp, defineComponent, h, reactive,pluginInstall } from '@td/adapter-vue';
 import LoadingComponent from './loading';
 import { getAttach, removeClass, addClass } from '@td/adapter-utils';
 import { usePrefixClass } from '@td/adapter-hooks';

@@ -5,7 +5,7 @@
  * updated at 2021-11-19 10:44:26
  * */
 
-import { TNode } from '../common';
+import type { TNode } from '@td/shared/interface';
 
 export interface TdAlertProps {
   /**

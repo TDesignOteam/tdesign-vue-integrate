@@ -5,8 +5,8 @@
  * updated at 2021-12-06 21:29:31
  * */
 
-import { TdLoadingProps } from './type';
-import { PropType } from 'vue';
+import type { TdLoadingProps } from './type';
+import type { PropType } from 'vue';
 
 export default {
   /** 挂载元素，默认挂载到组件本身所在的位置。仅全屏加载模式下有效。数据类型为 String 时，会被当作选择器处理，进行节点查询。示例：'body' 或 () => document.body */

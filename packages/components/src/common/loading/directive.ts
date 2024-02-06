@@ -1,5 +1,5 @@
 import type { Directive, DirectiveBinding } from '@td/adapter-vue';
-import { TdLoadingProps } from '@td/intel/components/loading/type';
+import type { TdLoadingProps } from '@td/intel/components/loading/type';
 import produceLoading from './plugin';
 
 const INSTANCE_KEY = Symbol('TdLoading');

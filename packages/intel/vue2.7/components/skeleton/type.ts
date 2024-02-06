@@ -5,7 +5,7 @@
  * updated at 2021-12-26 15:04:09
  * */
 
-import { TNode } from '../common';
+import type { TNode } from '@td/shared/interface';
 
 export interface TdSkeletonProps {
   /**

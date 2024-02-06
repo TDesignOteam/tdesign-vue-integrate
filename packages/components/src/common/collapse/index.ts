@@ -1,7 +1,7 @@
 import _Collapse from './collapse';
 import _CollapsePanel from './collapse-panel';
 import { withInstall } from '@td/adapter-utils';
-import { TdCollapseProps } from '@td/intel/components/collapse/type';
+import type { TdCollapseProps } from '@td/intel/components/collapse/type';
 
 import './style';
 

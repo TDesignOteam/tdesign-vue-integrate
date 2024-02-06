@@ -1,4 +1,5 @@
-import { Ref, watch, onBeforeUnmount } from '@td/adapter-vue';
+import { watch, onBeforeUnmount } from '@td/adapter-vue';
+import type { Ref } from '@td/adapter-vue';
 
 export function useResizeObserver(
   container: Ref<HTMLElement>,

@@ -2,7 +2,7 @@ import { computed, defineComponent, provide, reactive, ref, toRefs, VNode } from
 import isObject from 'lodash/isObject';
 import props from '@td/intel/components/steps/props';
 import stepItemProps from '@td/intel/components/steps/step-item-props';
-import { TdStepItemProps } from '@td/intel/components/steps/type';
+import type { TdStepItemProps } from '@td/intel/components/steps/type';
 import StepItem from './step-item';
 
 import { usePrefixClass, useVModel, useChildComponentSlots } from '@td/adapter-hooks';

@@ -1,5 +1,5 @@
 {
-  "name": "@td/adapter-utils",
+  "name": "@td/adapter-utils-common",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -11,9 +11,11 @@
   "license": "ISC",
   "devDependencies": {
     "@types/lodash": "^4.14.202",
-    "@types/raf": "^3.4.3"
+    "@types/raf": "^3.4.3",
+    "vue": "^2.7.16"
   },
   "dependencies": {
+    "@td/adapter-vue": "workspace:^",
     "@td/shared": "workspace:^",
     "lodash": "^4.17.21",
     "raf": "^3.4.1"

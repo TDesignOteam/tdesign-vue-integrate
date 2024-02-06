@@ -4,8 +4,8 @@
  * 该文件为脚本自动生成文件，请勿随意修改。如需修改请联系 PMC
  * */
 
-import { TdTabPanelProps } from '../tabs/type';
-import { PropType } from 'vue';
+import type { TdTabPanelProps } from '../tabs/type';
+import type { PropType } from 'vue';
 
 export default {
   /** 用于自定义选项卡导航，同 panel */

@@ -1,6 +1,6 @@
 import _Skeleton from './skeleton';
 import { withInstall } from '@td/adapter-utils';
-import { TdSkeletonProps } from '@td/intel/components/skeleton/type';
+import type { TdSkeletonProps } from '@td/intel/components/skeleton/type';
 
 import './style';
 

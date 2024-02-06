@@ -4,7 +4,7 @@ import _Footer from './footer';
 import _Aside from './aside';
 import _Content from './content';
 import { withInstall } from '@td/adapter-utils';
-import { TdHeaderProps, TdFooterProps, TdAsideProps } from '@td/intel/components/layout/type';
+import type { TdHeaderProps, TdFooterProps, TdAsideProps } from '@td/intel/components/layout/type';
 
 import './style';
 

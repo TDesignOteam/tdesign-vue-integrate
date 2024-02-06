@@ -4,8 +4,8 @@
  * 该文件为脚本自动生成文件，请勿随意修改。如需修改请联系 PMC
  * */
 
-import { TdBackTopProps } from './type';
-import { PropType } from 'vue';
+import type { TdBackTopProps } from './type';
+import type { PropType } from 'vue';
 
 export default {
   /** 监听滚动的容器。数据类型为 String 时，会被当作选择器处理，进行节点查询。示例：'body' 或 () => document.body */

@@ -1,6 +1,6 @@
 import _Progress from './progress';
 import { withInstall } from '@td/adapter-utils';
-import { TdProgressProps } from '@td/intel/components/progress/type';
+import type { TdProgressProps } from '@td/intel/components/progress/type';
 
 import './style';
 

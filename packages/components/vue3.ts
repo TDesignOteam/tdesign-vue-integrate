@@ -1,4 +1,4 @@
-import { App } from 'vue';
+import type { App } from 'vue';
 import * as COMMON from "./src/common";
 import * as VUE3 from "./src/vue3";
 

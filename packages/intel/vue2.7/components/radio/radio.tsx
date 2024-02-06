@@ -4,7 +4,7 @@ import { renderContent } from '../utils/render-tnode';
 import { RadioGroupInstance, RadioButtonInstance } from './instance';
 import props from './props';
 import { emitEvent } from '../utils/event';
-import { TdRadioProps } from './type';
+import type { TdRadioProps } from './type';
 import { getClassPrefixMixins } from '../config-provider/config-receiver';
 import mixins from '../utils/mixins';
 

@@ -1,6 +1,7 @@
-import { App, Plugin, createApp, nextTick, ComponentPublicInstance, pluginInstall } from '@td/adapter-vue';
+import type { App, Plugin, ComponentPublicInstance } from '@td/adapter-vue';
+import { createApp, nextTick, pluginInstall } from '@td/adapter-vue';
 import { getAttach } from '@td/adapter-utils';
-import {
+import type {
   NotificationOptions,
   NotificationInstance,
   NotificationMethod,
@@ -11,7 +12,7 @@ import {
   NotificationCloseMethod,
   NotificationCloseAllMethod,
 } from '@td/intel/components/notification/type';
-import { AttachNodeReturnValue } from '@td/shared/interface';
+import type { AttachNodeReturnValue } from '@td/shared/interface';
 
 import './style';
 import NotificationList from './notificationList';

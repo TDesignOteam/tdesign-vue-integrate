@@ -1,5 +1,5 @@
-import { VNode, getCurrentInstance, h as H } from "vue";
-import type { App, Plugin } from "vue";
+import { getCurrentInstance, h as H } from "vue";
+import type { App, Plugin, VNode } from "vue";
 
 const getVNode = (node: VNode) => {
   return node

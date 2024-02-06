@@ -1,4 +1,5 @@
-import Vue, { VueConstructor, PluginObject } from 'vue';
+import Vue from 'vue';
+import type { VueConstructor, PluginObject } from 'vue';
 import capitalize from 'lodash/capitalize';
 
 export function withInstall<T>(comp: T, dep?: PluginObject<any>, directive?: { name: string; comp: unknown }) {

@@ -4,7 +4,7 @@ import isNumber from 'lodash/isNumber';
 import isObject from 'lodash/isObject';
 import isUndefined from 'lodash/isUndefined';
 
-import { TdColProps, TdRowProps } from '@td/intel/components/grid/type';
+import type { TdColProps, TdRowProps } from '@td/intel/components/grid/type';
 import { useListener } from '@td/adapter-hooks';
 import { isServer, calcSize } from '@td/adapter-utils';
 

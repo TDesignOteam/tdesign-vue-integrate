@@ -1,4 +1,5 @@
-import { defineComponent, ref, onMounted, computed, onBeforeUnmount, getCurrentInstance, H, watch, PropType } from '../../index';
+import { defineComponent, ref, onMounted, onBeforeUnmount, getCurrentInstance, H, watch } from '../../index';
+import type {  PropType } from '../../index';
 import { getAttach } from '@td/adapter-utils';
 
 /**

@@ -11,7 +11,7 @@ import isArray from 'lodash/isArray';
 
 import { on, off, addClass } from '@td/adapter-utils';
 import props from '@td/intel/components/alert/props';
-import { SlotReturnValue } from '@td/shared/interface';
+import type { SlotReturnValue } from '@td/shared/interface';
 import { useGlobalIcon, useConfig, usePrefixClass, useTNodeJSX } from '@td/adapter-hooks';
 import useIcon from './hooks/useIcon';
 

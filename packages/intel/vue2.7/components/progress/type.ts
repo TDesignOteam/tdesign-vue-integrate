@@ -5,7 +5,7 @@
  * updated at 2021-12-12 16:59:59
  * */
 
-import { TNode } from '../common';
+import type { TNode } from '@td/shared/interface';
 
 export interface TdProgressProps {
   /**

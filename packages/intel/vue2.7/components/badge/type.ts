@@ -5,7 +5,7 @@
  * updated at 2021-11-22 17:40:33
  * */
 
-import { TNode } from '../common';
+import type { TNode } from '@td/shared/interface';
 
 export interface TdBadgeProps {
   /**

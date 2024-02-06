@@ -2,7 +2,7 @@
  * Thanks to https://github.com/ElemeFE/element/blob/dev/packages/input/src/calcTextareaHeight.js
  */
 
-import { CSSProperties } from 'vue';
+import type { CSSProperties } from 'vue';
 
 type RowsType = number | null;
 

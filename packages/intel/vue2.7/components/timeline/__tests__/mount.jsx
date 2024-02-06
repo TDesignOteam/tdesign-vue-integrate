@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils';
-import { Timeline, TimelineItem } from '../../timeline';
+import type { Timeline, TimelineItem } from '../../timeline';
 
 export function getTimelineDefaultMount(Timeline, props, events) {
   return mount({

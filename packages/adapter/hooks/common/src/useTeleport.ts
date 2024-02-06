@@ -1,8 +1,9 @@
 import isFunction from 'lodash/isFunction';
 
 import { getAttach } from '@td/adapter-utils';
-import { AttachNode } from '@td/shared/interface';
-import { computed, Ref, onMounted, ref, watch } from '@td/adapter-vue';
+import type { AttachNode } from '@td/shared/interface';
+import type { Ref } from '@td/adapter-vue';
+import { computed, onMounted, ref, watch } from '@td/adapter-vue';
 
 /**
  * @description 返回挂载的节点, 用于teleport

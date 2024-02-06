@@ -1,4 +1,5 @@
-import { VNode, h } from '@td/adapter-vue';
+import { h } from '@td/adapter-vue';
+import type { VNode } from '@td/adapter-vue';
 import isString from 'lodash/isString';
 import isObject from 'lodash/isObject';
 

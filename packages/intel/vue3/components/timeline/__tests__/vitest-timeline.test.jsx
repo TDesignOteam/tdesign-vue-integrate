@@ -5,7 +5,7 @@
  * If you need to modify this file, contact PMC first please.
  */
 import { mount } from '@vue/test-utils';
-import { Timeline, TimelineItem } from '..';
+import type { Timeline, TimelineItem } from '..';
 import { getTimelineDefaultMount, getTimelineItemMount } from './mount';
 
 describe('Timeline Component', () => {

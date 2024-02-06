@@ -1,7 +1,7 @@
 import { vLoading } from "./directive";
 import _Loading from "./loading";
 import { withInstall } from "@td/adapter-utils";
-import { TdLoadingProps } from "@td/intel/components/loading/type";
+import type { TdLoadingProps } from "@td/intel/components/loading/type";
 
 import "./style";
 

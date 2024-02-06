@@ -4,8 +4,8 @@
  * 该文件为脚本自动生成文件，请勿随意修改。如需修改请联系 PMC
  * */
 
-import { TdTabsProps } from './type';
-import { PropType } from 'vue';
+import type { TdTabsProps } from './type';
+import type { PropType } from 'vue';
 
 export default {
   /** 【开发中】选项卡右侧的操作区域 */

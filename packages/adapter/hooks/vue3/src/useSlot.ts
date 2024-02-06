@@ -1,15 +1,16 @@
 import {
-  Slots,
-  VNode,
-  Component,
   getCurrentInstance,
   Fragment,
   Comment,
+} from '@td/adapter-vue';
+import type {
+  Slots,
+  VNode,
+  Component,
   RendererNode,
   VNodeArrayChildren,
   RendererElement,
   VNodeChild,
-  getVNode
 } from '@td/adapter-vue';
 import isArray from 'lodash/isArray';
 

@@ -89,7 +89,7 @@ Then, add the above plugins to the corresponding configuration files of Webpack 
 ```js
 import AutoImport from 'unplugin-auto-import/vite';
 import Components from 'unplugin-vue-components/vite';
-import { TDesignResolver } from 'unplugin-vue-components/resolvers';
+import type { TdesignResolver } from 'unplugin-vue-components/resolvers';
 export default {
   plugins: [
     // ...

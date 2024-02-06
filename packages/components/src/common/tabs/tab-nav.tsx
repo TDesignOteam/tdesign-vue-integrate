@@ -7,7 +7,7 @@ import {
   AddIcon as TdAddIcon,
 } from 'tdesign-icons-vue-next';
 
-import { TdTabsProps } from '@td/intel/components/tabs/type';
+import type { TdTabsProps } from '@td/intel/components/tabs/type';
 import tabProps from '@td/intel/components/tabs/props';
 import tabBase from '@td/shared/_common/js/tabs/base';
 

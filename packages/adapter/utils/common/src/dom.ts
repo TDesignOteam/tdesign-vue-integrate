@@ -1,8 +1,9 @@
 import raf from 'raf';
 import isString from 'lodash/isString';
 import isFunction from 'lodash/isFunction';
-import { ComponentPublicInstance } from 'vue';
-import { easeInOutCubic, EasingFunction } from './easing';
+import type { ComponentPublicInstance } from '@td/adapter-vue';
+import { easeInOutCubic } from './easing';
+import type {  EasingFunction } from './easing';
 
 export const isServer = typeof window === 'undefined';
 
