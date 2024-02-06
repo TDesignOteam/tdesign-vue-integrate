@@ -5,7 +5,7 @@ import { usePrefixClass, useContent, useTNodeJSX } from '@td/adapter-hooks';
 import props from '@td/intel/components/timeline/timeline-item-props';
 import { TimelineInjectKey, DEFAULT_PROVIDER } from './hooks';
 
-// import Loading from '../loading';
+import TLoading from '../loading';
 
 const DEFAULT_THEME = ['default', 'primary', 'success', 'warning', 'error'];
 
@@ -79,8 +79,7 @@ export default defineComponent({
               }}
               style={{ borderColor: !DEFAULT_THEME.includes(dotColor) ? dotColor : '' }}
             >
-              {/* {!dotElement && loading && <Loading size="12px" class={dotContentClass} />} */}
-              {!dotElement && loading && 'loading 组件' }
+              {!dotElement && loading && <TLoading size="12px" class={dotContentClass} />}
               {dotElement}
             </div>
             <div

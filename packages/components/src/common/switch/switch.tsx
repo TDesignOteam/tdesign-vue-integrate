@@ -9,6 +9,8 @@ import { usePrefixClass, useCommonClassName, useDisabled, useVModel  } from '@td
 
 import props from '@td/intel/components/switch/props';
 
+import TLoading from '../loading';
+
 export default defineComponent({
   name: 'TSwitch',
   props,
@@ -114,7 +116,7 @@ export default defineComponent({
       let switchContent: VNodeChild;
       let loadingContent: TNodeReturnValue;
       if (props.loading) {
-        loadingContent = "loadin 组件";
+        loadingContent = <TLoading size="small" />;
       } else if (content.value) {
         switchContent = content.value;
       }
