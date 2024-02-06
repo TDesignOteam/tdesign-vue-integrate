@@ -59,7 +59,7 @@ export function useChildSlots() {
     const content = instance?.slots?.default?.(H) || [];
     console.log(content, 'content');
     return content
-      .map(item => getVNode(item))
+      // .map(item => getVNode(item))
       // .filter((item) => {
       //   if (!item.children) {
       //     return false;
@@ -67,7 +67,7 @@ export function useChildSlots() {
       //   return true;
       // })
       .map((item) => {
-        if (item.children && isArray(item.children)) return item.children;
+        // if (item.children && isArray(item.children)) return item.children;
         return item;
       })
       .flat();

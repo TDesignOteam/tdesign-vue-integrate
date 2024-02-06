@@ -1,4 +1,5 @@
-import { defineComponent, ref, onMounted, computed, onBeforeUnmount, getCurrentInstance, H, watch } from '../../index';
+import { defineComponent, ref, onMounted, computed, onBeforeUnmount, getCurrentInstance, H, watch, PropType } from '../../index';
+import { getAttach } from '@td/adapter-utils';
 
 /**
  * 实现非常的简单，就是 dom 操作
@@ -9,11 +10,15 @@ import { defineComponent, ref, onMounted, computed, onBeforeUnmount, getCurrentI
 
 let globalChildNodesId = 0;
 
+export interface RendererNode {
+  [key: string]: any
+}
+
 export default defineComponent({
   name: 'TTeleportVue2',
   props: {
     to: {
-      type: String,
+      type: [String, Element] as PropType<string | Element | RendererNode>,
       default: 'body',
     },
     disabled: {
@@ -22,22 +27,34 @@ export default defineComponent({
     }
   },
   setup(props) {
-    // 记录 target
-    const target = computed<Element | null>(() => {
-      if(props.disabled) {
+    const target = ref<Element | null>()
+    // 记录结点
+    const childNodes = ref<ChildNode[]>([]);
+    // 记录结点 Id
+    const childNodesId = ref<string[]>([]);
+
+    // 获取 target
+    const getTarget = () => {
+      if (props.disabled) {
         // 禁用情况下，target 为当前容器
         const instance = getCurrentInstance();
         return instance?.$el.parentNode as Element;
       }
-      const el = document.querySelector(props.to);
+      const el = getAttach(props.to);
       if (!el) return null
       return el
-    });
-    // 记录结点 Id
-    const childNodesId = ref<string[]>([]);
+    };
+
+    // 获取子节点
+    const getChildNodes = () => {
+      const instance = getCurrentInstance();
+      const childNodes: ChildNode[] = [];
+      instance?.$el.childNodes.forEach(node => childNodes.push(node))
+      return childNodes;
+    }
 
     // 为每一个节点打上标记，这样才能在 unmount 时移除
-    const markNode = (childNodes: NodeListOf<ChildNode>) => {
+    const markNode = (childNodes: ChildNode[]) => {
       const fragment = document.createDocumentFragment()
       childNodes.forEach((node) => {
         const nodeId = String(globalChildNodesId);
@@ -49,42 +66,40 @@ export default defineComponent({
       return fragment;
     }
 
-    const getChildNodes = () => {
-      const instance = getCurrentInstance();
-      return instance?.$el.childNodes;
+    // 移动到目标位置
+    const moveToTarget = (target: Element) => {
+      childNodes.value && target.appendChild(markNode(childNodes.value))
     }
 
-    const moveToTarget = () => {
-      if (target.value) {
-        const childNodes = getChildNodes();
-        childNodes && target.value.appendChild(markNode(childNodes))
-      }
-    }
-
-    const removeInTarget = () => {
-      if (target.value) {
-        childNodesId.value.forEach(nodeId => {
-          const node = target.value?.querySelector(`[data-tdesign-vue2-teleport-node-id="${nodeId}"]`)
-          node && target.value?.removeChild(node)
-        })
-        childNodesId.value = [];
-      }
+    // 从目标位置移除
+    const removeInTarget = (target: Element) => {
+      childNodesId.value.forEach(nodeId => {
+        const node = target.querySelector(`[data-tdesign-vue2-teleport-node-id="${nodeId}"]`);
+        node && target.removeChild(node);
+      })
+      childNodesId.value = [];
     }
 
     watch(
-      [() => props.to, () => props.disabled], 
+      [
+        () => props.to,
+        () => props.disabled
+      ],
       () => {
-        removeInTarget();
-        moveToTarget();
+        target.value && removeInTarget(target.value);
+        target.value = getTarget();
+        target.value && moveToTarget(target.value);
       }
     )
 
     onMounted(() => {
-      moveToTarget()
+      target.value = getTarget();
+      childNodes.value = getChildNodes();
+      target.value && moveToTarget(target.value);
     });
 
     onBeforeUnmount(() => {
-      removeInTarget()
+      target.value && removeInTarget(target.value);
     })
 
     return () => {
