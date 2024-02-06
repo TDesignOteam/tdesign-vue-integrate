@@ -44,11 +44,13 @@ export function useRipple(el: Ref<HTMLElement>, fixedRippleColor?: Ref<string>) 
   const classPrefix = usePrefixClass();
 
   // 全局配置ripple
-  const { keepRipple } = useKeepAnimation();
+  // TODO keepRipple default value from global animation
+  const { keepRipple = true } = useKeepAnimation();
 
   // 为节点添加斜八角动画 add ripple to the DOM and set up the animation
   const handleAddRipple = (e: MouseEvent) => {
     const dom = el.value;
+
     const rippleColor = getRippleColor(dom, fixedRippleColor?.value);
     if (e.button !== 0 || !el || !keepRipple) return;
 
