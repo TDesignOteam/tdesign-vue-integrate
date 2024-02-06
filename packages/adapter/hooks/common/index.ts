@@ -7,3 +7,5 @@ export * from './src/useCollapseAnimation';
 export * from './src/useListener';
 export * from './src/useTeleport';
 export * from './src/useResizeObserver';
+export * from './src/useKeepAnimation';
+export * from './src/useRipple';

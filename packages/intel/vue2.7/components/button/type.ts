@@ -5,6 +5,7 @@
  * */
 
 import type { TNode, SizeEnum } from '@td/shared/interface';
+
 export interface TdButtonProps {
   /**
    * 是否为块级元素
@@ -20,7 +21,8 @@ export interface TdButtonProps {
    */
   default?: string | TNode;
   /**
-   * 禁用状态。优先级：Button.disabled > Form.disabled
+   * 禁用状态
+   * @default false
    */
   disabled?: boolean;
   /**

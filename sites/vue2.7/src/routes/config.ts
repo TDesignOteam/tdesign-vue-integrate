@@ -74,14 +74,14 @@ export const docs = [
   //   titleEn: 'Base',
   //   type: 'component', // 组件文档
   //   children: [
-  //     {
-  //       title: 'Button 按钮',
-  //       titleEn: 'Button',
-  //       name: 'button',
-  //       path: '/vue/components/button',
-  //       component: () => import('@td/intel/components/button/button.md'),
-  //       componentEn: () => import('@td/intel/components/button/button.en-US.md'),
-  //     },
+      {
+        title: 'Button 按钮',
+        titleEn: 'Button',
+        name: 'button',
+        path: '/vue/components/button',
+        component: () => import('@td/intel/components/button/button.md'),
+        componentEn: () => import('@td/intel/components/button/button.en-US.md'),
+      },
   //     {
   //       title: 'Icon 图标',
   //       titleEn: 'Icon',

@@ -1,10 +1,10 @@
 import _Button from './button';
-import withInstall from '../utils/withInstall';
-import { TdButtonProps } from './type';
+import { withInstall } from '@td/adapter-utils';
+import type { TdButtonProps } from '@td/intel/components/button/type';
 
 import './style';
 
-export * from './type';
+export * from '@td/intel/components/button/type';
 export type ButtonProps = TdButtonProps;
 
 export const Button = withInstall(_Button);

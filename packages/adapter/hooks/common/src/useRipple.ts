@@ -1,14 +1,19 @@
-import { ref, onMounted, onUnmounted, Ref } from '@td/adapter-vue';
+import { ref, onMounted, onUnmounted } from '@td/adapter-vue';
 import useKeepAnimation from './useKeepAnimation';
 import { usePrefixClass } from './useClass';
-import setStyle from '../utils/set-style';
+
+import { setStyle } from '@td/adapter-utils';
+
+import type { Ref } from '@td/adapter-vue'
 
 const period = 200;
 const noneRippleBg = 'rgba(0, 0, 0, 0)';
 const defaultRippleColor = 'rgba(0, 0, 0, 0.35)';
 
 // 设置动画颜色 get the ripple animation color
-const getRippleColor = (el: HTMLElement, fixedRippleColor?: string) => {
+const getRippleColor = (el: HTMLElement|undefined, fixedRippleColor?: string) => {
+  
+  if(!el) return ;
   // get fixed color from params
   if (fixedRippleColor) {
     return fixedRippleColor;
@@ -34,8 +39,8 @@ const getRippleColor = (el: HTMLElement, fixedRippleColor?: string) => {
  * @param ref 需要使用斜八角动画的DOM
  * @param fixedRippleColor 斜八角的动画颜色
  */
-export default function useRipple(el: Ref<HTMLElement>, fixedRippleColor?: Ref<string>) {
-  const rippleContainer = ref(null);
+export function useRipple(el: Ref<HTMLElement>, fixedRippleColor?: Ref<string>) {
+  const rippleContainer = ref<HTMLElement>();
   const classPrefix = usePrefixClass();
 
   // 全局配置ripple
@@ -62,7 +67,7 @@ export default function useRipple(el: Ref<HTMLElement>, fixedRippleColor?: Ref<s
     const width = dom.offsetWidth;
     const height = dom.offsetHeight;
 
-    if (rippleContainer.value.parentNode === null) {
+    if (rippleContainer.value?.parentNode === null) {
       setStyle(rippleContainer.value, {
         position: 'absolute',
         left: `${0 - border}px`,
@@ -109,7 +114,7 @@ export default function useRipple(el: Ref<HTMLElement>, fixedRippleColor?: Ref<s
       // eslint-disable-next-line no-param-reassign
       dom.style.position = 'relative';
     }
-    rippleContainer.value.insertBefore(ripple, rippleContainer.value.firstChild);
+    rippleContainer.value?.insertBefore(ripple, rippleContainer.value.firstChild);
 
     setTimeout(() => {
       ripple.style.transform = `translateX(${width}px)`;
@@ -125,7 +130,7 @@ export default function useRipple(el: Ref<HTMLElement>, fixedRippleColor?: Ref<s
 
       setTimeout(() => {
         ripple.remove();
-        if (rippleContainer.value.children.length === 0) rippleContainer.value.remove();
+        if (rippleContainer.value?.children.length === 0) rippleContainer.value?.remove();
       }, period * 2 + 100);
     };
     el.value.addEventListener('pointerup', handleClearRipple, false);

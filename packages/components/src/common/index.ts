@@ -1,4 +1,5 @@
 export * from './descriptions';
+export * from './button';
 export * from './switch';
 export * from './breadcrumb';
 export * from './link';
