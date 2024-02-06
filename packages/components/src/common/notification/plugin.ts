@@ -97,11 +97,9 @@ export type NotificationPluginType = Plugin & ExtraApi & NotificationMethod;
 const NotificationPlugin: NotificationPluginType = showThemeNotification as NotificationPluginType;
 
 NotificationPlugin.install = (app: App) => {
-  // app.config.globalProperties.$notify = showThemeNotification;
   pluginInstall(app, showThemeNotification, '$notify')
   pluginInstall(app, showThemeNotification, '$notification')
   Object.keys(extraApi).forEach((funcName) => {
-    // app.config.globalProperties.$notify[funcName] = extraApi[funcName];
     pluginInstall(app, extraApi[funcName], '$notify', funcName)
   });
 };

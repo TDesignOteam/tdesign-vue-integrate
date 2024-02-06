@@ -1,4 +1,5 @@
-import { defineComponent, ref, computed, Ref, CSSProperties } from '@td/adapter-vue';
+import { defineComponent, ref, computed } from '@td/adapter-vue';
+import type { Ref, CSSProperties } from '@td/adapter-vue';
 
 import { usePrefixClass } from '@td/adapter-hooks';
 import type { TdNotificationProps, NotificationOptions } from '@td/intel/components/notification/type';

@@ -626,14 +626,14 @@ export const docs = [
   //       component: () => import('@td/intel/components/guide/guide.md'),
   //       componentEn: () => import('@td/intel/components/guide/guide.en-US.md'),
   //     },
-  //     {
-  //       title: 'Message 全局提示',
-  //       titleEn: 'Message',
-  //       name: 'message',
-  //       path: '/vue-next/components/message',
-  //       component: () => import('@td/intel/components/message/message.md'),
-  //       componentEn: () => import('@td/intel/components/message/message.en-US.md'),
-  //     },
+      {
+        title: 'Message 全局提示',
+        titleEn: 'Message',
+        name: 'message',
+        path: '/vue-next/components/message',
+        component: () => import('@td/intel/components/message/message.md'),
+        componentEn: () => import('@td/intel/components/message/message.en-US.md'),
+      },
       {
         title: 'Notification 消息通知',
         titleEn: 'Notification',
