@@ -21,3 +21,4 @@ export * from './space';
 export * from './loading'
 export * from './divider';
 export * from './radio';
+export * from './input';

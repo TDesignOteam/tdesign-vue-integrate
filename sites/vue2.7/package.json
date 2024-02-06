@@ -14,7 +14,7 @@
     "@td/intel-vue2.7": "workspace:^",
     "@td/shared": "workspace:^",
     "lodash-es": "^4.17.21",
-    "semver": "^7.5.4",
+    "semver": "^7.6.0",
     "tdesign-icons-vue": "^0.2.2",
     "tdesign-site-components": "^0.13.20",
     "tdesign-theme-generator": "^1.0.15",

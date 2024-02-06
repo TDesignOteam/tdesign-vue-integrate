@@ -7,6 +7,8 @@ import {
   onMounted,
   toRefs,
   inject,
+} from '@td/adapter-vue';
+import type {
   StyleValue,
   CSSProperties,
   InjectionKey
@@ -17,7 +19,7 @@ import isUndefined from 'lodash/isUndefined';
 
 import { getCharacterLength } from '@td/adapter-utils';
 import calcTextareaHeight from './calcTextareaHeight';
-// ! 这个也一样好吧
+// vue23:! 这个也一样好吧
 export const FormItemInjectionKey: InjectionKey<{
   handleBlur: () => Promise<void>;
 }> = Symbol('FormItemProvide');

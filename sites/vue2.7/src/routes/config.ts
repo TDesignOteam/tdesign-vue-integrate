@@ -279,14 +279,14 @@ export const docs = [
   //       component: () => import('@td/intel/components/form/form.md'),
   //       componentEn: () => import('@td/intel/components/form/form.en-US.md'),
   //     },
-  //     {
-  //       title: 'Input 输入框',
-  //       titleEn: 'Input',
-  //       name: 'input',
-  //       path: '/vue/components/input',
-  //       component: () => import('@td/intel/components/input/input.md'),
-  //       componentEn: () => import('@td/intel/components/input/input.en-US.md'),
-  //     },
+      {
+        title: 'Input 输入框',
+        titleEn: 'Input',
+        name: 'input',
+        path: '/vue/components/input',
+        component: () => import('@td/intel/components/input/input.md'),
+        componentEn: () => import('@td/intel/components/input/input.en-US.md'),
+      },
   //     {
   //       title: 'InputAdornment 输入装饰器',
   //       titleEn: 'InputAdornment',
