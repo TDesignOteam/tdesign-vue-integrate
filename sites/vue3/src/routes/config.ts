@@ -610,14 +610,14 @@ export const docs = [
   //       component: () => import('@td/intel/components/dialog/dialog.md'),
   //       componentEn: () => import('@td/intel/components/dialog/dialog.en-US.md'),
   //     },
-  //     {
-  //       title: 'Drawer 抽屉',
-  //       titleEn: 'Drawer',
-  //       name: 'drawer',
-  //       path: '/vue-next/components/drawer',
-  //       component: () => import('@td/intel/components/drawer/drawer.md'),
-  //       componentEn: () => import('@td/intel/components/drawer/drawer.en-US.md'),
-  //     },
+      {
+        title: 'Drawer 抽屉',
+        titleEn: 'Drawer',
+        name: 'drawer',
+        path: '/vue-next/components/drawer',
+        component: () => import('@td/intel/components/drawer/drawer.md'),
+        componentEn: () => import('@td/intel/components/drawer/drawer.en-US.md'),
+      },
   //     {
   //       title: 'Guide 引导',
   //       titleEn: 'Guide',

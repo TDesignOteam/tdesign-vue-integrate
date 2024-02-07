@@ -24,3 +24,4 @@ export * from './divider';
 export * from './radio';
 export * from './input';
 export * from './message';
+export * from './drawer';
