@@ -26,3 +26,4 @@ export * from './input';
 export * from './message';
 export * from './drawer';
 export * from './tag';
+export * from './comment';

@@ -450,14 +450,14 @@ export const docs = [
         component: () => import('@td/intel/components/collapse/collapse.md'),
         componentEn: () => import('@td/intel/components/collapse/collapse.en-US.md'),
       },
-  //     {
-  //       title: 'Comment 评论',
-  //       titleEn: 'Comment',
-  //       name: 'comment',
-  //       path: '/vue/components/comment',
-  //       component: () => import('@td/intel/components/comment/comment.md'),
-  //       componentEn: () => import('@td/intel/components/comment/comment.en-US.md'),
-  //     },
+      {
+        title: 'Comment 评论',
+        titleEn: 'Comment',
+        name: 'comment',
+        path: '/vue/components/comment',
+        component: () => import('@td/intel/components/comment/comment.md'),
+        componentEn: () => import('@td/intel/components/comment/comment.en-US.md'),
+      },
       {
         title: 'Descriptions 描述',
         titleEn: 'Descriptions',
