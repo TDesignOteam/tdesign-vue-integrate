@@ -9,3 +9,4 @@ export * from './src/useTeleport';
 export * from './src/useResizeObserver';
 export * from './src/useKeepAnimation';
 export * from './src/useRipple';
+export * from './src/useVirtualScrollNew';

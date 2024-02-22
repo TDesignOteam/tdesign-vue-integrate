@@ -482,14 +482,14 @@ export const docs = [
   //       component: () => import('@td/intel/components/image-viewer/image-viewer.md'),
   //       componentEn: () => import('@td/intel/components/image-viewer/image-viewer.en-US.md'),
   //     },
-  //     {
-  //       title: 'List 列表',
-  //       titleEn: 'List',
-  //       name: 'list',
-  //       path: '/vue/components/list',
-  //       component: () => import('@td/intel/components/list/list.md'),
-  //       componentEn: () => import('@td/intel/components/list/list.en-US.md'),
-  //     },
+      {
+        title: 'List 列表',
+        titleEn: 'List',
+        name: 'list',
+        path: '/vue/components/list',
+        component: () => import('@td/intel/components/list/list.md'),
+        componentEn: () => import('@td/intel/components/list/list.en-US.md'),
+      },
       {
         title: 'Loading 加载',
         titleEn: 'Loading',
