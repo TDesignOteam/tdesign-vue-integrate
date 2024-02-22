@@ -31,3 +31,4 @@ export * from './list';
 export * from './card';
 export * from './affix';
 export * from './image';
+export * from './avatar';
