@@ -28,3 +28,4 @@ export * from './drawer';
 export * from './tag';
 export * from './comment';
 export * from './list';
+export * from './card';
