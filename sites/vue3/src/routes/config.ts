@@ -538,14 +538,14 @@ export const docs = [
   //       component: () => import('@td/intel/components/table/table.md'),
   //       componentEn: () => import('@td/intel/components/table/table.en-US.md'),
   //     },
-  //     {
-  //       title: 'Tag 标签',
-  //       titleEn: 'Tag',
-  //       name: 'tag',
-  //       path: '/vue-next/components/tag',
-  //       component: () => import('@td/intel/components/tag/tag.md'),
-  //       componentEn: () => import('@td/intel/components/tag/tag.en-US.md'),
-  //     },
+      {
+        title: 'Tag 标签',
+        titleEn: 'Tag',
+        name: 'tag',
+        path: '/vue-next/components/tag',
+        component: () => import('@td/intel/components/tag/tag.md'),
+        componentEn: () => import('@td/intel/components/tag/tag.en-US.md'),
+      },
       {
         title: 'Timeline 时间轴',
         titleEn: 'Timeline',
