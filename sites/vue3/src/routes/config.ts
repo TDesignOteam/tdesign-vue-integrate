@@ -466,14 +466,14 @@ export const docs = [
         component: () => import('@td/intel/components/descriptions/descriptions.md'),
         componentEn: () => import('@td/intel/components/descriptions/descriptions.en-US.md'),
       },
-  //     {
-  //       title: 'Image 图片',
-  //       titleEn: 'Image',
-  //       name: 'image',
-  //       path: '/vue-next/components/image',
-  //       component: () => import('@td/intel/components/image/image.md'),
-  //       componentEn: () => import('@td/intel/components/image/image.en-US.md'),
-  //     },
+      {
+        title: 'Image 图片',
+        titleEn: 'Image',
+        name: 'image',
+        path: '/vue-next/components/image',
+        component: () => import('@td/intel/components/image/image.md'),
+        componentEn: () => import('@td/intel/components/image/image.en-US.md'),
+      },
   //     {
   //       title: 'ImageViewer 图片预览',
   //       titleEn: 'ImageViewer',

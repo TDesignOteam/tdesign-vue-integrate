@@ -12,6 +12,7 @@
   "dependencies": {
     "@td/adapter-utils": "workspace:^",
     "@td/adapter-vue": "workspace:^",
+    "@td/shared": "workspace:^",
     "lodash": "^4.17.21"
   },
   "devDependencies": {
