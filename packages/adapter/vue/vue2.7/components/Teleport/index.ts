@@ -42,6 +42,7 @@ export default defineComponent({
         return instance?.$el.parentNode as Element;
       }
       const el = getAttach(props.to);
+      console.log(el, 'ee');
       if (!el) return null
       return el
     };
@@ -58,6 +59,10 @@ export default defineComponent({
     const markNode = (childNodes: ChildNode[]) => {
       const fragment = document.createDocumentFragment()
       childNodes.forEach((node) => {
+        // 注释
+        if(node.nodeType === 8) {
+          return
+        }
         const nodeId = String(globalChildNodesId);
         (node as HTMLElement).dataset.tdesignVue2TeleportNodeId = nodeId;
         childNodesId.value.push(nodeId);

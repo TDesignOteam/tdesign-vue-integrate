@@ -602,14 +602,14 @@ export const docs = [
         component: () => import('@td/intel/components/alert/alert.md'),
         componentEn: () => import('@td/intel/components/alert/alert.en-US.md'),
       },
-  //     {
-  //       title: 'Dialog 对话框',
-  //       titleEn: 'Dialog',
-  //       name: 'dialog',
-  //       path: '/vue-next/components/dialog',
-  //       component: () => import('@td/intel/components/dialog/dialog.md'),
-  //       componentEn: () => import('@td/intel/components/dialog/dialog.en-US.md'),
-  //     },
+      {
+        title: 'Dialog 对话框',
+        titleEn: 'Dialog',
+        name: 'dialog',
+        path: '/vue-next/components/dialog',
+        component: () => import('@td/intel/components/dialog/dialog.md'),
+        componentEn: () => import('@td/intel/components/dialog/dialog.en-US.md'),
+      },
       {
         title: 'Drawer 抽屉',
         titleEn: 'Drawer',

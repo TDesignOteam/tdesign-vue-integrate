@@ -14,7 +14,7 @@
 </template>
 
 <script lang="jsx">
-import { PopupPlugin } from 'tdesign-vue';
+// import { PopupPlugin } from 'tdesign-vue';
 
 export default {
   methods: {

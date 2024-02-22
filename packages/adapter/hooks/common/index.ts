@@ -11,3 +11,4 @@ export * from './src/useKeepAnimation';
 export * from './src/useRipple';
 export * from './src/useVirtualScroll';
 export * from './src/useImagePreviewUrl';
+export * from './src/usePopupManager';

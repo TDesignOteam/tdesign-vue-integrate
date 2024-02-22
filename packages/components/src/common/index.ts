@@ -32,3 +32,4 @@ export * from './card';
 export * from './affix';
 export * from './image';
 export * from './avatar';
+export * from './dialog';
