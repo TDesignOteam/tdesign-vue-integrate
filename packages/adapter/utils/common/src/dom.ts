@@ -4,6 +4,7 @@ import isFunction from 'lodash/isFunction';
 import type { ComponentPublicInstance } from '@td/adapter-vue';
 import { easeInOutCubic } from './easing';
 import type {  EasingFunction } from './easing';
+import type { ScrollContainer, ScrollContainerElement } from '@td/shared/interface';
 
 export const isServer = typeof window === 'undefined';
 
@@ -206,3 +207,20 @@ export function removeClass(el: Element, cls: string): any {
     el.className = trim(curClass);
   }
 }
+
+/**
+ * 获取滚动容器
+ * 因为document不存在scroll等属性, 因此排除document
+ * window | HTMLElement
+ * @param {ScrollContainerElement} [container='body']
+ * @returns {ScrollContainer}
+ */
+export const getScrollContainer = (container: ScrollContainer = 'body'): ScrollContainerElement => {
+  if (isString(container)) {
+    return document.querySelector(container) as HTMLElement;
+  }
+  if (isFunction(container)) {
+    return container();
+  }
+  return container;
+};

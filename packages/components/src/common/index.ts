@@ -29,3 +29,4 @@ export * from './tag';
 export * from './comment';
 export * from './list';
 export * from './card';
+export * from './affix';

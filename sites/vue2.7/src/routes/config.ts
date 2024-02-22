@@ -144,14 +144,14 @@ export const docs = [
   //   titleEn: 'Navigation',
   //   type: 'component',
   //   children: [
-  //     {
-  //       title: 'Affix 固钉',
-  //       titleEn: 'Affix',
-  //       name: 'affix',
-  //       path: '/vue/components/affix',
-  //       component: () => import('@td/intel/components/affix/affix.md'),
-  //       componentEn: () => import('@td/intel/components/affix/affix.en-US.md'),
-  //     },
+      {
+        title: 'Affix 固钉',
+        titleEn: 'Affix',
+        name: 'affix',
+        path: '/vue/components/affix',
+        component: () => import('@td/intel/components/affix/affix.md'),
+        componentEn: () => import('@td/intel/components/affix/affix.en-US.md'),
+      },
   //     {
   //       title: 'Anchor 锚点',
   //       titleEn: 'Anchor',
