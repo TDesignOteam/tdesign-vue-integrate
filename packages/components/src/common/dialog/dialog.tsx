@@ -7,7 +7,7 @@ import {
 } from 'tdesign-icons-vue-next';
 
 import { getScrollbarWidth } from '@td/shared/_common/js/utils/getScrollbarWidth';
-import { useGlobalIcon, useConfig, usePrefixClass, useTNodeJSX, useContent, useTeleport, usePopupManager } from '@td/adapter-hooks';
+import { useGlobalIcon, useConfig, usePrefixClass, useTNodeJSX, useContent, useTeleport, usePopupManager, useEmitEvent } from '@td/adapter-hooks';
 
 import props from '@td/intel/components/dialog/props';
 import type { DialogCloseContext, TdDialogProps } from '@td/intel/components/dialog/type';
@@ -95,6 +95,7 @@ export default defineComponent({
     const classPrefix = usePrefixClass();
     const renderContent = useContent();
     const renderTNodeJSX = useTNodeJSX();
+    const emitEvent = useEmitEvent()
     const dialogEle = ref<HTMLElement | null>(null);
     const { globalConfig } = useConfig('dialog');
     const { CloseIcon, InfoCircleFilledIcon, CheckCircleFilledIcon, ErrorCircleFilledIcon } = useGlobalIcon({
@@ -271,7 +272,8 @@ export default defineComponent({
     const emitCloseEvent = (ctx: DialogCloseContext) => {
       props.onClose?.(ctx);
       // 默认关闭弹窗
-      context.emit('update:visible', false);
+      // context.emit('update:visible', false);
+      emitEvent('update:visible', false)
     };
 
     // Vue在引入阶段对事件的处理还做了哪些初始化操作。Vue在实例上用一个_events属性存贮管理事件的派发和更新，

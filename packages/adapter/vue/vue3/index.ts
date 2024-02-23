@@ -20,10 +20,13 @@ const pluginInstall = (app: App, plugin: Plugin, ...paths: string[]) => {
   lastObject[lastPath] = plugin;
 };
 
+const createElement = H;
+
 export * from 'vue';
 export {
   getCurrentInstance,
   getVNode,
+  createElement,
   H,
   pluginInstall
 };

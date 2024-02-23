@@ -251,10 +251,17 @@ importers:
         version: 2.7.16
 
   packages/adapter/vue/vue3:
+    dependencies:
+      lodash:
+        specifier: ^4.17.21
+        version: 4.17.21
     devDependencies:
       '@td/ts-config':
         specifier: workspace:^
         version: link:../../../../configs/tsconfig
+      '@types/lodash':
+        specifier: ^4.14.202
+        version: 4.14.202
       vue:
         specifier: ^3.4.15
         version: 3.4.15(typescript@5.3.3)

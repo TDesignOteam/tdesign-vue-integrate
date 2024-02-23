@@ -1,8 +1,8 @@
-import { computed, defineComponent, H, ref } from '@td/adapter-vue';
+import { computed, defineComponent, H, ref, createElement } from '@td/adapter-vue';
 import TLoading from '../loading';
 
 import props from '@td/intel/components/button/props';
-import { useDisabled , useTNodeJSX, useContent,  usePrefixClass, useCommonClassName, useRipple } from '@td/adapter-hooks';
+import { useDisabled , useTNodeJSX, useContent,  usePrefixClass, useCommonClassName, useRipple, useEmitEvent } from '@td/adapter-hooks';
 
 export default defineComponent({
   name: 'TButton',
@@ -12,6 +12,7 @@ export default defineComponent({
     const renderContent = useContent();
     const COMPONENT_NAME = usePrefixClass('button');
     const { STATUS, SIZE } = useCommonClassName();
+    const emitEvent = useEmitEvent();
     const btnRef = ref<HTMLElement>();
 
     useRipple(btnRef);
@@ -69,13 +70,14 @@ export default defineComponent({
         tabindex: isDisabled.value ? undefined : '0',
       };
 
-      return H(
+      // vue23:! 亟待解决
+      return createElement(
         renderTag(),
         {
           ref: btnRef,
           ...attrs,
           ...buttonAttrs,
-          onClick: props.onClick,
+          onClick:  () => emitEvent('click'),
         },
         [buttonContent],
       );

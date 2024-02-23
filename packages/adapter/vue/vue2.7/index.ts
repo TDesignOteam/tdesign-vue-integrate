@@ -1,10 +1,12 @@
 import Vue, { h as H, getCurrentInstance as getCurrentInstanceInner } from "vue";
-import type { VNode, VueConstructor, PluginObject } from "vue";
+import type { VNode, VueConstructor, Ref } from "vue";
 import clone from "lodash/clone";
 import merge from "lodash/merge";
+import omit from "lodash/omit";
+import lowerFirst from "lodash/lowerFirst";
 import Teleport from "./components/Teleport";
 
-function getCurrentInstance() {
+const getCurrentInstance = ()  => {
   const innerInstance = getCurrentInstanceInner()?.proxy;
   const instance = innerInstance ? {
     ...innerInstance,
@@ -17,7 +19,7 @@ function getCurrentInstance() {
   return instance;
 }
 
-function getVNode(node: VNode) {
+const getVNode = (node: VNode)  => {
   return {
     ...node,
     props: node.componentOptions?.propsData,
@@ -25,7 +27,7 @@ function getVNode(node: VNode) {
   }
 }
 
-function cloneVNode(node: VNode, extraProps: Record<string, string | number | Array<string | number>>) {
+const cloneVNode = (node: VNode, extraProps: Record<string, string | number | Array<string | number>>)  => {
   return merge(clone(node), extraProps)
 }
 
@@ -38,7 +40,7 @@ export interface JSXRenderContext {
 
 export type OptionsType = VNode | JSXRenderContext | string;
 
-const isVNode = (obj: OptionsType) => {
+const isVNode = (obj: OptionsType)  => {
   const vNode = H('span', '');
   const VNode = vNode.constructor;
   return obj instanceof VNode;
@@ -72,6 +74,27 @@ const pluginInstall = (app: VueConstructor, plugin: Plugin, ...paths: string[]) 
   lastObject[lastPath] = plugin;
 };
 
+// vue23:?? 临时写的方法，待讨论
+const createElement = (type: string, props: Record<string, any> = {}, children?: any) => {
+  const innerData = omit(props, ['key' ,'ref', 'class', 'style']);
+  const event: Record<string, any> = {};
+
+  for (const key in innerData) {
+    if(key.startsWith('on')) {
+      event[lowerFirst(key.slice(2))] = innerData[key]
+    }
+  }
+
+  return H(type, {
+    key: props.key,
+    ref: props.ref,
+    class: props.class,
+    style: props.style,
+    attrs: innerData,
+    props: innerData,
+    on: event,
+  }, children)
+};
 
 export * from 'vue'
 export {
@@ -84,5 +107,6 @@ export {
   Transition,
   TransitionGroup,
   createApp,
+  createElement,
   pluginInstall
 }

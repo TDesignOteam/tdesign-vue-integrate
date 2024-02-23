@@ -110,7 +110,7 @@ export default defineComponent({
 
     return () => {
       const instance = getCurrentInstance();
-      return H('div', {}, instance?.slots?.default?.(H))
+      return H('div', { class: "tdesign-vue2-teleport", style: { visibility: "hidden", display: "none"} }, instance?.slots?.default?.(H))
     }
   }
 });

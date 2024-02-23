@@ -11,6 +11,10 @@
   "license": "ISC",
   "devDependencies": {
     "@td/ts-config": "workspace:^",
+    "@types/lodash": "^4.14.202",
     "vue": "^3.4.15"
+  },
+  "dependencies": {
+    "lodash": "^4.17.21"
   }
 }
