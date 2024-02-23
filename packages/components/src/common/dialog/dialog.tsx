@@ -87,6 +87,7 @@ export default defineComponent({
       }
     },
   },
+  // vue23:*
   inheritAttrs: false,
   props,
   emits: ['update:visible'],
@@ -433,7 +434,9 @@ export default defineComponent({
           onAfterLeave={afterLeave}
         >
           {(!props.destroyOnClose || props.visible) && (
-            <div v-show={props.visible} class={ctxClass} style={ctxStyle} {...context.attrs}>
+            // vue23:!
+            // <div v-show={props.visible} class={ctxClass} style={ctxStyle} {...context.attrs}>
+            <div v-show={props.visible} class={ctxClass} style={ctxStyle}>
               {maskView}
               {renderDialog()}
             </div>

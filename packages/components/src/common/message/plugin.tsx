@@ -76,7 +76,6 @@ const MessageFunction = (props: MessageOptions): Promise<MessageInstance> => {
       zIndex: options.zIndex,
       placement: options.placement,
     }).mount(wrapper);
-    console.log(instance, 'instance');
     
     mgKey = instance.add(options);
     instanceMap.get(attachDom)[placement] = instance;

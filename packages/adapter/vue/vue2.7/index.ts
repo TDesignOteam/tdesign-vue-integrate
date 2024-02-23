@@ -78,10 +78,13 @@ const pluginInstall = (app: VueConstructor, plugin: Plugin, ...paths: string[]) 
 const createElement = (type: string, props: Record<string, any> = {}, children?: any) => {
   const innerData = omit(props, ['key' ,'ref', 'class', 'style']);
   const event: Record<string, any> = {};
+  const data: Record<string, any> = {};
 
   for (const key in innerData) {
     if(key.startsWith('on')) {
       event[lowerFirst(key.slice(2))] = innerData[key]
+    } else {
+      data[key] = innerData[key];
     }
   }
 
@@ -90,8 +93,8 @@ const createElement = (type: string, props: Record<string, any> = {}, children?:
     ref: props.ref,
     class: props.class,
     style: props.style,
-    attrs: innerData,
-    props: innerData,
+    attrs: data,
+    props: data,
     on: event,
   }, children)
 };

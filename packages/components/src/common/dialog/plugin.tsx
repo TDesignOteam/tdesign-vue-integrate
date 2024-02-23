@@ -16,10 +16,10 @@ const createDialog: DialogMethod = (props: DialogOptions) => {
   const updateClassNameStyle = (className: string, style: DialogOptions['style']) => {
     if (className) {
       if (preClassName && preClassName !== className) {
-        wrapper.firstElementChild.classList.remove(...preClassName.split(' ').map((name) => name.trim()));
+        wrapper.firstElementChild?.classList.remove(...preClassName.split(' ').map((name) => name.trim()));
       }
       className.split(' ').forEach((name) => {
-        wrapper.firstElementChild.classList.add(name.trim());
+        wrapper.firstElementChild?.classList.add(name.trim());
       });
     }
 
@@ -61,20 +61,17 @@ const createDialog: DialogMethod = (props: DialogOptions) => {
           };
         delete options.className;
         delete options.style;
-        return H(DialogComponent, {
-          onClose,
-          visible: visible.value,
-          ...dialogOptions.value,
-        });
+        // vue23:!!
+        return <div><DialogComponent onClose={onClose} visible={visible.value} {...dialogOptions.value}/></div>
       };
     },
   });
   const dialogComponent = createApp(component);
   const dialog = dialogComponent.mount(wrapper);
-
+  
   const container = getAttach(options.attach);
   if (container) {
-    container.appendChild(wrapper);
+    container.appendChild(dialog.$el);
   } else {
     console.error('attach is not exist');
   }
@@ -129,8 +126,7 @@ export const DialogPlugin = createDialog as DialogPluginType;
 DialogPlugin.install = (app: App): void => {
   pluginInstall(app, createDialog, '$dialog')
   Object.keys(extraApi).forEach((funcName) => {
-  pluginInstall(app, extraApi[funcName], '$dialog', funcName)
-
+    pluginInstall(app, extraApi[funcName], '$dialog', funcName)
   });
 };
 

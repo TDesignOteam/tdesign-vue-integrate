@@ -286,11 +286,23 @@ const getAttributes = (t, paths, tag, openingElementPath) => {
       attributesArray.map(el => {
         if (el.type === 'vueSpread') {
           // !todo zhangpaopao: 将所有 {...xxx} 都编译成 props={xxx}
+          console.log(el.argument, 'el.argument.name');
           return t.objectExpression(
             [
               t.objectProperty(t.stringLiteral('props'), el.argument), 
               t.objectProperty(t.stringLiteral('attrs'), el.argument),
             ]);
+          if (!el.argument.name.startsWith('on')) {
+            return t.objectExpression(
+              [
+                t.objectProperty(t.stringLiteral('props'), el.argument), 
+                t.objectProperty(t.stringLiteral('attrs'), el.argument),
+              ]);
+          } else {
+            // el.argument 以 "on" 开头，你可以选择跳过它或者进行其他处理
+            // 这里我们选择跳过
+            return t.objectProperty(t.stringLiteral('props'), el.argument);
+          }
         } else {
           return transformAttributes(t, el)
         }
