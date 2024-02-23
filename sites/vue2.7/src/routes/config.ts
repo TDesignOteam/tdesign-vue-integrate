@@ -474,14 +474,14 @@ export const docs = [
         component: () => import('@td/intel/components/image/image.md'),
         componentEn: () => import('@td/intel/components/image/image.en-US.md'),
       },
-  //     {
-  //       title: 'ImageViewer 图片预览',
-  //       titleEn: 'ImageViewer',
-  //       name: 'image-viewer',
-  //       path: '/vue/components/image-viewer',
-  //       component: () => import('@td/intel/components/image-viewer/image-viewer.md'),
-  //       componentEn: () => import('@td/intel/components/image-viewer/image-viewer.en-US.md'),
-  //     },
+      {
+        title: 'ImageViewer 图片预览',
+        titleEn: 'ImageViewer',
+        name: 'image-viewer',
+        path: '/vue/components/image-viewer',
+        component: () => import('@td/intel/components/image-viewer/image-viewer.md'),
+        componentEn: () => import('@td/intel/components/image-viewer/image-viewer.en-US.md'),
+      },
       {
         title: 'List 列表',
         titleEn: 'List',
