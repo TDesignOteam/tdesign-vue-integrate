@@ -42,7 +42,6 @@ export default defineComponent({
         return instance?.$el.parentNode as Element;
       }
       const el = getAttach(props.to);
-      console.log(el, 'ee');
       if (!el) return null
       return el
     };

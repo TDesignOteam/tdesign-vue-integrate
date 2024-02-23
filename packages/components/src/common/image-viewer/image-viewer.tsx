@@ -1,4 +1,4 @@
-import { computed, defineComponent, ref, toRefs, Teleport, watch, Transition, nextTick } from '@td/adapter-vue';
+import { computed, defineComponent, ref, toRefs, Teleport, watch, Transition, nextTick, createApp, H } from '@td/adapter-vue';
 import { ChevronLeftIcon, ChevronDownIcon, CloseIcon } from 'tdesign-icons-vue-next';
 
 import props from '@td/intel/components/image-viewer/props';
@@ -14,6 +14,7 @@ import TImageItem from './base/ImageItem';
 import TImageViewerIcon from './base/ImageModalIcon';
 import TImageViewerUtils from './base/ImageViewerUtils';
 import TImageViewerModal from './base/ImageViewerModal';
+import { getAttach } from '@td/adapter-utils';
 
 export default defineComponent({
   name: 'TImageViewer',
@@ -26,7 +27,7 @@ export default defineComponent({
     const showOverlayValue = computed(() => getOverlay(props));
 
     const { index, visible, modelValue } = toRefs(props);
-    const [indexValue, setIndexValue] = useDefaultValue(index, props.defaultIndex ?? 0, props.onIndexChange, 'index');
+    const [indexValue, setIndexValue] = useDefaultValue(index, props.defaultIndex ?? 0, props.onIndexChange, 'index', 'index-change');
     const [visibleValue, setVisibleValue] = useVModel(visible, modelValue, props.defaultVisible, () => {}, 'visible');
     const animationEnd = ref(true);
     const animationTimer = ref();
@@ -124,11 +125,96 @@ export default defineComponent({
     };
 
     const divRef = ref<HTMLDivElement>();
+
+    // vue23:! 
+    const renderModel = () => {
+      const wrapper = document.createElement('div');
+      const component = defineComponent({
+        setup() {
+          if (props.mode === 'modeless') {
+            return () => 
+              <TImageViewerModal
+                zIndex={zIndexValue.value}
+                visible={visibleValue.value}
+                index={indexValue.value}
+                images={images.value}
+                scale={scale.value}
+                rotate={rotate.value}
+                mirror={mirror.value}
+                currentImage={currentImage.value}
+                onRotate={onRotate}
+                onZoomIn={onZoomIn}
+                onZoomOut={onZoomOut}
+                onMirror={onMirror}
+                onReset={onRest}
+                onClose={onClose}
+                draggable={props.draggable}
+                showOverlay={showOverlayValue.value}
+                title={props.title}
+              />
+          }
+          return () => 
+            <Teleport to="body">
+              <Transition>
+                {(visibleValue.value || !animationEnd.value) && (
+                  <div
+                    ref={divRef}
+                    v-show={visibleValue.value}
+                    class={wrapClass.value}
+                    style={{ zIndex: zIndexValue.value }}
+                    onWheel={onWheel}
+                    tabindex={-1}
+                    onKeydown={keydownHandler}
+                  >
+                    {!!showOverlayValue.value && (
+                      <div class={`${COMPONENT_NAME.value}__modal-mask`} onClick={clickOverlayHandler} />
+                    )}
+                    {images.value.length > 1 && (
+                      [
+                        renderHeader(),
+                        <div class={`${COMPONENT_NAME.value}__modal-index`}>
+                          {props.title && renderTNodeJSX('title')}
+                          {`${indexValue.value + 1}/${images.value.length}`}
+                        </div>,
+                        renderNavigationArrow('prev'),
+                        renderNavigationArrow('next'),
+                      ]
+                    )}
+                    {renderCloseBtn()}
+                    <TImageViewerUtils
+                      onZoomIn={onZoomIn}
+                      onZoomOut={onZoomOut}
+                      onMirror={onMirror}
+                      onReset={onRest}
+                      onRotate={onRotate}
+                      scale={scale.value}
+                      currentImage={currentImage.value}
+                    />
+                    <TImageItem
+                      scale={scale.value}
+                      rotate={rotate.value}
+                      mirror={mirror.value}
+                      src={currentImage.value.mainImage}
+                      placementSrc={currentImage.value.thumbnail}
+                    />
+                  </div>
+                )}
+              </Transition>
+            </Teleport>
+        }
+      })
+
+      const attachDom = document.body;
+      const instance = createApp(component).mount(wrapper);
+      attachDom.appendChild(instance.$el);
+    };
+
     watch(
       () => visibleValue.value,
       (val) => {
         clearTimeout(animationTimer.value);
         if (val) {
+          renderModel();
           animationEnd.value = false;
           nextTick().then(() => {
             divRef.value?.focus?.();
@@ -207,94 +293,15 @@ export default defineComponent({
       }
       return (
         <div
-          class={[`${COMPONENT_NAME.value}__modal-icon`, `${COMPONENT_NAME.value}__modal-close-bt`]}
-          onClick={closeBtnAction}
+        class={[`${COMPONENT_NAME.value}__modal-icon`, `${COMPONENT_NAME.value}__modal-close-bt`]}
+        onClick={closeBtnAction}
+          // vue23:*
         >
-          {renderTNodeJSX('closeBtn', <CloseIcon size="24px" />)}
+          {renderTNodeJSX('closeBtn') || <CloseIcon size="24px" />}
         </div>
       );
     };
 
-    return () => {
-      if (props.mode === 'modeless') {
-        return (
-          [
-            renderTNodeJSX('trigger', { params: { open: openHandler } }),
-            <TImageViewerModal
-              zIndex={zIndexValue.value}
-              visible={visibleValue.value}
-              index={indexValue.value}
-              images={images.value}
-              scale={scale.value}
-              rotate={rotate.value}
-              mirror={mirror.value}
-              currentImage={currentImage.value}
-              onRotate={onRotate}
-              onZoomIn={onZoomIn}
-              onZoomOut={onZoomOut}
-              onMirror={onMirror}
-              onReset={onRest}
-              onClose={onClose}
-              draggable={props.draggable}
-              showOverlay={showOverlayValue.value}
-              title={props.title}
-            />
-          ]
-        );
-      }
-
-      return (
-        [
-          renderTNodeJSX('trigger', { params: { open: openHandler } }),
-          <Teleport to="body">
-            <Transition>
-              {(visibleValue.value || !animationEnd.value) && (
-                <div
-                  ref={divRef}
-                  v-show={visibleValue.value}
-                  class={wrapClass.value}
-                  style={{ zIndex: zIndexValue.value }}
-                  onWheel={onWheel}
-                  tabindex={-1}
-                  onKeydown={keydownHandler}
-                >
-                  {!!showOverlayValue.value && (
-                    <div class={`${COMPONENT_NAME.value}__modal-mask`} onClick={clickOverlayHandler} />
-                  )}
-                  {images.value.length > 1 && (
-                    [
-                      renderHeader(),
-                      <div class={`${COMPONENT_NAME.value}__modal-index`}>
-                        {props.title && renderTNodeJSX('title')}
-                        {`${indexValue.value + 1}/${images.value.length}`}
-                      </div>,
-                      renderNavigationArrow('prev'),
-                      renderNavigationArrow('next'),
-                    ]
-                  )}
-                  {renderCloseBtn()}
-                  <TImageViewerUtils
-                    onZoomIn={onZoomIn}
-                    onZoomOut={onZoomOut}
-                    onMirror={onMirror}
-                    onReset={onRest}
-                    onRotate={onRotate}
-                    scale={scale.value}
-                    currentImage={currentImage.value}
-                  />
-                  <TImageItem
-                    scale={scale.value}
-                    rotate={rotate.value}
-                    mirror={mirror.value}
-                    src={currentImage.value.mainImage}
-                    placementSrc={currentImage.value.thumbnail}
-                  />
-                </div>
-              )}
-            </Transition>
-          </Teleport>
-        ]
-      );
-    };
+    return () => renderTNodeJSX('trigger', { params: { open: openHandler } });
   },
 });
