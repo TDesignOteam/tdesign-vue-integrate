@@ -227,12 +227,14 @@ export default defineComponent({
       if (eventSrc.tagName.toLowerCase() === 'input') return; // 若是input触发 则不执行
       const { code } = e;
       if ((code === 'Enter' || code === 'NumpadEnter') && isLastDialog()) {
-        props.onConfirm?.({ e });
+        // vue23:*
+        emitEvent('confirm', { e })
       }
     };
     const keyboardEvent = (e: KeyboardEvent) => {
       if (e.code === 'Escape' && isLastDialog()) {
-        props.onEscKeydown?.({ e });
+        // vue23:*
+        emitEvent('escKeydown', { e })
         // 根据closeOnEscKeydown判断按下ESC时是否触发close事件
         if (props.closeOnEscKeydown ?? globalConfig.value.closeOnEscKeydown) {
           emitCloseEvent({ e, trigger: 'esc' });
@@ -241,13 +243,15 @@ export default defineComponent({
     };
     const overlayAction = (e: MouseEvent) => {
       if (props.showOverlay && (props.closeOnOverlayClick ?? globalConfig.value.closeOnOverlayClick)) {
-        props.onOverlayClick?.({ e });
+        // vue23:*
+        emitEvent('overlayClick', { e })
         emitCloseEvent({ e, trigger: 'overlay' });
       }
     };
     const { onClick, onMousedown, onMouseup } = useSameTarget(overlayAction);
     const closeBtnAction = (e: MouseEvent) => {
-      props.onCloseBtnClick?.({ e });
+      // vue23:*
+      emitEvent('closeBtnClick', { e })
       emitCloseEvent({
         trigger: 'close-btn',
         e,
@@ -256,7 +260,8 @@ export default defineComponent({
 
     // 打开弹窗动画结束时事件
     const afterEnter = () => {
-      props.onOpened?.();
+      // vue23:*
+      emitEvent('opened')
     };
     // 关闭弹窗动画结束时事件
     const afterLeave = () => {
@@ -266,14 +271,15 @@ export default defineComponent({
         dialogEle.value.style.left = 'unset';
         dialogEle.value.style.top = 'unset';
       }
-      props.onClosed?.();
+      // vue23:*
+      emitEvent('closed')
     };
 
     const emitCloseEvent = (ctx: DialogCloseContext) => {
-      props.onClose?.(ctx);
       // 默认关闭弹窗
       // context.emit('update:visible', false);
-      emitEvent('update:visible', false)
+      emitEvent('update:visible', false);
+      emitEvent('close', ctx);
     };
 
     // Vue在引入阶段对事件的处理还做了哪些初始化操作。Vue在实例上用一个_events属性存贮管理事件的派发和更新，
