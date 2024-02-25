@@ -15,6 +15,7 @@
     "@td/adapter-utils": "workspace:^",
     "@td/adapter-vue": "workspace:^",
     "@td/shared": "workspace:^",
+    "@types/raf": "^3.4.3",
     "clipboard": "^2.0.11",
     "dayjs": "^1.11.10",
     "lodash": "^4.17.21",

@@ -1,4 +1,4 @@
-import { getCurrentInstance, h as H } from "vue";
+import Vue, { getCurrentInstance, h as H } from "vue";
 import type { App, Plugin, VNode } from "vue";
 
 const getVNode = (node: VNode) => {
@@ -31,3 +31,4 @@ export {
   pluginInstall
 };
 
+export default Vue;

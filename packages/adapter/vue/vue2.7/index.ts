@@ -113,3 +113,5 @@ export {
   createElement,
   pluginInstall
 }
+
+export default Vue;

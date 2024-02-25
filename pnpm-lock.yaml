@@ -152,6 +152,9 @@ importers:
       '@types/lodash':
         specifier: ^4.14.202
         version: 4.14.202
+      '@types/node':
+        specifier: ^20.11.16
+        version: 20.11.16
       '@types/raf':
         specifier: ^3.4.3
         version: 3.4.3
@@ -174,6 +177,9 @@ importers:
       '@types/lodash':
         specifier: ^4.14.202
         version: 4.14.202
+      '@types/node':
+        specifier: ^20.11.16
+        version: 20.11.16
       '@types/raf':
         specifier: ^3.4.3
         version: 3.4.3
@@ -283,6 +289,9 @@ importers:
       '@td/shared':
         specifier: workspace:^
         version: link:../shared
+      '@types/raf':
+        specifier: ^3.4.3
+        version: 3.4.3
       clipboard:
         specifier: ^2.0.11
         version: 2.0.11

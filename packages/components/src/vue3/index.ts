@@ -1,3 +1,1 @@
-// export * from './descriptions';
-
-export {}
+export * from './popup';

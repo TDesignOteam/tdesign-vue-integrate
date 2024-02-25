@@ -94,6 +94,10 @@ export const getAttach = (node: any, triggerNode?: any): HTMLElement | Element |
   return document.body;
 };
 
+export const getSSRAttach = () => {
+  if (process.env.NODE_ENV === 'test-snap') return 'body';
+};
+
 // 用于判断节点内容是否溢出
 export const isNodeOverflow = (
   ele: ComponentPublicInstance | Element | ComponentPublicInstance[] | Element[],
@@ -223,4 +227,13 @@ export const getScrollContainer = (container: ScrollContainer = 'body'): ScrollC
     return container();
   }
   return container;
+};
+
+export const removeDom = (el: HTMLElement) => {
+  if (el.remove) {
+    el.remove();
+  } else {
+    // ie
+    el.parentNode?.removeChild(el);
+  }
 };

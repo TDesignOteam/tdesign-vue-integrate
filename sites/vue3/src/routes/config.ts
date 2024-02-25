@@ -650,14 +650,14 @@ export const docs = [
   //       component: () => import('@td/intel/components/popconfirm/popconfirm.md'),
   //       componentEn: () => import('@td/intel/components/popconfirm/popconfirm.en-US.md'),
   //     },
-  //     {
-  //       title: 'Popup 弹出层',
-  //       titleEn: 'Popup',
-  //       name: 'popup',
-  //       path: '/vue-next/components/popup',
-  //       component: () => import('@td/intel/components/popup/popup.md'),
-  //       componentEn: () => import('@td/intel/components/popup/popup.en-US.md'),
-  //     },
+      {
+        title: 'Popup 弹出层',
+        titleEn: 'Popup',
+        name: 'popup',
+        path: '/vue-next/components/popup',
+        component: () => import('@td/intel/components/popup/popup.md'),
+        componentEn: () => import('@td/intel/components/popup/popup.en-US.md'),
+      },
     ],
   },
 ];
