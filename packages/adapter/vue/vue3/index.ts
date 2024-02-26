@@ -1,4 +1,5 @@
-import Vue, { getCurrentInstance, h as H } from "vue";
+import * as Vue from "vue";
+import { getCurrentInstance, h as H } from "vue";
 import type { App, Plugin, VNode } from "vue";
 
 const getVNode = (node: VNode) => {

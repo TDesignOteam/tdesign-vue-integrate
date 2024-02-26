@@ -34,3 +34,4 @@ export * from './image';
 export * from './avatar';
 export * from './dialog';
 export * from './image-viewer';
+export * from './input-number';

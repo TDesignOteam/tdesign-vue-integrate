@@ -295,14 +295,14 @@ export const docs = [
   //       component: () => import('@td/intel/components/input-adornment/input-adornment.md'),
   //       componentEn: () => import('@td/intel/components/input-adornment/input-adornment.en-US.md'),
   //     },
-  //     {
-  //       title: 'InputNumber 数字输入框',
-  //       titleEn: 'InputNumber',
-  //       name: 'input-number',
-  //       path: '/vue-next/components/input-number',
-  //       component: () => import('@td/intel/components/input-number/input-number.md'),
-  //       componentEn: () => import('@td/intel/components/input-number/input-number.en-US.md'),
-  //     },
+      {
+        title: 'InputNumber 数字输入框',
+        titleEn: 'InputNumber',
+        name: 'input-number',
+        path: '/vue-next/components/input-number',
+        component: () => import('@td/intel/components/input-number/input-number.md'),
+        componentEn: () => import('@td/intel/components/input-number/input-number.en-US.md'),
+      },
   //     {
   //       title: 'TagInput 标签输入框',
   //       titleEn: 'TagInput',
