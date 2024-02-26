@@ -36,3 +36,4 @@ export * from './dialog';
 export * from './image-viewer';
 export * from './input-number';
 export * from './input-adornment';
+export * from './tag-input';

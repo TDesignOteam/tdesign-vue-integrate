@@ -102,15 +102,9 @@ export default defineComponent({
       },
     ]);
 
+    // vue23:!
     const inputEvents = getValidAttrs({
-      onFocus: inputHandle.emitFocus,
-      onBlur: inputHandle.formatAndEmitBlur,
-      onKeydown: inputEventHandler.handleKeydown,
-      onKeyup: inputEventHandler.handleKeyUp,
-      onKeypress: inputEventHandler.handleKeypress,
-      onPaste: inputEventHandler.onHandlePaste,
-      onCompositionend: inputHandle.onHandleCompositionend,
-      onCompositionstart: inputHandle.onHandleCompositionstart,
+      
     });
 
     return () => {
@@ -220,7 +214,16 @@ export default defineComponent({
             <input
               class={[`${COMPONENT_NAME.value}__inner`, { [`${COMPONENT_NAME.value}--soft-hidden`]: !props.showInput }]}
               {...inputAttrs.value}
-              {...inputEvents}
+              // vue23:!
+              // {...inputEvents}
+              onFocus={inputHandle.emitFocus}
+              onBlur={inputHandle.formatAndEmitBlur}
+              onKeydown={inputEventHandler.handleKeydown}
+              onKeyup={inputEventHandler.handleKeyUp}
+              onKeypress={inputEventHandler.handleKeypress}
+              onPaste={inputEventHandler.onHandlePaste}
+              onCompositionend={inputHandle.onHandleCompositionend}
+              onCompositionstart={inputHandle.onHandleCompositionstart}
               ref={inputRef}
               value={isComposition.value ? compositionValue.value ?? '' : inputValue.value ?? ''}
               onInput={(e: Event) => inputHandle.handleInput(e as InputEvent)}

@@ -4,7 +4,7 @@ import { ref, computed, watch, nextTick, toRefs, inject } from '@td/adapter-vue'
 import type { InputValue, TdInputProps } from '@td/intel/components/input/type';
 
 // import { FormItemInjectionKey } from '../form/const';
-import { useVModel } from '@td/adapter-hooks';
+import { useVModel, useEmitEvent } from '@td/adapter-hooks';
 // vue23:!
 // import { useFormDisabled } from '../form/hooks';
 import useLengthLimit from './useLengthLimit';
@@ -37,6 +37,7 @@ export default function useInput(props: ExtendsTdInputProps, expose: (exposed: R
   // const disabled = useFormDisabled();
   const disabled = ref(false);
   const [innerValue, setInnerValue] = useVModel(value, modelValue, props.defaultValue, props.onChange);
+  const emitEvent = useEmitEvent()
 
   const isHover = ref(false);
   const focused = ref(false);
@@ -75,13 +76,14 @@ export default function useInput(props: ExtendsTdInputProps, expose: (exposed: R
     inputValue.value = innerValue.value;
     if (props.disabled) return;
     focused.value = true;
-    props.onFocus?.(innerValue.value, { e });
+    emitEvent('focus', innerValue.value, { e })
   };
 
   const emitClear = ({ e }: { e: MouseEvent }) => {
     const val = props.type === 'number' ? undefined : '';
     setInnerValue(val, { e, trigger: 'clear' });
-    props.onClear?.({ e });
+    // vue23:*
+    emitEvent('clear', { e })
   };
 
   const onClearIconMousedown = (e: MouseEvent) => {
@@ -153,7 +155,7 @@ export default function useInput(props: ExtendsTdInputProps, expose: (exposed: R
             : props.format(innerValue.value);
       }
       focused.value = false;
-      props.onBlur?.(innerValue.value, { e });
+      emitEvent('blur', innerValue.value, { e });
       formItem?.handleBlur();
     } else {
       focus();
@@ -164,7 +166,7 @@ export default function useInput(props: ExtendsTdInputProps, expose: (exposed: R
     isComposition.value = false;
     compositionValue.value = '';
     inputValueChangeHandle(e);
-    props.onCompositionend?.(String(innerValue.value), { e });
+    emitEvent('compositionend', String(innerValue.value), { e });
   };
 
   const onHandleCompositionstart = (e: CompositionEvent) => {
@@ -173,12 +175,12 @@ export default function useInput(props: ExtendsTdInputProps, expose: (exposed: R
       currentTarget: { value },
     }: any = e;
     compositionValue.value = value;
-    props.onCompositionstart?.(String(innerValue.value), { e });
+    emitEvent('compositionstart', String(innerValue.value), { e });
   };
 
   const onRootClick = (e: MouseEvent) => {
     inputRef.value?.focus();
-    props.onClick?.({ e });
+    emitEvent('click', { e });
   };
 
   watch(
