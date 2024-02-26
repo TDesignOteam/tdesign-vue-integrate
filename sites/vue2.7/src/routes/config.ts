@@ -287,14 +287,14 @@ export const docs = [
         component: () => import('@td/intel/components/input/input.md'),
         componentEn: () => import('@td/intel/components/input/input.en-US.md'),
       },
-  //     {
-  //       title: 'InputAdornment 输入装饰器',
-  //       titleEn: 'InputAdornment',
-  //       name: 'input-adornment',
-  //       path: '/vue/components/input-adornment',
-  //       component: () => import('@td/intel/components/input-adornment/input-adornment.md'),
-  //       componentEn: () => import('@td/intel/components/input-adornment/input-adornment.en-US.md'),
-  //     },
+      {
+        title: 'InputAdornment 输入装饰器',
+        titleEn: 'InputAdornment',
+        name: 'input-adornment',
+        path: '/vue/components/input-adornment',
+        component: () => import('@td/intel/components/input-adornment/input-adornment.md'),
+        componentEn: () => import('@td/intel/components/input-adornment/input-adornment.en-US.md'),
+      },
       {
         title: 'InputNumber 数字输入框',
         titleEn: 'InputNumber',
