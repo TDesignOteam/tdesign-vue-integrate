@@ -1,7 +1,7 @@
-import isObject from 'lodash/isObject';
-import isString from 'lodash/isString';
-import debounce from 'lodash/debounce';
-import isArray from 'lodash/isArray';
+import { isObject } from 'lodash-es';
+import { isString } from 'lodash-es';
+import { debounce } from 'lodash-es';
+import { isArray } from 'lodash-es';
 import { createPopper } from '@popperjs/core';
 import type { Placement } from '@popperjs/core';
 import {

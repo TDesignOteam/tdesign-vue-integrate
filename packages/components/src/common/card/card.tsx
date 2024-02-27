@@ -1,4 +1,4 @@
-import isString from 'lodash/isString';
+import { isString } from 'lodash-es';
 import { defineComponent, computed } from '@td/adapter-vue';
 
 import { usePrefixClass, useCommonClassName, useTNodeJSX } from '@td/adapter-hooks';

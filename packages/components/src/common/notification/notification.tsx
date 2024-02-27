@@ -1,4 +1,4 @@
-import isFunction from 'lodash/isFunction';
+import { isFunction } from 'lodash-es';
 import { defineComponent, h, onBeforeMount, onMounted, ref } from '@td/adapter-vue';
 import {
   InfoCircleFilledIcon as TdInfoCircleFilledIcon,

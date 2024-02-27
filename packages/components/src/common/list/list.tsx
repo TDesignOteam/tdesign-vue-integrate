@@ -1,5 +1,5 @@
 import omit from 'lodash/omit';
-import isString from 'lodash/isString';
+import { isString } from 'lodash-es';
 import { defineComponent, computed, ref } from '@td/adapter-vue';
 import type { VNodeChild } from '@td/adapter-vue';
 

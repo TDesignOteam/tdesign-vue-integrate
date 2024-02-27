@@ -1,8 +1,8 @@
 import { ref } from '@td/adapter-vue';
-import isArray from 'lodash/isArray';
-import isNumber from 'lodash/isNumber';
-import isObject from 'lodash/isObject';
-import isUndefined from 'lodash/isUndefined';
+import { isArray } from 'lodash-es';
+import { isNumber } from 'lodash-es';
+import { isObject } from 'lodash-es';
+import { isUndefined } from 'lodash-es';
 
 import type { TdColProps, TdRowProps } from '@td/intel/components/grid/type';
 import { useListener } from '@td/adapter-hooks';

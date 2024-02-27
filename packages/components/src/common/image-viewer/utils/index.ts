@@ -1,5 +1,5 @@
-import isString from 'lodash/isString';
-import isArray from 'lodash/isArray';
+import { isString } from 'lodash-es';
+import { isArray } from 'lodash-es';
 
 import type { TdImageViewerProps, ImageInfo } from '@td/intel/components/image-viewer/type';
 

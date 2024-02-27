@@ -1,6 +1,6 @@
 import { ref, getCurrentInstance } from '@td/adapter-vue';
 import type { Ref } from '@td/adapter-vue';
-import kebabCase from 'lodash/kebabCase';
+import { kebabCase } from 'lodash-es';
 import type { ChangeHandler } from './useVModel';
 
 function useDefaultValueVue3<T, P extends any[]>(

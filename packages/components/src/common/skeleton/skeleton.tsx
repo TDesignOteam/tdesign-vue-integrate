@@ -1,6 +1,6 @@
-import isArray from 'lodash/isArray';
-import isNumber from 'lodash/isNumber';
-import isFunction from 'lodash/isFunction';
+import { isArray } from 'lodash-es';
+import { isNumber } from 'lodash-es';
+import { isFunction } from 'lodash-es';
 import { h, defineComponent, ref, watch } from '@td/adapter-vue';
 
 import { usePrefixClass, useContent } from '@td/adapter-hooks';

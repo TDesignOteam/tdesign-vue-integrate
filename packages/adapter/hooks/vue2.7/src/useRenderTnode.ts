@@ -1,7 +1,6 @@
 import { h } from '@td/adapter-vue';
 import type { VNode } from '@td/adapter-vue';
-import isString from 'lodash/isString';
-import isObject from 'lodash/isObject';
+import { isString, isObject } from 'lodash-es';
 
 export interface JSXRenderContext {
   defaultNode?: VNode | string;

@@ -1,6 +1,5 @@
 import { ref, watch, nextTick, onMounted, onBeforeUnmount, defineComponent, onActivated, onDeactivated } from '@td/adapter-vue';
-import isFunction from 'lodash/isFunction';
-import isUndefined from 'lodash/isUndefined';
+import { isFunction, isUndefined } from 'lodash-es';
 
 import { on, off, getScrollContainer } from '@td/adapter-utils';
 import props from '@td/intel/components/affix/props';

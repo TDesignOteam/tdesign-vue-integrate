@@ -43,14 +43,14 @@ export const docs = [
     titleEn: 'Global Config',
     type: 'doc',
     children: [
-  //     {
-  //       title: '全局特性配置',
-  //       titleEn: 'Global Configuration',
-  //       name: 'config',
-  //       path: '/vue-next/global-configuration',
-  //       component: () => import('@td/intel/components/config-provider/config-provider.md'),
-  //       componentEn: () => import('@td/intel/components/config-provider/config-provider.en-US.md'),
-  //     },
+      {
+        title: '全局特性配置',
+        titleEn: 'Global Configuration',
+        name: 'config',
+        path: '/vue-next/global-configuration',
+        component: () => import('@td/intel/components/config-provider/config-provider.md'),
+        componentEn: () => import('@td/intel/components/config-provider/config-provider.en-US.md'),
+      },
   //     {
   //       title: '自定义主题',
   //       titleEn: 'Theme Customization',

@@ -1,8 +1,8 @@
 import { h, getCurrentInstance } from '@td/adapter-vue';
 import type { ComponentInternalInstance, VNode } from '@td/adapter-vue';
-import isFunction from 'lodash/isFunction';
+import { isFunction } from 'lodash-es';
 import camelCase from 'lodash/camelCase';
-import kebabCase from 'lodash/kebabCase';
+import { kebabCase } from 'lodash-es';
 import { getDefaultNode, getParams, getSlotFirst } from './useRenderTnode';
 import type { OptionsType, JSXRenderContext } from './useRenderTnode';
 

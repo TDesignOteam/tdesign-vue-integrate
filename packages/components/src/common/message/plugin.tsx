@@ -23,8 +23,8 @@
  * msg.then(instance => instance.close())
  *
  */
-import isObject from 'lodash/isObject';
-import isString from 'lodash/isString';
+import { isObject } from 'lodash-es';
+import { isString } from 'lodash-es';
 import type { App, Plugin, ComponentPublicInstance } from '@td/adapter-vue';
 import { createApp, nextTick, pluginInstall } from '@td/adapter-vue';
 import MessageList, { DEFAULT_Z_INDEX } from './messageList';

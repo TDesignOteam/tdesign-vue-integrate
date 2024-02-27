@@ -38,3 +38,4 @@ export * from './input-number';
 export * from './input-adornment';
 export * from './tag-input';
 export * from './tabs';
+export * from './config-provider';

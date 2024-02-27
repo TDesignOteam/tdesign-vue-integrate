@@ -1,4 +1,4 @@
-import isFunction from 'lodash/isFunction';
+import { isFunction } from 'lodash-es';
 import { getCurrentInstance, H } from '@td/adapter-vue';
 
 // !本来在 hooks，但只有这里用到了

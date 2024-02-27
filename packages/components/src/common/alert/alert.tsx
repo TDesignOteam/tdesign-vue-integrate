@@ -1,4 +1,5 @@
-import { defineComponent, VNode, ref, onMounted, onBeforeUnmount, Teleport } from '@td/adapter-vue';
+import { defineComponent, ref, onMounted, onBeforeUnmount } from '@td/adapter-vue';
+import type { VNode } from '@td/adapter-vue';
 import {
   CheckCircleFilledIcon as TdCheckCircleFilledIcon,
   CloseIcon as TdCloseIcon,
@@ -6,8 +7,7 @@ import {
   HelpCircleFilledIcon as TdHelpCircleFilledIcon,
   InfoCircleFilledIcon as TdInfoCircleFilledIcon,
 } from 'tdesign-icons-vue-next';
-import isString from 'lodash/isString';
-import isArray from 'lodash/isArray';
+import { isString, isArray } from 'lodash-es';
 
 import { on, off, addClass } from '@td/adapter-utils';
 import props from '@td/intel/components/alert/props';

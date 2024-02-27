@@ -1,4 +1,4 @@
-import isString from 'lodash/isString';
+import { isString } from 'lodash-es';
 import { defineComponent } from '@td/adapter-vue';
 
 import props from '@td/intel/components/list/list-item-meta-props';

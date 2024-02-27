@@ -1,4 +1,4 @@
-import isArray from 'lodash/isArray';
+import { isArray } from 'lodash-es';
 import { defineComponent, provide, toRefs } from '@td/adapter-vue';
 import type { ComponentPublicInstance, Ref } from '@td/adapter-vue';
 

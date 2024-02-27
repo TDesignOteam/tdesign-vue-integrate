@@ -1,5 +1,5 @@
-import isObject from 'lodash/isObject';
-import isString from 'lodash/isString';
+import { isObject } from 'lodash-es';
+import { isString } from 'lodash-es';
 import { defineComponent, VNode, computed, CSSProperties } from '@td/adapter-vue';
 import {
   CloseCircleFilledIcon as TdCloseCircleFilledIcon,

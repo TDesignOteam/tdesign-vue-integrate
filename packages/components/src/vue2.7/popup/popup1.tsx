@@ -1,6 +1,6 @@
 import type { VNodeDirective } from '@td/adapter-vue';
 import { createPopper } from '@popperjs/core';
-import debounce from 'lodash/debounce';
+import { debounce } from 'lodash-es';
 import { on, off, once } from '../utils/dom';
 import { renderTNodeJSX, renderContent } from '../utils/render-tnode';
 import { getIEVersion } from '../utils/helper';

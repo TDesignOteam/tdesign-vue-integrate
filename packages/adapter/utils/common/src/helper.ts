@@ -1,9 +1,9 @@
 import camelCase from 'lodash/camelCase';
-import isUndefined from 'lodash/isUndefined';
+import { isUndefined } from 'lodash-es';
 import isNull from 'lodash/isNull';
-import isArray from 'lodash/isArray';
-import isNumber from 'lodash/isNumber';
-import isString from 'lodash/isString';
+import { isArray } from 'lodash-es';
+import { isNumber } from 'lodash-es';
+import { isString } from 'lodash-es';
 
 // ! 是不是直接用 lodash 就成了？
 export function omit(obj: object, fields: string[]): object {

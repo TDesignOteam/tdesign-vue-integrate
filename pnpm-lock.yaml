@@ -91,16 +91,16 @@ importers:
       '@td/shared':
         specifier: workspace:^
         version: link:../../shared
-      lodash:
+      lodash-es:
         specifier: ^4.17.21
         version: 4.17.21
     devDependencies:
       '@td/ts-config':
         specifier: workspace:^
         version: link:../../../configs/tsconfig
-      '@types/lodash':
-        specifier: ^4.14.202
-        version: 4.14.202
+      '@types/lodash-es':
+        specifier: ^4.17.12
+        version: 4.17.12
 
   packages/adapter/hooks/vue2.7:
     dependencies:
@@ -298,7 +298,7 @@ importers:
       dayjs:
         specifier: ^1.11.10
         version: 1.11.10
-      lodash:
+      lodash-es:
         specifier: ^4.17.21
         version: 4.17.21
       raf:
@@ -314,9 +314,9 @@ importers:
         specifier: ^13.11.0
         version: 13.11.0
     devDependencies:
-      '@types/lodash':
-        specifier: ^4.14.202
-        version: 4.14.202
+      '@types/lodash-es':
+        specifier: ^4.17.12
+        version: 4.17.12
       '@types/node':
         specifier: ^20.11.16
         version: 20.11.16
@@ -360,6 +360,9 @@ importers:
       '@td/ts-config':
         specifier: workspace:^
         version: link:../../../configs/tsconfig
+      tdesign-icons-vue-next:
+        specifier: ^0.2.2
+        version: 0.2.2(vue@3.4.15)
       vue:
         specifier: ^3.4.15
         version: 3.4.15(typescript@5.3.3)
@@ -3388,6 +3391,12 @@ packages:
 
   /@types/linkify-it@3.0.5:
     resolution: {integrity: sha512-yg6E+u0/+Zjva+buc3EIb+29XEg4wltq7cSmd4Uc2EE/1nUVmxyzpX6gUXD0V8jIrG0r7YeOGVIbYRkxeooCtw==}
+    dev: true
+
+  /@types/lodash-es@4.17.12:
+    resolution: {integrity: sha512-0NgftHUcV4v34VhXm8QBSftKVXtbkBG3ViCjs6+eJ5a6y6Mi/jiFGPc1sC7QK+9BFhWrURE3EOggmWaSxL9OzQ==}
+    dependencies:
+      '@types/lodash': 4.14.202
     dev: true
 
   /@types/lodash@4.14.182:
@@ -15194,7 +15203,6 @@ packages:
     dependencies:
       '@babel/runtime': 7.23.9
       vue: 3.4.15(typescript@5.3.3)
-    dev: false
 
   /tdesign-icons-vue@0.0.8(vue@2.7.14):
     resolution: {integrity: sha512-lxKeMlrRrMuD0AIVIvciK/0GryTJPsOH00LNSPjUkPFznlxua/7N4F39bWJhjHa67/zcPyeHSFvyLjwXi53OCg==}

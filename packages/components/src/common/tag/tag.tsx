@@ -4,7 +4,7 @@ import { CloseIcon as TdCloseIcon } from 'tdesign-icons-vue-next';
 
 import props from '@td/intel/components/tag/props';
 import { useConfig, usePrefixClass, useCommonClassName, useGlobalIcon, useTNodeJSX, useContent } from '@td/adapter-hooks';
-import isString from 'lodash/isString';
+import { isString } from 'lodash-es';
 
 export default defineComponent({
   name: 'TTag',

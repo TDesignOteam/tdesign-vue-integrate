@@ -1,4 +1,4 @@
-import isFunction from 'lodash/isFunction';
+import { isFunction } from 'lodash-es';
 import { computed, defineComponent, toRefs, H } from '@td/adapter-vue';
 
 import { usePrefixClass, useVModel } from '@td/adapter-hooks';

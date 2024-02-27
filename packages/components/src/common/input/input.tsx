@@ -1,5 +1,5 @@
 import { defineComponent, computed, ref } from '@td/adapter-vue';
-import isUndefined from 'lodash/isUndefined';
+import { isUndefined } from 'lodash-es';
 import {
   BrowseIcon as TdBrowseIcon,
   BrowseOffIcon as TdBrowseOffIcon,

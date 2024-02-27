@@ -1,5 +1,5 @@
-import isNumber from 'lodash/isNumber';
-import isFunction from 'lodash/isFunction';
+import { isNumber } from 'lodash-es';
+import { isFunction } from 'lodash-es';
 import { defineComponent, computed, ref, onMounted, watch, toRefs } from '@td/adapter-vue';
 import {
   ArrowTriangleDownFilledIcon as TDArrowTriangleDownFilledIcon,

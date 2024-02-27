@@ -1,4 +1,4 @@
-import isFunction from 'lodash/isFunction';
+import { isFunction } from 'lodash-es';
 
 import { getAttach } from '@td/adapter-utils';
 import type { AttachNode } from '@td/shared/interface';

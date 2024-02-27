@@ -11,7 +11,7 @@ import useTagScroll from './hooks/useTagScroll';
 import useTagList from './hooks/useTagList';
 import useHover from './hooks/useHover';
 import useDragSorter from './hooks/useDragSorter';
-import isArray from 'lodash/isArray';
+import { isArray } from 'lodash-es';
 
 const useComponentClassName = () => {
   return {

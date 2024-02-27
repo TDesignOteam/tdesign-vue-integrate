@@ -1,0 +1,34 @@
+import { defineComponent } from '@td/adapter-vue';
+import type { PropType } from '@td/adapter-vue';
+import { useTNodeJSX, useProvideConfig } from '@td/adapter-hooks';
+
+import type { GlobalConfigProvider } from '@td/intel/components/config-provider/type';
+
+export const configProviderProps = {
+  globalConfig: Object as PropType<GlobalConfigProvider>,
+};
+
+export type ConfigProviderProps = {
+  globalConfig: GlobalConfigProvider;
+};
+
+export default defineComponent({
+  name: 'TConfigProvider',
+
+  props: configProviderProps,
+
+  setup(props) {
+    useProvideConfig(props);
+    const renderTNodeJSX = useTNodeJSX();
+
+    return () => {
+      const defaultNode = renderTNodeJSX('default');
+      
+      // vue23:! 感觉可以暴露一下 vue23： 然后用 vue23 来判断是否多单根
+      if (defaultNode.length === 1) {
+        return defaultNode[0];
+      }
+      return <div>{defaultNode}</div>;
+    };
+  },
+});

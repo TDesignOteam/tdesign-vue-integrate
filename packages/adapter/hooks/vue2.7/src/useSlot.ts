@@ -1,5 +1,5 @@
 import { getCurrentInstance, getVNode, H } from '@td/adapter-vue';
-import isArray from 'lodash/isArray';
+import { isArray } from 'lodash-es';
 import type { VNode } from '@td/adapter-vue';
 import type { ScopedSlot } from 'vue/types/vnode';
 

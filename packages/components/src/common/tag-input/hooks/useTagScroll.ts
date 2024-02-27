@@ -3,7 +3,7 @@
  * 如果标签过多时的处理方式，是标签省略，则不需要此功能
  */
 
-import isFunction from 'lodash/isFunction';
+import { isFunction } from 'lodash-es';
 import { onMounted, onUnmounted, ref, toRefs } from '@td/adapter-vue';
 import type { TdTagInputProps } from '@td/intel/components/tag-input/type';
 

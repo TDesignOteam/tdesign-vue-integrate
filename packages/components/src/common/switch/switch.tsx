@@ -1,6 +1,6 @@
-import isArray from 'lodash/isArray';
-import isString from 'lodash/isString';
-import isFunction from 'lodash/isFunction';
+import { isArray } from 'lodash-es';
+import { isString } from 'lodash-es';
+import { isFunction } from 'lodash-es';
 import type { VNodeChild } from "@td/adapter-vue";
 import { defineComponent, computed, watch, toRefs, H } from '@td/adapter-vue';
 

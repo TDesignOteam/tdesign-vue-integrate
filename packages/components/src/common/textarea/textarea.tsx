@@ -15,7 +15,7 @@ import type {
 } from '@td/adapter-vue';
 import merge from 'lodash/merge';
 import omit from 'lodash/omit';
-import isUndefined from 'lodash/isUndefined';
+import { isUndefined } from 'lodash-es';
 
 import { getCharacterLength } from '@td/adapter-utils';
 import calcTextareaHeight from './calcTextareaHeight';

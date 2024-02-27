@@ -1,6 +1,6 @@
 import raf from 'raf';
-import isString from 'lodash/isString';
-import isFunction from 'lodash/isFunction';
+import { isString } from 'lodash-es';
+import { isFunction } from 'lodash-es';
 import type { ComponentPublicInstance } from '@td/adapter-vue';
 import { easeInOutCubic } from './easing';
 import type {  EasingFunction } from './easing';

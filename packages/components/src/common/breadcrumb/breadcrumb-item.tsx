@@ -1,6 +1,7 @@
-import isFunction from 'lodash/isFunction';
+import { isFunction } from 'lodash-es';
 import { ChevronRightIcon as TdChevronRightIcon } from 'tdesign-icons-vue-next';
-import { defineComponent, VNode, inject, ref, computed, getCurrentInstance, onMounted, onBeforeUpdate } from '@td/adapter-vue';
+import { defineComponent, inject, ref, computed, getCurrentInstance, onMounted, onBeforeUpdate } from '@td/adapter-vue';
+import type { VNode } from '@td/adapter-vue';
 
 // import Tooltip from '../tooltip/index';
 

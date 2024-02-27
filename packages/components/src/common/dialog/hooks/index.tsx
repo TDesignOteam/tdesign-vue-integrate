@@ -1,6 +1,6 @@
 import omit from 'lodash/omit';
-import isString from 'lodash/isString';
-import isObject from 'lodash/isObject';
+import { isString } from 'lodash-es';
+import { isObject } from 'lodash-es';
 import { getCurrentInstance } from '@td/adapter-vue';
 import { useTNodeJSX } from '@td/adapter-hooks';
 

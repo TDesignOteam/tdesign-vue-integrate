@@ -1,10 +1,7 @@
 import { h, getCurrentInstance } from '@td/adapter-vue';
 import type { VNode,  SetupContext } from '@td/adapter-vue';
 // import { h, getCurrentInstance, ComponentInternalInstance, VNode } from 'vue';
-import isEmpty from 'lodash/isEmpty';
-import isFunction from 'lodash/isFunction';
-import camelCase from 'lodash/camelCase';
-import kebabCase from 'lodash/kebabCase';
+import { isFunction, isEmpty, camelCase, kebabCase } from 'lodash-es';
 import { getDefaultNode, getParams } from './useRenderTnode';
 import type { OptionsType, JSXRenderContext } from './useRenderTnode';
 // import log from '../_common/js/log';

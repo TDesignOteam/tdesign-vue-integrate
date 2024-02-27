@@ -1,5 +1,5 @@
 import omit from 'lodash/omit';
-import isFunction from 'lodash/isFunction';
+import { isFunction } from 'lodash-es';
 import { defineComponent, ref, onMounted, computed, onUnmounted, watch, toRefs } from '@td/adapter-vue';
 import { ImageErrorIcon, ImageIcon } from 'tdesign-icons-vue-next';
 

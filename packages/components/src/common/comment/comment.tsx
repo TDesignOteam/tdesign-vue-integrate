@@ -3,8 +3,8 @@ import props from '@td/intel/components/comment/props';
 
 import { usePrefixClass, useTNodeJSX } from '@td/adapter-hooks';
 import Button from '../button';
-import isString from 'lodash/isString';
-import isArray from 'lodash/isArray';
+import { isString } from 'lodash-es';
+import { isArray } from 'lodash-es';
 
 export default defineComponent({
   name: 'TComment',

@@ -11,6 +11,7 @@
   "license": "ISC",
   "devDependencies": {
     "@td/ts-config": "workspace:^",
+    "tdesign-icons-vue-next": "^0.2.2",
     "vue": "^3.4.15"
   },
   "dependencies": {

@@ -1,5 +1,4 @@
 import {
-  VNode,
   defineComponent,
   h,
   provide,
@@ -12,10 +11,8 @@ import {
   toRefs,
   onUnmounted,
 } from '@td/adapter-vue';
-import isString from 'lodash/isString';
-import isNumber from 'lodash/isNumber';
-import isNil from 'lodash/isNil';
-import throttle from 'lodash/throttle';
+import type { VNode } from '@td/adapter-vue';
+import { isString, isNumber, isNil, throttle } from 'lodash-es';
 
 import props from '@td/intel/components/radio/radio-group-props';
 import { RadioOptionObj, RadioOption } from '@td/intel/components/radio/type';
@@ -23,7 +20,7 @@ import Radio from './radio';
 import { RadioGroupInjectionKey } from './constants';
 import { usePrefixClass, useCommonClassName, useVModel, useTNodeDefault, useResizeObserver } from '@td/adapter-hooks';
 import useKeyboard from './useKeyboard';
-import isFunction from 'lodash/isFunction';
+import { isFunction } from 'lodash-es';
 import { useMutationObserver } from '../watermark/hooks';
 import type { UseMutationObserverReturn } from '../watermark/hooks';
 

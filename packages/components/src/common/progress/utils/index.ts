@@ -1,5 +1,5 @@
-import isArray from 'lodash/isArray';
-import isString from 'lodash/isString';
+import { isArray } from 'lodash-es';
+import { isString } from 'lodash-es';
 import type { LinearGradient } from "@td/shared/interface/animation";
 
 // ! 之前写在公共 utils 里面，但就这一个组件用上了，所以放过来了了哈暂时

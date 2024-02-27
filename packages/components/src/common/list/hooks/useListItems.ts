@@ -1,4 +1,4 @@
-import isArray from 'lodash/isArray';
+import { isArray } from 'lodash-es';
 import { computed } from '@td/adapter-vue';
 
 import { useChildComponentSlots } from '@td/adapter-hooks';

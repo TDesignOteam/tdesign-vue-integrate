@@ -5,8 +5,8 @@ import props from '@td/intel/components/radio/props';
 import { RadioGroupInjectionKey, RadioButtonInjectionKey } from './constants';
 
 // hooks
-import isUndefined from 'lodash/isUndefined';
-import isString from 'lodash/isString';
+import { isUndefined } from 'lodash-es';
+import { isString } from 'lodash-es';
 
 function getValidAttrs(obj: Record<string, any>): Record<string, any> {
   const newObj = {};

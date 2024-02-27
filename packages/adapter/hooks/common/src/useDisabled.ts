@@ -1,6 +1,6 @@
 import { inject, computed, getCurrentInstance } from '@td/adapter-vue';
 import type { Ref } from '@td/adapter-vue';
-import isBoolean from 'lodash/isBoolean';
+import { isBoolean } from 'lodash-es';
 // import type { TdFormProps } from '../form/type';
 
 export interface FormDisabledProvider {

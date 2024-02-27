@@ -1,5 +1,5 @@
-import isNil from 'lodash/isNil';
-import isArray from 'lodash/isArray';
+import { isNil } from 'lodash-es';
+import { isArray } from 'lodash-es';
 import { defineComponent, provide, ref } from '@td/adapter-vue';
 
 import { LayoutEnum } from '@td/shared/interface';

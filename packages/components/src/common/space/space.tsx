@@ -1,6 +1,6 @@
-import isArray from 'lodash/isArray';
-import isString from 'lodash/isString';
-import isNumber from 'lodash/isNumber';
+import { isArray } from 'lodash-es';
+import { isString } from 'lodash-es';
+import { isNumber } from 'lodash-es';
 import { defineComponent, computed, CSSProperties } from '@td/adapter-vue';
 
 import props from '@td/intel/components/space/props';

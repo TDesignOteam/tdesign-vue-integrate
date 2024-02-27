@@ -17,7 +17,7 @@ import type {
 } from '@td/adapter-vue';
 import props from '@td/intel/components/popup/props';
 import { useResizeObserver } from '@td/adapter-hooks';
-import isArray from 'lodash/isArray';
+import { isArray } from 'lodash-es';
 import { getSSRAttach, getAttach } from '@td/adapter-utils';
 
 function filterEmpty(children: VNode[] = []) {
