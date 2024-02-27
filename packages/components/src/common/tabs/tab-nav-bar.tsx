@@ -1,4 +1,5 @@
-import { defineComponent, PropType, computed, VNode, nextTick, ref, watch, onMounted } from '@td/adapter-vue';
+import { defineComponent, computed, nextTick, ref, watch, onMounted } from '@td/adapter-vue';
+import type { PropType, VNode } from '@td/adapter-vue';
 
 import { usePrefixClass } from '@td/adapter-hooks';
 import type { TdTabsProps } from '@td/intel/components/tabs/type';

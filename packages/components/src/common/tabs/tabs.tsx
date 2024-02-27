@@ -1,5 +1,6 @@
 import isArray from 'lodash/isArray';
-import { ComponentPublicInstance, defineComponent, provide, Ref, toRefs } from '@td/adapter-vue';
+import { defineComponent, provide, toRefs } from '@td/adapter-vue';
+import type { ComponentPublicInstance, Ref } from '@td/adapter-vue';
 
 import { useTNodeJSX, usePrefixClass, useVModel, useEmitEvent } from '@td/adapter-hooks';
 
@@ -7,7 +8,7 @@ import TTabPanel from './tab-panel';
 import TTabNav from './tab-nav';
 
 import props from '@td/intel/components/tabs/props';
-import { TabValue, TdTabsProps } from '@td/intel/components/tabs/type';
+import type { TabValue, TdTabsProps } from '@td/intel/components/tabs/type';
 
 export interface InjectTabs {
   value: Ref<TabValue>;

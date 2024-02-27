@@ -18,15 +18,15 @@ import TTabNavBar from './tab-nav-bar';
 
 // hooks
 import { usePrefixClass, useCommonClassName, useGlobalIcon, useResize } from '@td/adapter-hooks';
-// ! 看看怎么处理吧
-// import useDragSort from '../hooks/useDragSort';
+// vue23:! 发现本身就是有问题的，无法拖拽
+import useDragSort from './hooks/useDragSort';
 
 const { calculateCanToLeft, calculateCanToRight, calcScrollLeft, scrollToLeft, scrollToRight, moveActiveTabIntoView } =
   tabBase;
 
 export default defineComponent({
   name: 'TTabNav',
-  // ! 这是拿来干什么的
+  // vue23:?? ! 这是拿来干什么的
   ...{ resizeObserver: null },
   props: {
     theme: tabProps.theme,
@@ -224,10 +224,10 @@ export default defineComponent({
       }
     };
 
-    // const { setNavsWrap } = useDragSort(props);
+    const { setNavsWrap } = useDragSort(props);
 
     onMounted(() => {
-      // setNavsWrap(navsWrapRef.value);
+      setNavsWrap(navsWrapRef.value);
     });
     // renders
     const navs = computed(() => {

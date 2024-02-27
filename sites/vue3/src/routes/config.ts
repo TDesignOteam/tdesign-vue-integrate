@@ -216,14 +216,14 @@ export const docs = [
   //       component: () => import('@td/intel/components/sticky-tool/sticky-tool.md'),
   //       componentEn: () => import('@td/intel/components/sticky-tool/sticky-tool.en-US.md'),
   //     },
-  //     {
-  //       title: 'Tabs 选项卡',
-  //       titleEn: 'Tabs',
-  //       name: 'tabs',
-  //       path: '/vue-next/components/tabs',
-  //       component: () => import('@td/intel/components/tabs/tabs.md'),
-  //       componentEn: () => import('@td/intel/components/tabs/tabs.en-US.md'),
-  //     },
+      {
+        title: 'Tabs 选项卡',
+        titleEn: 'Tabs',
+        name: 'tabs',
+        path: '/vue-next/components/tabs',
+        component: () => import('@td/intel/components/tabs/tabs.md'),
+        componentEn: () => import('@td/intel/components/tabs/tabs.en-US.md'),
+      },
   //   ],
   // },
   // {

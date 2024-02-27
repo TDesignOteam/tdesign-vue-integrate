@@ -1,10 +1,12 @@
-import { computed, defineComponent, ref, PropType } from '@td/adapter-vue';
+import { computed, defineComponent, ref } from '@td/adapter-vue';
+import type { PropType } from '@td/adapter-vue';
 import { CloseIcon as TdCloseIcon } from 'tdesign-icons-vue-next';
 
 import tabProps from '@td/intel/components/tabs/props';
 import tabPanelProps from '@td/intel/components/tabs/tab-panel-props';
 
 // hooks
+// vue23:!
 // import useRipple from '../hooks/useRipple';
 import { usePrefixClass, useCommonClassName, useGlobalIcon } from '@td/adapter-hooks';
 
