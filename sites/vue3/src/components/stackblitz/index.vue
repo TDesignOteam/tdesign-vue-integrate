@@ -8,12 +8,36 @@
       @click="submit"
     >
       <input type="hidden" name="project[files][src/demo.vue]" :value="code" />
-      <input type="hidden" name="project[files][src/index.css]" :value="styleContent" />
-      <input type="hidden" name="project[files][src/main.js]" :value="mainJsContent" />
-      <input type="hidden" name="project[files][index.html]" :value="htmlContent" />
-      <input type="hidden" name="project[files][package.json]" :value="packageJSONContent" />
-      <input type="hidden" name="project[files][vite.config.js]" :value="viteConfigContent" />
-      <input type="hidden" name="project[files][.stackblitzrc]" :value="stackblitzRc" />
+      <input
+        type="hidden"
+        name="project[files][src/index.css]"
+        :value="styleContent"
+      />
+      <input
+        type="hidden"
+        name="project[files][src/main.js]"
+        :value="mainJsContent"
+      />
+      <input
+        type="hidden"
+        name="project[files][index.html]"
+        :value="htmlContent"
+      />
+      <input
+        type="hidden"
+        name="project[files][package.json]"
+        :value="packageJSONContent"
+      />
+      <input
+        type="hidden"
+        name="project[files][vite.config.js]"
+        :value="viteConfigContent"
+      />
+      <input
+        type="hidden"
+        name="project[files][.stackblitzrc]"
+        :value="stackblitzRc"
+      />
       <input type="hidden" name="project[template]" value="node" />
 
       <div class="action-online">
@@ -29,7 +53,7 @@
 </template>
 
 <script>
-import { defineComponent, ref } from 'vue';
+import { defineComponent, ref } from "vue";
 import {
   htmlContent,
   mainJsContent,
@@ -37,17 +61,16 @@ import {
   packageJSONContent,
   stackblitzRc,
   viteConfigContent,
-} from './content';
+} from "./content";
 
 export default defineComponent({
-  name: 'Stackblitz',
+  name: "Stackblitz",
   props: {
-    code: String,
     demoName: String,
     componentName: String,
   },
 
-  setup() {
+  setup(props) {
     const data = {
       htmlContent,
       mainJsContent,
@@ -56,14 +79,20 @@ export default defineComponent({
       viteConfigContent,
       packageJSONContent,
     };
+    const code = ref("");
 
     const formRef = ref(null);
 
     const submit = () => {
-      formRef.value.submit();
+      code.value = document.querySelector(
+        `td-doc-demo[demo-name='${props.demoName}']`
+      ).currentRenderCode;
+      setTimeout(() => {
+        formRef.value.submit();
+      });
     };
 
-    return { ...data, formRef, submit };
+    return { ...data, formRef, submit, code };
   },
 });
 </script>
