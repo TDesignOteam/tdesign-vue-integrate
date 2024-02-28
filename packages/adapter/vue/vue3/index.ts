@@ -23,13 +23,18 @@ const pluginInstall = (app: App, plugin: Plugin, ...paths: string[]) => {
 
 const createElement = H;
 
+const isVue3 = true;
+const isVue2 = false;
+
 export * from 'vue';
 export {
   getCurrentInstance,
   getVNode,
   createElement,
   H,
-  pluginInstall
+  pluginInstall,
+  isVue3,
+  isVue2,
 };
 
 export default Vue;

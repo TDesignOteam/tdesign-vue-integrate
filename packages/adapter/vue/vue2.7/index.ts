@@ -99,6 +99,9 @@ const createElement = (type: string, props: Record<string, any> = {}, children?:
   }, children)
 };
 
+const isVue3 = false;
+const isVue2 = true;
+
 export * from 'vue'
 export {
   getVNode,
@@ -111,7 +114,9 @@ export {
   TransitionGroup,
   createApp,
   createElement,
-  pluginInstall
+  pluginInstall,
+  isVue3,
+  isVue2,
 }
 
 export default Vue;

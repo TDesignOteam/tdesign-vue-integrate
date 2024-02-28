@@ -1,4 +1,4 @@
-import omit from 'lodash/omit';
+import { omit } from 'lodash-es';
 import { defineComponent, getCurrentInstance, inject } from '@td/adapter-vue';
 import { usePrefixClass, useContent, useTNodeJSX } from '@td/adapter-hooks';
 

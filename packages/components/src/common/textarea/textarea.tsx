@@ -13,8 +13,8 @@ import type {
   CSSProperties,
   InjectionKey
 } from '@td/adapter-vue';
-import merge from 'lodash/merge';
-import omit from 'lodash/omit';
+import { merge } from 'lodash-es'
+import { omit } from 'lodash-es';
 import { isUndefined } from 'lodash-es';
 
 import { getCharacterLength } from '@td/adapter-utils';

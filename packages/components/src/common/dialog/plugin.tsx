@@ -1,4 +1,4 @@
-import omit from 'lodash/omit';
+import { omit } from 'lodash-es';
 import { createApp, ref, defineComponent, H, onMounted, nextTick, pluginInstall } from '@td/adapter-vue';
 import type { App, Plugin } from '@td/adapter-vue';
 import DialogComponent from './dialog';

@@ -1,4 +1,4 @@
-import { defineComponent } from '@td/adapter-vue';
+import { defineComponent, isVue3 } from '@td/adapter-vue';
 import type { PropType } from '@td/adapter-vue';
 import { useTNodeJSX, useProvideConfig } from '@td/adapter-hooks';
 
@@ -24,6 +24,10 @@ export default defineComponent({
     return () => {
       const defaultNode = renderTNodeJSX('default');
       
+      if(isVue3) {
+        return defaultNode;
+      }
+
       // vue23:! 感觉可以暴露一下 vue23： 然后用 vue23 来判断是否多单根
       if (defaultNode.length === 1) {
         return defaultNode[0];
