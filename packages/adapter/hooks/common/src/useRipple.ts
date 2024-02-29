@@ -1,5 +1,5 @@
 import { ref, onMounted, onUnmounted } from '@td/adapter-vue';
-import useKeepAnimation from './useKeepAnimation';
+import { useKeepAnimation }  from './useKeepAnimation';
 import { usePrefixClass } from './useClass';
 
 import { setStyle } from '@td/adapter-utils';

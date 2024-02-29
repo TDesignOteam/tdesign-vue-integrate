@@ -6,7 +6,7 @@ export enum EAnimationType {
   fade = 'fade',
 }
 
-export default function useKeepAnimation() {
+export function useKeepAnimation() {
   const { globalConfig } = useConfig('animation');
 
   const keepAnimation = (type: EAnimationType) => {

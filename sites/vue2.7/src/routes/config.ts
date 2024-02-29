@@ -247,14 +247,14 @@ export const docs = [
   //       component: () => import('@td/intel/components/cascader/cascader.md'),
   //       componentEn: () => import('@td/intel/components/cascader/cascader.en-US.md'),
   //     },
-  //     {
-  //       title: 'Checkbox 多选框',
-  //       titleEn: 'Checkbox',
-  //       name: 'checkbox',
-  //       path: '/vue/components/checkbox',
-  //       component: () => import('@td/intel/components/checkbox/checkbox.md'),
-  //       componentEn: () => import('@td/intel/components/checkbox/checkbox.en-US.md'),
-  //     },
+      {
+        title: 'Checkbox 多选框',
+        titleEn: 'Checkbox',
+        name: 'checkbox',
+        path: '/vue/components/checkbox',
+        component: () => import('@td/intel/components/checkbox/checkbox.md'),
+        componentEn: () => import('@td/intel/components/checkbox/checkbox.en-US.md'),
+      },
   //     {
   //       title: 'ColorPicker 颜色选择器',
   //       titleEn: 'ColorPicker',
