@@ -6,7 +6,7 @@ import './style';
 
 export type PopupProps = TdPopupProps;
 export * from '@td/intel/components/popup/type';
-export * from './plugin';
+// export * from './plugin';
 
 export const Popup = withInstall(_Popup);
 

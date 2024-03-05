@@ -77,10 +77,13 @@ const Trigger = defineComponent({
   emits: ['resize'],
   setup(props, { emit, slots }) {
     const el = useElement((vm) => {
+
       const containerNode = vm.parent.vnode;
+       console.log(containerNode,'el')
       // skip the first text node due to `Fragment`
       return containerNode.el.nextElementSibling;
     });
+   
     const contentRect = ref<DOMRectReadOnly>();
 
     watch(el, () => {
@@ -175,7 +178,7 @@ export default defineComponent({
             }}
             onResize={emitResize}
           >
-            {slots.default()}
+            {slots.default?.()}
           </Trigger>
           {mountContent.value && (
             <Teleport disabled={!getElement()} to={getElement()}>

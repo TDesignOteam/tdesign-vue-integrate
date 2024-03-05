@@ -1,31 +1,23 @@
-import { off, on } from "@td/adapter-utils";
+import { on, off } from '@td/adapter-utils';
 
-import type { Ref } from "@td/adapter-vue";
-import type {
-  TdPopupProps,
-  PopupTriggerEvent,
-} from "@td/intel/components/popup/type";
-import type { Placement } from "@popperjs/core";
+import type { TdPopupProps } from "@td/intel/components/popup/type";
+import type { Placement } from '@popperjs/core';
 
-const POPUP_ATTR_NAME = "data-td-popup";
-const POPUP_PARENT_ATTR_NAME = "data-td-popup-parent";
+const triggers = ['click', 'hover', 'focus', 'context-menu'] as const;
 
-function getPopperPlacement(placement: TdPopupProps["placement"]): Placement {
-  return placement?.replace(/-(left|top)$/, "-start")
-    .replace(/-(right|bottom)$/, "-end") as Placement;
+const defaultVisibleDelay = [250, 150];
+
+function getPopperPlacement(placement: TdPopupProps['placement']) {
+  return placement?.replace(/-(left|top)$/, '-start').replace(/-(right|bottom)$/, '-end') as Placement;
 }
 
-function attachListeners(elm: Ref<Element>) {
+function attachListeners(elm: Element) {
   const offs: Array<() => void> = [];
   return {
-    add<K extends keyof HTMLElementEventMap>(
-      type: K,
-      listener: (ev: HTMLElementEventMap[K]) => void
-    ) {
-      if (!type) return;
-      on(elm.value, type, listener);
+    add<K extends keyof HTMLElementEventMap>(type: K, listener: (ev: HTMLElementEventMap[K]) => void) {
+      on(elm, type, listener);
       offs.push(() => {
-        off(elm.value, type, listener);
+        off(elm, type, listener);
       });
     },
     clean() {
@@ -35,62 +27,6 @@ function attachListeners(elm: Ref<Element>) {
   };
 }
 
-/**
- * @param id
- * @param upwards query upwards poppers
- */
-function getPopperTree(id: number | string, upwards?: boolean): Element[] {
-  const list = [] as any;
-  const selectors = [POPUP_PARENT_ATTR_NAME, POPUP_ATTR_NAME];
-
-  if (!id) return list;
-  if (upwards) {
-    selectors.unshift(selectors.pop());
-  }
-
-  recurse(id);
-
-  return list;
-
-  function recurse(id: number | string) {
-    const children = document.querySelectorAll(`[${selectors[0]}="${id}"]`);
-    children.forEach((el) => {
-      list.push(el);
-      const childId = el.getAttribute(selectors[1]);
-      if (childId && childId !== id) {
-        recurse(childId);
-      }
-    });
-  }
-}
-
-function getTriggerType(ev?: PopupTriggerEvent) {
-  switch (ev?.type) {
-    case "mouseenter":
-      return "trigger-element-hover";
-    case "mouseleave":
-      return "trigger-element-hover";
-    case "focusin":
-      return "trigger-element-focus";
-    case "focusout":
-      return "trigger-element-blur";
-    case "click":
-      return "trigger-element-click";
-    case "context-menu":
-    case "keydown":
-      return "keydown-esc";
-    case "mousedown":
-      return "document";
-    default:
-      return "trigger-element-close";
-  }
-}
-
 export {
-  getTriggerType,
-  getPopperTree,
-  attachListeners,
-  getPopperPlacement,
-  POPUP_ATTR_NAME,
-  POPUP_PARENT_ATTR_NAME,
+  getPopperPlacement, attachListeners, triggers, defaultVisibleDelay,
 };
