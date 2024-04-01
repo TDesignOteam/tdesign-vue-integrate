@@ -1,12 +1,10 @@
-/* eslint-disable */
-
 /**
  * 该文件为脚本自动生成文件，请勿随意修改。如需修改请联系 PMC
  * updated at 2021-11-22 17:40:33
- * */
+ */
 
-import type { TdBadgeProps } from './type';
 import type { PropType } from 'vue';
+import type { TdBadgeProps } from './type';
 
 export default {
   /** 颜色 */

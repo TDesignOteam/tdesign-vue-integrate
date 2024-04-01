@@ -1,11 +1,9 @@
-/* eslint-disable */
-
 /**
  * 该文件为脚本自动生成文件，请勿随意修改。如需修改请联系 PMC
- * */
+ */
 
-import type { TdLinkProps } from './type';
 import type { PropType } from 'vue';
+import type { TdLinkProps } from './type';
 
 export default {
   /** 链接内容 */
@@ -27,7 +25,9 @@ export default {
     type: String as PropType<TdLinkProps['hover']>,
     default: 'underline' as TdLinkProps['hover'],
     validator(val: TdLinkProps['hover']): boolean {
-      if (!val) return true;
+      if (!val) {
+        return true;
+      }
       return ['color', 'underline'].includes(val);
     },
   },
@@ -45,7 +45,9 @@ export default {
     type: String as PropType<TdLinkProps['size']>,
     default: 'medium' as TdLinkProps['size'],
     validator(val: TdLinkProps['size']): boolean {
-      if (!val) return true;
+      if (!val) {
+        return true;
+      }
       return ['small', 'medium', 'large'].includes(val);
     },
   },
@@ -63,7 +65,9 @@ export default {
     type: String as PropType<TdLinkProps['theme']>,
     default: 'default' as TdLinkProps['theme'],
     validator(val: TdLinkProps['theme']): boolean {
-      if (!val) return true;
+      if (!val) {
+        return true;
+      }
       return ['default', 'primary', 'danger', 'warning', 'success'].includes(val);
     },
   },

@@ -1,11 +1,9 @@
-/* eslint-disable */
-
 /**
  * 该文件为脚本自动生成文件，请勿随意修改。如需修改请联系 PMC
- * */
+ */
 
-import type { TdSkeletonProps } from './type';
 import type { PropType } from 'vue';
+import type { TdSkeletonProps } from './type';
 
 export default {
   /** 动画效果，有「渐变加载动画」和「闪烁加载动画」两种。值为 'none' 则表示没有动画 */
@@ -13,7 +11,9 @@ export default {
     type: String as PropType<TdSkeletonProps['animation']>,
     default: 'none' as TdSkeletonProps['animation'],
     validator(val: TdSkeletonProps['animation']): boolean {
-      if (!val) return true;
+      if (!val) {
+        return true;
+      }
       return ['gradient', 'flashed', 'none'].includes(val);
     },
   },
@@ -35,7 +35,9 @@ export default {
   theme: {
     type: String as PropType<TdSkeletonProps['theme']>,
     validator(val: TdSkeletonProps['theme']): boolean {
-      if (!val) return true;
+      if (!val) {
+        return true;
+      }
       return ['text', 'avatar', 'paragraph', 'avatar-text', 'tab', 'article'].includes(val);
     },
   },
