@@ -1,14 +1,15 @@
 import { isFunction } from 'lodash-es';
 import { ChevronRightIcon as TdChevronRightIcon } from 'tdesign-icons-vue-next';
-import { defineComponent, inject, ref, computed, getCurrentInstance, onMounted, onBeforeUpdate } from '@td/adapter-vue';
+import { computed, defineComponent, getCurrentInstance, inject, onBeforeUpdate, onMounted, ref } from '@td/adapter-vue';
 import type { VNode } from '@td/adapter-vue';
 
 // import Tooltip from '../tooltip/index';
 
 import { isNodeOverflow } from '@td/adapter-utils';
-import { usePrefixClass, useGlobalIcon, useTNodeJSX, useEmitEvent } from "@td/adapter-hooks";
+import { useEmitEvent, useGlobalIcon, usePrefixClass, useTNodeJSX } from '@td/adapter-hooks';
 
 import props from '@td/intel/components/breadcrumb/breadcrumb-item-props';
+
 interface LocalTBreadcrumb {
   separator: (() => void) | string;
   theme: string;
@@ -53,7 +54,7 @@ export default defineComponent({
     onMounted(() => {
       isCutOff.value = isNodeOverflow(breadcrumbText.value!);
     });
-    
+
     onBeforeUpdate(() => {
       isCutOff.value = isNodeOverflow(breadcrumbText.value!);
     });
@@ -72,7 +73,7 @@ export default defineComponent({
       } else {
         emitEvent('click', { e });
       }
-    }
+    };
 
     const handleItemClick = (e: MouseEvent) => {
       beforeClick(e);

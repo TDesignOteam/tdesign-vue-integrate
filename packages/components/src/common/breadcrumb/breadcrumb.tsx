@@ -1,9 +1,8 @@
-import { defineComponent, reactive, provide, toRefs } from '@td/adapter-vue';
+import { defineComponent, provide, reactive, toRefs } from '@td/adapter-vue';
 import props from '@td/intel/components/breadcrumb/props';
-import BreadcrumbItem from './breadcrumb-item';
 import type { TdBreadcrumbItemProps } from '@td/intel/components/breadcrumb/type';
-import { useTNodeJSX } from '@td/adapter-hooks';
-import { usePrefixClass } from '@td/adapter-hooks';
+import { usePrefixClass, useTNodeJSX } from '@td/adapter-hooks';
+import BreadcrumbItem from './breadcrumb-item';
 
 export default defineComponent({
   name: 'TBreadcrumb',
@@ -21,7 +20,7 @@ export default defineComponent({
       }),
     );
     const renderTNodeJSX = useTNodeJSX();
-    
+
     return () => {
       let content = renderTNodeJSX('default');
       if (props.options && props.options.length) {
