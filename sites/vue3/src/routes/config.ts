@@ -208,14 +208,14 @@ export const docs = [
         component: () => import('@td/intel/components/steps/steps.md'),
         componentEn: () => import('@td/intel/components/steps/steps.en-US.md'),
       },
-      //     {
-      //       title: 'StickyTool 侧边栏',
-      //       titleEn: 'StickyTool',
-      //       name: 'StickyTool',
-      //       path: '/vue-next/components/sticky-tool',
-      //       component: () => import('@td/intel/components/sticky-tool/sticky-tool.md'),
-      //       componentEn: () => import('@td/intel/components/sticky-tool/sticky-tool.en-US.md'),
-      //     },
+      {
+        title: 'StickyTool 侧边栏',
+        titleEn: 'StickyTool',
+        name: 'StickyTool',
+        path: '/vue-next/components/sticky-tool',
+        component: () => import('@td/intel/components/sticky-tool/sticky-tool.md'),
+        componentEn: () => import('@td/intel/components/sticky-tool/sticky-tool.en-US.md'),
+      },
       {
         title: 'Tabs 选项卡',
         titleEn: 'Tabs',
