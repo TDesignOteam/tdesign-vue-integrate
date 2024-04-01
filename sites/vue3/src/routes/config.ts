@@ -231,14 +231,14 @@ export const docs = [
       //   titleEn: 'Form',
       //   type: 'component',
       //   children: [
-      //     {
-      //       title: 'AutoComplete 自动填充',
-      //       titleEn: 'AutoComplete',
-      //       name: 'auto-complete',
-      //       path: '/vue-next/components/auto-complete',
-      //       component: () => import('@td/intel/components/auto-complete/auto-complete.md'),
-      //       componentEn: () => import('@td/intel/components/auto-complete/auto-complete.en-US.md'),
-      //     },
+      {
+        title: 'AutoComplete 自动填充',
+        titleEn: 'AutoComplete',
+        name: 'auto-complete',
+        path: '/vue-next/components/auto-complete',
+        component: () => import('@td/intel/components/auto-complete/auto-complete.md'),
+        componentEn: () => import('@td/intel/components/auto-complete/auto-complete.en-US.md'),
+      },
       //     {
       //       title: 'Cascader 级联组件',
       //       titleEn: 'Cascader',
