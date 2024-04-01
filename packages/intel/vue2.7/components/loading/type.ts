@@ -1,11 +1,9 @@
-/* eslint-disable */
-
 /**
  * 该文件为脚本自动生成文件，请勿随意修改。如需修改请联系 PMC
  * updated at 2021-12-06 21:29:31
- * */
+ */
 
-import type { TNode, AttachNode } from '@td/shared/interface';
+import type { AttachNode, TNode } from '@td/shared/interface';
 
 export interface TdLoadingProps {
   /**
@@ -71,6 +69,8 @@ export interface TdLoadingProps {
   zIndex?: number;
 };
 
-export interface LoadingInstance { hide: () => void };
+export interface LoadingInstance {
+  hide: () => void;
+};
 
 export type LoadingMethod = (options: boolean | TdLoadingProps) => LoadingInstance;

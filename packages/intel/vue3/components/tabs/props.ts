@@ -1,11 +1,9 @@
-/* eslint-disable */
-
 /**
  * 该文件为脚本自动生成文件，请勿随意修改。如需修改请联系 PMC
- * */
+ */
 
-import type { TdTabsProps } from './type';
 import type { PropType } from 'vue';
+import type { TdTabsProps } from './type';
 
 export default {
   /** 【开发中】选项卡右侧的操作区域 */
@@ -27,7 +25,9 @@ export default {
     type: String as PropType<TdTabsProps['placement']>,
     default: 'top' as TdTabsProps['placement'],
     validator(val: TdTabsProps['placement']): boolean {
-      if (!val) return true;
+      if (!val) {
+        return true;
+      }
       return ['left', 'top', 'bottom', 'right'].includes(val);
     },
   },
@@ -36,7 +36,9 @@ export default {
     type: String as PropType<TdTabsProps['size']>,
     default: 'medium' as TdTabsProps['size'],
     validator(val: TdTabsProps['size']): boolean {
-      if (!val) return true;
+      if (!val) {
+        return true;
+      }
       return ['medium', 'large'].includes(val);
     },
   },
@@ -45,7 +47,9 @@ export default {
     type: String as PropType<TdTabsProps['theme']>,
     default: 'normal' as TdTabsProps['theme'],
     validator(val: TdTabsProps['theme']): boolean {
-      if (!val) return true;
+      if (!val) {
+        return true;
+      }
       return ['normal', 'card'].includes(val);
     },
   },

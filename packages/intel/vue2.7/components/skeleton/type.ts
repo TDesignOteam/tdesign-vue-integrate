@@ -1,9 +1,7 @@
-/* eslint-disable */
-
 /**
  * 该文件为脚本自动生成文件，请勿随意修改。如需修改请联系 PMC
  * updated at 2021-12-26 15:04:09
- * */
+ */
 
 import type { TNode } from '@td/shared/interface';
 
@@ -33,7 +31,7 @@ export interface TdSkeletonProps {
   delay?: number;
 }
 
-export type SkeletonRowCol = Array<Number | SkeletonRowColObj | Array<SkeletonRowColObj>>;
+export type SkeletonRowCol = Array<number | SkeletonRowColObj | Array<SkeletonRowColObj>>;
 
 export interface SkeletonRowColObj {
   width?: string;
