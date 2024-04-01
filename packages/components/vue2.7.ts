@@ -1,6 +1,6 @@
 import type { App } from 'vue';
-import * as COMMON from "./src/common";
-import * as VUE27 from "./src/vue2.7";
+import * as COMMON from './src/common';
+import * as VUE27 from './src/vue2.7';
 
 export function install(app: App, config?: Record<string, unknown>): void {
   const components = { ...COMMON, ...VUE27 };
@@ -9,13 +9,10 @@ export function install(app: App, config?: Record<string, unknown>): void {
   });
 }
 
-export * from "./src/common";
-export * from "./src/vue2.7";
+export * from './src/common';
+export * from './src/vue2.7';
 
 export default {
   install,
-  version: typeof PKG_VERSION === 'undefined' ? '' : PKG_VERSION, // eslint-disable-line
+  version: typeof PKG_VERSION === 'undefined' ? '' : PKG_VERSION,
 };
-
-
-
