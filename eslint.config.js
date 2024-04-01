@@ -1,5 +1,8 @@
 import antfu from '@antfu/eslint-config';
 
+/**
+ * 虽然很不想用他的，但不得不佩服，人写个 lint  都是专业的
+ */
 export default antfu({
   stylistic: {
     semi: true,
@@ -9,6 +12,9 @@ export default antfu({
       // 'style/nonblock-statement-body-position': ['off', 'below'],
     },
   },
+
+  typescript: true,
+  vue: true,
 
   formatters: {
     html: true,

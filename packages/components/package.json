@@ -2,13 +2,13 @@
   "name": "@td/components",
   "version": "1.0.0",
   "description": "",
+  "author": "",
+  "license": "ISC",
+  "keywords": [],
   "main": "index.js",
   "scripts": {
     "build": "vite build"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
   "dependencies": {
     "@popperjs/core": "^2.11.8",
     "@td/adapter-hooks": "workspace:^",

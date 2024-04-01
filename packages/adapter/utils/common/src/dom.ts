@@ -1,10 +1,9 @@
 import raf from 'raf';
-import { isString } from 'lodash-es';
-import { isFunction } from 'lodash-es';
+import { isFunction, isString } from 'lodash-es';
 import type { ComponentPublicInstance } from '@td/adapter-vue';
-import { easeInOutCubic } from './easing';
-import type {  EasingFunction } from './easing';
 import type { ScrollContainer, ScrollContainerElement } from '@td/shared/interface';
+import { easeInOutCubic } from './easing';
+import type { EasingFunction } from './easing';
 
 export const isServer = typeof window === 'undefined';
 
@@ -80,7 +79,7 @@ export function scrollTo(target: number, opt: ScrollTopOptions) {
   });
 }
 
-export const getAttach = (node: any, triggerNode?: any): HTMLElement | Element | null => {
+export function getAttach(node: any, triggerNode?: any): HTMLElement | Element | null {
   const attachNode = isFunction(node) ? node(triggerNode) : node;
   if (!attachNode) {
     return document.body;
@@ -92,19 +91,19 @@ export const getAttach = (node: any, triggerNode?: any): HTMLElement | Element |
     return attachNode;
   }
   return document.body;
-};
+}
 
-export const getSSRAttach = () => {
-  if (process.env.NODE_ENV === 'test-snap') return 'body';
-};
+export function getSSRAttach() {
+  if (process.env.NODE_ENV === 'test-snap') {
+    return 'body';
+  }
+}
 
 // 用于判断节点内容是否溢出
-export const isNodeOverflow = (
-  ele: ComponentPublicInstance | Element | ComponentPublicInstance[] | Element[],
-): boolean => {
+export function isNodeOverflow(ele: ComponentPublicInstance | Element | ComponentPublicInstance[] | Element[]): boolean {
   const { clientWidth = 0, scrollWidth = 0 } = ele as Element & { clientWidth: number; scrollWidth: number };
   return scrollWidth > clientWidth;
-};
+}
 
 export const on = ((): any => {
   if (!isServer && !!document.addEventListener) {
@@ -162,22 +161,30 @@ export function once(
 }
 
 export function hasClass(el: Element, cls: string): any {
-  if (!el || !cls) return false;
-  if (cls.indexOf(' ') !== -1) throw new Error('className should not contain space.');
+  if (!el || !cls) {
+    return false;
+  }
+  if (cls.includes(' ')) {
+    throw new Error('className should not contain space.');
+  }
   if (el.classList) {
     return el.classList.contains(cls);
   }
-  return ` ${el.className} `.indexOf(` ${cls} `) > -1;
+  return ` ${el.className} `.includes(` ${cls} `);
 }
 
 export function addClass(el: Element, cls: string): any {
-  if (!el) return;
+  if (!el) {
+    return;
+  }
   let curClass = el.className;
   const classes = (cls || '').split(' ');
 
   for (let i = 0, j = classes.length; i < j; i++) {
     const clsName = classes[i];
-    if (!clsName) continue;
+    if (!clsName) {
+      continue;
+    }
 
     if (el.classList) {
       el.classList.add(clsName);
@@ -193,13 +200,17 @@ export function addClass(el: Element, cls: string): any {
 const trim = (str: string): string => (str || '').replace(/^[\s\uFEFF]+|[\s\uFEFF]+$/g, '');
 
 export function removeClass(el: Element, cls: string): any {
-  if (!el || !cls) return;
+  if (!el || !cls) {
+    return;
+  }
   const classes = cls.split(' ');
   let curClass = ` ${el.className} `;
 
   for (let i = 0, j = classes.length; i < j; i++) {
     const clsName = classes[i];
-    if (!clsName) continue;
+    if (!clsName) {
+      continue;
+    }
 
     if (el.classList) {
       el.classList.remove(clsName);
@@ -216,10 +227,10 @@ export function removeClass(el: Element, cls: string): any {
  * 获取滚动容器
  * 因为document不存在scroll等属性, 因此排除document
  * window | HTMLElement
- * @param {ScrollContainerElement} [container='body']
+ * @param {ScrollContainerElement} [container]
  * @returns {ScrollContainer}
  */
-export const getScrollContainer = (container: ScrollContainer = 'body'): ScrollContainerElement => {
+export function getScrollContainer(container: ScrollContainer = 'body'): ScrollContainerElement {
   if (isString(container)) {
     return document.querySelector(container) as HTMLElement;
   }
@@ -227,13 +238,98 @@ export const getScrollContainer = (container: ScrollContainer = 'body'): ScrollC
     return container();
   }
   return container;
-};
+}
 
-export const removeDom = (el: HTMLElement) => {
+export function removeDom(el: HTMLElement) {
   if (el.remove) {
     el.remove();
   } else {
     // ie
     el.parentNode?.removeChild(el);
   }
-};
+}
+
+/**
+ * 判断元素是否处在 position fixed 中
+ * @param element 元素
+ * @returns boolean
+ */
+export function isFixed(element: HTMLElement): boolean {
+  const p = element.parentNode as HTMLElement;
+
+  if (!p || p.nodeName === 'HTML') {
+    return false;
+  }
+
+  if (getElmCssPropValue(element, 'position') === 'fixed') {
+    return true;
+  }
+
+  return isFixed(p);
+}
+
+/**
+ * 获取当前视图滑动的距离
+ * @returns { scrollTop: number, scrollLeft: number }
+ */
+export function getWindowScroll(): { scrollTop: number; scrollLeft: number } {
+  const { body } = document;
+  const docElm = document.documentElement;
+  const scrollTop = window.pageYOffset || docElm.scrollTop || body.scrollTop;
+  const scrollLeft = window.pageXOffset || docElm.scrollLeft || body.scrollLeft;
+
+  return { scrollTop, scrollLeft };
+}
+
+/**
+ * 获取元素某个 css 对应的值
+ * @param element 元素
+ * @param propName css 名
+ * @returns string
+ */
+export function getElmCssPropValue(element: HTMLElement, propName: string): string {
+  let propValue = '';
+
+  if (document.defaultView && document.defaultView.getComputedStyle) {
+    propValue = document.defaultView.getComputedStyle(element, null).getPropertyValue(propName);
+  }
+
+  if (propValue && propValue.toLowerCase) {
+    return propValue.toLowerCase();
+  }
+
+  return propValue;
+}
+
+/**
+ * 检查元素是否在父元素视图
+ * http://stackoverflow.com/questions/123999/how-to-tell-if-a-dom-element-is-visible-in-the-current-viewport
+ * @param elm 元素
+ * @param parent
+ * @returns boolean
+ */
+export function elementInViewport(elm: HTMLElement, parent?: HTMLElement): boolean {
+  const rect = elm.getBoundingClientRect();
+  if (parent) {
+    const parentRect = parent.getBoundingClientRect();
+    return (
+      rect.top >= parentRect.top
+      && rect.left >= parentRect.left
+      && rect.bottom <= parentRect.bottom
+      && rect.right <= parentRect.right
+    );
+  }
+  return rect.top >= 0 && rect.left >= 0 && rect.bottom + 80 <= window.innerHeight && rect.right <= window.innerWidth;
+}
+
+/**
+ * 获取当前视图的大小
+ * @returns { width: number, height: number }
+ */
+export function getWindowSize(): { width: number; height: number } {
+  if (window.innerWidth !== undefined) {
+    return { width: window.innerWidth, height: window.innerHeight };
+  }
+  const doc = document.documentElement;
+  return { width: doc.clientWidth, height: doc.clientHeight };
+}

@@ -13,7 +13,7 @@
   //   }
   // ],
   "files.associations": {
-      "*.json": "jsonc"
+    "*.json": "jsonc"
   },
 
   // Enable the ESlint flat config support
@@ -133,6 +133,6 @@
       "backgroundColor": "transparent",
       "bold": false,
       "italic": false
-    },
+    }
   ]
 }
