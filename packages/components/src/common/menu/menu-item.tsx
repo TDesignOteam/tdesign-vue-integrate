@@ -1,4 +1,4 @@
-import { computed, defineComponent, getCurrentInstance, inject, onMounted, ref, toRefs } from 'vue';
+import { computed, defineComponent, getCurrentInstance, inject, onMounted, ref, toRefs } from '@td/adapter-vue';
 import props from '@td/intel/components/menu/menu-item-props';
 import { usePrefixClass, useRipple } from '@td/adapter-hooks';
 import { emitEvent } from '@td/adapter-utils';

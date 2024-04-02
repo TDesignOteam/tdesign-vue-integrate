@@ -4,7 +4,7 @@
 
 import type { TNode } from '@td/shared/interface';
 import type { InputFormatType, InputValue, TdInputProps } from '../input/type';
-import type { PopupProps, PopupVisibleChangeContext } from '../popup';
+import type { PopupVisibleChangeContext, TdPopupProps } from '../popup/type';
 
 export interface TdRangeInputProps {
   /**

@@ -1,4 +1,4 @@
-import { computed, defineComponent, onMounted, provide, ref, toRefs, watch, watchEffect } from 'vue';
+import { computed, defineComponent, onMounted, provide, ref, toRefs, watch, watchEffect } from '@td/adapter-vue';
 import { isArray, isNumber } from 'lodash-es';
 import type { MenuValue } from '@td/intel/components/menu/type';
 import props from '@td/intel/components/menu/props';

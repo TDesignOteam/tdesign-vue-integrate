@@ -1,39 +1,37 @@
 import {
-  defineComponent,
   computed,
-  watch,
-  ref,
+  defineComponent,
+  inject,
   nextTick,
   onMounted,
+  ref,
   toRefs,
-  inject,
+  watch,
 } from '@td/adapter-vue';
 import type {
-  StyleValue,
   CSSProperties,
-  InjectionKey
+  InjectionKey,
+  StyleValue,
 } from '@td/adapter-vue';
-import { merge } from 'lodash-es'
-import { omit } from 'lodash-es';
-import { isUndefined } from 'lodash-es';
+import { isUndefined, merge, omit } from 'lodash-es';
 
 import { getCharacterLength } from '@td/adapter-utils';
-import calcTextareaHeight from './calcTextareaHeight';
-// vue23:! 这个也一样好吧
-export const FormItemInjectionKey: InjectionKey<{
-  handleBlur: () => Promise<void>;
-}> = Symbol('FormItemProvide');
 
 // import { FormItemInjectionKey } from '../form/const';
 import setStyle from '@td/shared/_common/js/utils/set-style';
 
 // hooks
-import { useVModel, usePrefixClass, useCommonClassName, useTNodeJSX, useEmitEvent } from '@td/adapter-hooks';
+import { useCommonClassName, useEmitEvent, usePrefixClass, useTNodeJSX, useVModel } from '@td/adapter-hooks';
 // ! 1. 为啥要到 form 取，2. 是不是考虑全局
-// import { useFormDisabled } from '../form/hooks';
+// import { useDisabled } from '@td/adapter-hooks';
 
 import props from '@td/intel/components/textarea/props';
-import type { TextareaValue, TdTextareaProps } from '@td/intel/components/textarea/type';
+import type { TdTextareaProps, TextareaValue } from '@td/intel/components/textarea/type';
+import calcTextareaHeight from './calcTextareaHeight';
+// vue23:! 这个也一样好吧
+export const FormItemInjectionKey: InjectionKey<{
+  handleBlur: () => Promise<void>;
+}> = Symbol('FormItemProvide');
 
 function getValidAttrs(obj: object): object {
   const newObj = {};
@@ -59,8 +57,9 @@ export default defineComponent({
 
     const { value, modelValue } = toRefs(props);
     const [innerValue, setInnerValue] = useVModel(value, modelValue, props.defaultValue, props.onChange);
-    // const disabled = useFormDisabled();
-    //! wwwww
+    //   // vue23:!
+    const disabled = useDisabled();
+    // ! wwwww
     const disabled = ref(false);
     const textareaStyle = ref<CSSProperties>({});
 
@@ -123,8 +122,10 @@ export default defineComponent({
     };
 
     const eventDeal = (name: 'keydown' | 'keyup' | 'keypress' | 'change', e: KeyboardEvent | FocusEvent) => {
-      if (disabled.value) return;
-      emitEvent(name, innerValue.value, { e })
+      if (disabled.value) {
+        return;
+      }
+      emitEvent(name, innerValue.value, { e });
     };
 
     const emitKeyDown = (e: KeyboardEvent) => {
@@ -139,9 +140,11 @@ export default defineComponent({
 
     const emitFocus = (e: FocusEvent) => {
       adjustTextareaHeight();
-      if (disabled.value) return;
+      if (disabled.value) {
+        return;
+      }
       focused.value = true;
-      emitEvent('focus', innerValue.value, { e })
+      emitEvent('focus', innerValue.value, { e });
     };
 
     // ! 这是什么意思呀，很奇怪呀，formItem 的东西怎么在这里触发的
@@ -149,7 +152,7 @@ export default defineComponent({
     const emitBlur = (e: FocusEvent) => {
       adjustTextareaHeight();
       focused.value = false;
-      emitEvent('blur', innerValue.value, { e })
+      emitEvent('blur', innerValue.value, { e });
       formItem?.handleBlur();
     };
 
@@ -188,7 +191,9 @@ export default defineComponent({
     );
 
     watch(refTextareaElem, (el) => {
-      if (!el) return;
+      if (!el) {
+        return;
+      }
       adjustTextareaHeight();
     });
 
@@ -241,17 +246,19 @@ export default defineComponent({
         <div class={`${TEXTAREA_TIPS_CLASS.value} ${name.value}__tips--${props.status || 'normal'}`}>{tips}</div>
       );
 
-      const limitText =
-        (props.maxcharacter && (
+      const limitText
+        = (props.maxcharacter && (
           <span class={TEXTAREA_LIMIT.value}>{`${characterNumber.value}/${props.maxcharacter}`}</span>
-        )) ||
-        (!props.maxcharacter && props.maxlength && (
-          <span class={TEXTAREA_LIMIT.value}>{`${innerValue.value ? String(innerValue.value)?.length : 0}/${
+        ))
+        || (!props.maxcharacter && props.maxlength && (
+          <span class={TEXTAREA_LIMIT.value}>
+            {`${innerValue.value ? String(innerValue.value)?.length : 0}/${
             props.maxlength
-          }`}</span>
+          }`}
+          </span>
         ));
-      
-        // ! 这里把 omit 替换成 lodash 了
+
+      // ! 这里把 omit 替换成 lodash 了
       return (
         <div class={textareaClasses.value} {...omit(attrs, ['style'])}>
           <textarea
@@ -267,20 +274,23 @@ export default defineComponent({
             onKeyup={emitKeyUp}
             onKeypress={emitKeypress}
             {...inputAttrs.value}
-          ></textarea>
-          {textTips || limitText ? (
-            <div
-              class={[
+          >
+          </textarea>
+          {textTips || limitText
+            ? (
+              <div
+                class={[
                 `${name.value}__info_wrapper`,
                 {
                   [`${name.value}__info_wrapper_align`]: !textTips,
                 },
-              ]}
-            >
-              {textTips}
-              {limitText}
-            </div>
-          ) : null}
+                ]}
+              >
+                {textTips}
+                {limitText}
+              </div>
+              )
+            : null}
         </div>
       );
     };

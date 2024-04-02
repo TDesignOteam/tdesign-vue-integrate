@@ -8,8 +8,8 @@ import { RangeInputValue, RangeInputPosition } from './type';
 // hooks
 import useVModel from '../hooks/useVModel';
 import { useFormDisabled } from '../form/hooks';
-import { useGlobalIcon } from '../hooks/useGlobalIcon';
-import { usePrefixClass, useCommonClassName } from '../hooks/useConfig';
+import { useGlobalIcon } from '@td/adapter-hooks';
+import { usePrefixClass, useCommonClassName } from '@td/adapter-hooks';
 import { useTNodeJSX } from '../hooks/tnode';
 import isArray from 'lodash/isArray';
 

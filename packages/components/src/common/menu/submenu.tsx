@@ -1,6 +1,6 @@
 import type {
   Slots,
-} from 'vue';
+} from '@td/adapter-vue';
 import {
   Transition,
   computed,
@@ -14,7 +14,7 @@ import {
   ref,
   toRefs,
   watch,
-} from 'vue';
+} from '@td/adapter-vue';
 import { isFunction } from 'lodash-es';
 
 import type { TdSubmenuProps } from '@td/intel/components/menu/type';

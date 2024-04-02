@@ -6,7 +6,7 @@ import type { InputValue, TdInputProps } from '@td/intel/components/input/type';
 // import { FormItemInjectionKey } from '../form/const';
 import { useVModel, useEmitEvent } from '@td/adapter-hooks';
 // vue23:!
-// import { useFormDisabled } from '../form/hooks';
+// import { useDisabled } from '@td/adapter-hooks';
 import useLengthLimit from './useLengthLimit';
 
 // vue23:! 这个也一样好吧
@@ -34,7 +34,8 @@ export default function useInput(props: ExtendsTdInputProps, expose: (exposed: R
   const clearIconRef = ref(null);
   const innerClickElement = ref();
   // vue23:!
-  // const disabled = useFormDisabled();
+  //   // vue23:! 
+  const disabled = useDisabled();
   const disabled = ref(false);
   const [innerValue, setInnerValue] = useVModel(value, modelValue, props.defaultValue, props.onChange);
   const emitEvent = useEmitEvent()

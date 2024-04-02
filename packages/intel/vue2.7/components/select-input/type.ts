@@ -4,7 +4,7 @@
 
 import type { TNode } from '@td/shared/interface';
 import type { TdInputProps } from '../input/type';
-import type { PopupProps, PopupVisibleChangeContext } from '../popup';
+import type { PopupVisibleChangeContext, TdPopupProps } from '../popup/type';
 import type { TagInputChangeContext, TagInputValue, TdTagInputProps } from '../tag-input/type';
 import type { TdTagProps } from '../tag/type';
 

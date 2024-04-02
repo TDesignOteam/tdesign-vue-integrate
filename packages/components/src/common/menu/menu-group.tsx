@@ -1,4 +1,4 @@
-import { defineComponent } from 'vue';
+import { defineComponent } from '@td/adapter-vue';
 import props from '@td/intel/components/menu/menu-group-props';
 import { usePrefixClass, useTNodeJSX } from '@td/adapter-hooks';
 

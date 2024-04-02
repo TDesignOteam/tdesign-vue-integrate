@@ -8,7 +8,7 @@ import _MenuGroup from './menu-group';
 
 import './style';
 
-export * from './type';
+export * from '@td/intel/components/calendar/type';
 export type MenuProps = TdMenuProps;
 export type HeadMenuProps = TdHeadMenuProps;
 export type SubmenuProps = TdSubmenuProps;

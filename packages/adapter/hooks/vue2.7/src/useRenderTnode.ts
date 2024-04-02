@@ -1,6 +1,6 @@
 import { h } from '@td/adapter-vue';
 import type { VNode } from '@td/adapter-vue';
-import { isString, isObject } from 'lodash-es';
+import { isObject, isString } from 'lodash-es';
 
 export interface JSXRenderContext {
   defaultNode?: VNode | string;
@@ -11,11 +11,11 @@ export interface JSXRenderContext {
 
 export type OptionsType = VNode | JSXRenderContext | string;
 
-export const isVNode = (obj: OptionsType) => {
+export function isVNode(obj: OptionsType) {
   const vNode = h('span', '');
   const VNode = vNode.constructor;
   return obj instanceof VNode;
-};
+}
 
 export function getDefaultNode(options?: OptionsType) {
   let defaultNode;

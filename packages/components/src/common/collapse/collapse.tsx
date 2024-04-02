@@ -1,7 +1,7 @@
-import { defineComponent, toRefs, provide, computed } from 'vue';
+import { computed, defineComponent, provide, toRefs } from '@td/adapter-vue';
 import props from '@td/intel/components/collapse/props';
-import { CollapseValue, TdCollapseProps, CollapsePanelValue } from '@td/intel/components/collapse/type';
-import { useVModel, useTNodeJSX, usePrefixClass } from '@td/adapter-hooks';
+import type { CollapsePanelValue, CollapseValue, TdCollapseProps } from '@td/intel/components/collapse/type';
+import { usePrefixClass, useTNodeJSX, useVModel } from '@td/adapter-hooks';
 
 export default defineComponent({
   name: 'TCollapse',
@@ -37,7 +37,7 @@ export default defineComponent({
       let index = 0;
       return () => index++;
     })();
-    
+
     provide('collapseValue', collapseValue);
     provide('updateCollapseValue', updateCollapseValue);
     provide('collapseProps', toRefs(props));

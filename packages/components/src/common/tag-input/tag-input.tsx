@@ -1,25 +1,24 @@
-import { defineComponent, computed, toRefs, ref, nextTick, reactive, watch } from '@td/adapter-vue';
+import { computed, defineComponent, nextTick, reactive, ref, toRefs, watch } from '@td/adapter-vue';
 import { CloseCircleFilledIcon as TdCloseCircleFilledIcon } from 'tdesign-icons-vue-next';
-import TInput from '../input';
-import type { InputProps, StrInputProps, TdInputProps } from '../input';
 import type { TdTagInputProps } from '@td/intel/components/tag-input/type';
 import props from '@td/intel/components/tag-input/props';
-
-import { useTNodeJSX, usePrefixClass, useGlobalIcon, useDefaultValue, useEmitEvent }  from "@td/adapter-hooks";
+import { useDefaultValue, useEmitEvent, useGlobalIcon, usePrefixClass, useTNodeJSX } from '@td/adapter-hooks';
+import { isArray } from 'lodash-es';
+import TInput from '../input';
+import type { InputProps, StrInputProps, TdInputProps } from '../input';
 
 import useTagScroll from './hooks/useTagScroll';
 import useTagList from './hooks/useTagList';
 import useHover from './hooks/useHover';
 import useDragSorter from './hooks/useDragSorter';
-import { isArray } from 'lodash-es';
 
-const useComponentClassName = () => {
+function useComponentClassName() {
   return {
     NAME_CLASS: usePrefixClass('tag-input'),
     CLEAR_CLASS: usePrefixClass('tag-input__suffix-clear'),
     BREAK_LINE_CLASS: usePrefixClass('tag-input--break-line'),
   };
-};
+}
 
 export default defineComponent({
   name: 'TTagInput',
@@ -59,19 +58,19 @@ export default defineComponent({
       },
     });
 
-    const { 
-      scrollToRight, 
-      onWheel, 
-      scrollToRightOnEnter, 
-      scrollToLeftOnLeave, 
-      tagInputRef, 
-      isScrollable
+    const {
+      scrollToRight,
+      onWheel,
+      scrollToRightOnEnter,
+      scrollToLeftOnLeave,
+      tagInputRef,
+      isScrollable,
     } = useTagScroll(props);
 
     // handle tag add and remove
     // 需要响应式，为了尽量的和 react 版本做法相同，这里进行响应式处理
-    const { tagValue, onInnerEnter, onInputBackspaceKeyUp, onInputBackspaceKeyDown, clearAll, renderLabel, onClose } =
-      useTagList(
+    const { tagValue, onInnerEnter, onInputBackspaceKeyUp, onInputBackspaceKeyDown, clearAll, renderLabel, onClose }
+      = useTagList(
         reactive({
           ...toRefs(props),
           getDragProps,
@@ -94,11 +93,11 @@ export default defineComponent({
 
     const showClearIcon = computed(() =>
       Boolean(
-        !readonly.value &&
-          !disabled.value &&
-          clearable.value &&
-          isHover.value &&
-          (tagValue.value?.length || tInputValue.value),
+        !readonly.value
+        && !disabled.value
+        && clearable.value
+        && isHover.value
+        && (tagValue.value?.length || tInputValue.value),
       ),
     );
 
@@ -124,7 +123,9 @@ export default defineComponent({
     };
 
     const onClick: TdInputProps['onClick'] = (ctx) => {
-      if (disabled.value) return;
+      if (disabled.value) {
+        return;
+      }
       isFocused.value = true;
       tagInputRef.value.focus();
       emitEvent('click', ctx);
@@ -155,7 +156,9 @@ export default defineComponent({
     };
 
     const onInnerFocus: InputProps['onFocus'] = (inputValue: string, context: { e: MouseEvent }) => {
-      if (isFocused.value) return;
+      if (isFocused.value) {
+        return;
+      }
       isFocused.value = true;
       emitEvent('focus', tagValue.value, { e: context.e, inputValue });
     };
@@ -173,19 +176,24 @@ export default defineComponent({
     watch(
       () => isScrollable.value,
       (v) => {
-        if (props.excessTagsDisplayType !== 'scroll') return;
+        if (props.excessTagsDisplayType !== 'scroll') {
+          return;
+        }
         const scrollElementClass = `${classPrefix.value}-input__prefix`;
         const scrollElement = tagInputRef.value.$el.querySelector(`.${scrollElementClass}`);
-        if (v) scrollElement.classList.add(`${scrollElementClass}--scrollable`);
-        else scrollElement.classList.remove(`${scrollElementClass}--scrollable`);
+        if (v) {
+          scrollElement.classList.add(`${scrollElementClass}--scrollable`);
+        } else {
+          scrollElement.classList.remove(`${scrollElementClass}--scrollable`);
+        }
       },
     );
 
     return () => {
-      const suffixIconNode = showClearIcon.value 
+      const suffixIconNode = showClearIcon.value
         ? <CloseCircleFilledIcon class={CLEAR_CLASS.value} onClick={onClearClick} />
         : renderTNodeJSX('suffixIcon');
-      
+
       const prefixIconNode = renderTNodeJSX('prefixIcon');
 
       const suffixClass = `${classPrefix.value}-tag-input__with-suffix-icon`;
@@ -203,41 +211,43 @@ export default defineComponent({
       const label = renderTNodeJSX('label', { silent: true });
       const tagInputReadonly = readonly?.value || inputProps?.value?.readonly;
 
-      return <TInput
-        ref={tagInputRef}
-        v-slots={{
-          suffix: slots.suffix,
-        }}
-        readonly={tagInputReadonly}
-        showInput={!tagInputReadonly || !tagValue.value || !tagValue.value?.length}
-        value={tInputValue.value}
-        autoWidth={true} // 控制input_inner的宽度 设置为true让内部input不会提前换行
-        size={props.size}
-        disabled={disabled?.value}
-        label={() => renderLabel({ displayNode, label })}
-        class={classes.value}
-        tips={props.tips}
-        status={props.status}
-        placeholder={tagInputPlaceholder.value}
-        suffix={props.suffix}
-        suffixIcon={() => suffixIconNode}
-        prefixIcon={() => prefixIconNode}
-        keepWrapperWidth={!props.autoWidth}
-        onWheel={onWheel}
-        onChange={onInnerChange}
-        onPaste={(e) => props.onPaste?.(e)}
-        onEnter={onInputEnter}
-        onKeyup={onInputBackspaceKeyUp}
-        onKeydown={onInputBackspaceKeyDown}
-        onMouseenter={onMouseEnter}
-        onMouseleave={onMouseLeave}
-        onFocus={onInnerFocus}
-        onBlur={onInnerBlur}
-        onClick={onClick}
-        onCompositionstart={onInputCompositionstart}
-        onCompositionend={onInputCompositionend}
-        {...(props.inputProps as TdTagInputProps['inputProps'])}
-      />
-    }
+      return (
+        <TInput
+          ref={tagInputRef}
+          v-slots={{
+            suffix: slots.suffix,
+          }}
+          readonly={tagInputReadonly}
+          showInput={!tagInputReadonly || !tagValue.value || !tagValue.value?.length}
+          value={tInputValue.value}
+          autoWidth={true} // 控制input_inner的宽度 设置为true让内部input不会提前换行
+          size={props.size}
+          disabled={disabled?.value}
+          label={() => renderLabel({ displayNode, label })}
+          class={classes.value}
+          tips={props.tips}
+          status={props.status}
+          placeholder={tagInputPlaceholder.value}
+          suffix={props.suffix}
+          suffixIcon={() => suffixIconNode}
+          prefixIcon={() => prefixIconNode}
+          keepWrapperWidth={!props.autoWidth}
+          onWheel={onWheel}
+          onChange={onInnerChange}
+          onPaste={e => props.onPaste?.(e)}
+          onEnter={onInputEnter}
+          onKeyup={onInputBackspaceKeyUp}
+          onKeydown={onInputBackspaceKeyDown}
+          onMouseenter={onMouseEnter}
+          onMouseleave={onMouseLeave}
+          onFocus={onInnerFocus}
+          onBlur={onInnerBlur}
+          onClick={onClick}
+          onCompositionstart={onInputCompositionstart}
+          onCompositionend={onInputCompositionend}
+          {...(props.inputProps as TdTagInputProps['inputProps'])}
+        />
+      );
+    };
   },
 });

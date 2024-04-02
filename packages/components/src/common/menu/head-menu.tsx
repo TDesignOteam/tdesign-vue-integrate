@@ -1,7 +1,7 @@
 import type {
   Component,
   VNode,
-} from 'vue';
+} from '@td/adapter-vue';
 import {
   computed,
   defineComponent,
@@ -14,7 +14,7 @@ import {
   toRefs,
   watch,
   watchEffect,
-} from 'vue';
+} from '@td/adapter-vue';
 import { EllipsisIcon } from 'tdesign-icons-vue-next';
 import { isArray, isFunction } from 'lodash-es';
 
