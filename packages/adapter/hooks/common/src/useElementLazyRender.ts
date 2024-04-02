@@ -7,7 +7,9 @@ export function useElementLazyRender(labelRef: Ref<HTMLElement>, lazyLoad: Ref<b
   const showElement = ref(true);
 
   const handleLazyLoad = () => {
-    if (!lazyLoad.value || !labelRef.value || ioObserver.value) return;
+    if (!lazyLoad.value || !labelRef.value || ioObserver.value) {
+      return;
+    }
     showElement.value = false;
     const io = observe(
       labelRef.value,
@@ -25,7 +27,9 @@ export function useElementLazyRender(labelRef: Ref<HTMLElement>, lazyLoad: Ref<b
   lazyLoad.value && watch([lazyLoad, labelRef], handleLazyLoad);
 
   onBeforeUnmount(() => {
-    if (!lazyLoad.value) return;
+    if (!lazyLoad.value) {
+      return;
+    }
     ioObserver.value?.unobserve?.(labelRef.value);
   });
 

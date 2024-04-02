@@ -1,4 +1,4 @@
-import { h, isVNode } from '@td/adapter-vue';
+import { H, isVNode } from '@td/adapter-vue';
 import type { ComponentPublicInstance, VNode } from '@td/adapter-vue';
 import isEmpty from 'lodash/isEmpty';
 import { isFunction, isObject, isString, kebabCase } from 'lodash-es';
@@ -85,7 +85,7 @@ export function renderTNodeJSX(instance: ComponentPublicInstance, name: string, 
 
   // 同名 props 和 slot 优先处理 props
   if (isFunction(propsNode)) {
-    return propsNode(h, params);
+    return propsNode(H, params);
   }
   const isPropsEmpty = [undefined, params, ''].includes(propsNode);
   // Props 为空，但插槽存在

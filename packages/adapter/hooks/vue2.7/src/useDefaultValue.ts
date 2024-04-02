@@ -1,5 +1,5 @@
 import type { Ref } from '@td/adapter-vue';
-import { ref, getCurrentInstance } from '@td/adapter-vue';
+import { getCurrentInstance, ref } from '@td/adapter-vue';
 
 type ChangeHandler<T, P extends any[]> = (value: T, ...args: P) => void;
 

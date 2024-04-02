@@ -1,4 +1,4 @@
-import { getCurrentInstance, h } from '@td/adapter-vue';
+import { H, getCurrentInstance } from '@td/adapter-vue';
 import type { SetupContext, VNode } from '@td/adapter-vue';
 // import { h, getCurrentInstance, ComponentInternalInstance, VNode } from 'vue';
 import { camelCase, isEmpty, isFunction, kebabCase } from 'lodash-es';
@@ -8,7 +8,7 @@ import type { JSXRenderContext, OptionsType } from './useRenderTNode';
 
 // 兼容处理插槽名称，同时支持驼峰命名和中划线命名，示例：value-display 和 valueDisplay
 function handleSlots(slots: SetupContext['slots'], name: string, params: Record<string, any>) {
-  const finaleParams = h;
+  const finaleParams = H;
   if (params) {
     Object.assign(finaleParams, params);
   }

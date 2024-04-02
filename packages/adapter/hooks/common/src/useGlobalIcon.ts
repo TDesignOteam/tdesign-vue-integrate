@@ -1,4 +1,3 @@
-
 // 从 globalConfig 获取 icon 配置用于覆盖组件内置 icon
 export function useGlobalIcon(tdIcon: Record<string, any>) {
   // const { globalConfig } = useConfig('icon');

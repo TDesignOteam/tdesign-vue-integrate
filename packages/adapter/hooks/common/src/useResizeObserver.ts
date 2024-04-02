@@ -1,4 +1,4 @@
-import { watch, onBeforeUnmount } from '@td/adapter-vue';
+import { onBeforeUnmount, watch } from '@td/adapter-vue';
 import type { Ref } from '@td/adapter-vue';
 
 export function useResizeObserver(
@@ -7,12 +7,16 @@ export function useResizeObserver(
 ) {
   const isSupport = typeof window !== 'undefined' && window.ResizeObserver;
   // unit tests do not need any warn console; too many warns influence focusing on more important log info
-  if (!isSupport) return;
+  if (!isSupport) {
+    return;
+  }
 
   let containerObserver: ResizeObserver = null;
 
   const cleanupObserver = () => {
-    if (!containerObserver || !container.value) return;
+    if (!containerObserver || !container.value) {
+      return;
+    }
     containerObserver.unobserve(container.value);
     containerObserver.disconnect();
     containerObserver = null;
@@ -25,14 +29,14 @@ export function useResizeObserver(
 
   // can not use container.value to judge
   container
-    && watch(
-      container,
-      (el) => {
-        cleanupObserver();
-        el && addObserver(el);
-      },
-      { immediate: true, flush: 'post' },
-    );
+  && watch(
+    container,
+    (el) => {
+      cleanupObserver();
+      el && addObserver(el);
+    },
+    { immediate: true, flush: 'post' },
+  );
 
   onBeforeUnmount(() => {
     cleanupObserver();

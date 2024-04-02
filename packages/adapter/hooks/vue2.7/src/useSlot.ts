@@ -1,4 +1,4 @@
-import { getCurrentInstance, getVNode, H } from '@td/adapter-vue';
+import { H, getCurrentInstance, getVNode } from '@td/adapter-vue';
 import { isArray } from 'lodash-es';
 import type { VNode } from '@td/adapter-vue';
 import type { ScopedSlot } from 'vue/types/vnode';
@@ -16,17 +16,19 @@ export function useChildComponentSlots() {
   const instance = getCurrentInstance();
   return (childComponentName: string, slots?: ScopedSlot) => {
     if (!slots) {
-      // @ts-ignore
-      // eslint-disable-next-line
+      // @ts-expect-error
+
       slots = instance.$scopedSlots;
     }
-    // @ts-ignore
+    // @ts-expect-error
     const content = slots?.default?.() || [];
 
     // 满足基于基础组件封装场景，递归找到子组件
     const childList: VNode[] = [];
     const getChildren = (content: VNode[]) => {
-      if (!isArray(content)) return;
+      if (!isArray(content)) {
+        return;
+      }
       content.forEach((item: VNode) => {
         if (item.children && isArray(item.children)) {
           // if (item.type !== Fragment) return;
@@ -40,7 +42,7 @@ export function useChildComponentSlots() {
 
     return getChildren(content)
       ?.filter((item: VNode) => item.tag?.endsWith(childComponentName))
-      ?.map((item) => getVNode(item));
+      ?.map(item => getVNode(item));
   };
 }
 

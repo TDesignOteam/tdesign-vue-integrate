@@ -1,8 +1,8 @@
-import { ref, getCurrentInstance } from '@td/adapter-vue';
+import { getCurrentInstance, ref } from '@td/adapter-vue';
 import type { Ref } from '@td/adapter-vue';
 import { kebabCase } from 'lodash-es';
 
-export type ChangeHandler<T, P extends any[]> = (value: T , ...args: P) => void;
+export type ChangeHandler<T, P extends any[]> = (value: T, ...args: P) => void;
 
 export interface UseVModelParams<T> {
   value: Ref<T>;
@@ -11,14 +11,14 @@ export interface UseVModelParams<T> {
 }
 
 /**
- * 统一处理 v-model, v-model:xxx, 
+ * 统一处理 v-model, v-model:xxx,
  * @doc https://cn.vuejs.org/guide/components/v-model.html
  * @param value 绑定值 value 或 v-model:value
  * @param modelValue 绑定值 v-model
  * @param defaultValue 默认值
  * @param onChange 值变化时触发的回调
  * @param propName 属性名 value 或 v-model:value
- * @returns 
+ * @returns
  */
 function useVModelVue3<T = undefined, P extends any[] = []>(
   value: Ref<T | undefined>,
@@ -31,12 +31,12 @@ function useVModelVue3<T = undefined, P extends any[] = []>(
   const internalValue = ref<T>();
 
   const vProps = instance?.vnode.props || {};
-  const isVM =
-    Object.prototype.hasOwnProperty.call(vProps, 'modelValue') ||
-    Object.prototype.hasOwnProperty.call(vProps, 'model-value');
-  const isVMP =
-    Object.prototype.hasOwnProperty.call(vProps, propName) ||
-    Object.prototype.hasOwnProperty.call(vProps, kebabCase(propName));
+  const isVM
+    = Object.prototype.hasOwnProperty.call(vProps, 'modelValue')
+    || Object.prototype.hasOwnProperty.call(vProps, 'model-value');
+  const isVMP
+    = Object.prototype.hasOwnProperty.call(vProps, propName)
+    || Object.prototype.hasOwnProperty.call(vProps, kebabCase(propName));
 
   if (isVM) {
     return [
@@ -77,5 +77,5 @@ export function useVModel<T, P extends any[] = []>(
   eventName = 'change',
   alias: UseVModelParams<T>[] = [],
 ): [Ref<T | undefined>, ChangeHandler<T, P>] {
- return useVModelVue3<T, P>(value, modelValue, defaultValue, onChange, propName)
+  return useVModelVue3<T, P>(value, modelValue, defaultValue, onChange, propName);
 }

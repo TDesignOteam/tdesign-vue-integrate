@@ -1,5 +1,5 @@
 import type { Ref } from '@td/adapter-vue';
-import { ref, getCurrentInstance } from '@td/adapter-vue';
+import { getCurrentInstance, ref } from '@td/adapter-vue';
 import { kebabCase } from 'lodash-es';
 
 export type ChangeHandler<T, P extends any[]> = (value: T, ...args: P) => void;
@@ -17,9 +17,9 @@ export interface UseVModelParams<T> {
  * @param defaultValue 默认值
  * @param onChange 值变化时触发的回调
  * @param propName v-model
- * @param eventName 
- * @param alias 
- * @returns 
+ * @param eventName
+ * @param alias
+ * @returns
  */
 export function useVModelVue27<T, P extends any[]>(
   value: Ref<T | undefined>,
@@ -36,7 +36,7 @@ export function useVModelVue27<T, P extends any[]>(
 
   const isControlled = Object.prototype.hasOwnProperty.call(instance?.vnode?.componentOptions?.propsData, propName)
     || Object.prototype.hasOwnProperty.call(instance?.vnode?.componentOptions?.propsData, kebabCase(propName));
-    
+
   // 受控模式
   if (isControlled) {
     return [
@@ -56,8 +56,8 @@ export function useVModelVue27<T, P extends any[]>(
   for (let i = 0, len = alias.length; i < len; i++) {
     const item = alias[i];
     if (
-      item.propName !== undefined && 
-      Object.prototype.hasOwnProperty.call(instance?.vnode?.componentOptions?.propsData, item.propName)
+      item.propName !== undefined
+      && Object.prototype.hasOwnProperty.call(instance?.vnode?.componentOptions?.propsData, item.propName)
     ) {
       return [
         item.value,
@@ -95,5 +95,5 @@ export function useVModel<T, P extends any[]>(
   eventName = 'change',
   alias: UseVModelParams<T>[] = [],
 ): [Ref<T | undefined>, ChangeHandler<T, P>] {
-  return useVModelVue27<T, P>(value, defaultValue, onChange, propName, eventName, alias)
+  return useVModelVue27<T, P>(value, defaultValue, onChange, propName, eventName, alias);
 }

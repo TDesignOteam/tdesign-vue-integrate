@@ -8,7 +8,9 @@ export function useImagePreviewUrl(imgUrl: Ref<string | File> | ComputedRef<stri
   watch(
     [imgUrl],
     ([imgUrl], [preImgUrl]) => {
-      if (preImgUrl === imgUrl) return;
+      if (preImgUrl === imgUrl) {
+        return;
+      }
       if (typeof imgUrl === 'string') {
         previewUrl.value = imgUrl;
         return;
