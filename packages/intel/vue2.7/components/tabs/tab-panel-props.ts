@@ -1,12 +1,10 @@
-/* eslint-disable */
-
 /**
  * 该文件为脚本自动生成文件，请勿随意修改。如需修改请联系 PMC
  * updated at 2021-11-19 10:44:26
- * */
+ */
 
-import type { TdTabPanelProps } from '../tabs/type';
 import type { PropType } from 'vue';
+import type { TdTabPanelProps } from '../tabs/type';
 
 export default {
   /** 用于自定义选项卡导航，同 panel */

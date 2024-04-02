@@ -1,12 +1,10 @@
-/* eslint-disable */
-
 /**
  * 该文件为脚本自动生成文件，请勿随意修改。如需修改请联系 PMC
  * updated at 2021-12-26 15:04:09
- * */
+ */
 
-import type { TdSkeletonProps } from './type';
 import type { PropType } from 'vue';
+import type { TdSkeletonProps } from './type';
 
 export default {
   /** 动画效果，有「渐变加载动画」和「闪烁加载动画」两种。值为空则表示没有动画 */

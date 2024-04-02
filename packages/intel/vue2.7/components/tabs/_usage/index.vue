@@ -1,25 +1,6 @@
 <!-- 该脚本为自动生成，如有需要请在 /script/generate-usage.js 中调整 -->
-<template>
-  <base-usage :code="usageCode" :config-list="configList" :panel-list="panelList" @PanelChange="onPanelChange">
-    <template #tabs="{ configProps }">
-      <t-tabs v-bind="configProps">
-        <t-tab-panel :value="1" label="选项卡1">
-          <p style="margin: 20px">选项卡1内容区</p>
-        </t-tab-panel>
-        <t-tab-panel :value="2" label="选项卡2">
-          <p style="margin: 20px">选项卡2内容区</p>
-        </t-tab-panel>
-        <t-tab-panel :value="3" label="选项卡3">
-          <p style="margin: 20px">选项卡3内容区</p>
-        </t-tab-panel>
-      </t-tabs>
-    </template>
-  </base-usage>
-</template>
-
 <script setup lang="jsx">
-/* eslint-disable */
-import { ref, onMounted } from 'vue';
+import { onMounted, ref } from 'vue';
 import configJson from './props.json';
 
 const configList = ref(configJson);
@@ -34,3 +15,27 @@ function onPanelChange(panel) {
   usageCode.value = `<template>${usageCodeMap[panel].trim()}</template>`;
 }
 </script>
+
+<template>
+  <base-usage :code="usageCode" :config-list="configList" :panel-list="panelList" @panel-change="onPanelChange">
+    <template #tabs="{ configProps }">
+      <t-tabs v-bind="configProps">
+        <t-tab-panel :value="1" label="选项卡1">
+          <p style="margin: 20px">
+            选项卡1内容区
+          </p>
+        </t-tab-panel>
+        <t-tab-panel :value="2" label="选项卡2">
+          <p style="margin: 20px">
+            选项卡2内容区
+          </p>
+        </t-tab-panel>
+        <t-tab-panel :value="3" label="选项卡3">
+          <p style="margin: 20px">
+            选项卡3内容区
+          </p>
+        </t-tab-panel>
+      </t-tabs>
+    </template>
+  </base-usage>
+</template>

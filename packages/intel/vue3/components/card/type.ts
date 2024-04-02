@@ -1,11 +1,9 @@
-/* eslint-disable */
-
 /**
  * 该文件为脚本自动生成文件，请勿随意修改。如需修改请联系 PMC
- * */
+ */
 
-import type { TdLoadingProps } from '../loading/type';
 import type { TNode } from '@td/shared/interface';
+import type { TdLoadingProps } from '../loading/type';
 
 export interface TdCardProps {
   /**

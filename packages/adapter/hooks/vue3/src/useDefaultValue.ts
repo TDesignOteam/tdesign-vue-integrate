@@ -1,4 +1,4 @@
-import { ref, getCurrentInstance } from '@td/adapter-vue';
+import { getCurrentInstance, ref } from '@td/adapter-vue';
 import type { Ref } from '@td/adapter-vue';
 import { kebabCase } from 'lodash-es';
 import type { ChangeHandler } from './useVModel';
@@ -13,9 +13,9 @@ function useDefaultValueVue3<T, P extends any[]>(
   const internalValue = ref();
 
   const vProps = instance?.vnode.props || {};
-  const isVMP =
-    Object.prototype.hasOwnProperty.call(vProps, propsName) ||
-    Object.prototype.hasOwnProperty.call(vProps, kebabCase(propsName));
+  const isVMP
+    = Object.prototype.hasOwnProperty.call(vProps, propsName)
+    || Object.prototype.hasOwnProperty.call(vProps, kebabCase(propsName));
 
   if (isVMP) {
     return [
@@ -44,5 +44,5 @@ export function useDefaultValue<T, P extends any[]>(
   propsName: string,
   eventName: string,
 ): [Ref<T>, ChangeHandler<T, P>] {
-  return useDefaultValueVue3<T, P>(value, defaultValue, onChange, propsName)
+  return useDefaultValueVue3<T, P>(value, defaultValue, onChange, propsName);
 }

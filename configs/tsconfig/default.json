@@ -22,34 +22,7 @@
       "DOM",
       "DOM.Iterable"
     ],
-    "baseUrl": "../../",
-    "paths": {
-      "@adapter/vue": [
-        "packages/adapter/vue/vue3"
-      ],
-      "@adapter/vue/*": [
-        "packages/adapter/vue/vue3/*"
-      ],
-      "@adapter/hooks": [
-        "packages/adapter/hooks/vue3"
-      ],
-      "@adapter/hooks/*": [
-        "packages/adapter/hooks/vue3/*"
-      ],
-      "@adapter/utils": [
-        "packages/adapter/utils/vue3"
-      ],
-      "@adapter/utils/*": [
-        "packages/adapter/utils/vue3/*"
-      ],
-      "@td/intel": [
-        "packages/intel/vue3"
-      ],
-      "@td/intel/*": [
-        "packages/intel/vue3/*"
-      ],
-      "@td/shared/*":[ "packages/shared/*"]
-    }
+    "baseUrl": "../../"
   },
   "exclude": ["node_modules"]
 }

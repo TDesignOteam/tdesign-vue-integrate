@@ -1,9 +1,7 @@
-/* eslint-disable */
-
 /**
  * 该文件为脚本自动生成文件，请勿随意修改。如需修改请联系 PMC
  * updated at 2021-11-19 10:44:26
- * */
+ */
 
 import type { TNode } from '@td/shared/interface';
 
@@ -98,7 +96,7 @@ export interface TdTabPanelProps {
   /**
    * 标签是否延迟渲染
    */
-  lazy?: Boolean;
+  lazy?: boolean;
 }
 
 export type TabValue = string | number;
