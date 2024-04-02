@@ -31,7 +31,7 @@
 
 <!-- lang="jsx" 重要  -->
 <script lang="jsx">
-import { HighlightOption } from 'tdesign-vue';
+// import { HighlightOption } from 'tdesign-vue';
 
 const TEXTS = ['第一个默认联想词', '第二个默认联想词', '第三个默认联想词'];
 
@@ -39,7 +39,7 @@ export default {
   name: 'AutoCompleteOption',
 
   components: {
-    THighlightOption: HighlightOption,
+    // THighlightOption: HighlightOption,
   },
 
   data() {

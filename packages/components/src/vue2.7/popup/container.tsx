@@ -1,17 +1,18 @@
 import Vue, {
-  defineComponent,
-  onMounted,
-  ref,
   getCurrentInstance,
+  defineComponent,
+  ref,
+  onMounted,
+  onBeforeUnmount,
+  watch,
+  onUpdated,
 } from "@td/adapter-vue";
 import raf from "raf";
 import { isFunction } from "lodash-es";
 import { getAttach, removeDom } from "@td/adapter-utils";
-
-import { useTNodeJSX } from "@td/adapter-hooks";
 import type { TdPopupProps } from "@td/intel/components/popup/type";
 
-import type { PropType } from "@td/adapter-vue";
+import type { PropType, ComponentInternalInstance } from "@td/adapter-vue";
 
 function isContentRectChanged(rect1: DOMRectReadOnly, rect2: DOMRectReadOnly) {
   if (!rect1 || !rect2) return;
@@ -23,7 +24,7 @@ function isContentRectChanged(rect1: DOMRectReadOnly, rect2: DOMRectReadOnly) {
 
 function observeResize(elm: Element, cb: (rect: DOMRectReadOnly) => void) {
   if (!window?.ResizeObserver || !elm) return;
-  let prevContentRect = null as unknown as DOMRectReadOnly;
+  let prevContentRect: DOMRectReadOnly;
   const ro = new ResizeObserver((entries = []) => {
     const { contentRect } = entries[0] || {};
     if (isContentRectChanged(contentRect, prevContentRect)) {
@@ -43,25 +44,56 @@ function observeResize(elm: Element, cb: (rect: DOMRectReadOnly) => void) {
   };
 }
 
+function useElement<T = HTMLElement>(
+  getter: (instance: ComponentInternalInstance) => T
+) {
+  const instance = getCurrentInstance();
+  const el = ref<T>();
+
+  onMounted(() => {
+    el.value = getter(instance);
+  });
+  onUpdated(() => {
+    const newEl = getter(instance);
+    if (el.value !== newEl) {
+      el.value = newEl;
+    }
+  });
+
+  return el;
+}
+
 const Trigger = defineComponent({
   name: "TPopupTrigger",
   emits: ["resize"],
   setup(props, { emit, slots }) {
-    const renderTNodeJSX = useTNodeJSX();
+    const instance = getCurrentInstance();
+    const contentRect = ref(null);
+    console.log(111, "el");
 
+    // const el = useElement((vm) => {
+    //   const containerNode = vm.parent.vnode;
+    //   console.log(containerNode, "el");
+    //   // skip the first text node due to `Fragment`
+    //   return containerNode.el.nextElementSibling;
+    // });
     onMounted(() => {
-      // TODO
-      //     if (!this.$el || (typeof process !== 'undefined' && process.env?.NODE_ENV === 'test')) return;
-      // this.$on(
-      //   'hook:destroyed',
-      //   observeResize(this.$el, (ev) => {
-      //     emit('resize', ev);
-      //   })
-      // );
+      if (
+        !instance?.$el ||
+        (typeof process !== "undefined" && process.env?.NODE_ENV === "test")
+      )
+        return;
+      instance?.$on(
+        "hook:destroyed",
+        observeResize(instance?.$el, (ev) => {
+          emit("resize", ev);
+        })
+      );
     });
+
     return () => {
-      const children = renderTNodeJSX("default");
-      if (children.length > 1 || !children[0]?.tag) {
+      const children = slots.default?.() || [];
+      if (children.length > 1 || children[0]?.type === Text) {
         return <span>{children}</span>;
       }
       return children[0];
@@ -69,8 +101,9 @@ const Trigger = defineComponent({
   },
 });
 
-export default defineComponent({
+const Container = defineComponent({
   name: "TPopupContainer",
+  emits: ["resize"],
   props: {
     parent: Object,
     visible: Boolean,
@@ -81,72 +114,82 @@ export default defineComponent({
         current: HTMLElement;
       }
     >,
+    forwardRef: Function as PropType<(el: HTMLElement) => void>,
   },
-  emits: ["contentMounted"],
-  setup(props, { emit, slots }) {
-    const content = ref(null);
-    const mountContent = () => {
-      if (content.value) return;
-      // eslint-disable-next-line @typescript-eslint/no-this-alias
-      const parent = getCurrentInstance()?.proxy;
-      const elm = document.createElement("div");
-      elm.style.cssText =
-        "position: absolute; top: 0px; left: 0px; width: 100%";
-      elm.appendChild(document.createElement("div"));
-      content.value = new (parent?.$root?.constructor as any)({
-        parent,
-        render() {
-          return parent?.$slots.content;
-        },
-        mounted() {
-          emit("contentMounted");
-          const content = parent?.$el.children[0];
-          if (content) {
-            this.$on(
-              "hook:destroyed",
-              observeResize(content, () => {
-                parent?.$emit("resize");
-              })
-            );
-          }
-        },
-        destroyed() {
-          content.value = null;
-          removeDom(elm);
-        },
-      });
-      const { attach, current } = props.attach?.() || {};
-      const currentAttach = attach === "CURRENT_NODE" ? current : attach;
-      // @ts-ignore
-      getAttach(currentAttach, this.$refs?.triggerRef?.$el).appendChild(elm);
-      //TODO
-      // content.value?.$mount(elm.children[0]);
-    };
-
-    //TODO
-    // const unmountContent = () => {
-    //   if (isFunction(this.content?.$destroy)) {
-    //     this.content.$destroy();
-    //   }
-    // };
-    // const updateContent = () => {
-    //   this.content?.$forceUpdate();
-    // };
-
+  setup(props, ctx) {
+    const content = ref();
+    const instance = getCurrentInstance();
     onMounted(() => {
       if (props.visible) {
         raf(mountContent);
       }
     });
 
-    return () => {
-      const renderTNodeJSX = useTNodeJSX();
+    watch(
+      () => props.visible,
+      (visible) => {
+        if (visible) {
+          mountContent();
+        }
+      }
+    );
 
+    onBeforeUnmount(() => {
+      if (typeof process !== "undefined" && process.env?.NODE_ENV === "test")
+        return;
+      unmountContent();
+    });
+
+    const mountContent = () => {
+      if (content.value) return;
+      const parent = props?.parent;
+      const elm = document.createElement("div");
+      elm.style.cssText =
+        "position: absolute; top: 0px; left: 0px; width: 100%";
+      elm.appendChild(document.createElement("div"));
+      content.value = new (this.$root.constructor as any)({
+        parent,
+        render() {
+          return parent.$slots.content;
+        },
+        mounted() {
+          parent.$emit("contentMounted");
+          const content = this.$el.children[0];
+          if (content) {
+            this.$on(
+              "hook:destroyed",
+              observeResize(content, () => {
+                parent.$emit("resize");
+              })
+            );
+          }
+        },
+        destroyed() {
+          parent.content = null;
+          removeDom(elm);
+        },
+      });
+      const { attach, current } = props.attach?.();
+      const currentAttach = attach === "CURRENT_NODE" ? current : attach;
+      // @ts-ignore
+      getAttach(currentAttach, this.$refs?.triggerRef?.$el).appendChild(elm);
+      content.value.$mount(elm.children[0]);
+    };
+    const unmountContent = () => {
+      if (isFunction(content.value?.$destroy)) {
+        content.value.$destroy();
+      }
+    };
+    const updateContent = () => {
+      content.value?.$forceUpdate();
+    };
+    return () => {
       return (
-        <Trigger ref="triggerRef" onResize={() => emit("resize")}>
-          {renderTNodeJSX("default")}
+        <Trigger ref="triggerRef" onResize={() => ctx.emit("resize")}>
+          {ctx.slots.default}
         </Trigger>
       );
     };
   },
 });
+export default Container;
