@@ -1,45 +1,52 @@
 import {
+  H,
   computed,
   defineComponent,
-  ref,
-  H,
-  onMounted,
-  watch,
-  nextTick,
-  provide,
-  inject,
   getCurrentInstance,
-  onUpdated,
-  onBeforeUnmount,
-} from "@td/adapter-vue";
-import { createPopper } from "@popperjs/core";
-import type { Instance } from "@popperjs/core";
-import { debounce } from "lodash-es";
-import { on, off, once, getIEVersion, setStyle } from "@td/adapter-utils";
+  inject,
+  nextTick,
+  onUnmounted,
+  provide,
+  ref,
+  toRefs,
+  watch,
+} from '@td/adapter-vue';
+import { createPopper } from '@popperjs/core';
+import type { Instance } from '@popperjs/core';
+import { debounce } from 'lodash-es';
+import { getIEVersion, off, on, once, setStyle } from '@td/adapter-utils';
 import {
-  usePrefixClass,
   useCommonClassName,
-  useTNodeJSX,
   useContent,
-} from "@td/adapter-hooks";
-import props from "@td/intel/components/popup/props";
-import Container from "./container";
-import {
-  getPopperPlacement,
-  attachListeners,
-  triggers,
-  defaultVisibleDelay,
-} from "./utils";
-
+  usePrefixClass,
+  useTNodeJSX,
+  useVModel,
+} from '@td/adapter-hooks';
+import props from '@td/intel/components/popup/props';
 import type {
+  PopupTriggerEvent,
   PopupVisibleChangeContext,
-  TdPopupProps,
-} from "@td/intel/components/popup/type";
+} from '@td/intel/components/popup/type';
+import type { InjectionKey } from '@td/adapter-vue';
+import Container from './container';
+import {
+  POPUP_ATTR_NAME,
+  POPUP_PARENT_ATTR_NAME,
+  attachListeners,
+  defaultVisibleDelay,
+  getPopperPlacement,
+  getPopperTree,
+  getTriggerType,
+  triggers,
+} from './utils';
 
-const injectionKey = "__T_POPUP";
+const parentKey = Symbol() as InjectionKey<{
+  id: string;
+  assertMouseLeave: (ev: MouseEvent) => void;
+}>;
 
 export default defineComponent({
-  name: "TPopup",
+  name: 'TPopup',
   props: {
     ...props,
     expandAnimation: {
@@ -49,43 +56,51 @@ export default defineComponent({
       type: Function,
     },
   },
-  setup(props, { attrs, slots }) {
+  setup(props, { expose }) {
     const popper = ref<HTMLDivElement>();
     // container instance
-    const container = ref<HTMLDivElement>();
     const overlay = ref<HTMLDivElement>();
+    const triggerEl = ref<HTMLElement>();
 
     // popperjs instance
-    const popperInstance = ref<Instance>();
+    const popperInstance = ref<Instance | null>();
     // timeout id
-    const timeout = ref<NodeJS.Timeout>();
-    const hasDocumentEvent = ref(false);
+    const showTimeout = ref<NodeJS.Timeout>();
+    const hideTimeout = ref<NodeJS.Timeout>();
+    const containerRef = ref<typeof Container | null>(null);
     // if a trusted action (opening or closing) is prevented, increase this flag
     const visibleState = ref(0);
     const mouseInRange = ref(false);
     // mark popup as clicked when mousedown, reset after mouseup
     const contentClicked = ref(false);
     // is popup leaving
-    const isLeaving = ref(false);
-    const instance = getCurrentInstance();
+    const isOverlayHover = ref(false);
 
-    const componentName = usePrefixClass("popup");
+    const componentName = usePrefixClass('popup');
     const { STATUS: statusClassName } = useCommonClassName();
+
+    const { visible: propVisible, modelValue } = toRefs(props);
+    const [visible, setVisible] = useVModel(
+      propVisible,
+      modelValue,
+      props.defaultVisible,
+      props.onVisibleChange,
+      'visible',
+    );
+
     const renderContent = useContent();
     const renderTNodeJSX = useTNodeJSX();
 
-    provide(injectionKey, instance);
-
-    const popup = inject("popup", {
-      from: injectionKey,
-      default: undefined,
-    });
+    const id
+      = typeof process !== 'undefined' && process.env?.TEST
+        ? ''
+        : Date.now().toString(36);
 
     const overlayClasses = computed(() => {
       return [
         `${componentName.value}__content`,
         {
-          [`${componentName.value}__content--text`]: props.content === "string",
+          [`${componentName.value}__content--text`]: props.content === 'string',
           [`${componentName.value}__content--arrow`]: props.showArrow,
           [statusClassName.value.disabled]: props.disabled,
         },
@@ -99,96 +114,61 @@ export default defineComponent({
           ...map,
           [trigger]: props.trigger?.includes(trigger),
         }),
-        {} as any
+        {} as any,
       );
     });
 
-    const handleDocumentClick = (ev?: MouseEvent) => {
-      // Make sure content's mousedown event fires first
-      setTimeout(() => {
-        if (contentClicked.value) {
-          // clear the flag after mousedown
-          setTimeout(() => {
-            contentClicked.value = false;
-          });
-          return;
-        }
-        // const a = instance
-        const triggerEl = this.$el as HTMLElement;
-        // ignore document event when clicking trigger element
-        if (triggerEl.contains(ev?.target as Node)) return;
-        // ignore document event if popper panel clicked
-        const popperEl = popper.value;
-        if (popperEl?.contains(ev?.target as Node)) return;
-        visibleState.value = 0;
-        emitPopVisible(false, { trigger: "document", e: ev });
-      });
-    };
-
-    const handleClose = (
-      context: Pick<PopupVisibleChangeContext, "trigger">
-    ) => {
-      clearTimeout(timeout.value);
-      timeout.value = setTimeout(
-        () => {
-          emitPopVisible(false, context);
-        },
-        hasTrigger.value.click ? 0 : normalizedDelay.value.close
-      );
-    };
-
-    const popupMounted = () => {
-      // 用于select定位事件
-      const overlayEl = overlay.value;
-      if (overlayEl) {
-        // TODO
-        // updateScrollTop?.(overlayEl);
-      }
-    };
     const updateOverlayInnerStyle = () => {
       const { overlayInnerStyle } = props;
-      const triggerEl = this.$el as HTMLElement;
       const overlayEl = overlay.value as HTMLElement;
 
-      if (!triggerEl || !overlayEl) return;
-      if (typeof overlayInnerStyle === "function") {
-        setStyle(overlayEl, overlayInnerStyle(triggerEl, overlayEl));
-      } else if (typeof overlayInnerStyle === "object") {
+      if (!triggerEl?.value || !overlayEl) {
+        return;
+      }
+      if (typeof overlayInnerStyle === 'function') {
+        setStyle(overlayEl, overlayInnerStyle(triggerEl.value, overlayEl));
+      } else if (typeof overlayInnerStyle === 'object') {
         setStyle(overlayEl, overlayInnerStyle);
       }
     };
 
-    const getOverlayStyle = () => {
-      const { overlayStyle } = props;
-      const instance = getCurrentInstance();
+    const onOverlayClick = (e: MouseEvent) => {
+      props.onOverlayClick?.({ e });
+    };
 
-      const triggerEl = instance?.$slots?.default?.[0] as HTMLElement;
+    const getOverlayStyle = () => {
+      if (!triggerEl.value || !overlay.value) {
+        return;
+      }
+
+      const { overlayStyle } = props;
       const overlayEl = overlay.value as HTMLElement;
 
-      if (typeof overlayStyle === "function") {
-        return overlayStyle(triggerEl, overlayEl);
+      if (typeof overlayStyle === 'function') {
+        return overlayStyle(triggerEl.value, overlayEl);
       }
-      if (typeof overlayStyle === "object") {
+      if (typeof overlayStyle === 'object') {
         return overlayStyle;
       }
     };
 
     const updatePopper = () => {
-      const { $el: triggerEl } = this;
       const popperEl = popper.value;
 
-      if (!popperEl || !props.visible) return;
+      if (!popperEl || !visible.value) {
+        return;
+      }
       if (popperInstance.value) {
         popperInstance.value.update();
         return;
       }
-      popperInstance.value = createPopper(triggerEl, popperEl, {
+      popperInstance.value = createPopper(triggerEl.value, popper.value, {
         modifiers:
           getIEVersion() > 9
             ? []
             : [
                 {
-                  name: "computeStyles",
+                  name: 'computeStyles',
                   options: {
                     // 默认为 true，即使用 transform 定位，开启 gpu 加速
                     // ie9 不支持 transform，需要添加 -ms- 前缀，@popperjs/core 没有添加这个样式，
@@ -205,75 +185,96 @@ export default defineComponent({
       });
     };
 
-    watch(
-      () => props.visible,
-      (visible) => {
-        const { $el: triggerEl } = this;
-        if (visible) {
-          preventClosing(true);
-          if (!hasDocumentEvent.value) {
-            on(document, "mousedown", handleDocumentClick, true);
-            hasDocumentEvent.value = true;
-          }
-          // focus trigger esc 隐藏浮层
-          if (triggerEl && hasTrigger.value.focus) {
-            once(triggerEl, "keydown", (ev: KeyboardEvent) => {
-              if (ev.code === "Escape") {
-                handleClose({ trigger: "keydown-esc" });
-              }
-            });
-          }
-          nextTick(() => {
-            popupMounted();
-          });
-        } else {
-          preventClosing(false);
-          // destruction is delayed until after animation ends
-          off(document, "mousedown", handleDocumentClick, true);
-          hasDocumentEvent.value = false;
-          mouseInRange.value = false;
-        }
+    const updateScrollTop = inject('updateScrollTop', undefined);
+
+    const onDocumentMouseDown = (ev: MouseEvent) => {
+      // click content
+      if (popper.value?.contains(ev.target as Node)) {
+        return;
       }
+      // click trigger element
+      if (triggerEl.value?.contains(ev.target as Node)) {
+        return;
+      }
+      // ignore upwards
+      const activatedPopper = getPopperTree(id).find(el =>
+        el.contains(ev.target as Node),
+      );
+      if (
+        activatedPopper
+        && getPopperTree(
+          activatedPopper.getAttribute(POPUP_PARENT_ATTR_NAME) as string,
+          true,
+        ).includes(popper.value)
+      ) {
+        return;
+      }
+      hide(ev);
+    };
+    const handleOnScroll = (e: WheelEvent) => {
+      const { scrollTop, clientHeight, scrollHeight }
+        = e.target as HTMLDivElement;
+
+      // 防止多次触发添加截流
+      const debounceOnScrollBottom = debounce(
+        e => props.onScrollToBottom?.({ e }),
+        100,
+      );
+
+      // windows 下 scrollTop 会出现小数，这里取整
+      if (clientHeight + Math.floor(scrollTop) === scrollHeight) {
+        // touch bottom
+        debounceOnScrollBottom(e);
+      }
+      props.onScroll?.({ e });
+    };
+    watch(
+      () => [visible.value, overlay.value],
+      () => {
+        if (visible.value && overlay.value && updateScrollTop) {
+          // @ts-expect-error
+          updateScrollTop?.(overlay.value);
+        }
+      },
     );
 
     watch(
-      () => props.overlayInnerStyle,
+      () => [props.overlayStyle, props.overlayInnerStyle, overlay.value],
       () => {
         updateOverlayInnerStyle();
         updatePopper();
-      }
+      },
     );
 
     watch(
       () => props.placement,
       () => {
-        // TODO
-        // popper?.destroy();
-        popper.value = null;
+        destroyPopper();
         updatePopper();
-      }
+      },
     );
+
     watch(
-      () => contentClicked.value,
-      (clicked) => {
-        if (popup) {
-          contentClicked.value = clicked;
+      () => visible.value,
+      (visible) => {
+        if (visible) {
+          on(document, 'mousedown', onDocumentMouseDown, true);
+          if (props.trigger === 'focus') {
+            once(triggerEl.value, 'keydown', (ev: KeyboardEvent) => {
+              const code
+                = typeof process !== 'undefined' && process.env?.TEST
+                  ? '27'
+                  : 'Escape';
+              if (ev.code === code) {
+                hide(ev);
+              }
+            });
+          }
         }
-      }
+        // TODO
+        // off(document, "mousedown", onDocumentMouseDown, true);
+      },
     );
-
-    onUpdated(() => {
-      // container?.value.updateContent();
-    });
-
-    onBeforeUnmount(() => {
-      if (props.visible) {
-        (this as any).popup?.preventClosing(false);
-      }
-      destroyPopper();
-      off(document, "mousedown", handleDocumentClick, true);
-      clearTimeout(timeout.value);
-    });
 
     const normalizedDelay = computed(() => {
       // @ts-expect-error
@@ -284,259 +285,220 @@ export default defineComponent({
       };
     });
 
-    const preventClosing = (preventing: boolean) => {
-      // TODO
-      const parent = popup;
-      parent?.preventClosing(preventing);
-      if (preventing) {
-        visibleState.value += 1;
-      } else if (visibleState.value) {
-        visibleState.value -= 1;
-        if (!visibleState.value) {
-          emitPopVisible(false, {});
-          if (parent?.hasTrigger.hover && !parent?.mouseInRange) {
-            parent.emitPopVisible(false, {});
-          }
-        }
-      }
-    };
-    const handleOpen = (
-      context: Pick<PopupVisibleChangeContext, "trigger">
-    ) => {
-      clearTimeout(timeout.value);
-      timeout.value = setTimeout(
-        () => {
-          emitPopVisible(true, context);
-        },
-        hasTrigger.value.click ? 0 : normalizedDelay.value.open
-      );
-    };
-
     const onMouseEnter = () => {
-      if (props.destroyOnClose && isLeaving.value) {
-        // 如果 popup 在关闭的时候会被销毁，那在它消失的过程中，不响应鼠标进入事件，因为否则不会触发 mouseleave
-        return;
+      isOverlayHover.value = true;
+      if (visible.value && props.trigger === 'hover') {
+        clearAllTimeout();
       }
-      mouseInRange.value = true;
-      handleOpen({});
     };
 
     const onMouseLeave = (ev: MouseEvent) => {
-      // 子元素存在打开的 popup 时，ui 可能重叠，而 dom 节点多是并列关系
-      // 需要做碰撞检测去阻止父级 popup 关闭
-      if (visibleState.value > 1) {
-        const rect = (popper.value as HTMLElement).getBoundingClientRect();
-        if (
-          ev.x > rect.x &&
-          ev.x < rect.x + rect.width &&
-          ev.y > rect.y &&
-          ev.y < rect.y + rect.height
-        )
-          return;
+      isOverlayHover.value = false;
+      if (
+        props.trigger !== 'hover'
+        || triggerEl.value?.contains(ev.target as Node)
+      ) {
+        return;
       }
-      mouseInRange.value = false;
-      handleClose({});
 
-      // parent can no longer monitor mouse leave
-      const parent = (this as any).popup;
-      if (parent?.mouseInRange) {
-        parent.onMouseLeave(ev);
-      }
-    };
-    const onBeforeEnter = () => {
-      if (props.visible) {
-        updatePopper();
-      }
-    };
-    const onAfterEnter = () => {
-      if (props.visible) updatePopper();
-    };
-    const onLeave = () => {
-      isLeaving.value = true;
-    };
-    const onAfterLeave = () => {
-      isLeaving.value = false;
-      destroyPopper();
-    };
+      const isCursorOverlaps = getPopperTree(id).some((el) => {
+        const rect = el.getBoundingClientRect();
 
+        return (
+          ev.x > rect.x
+          && ev.x < rect.x + rect.width
+          && ev.y > rect.y
+          && ev.y < rect.y + rect.height
+        );
+      });
+      if (!isCursorOverlaps) {
+        hide(ev);
+        parent?.assertMouseLeave(ev);
+      }
+    };
     const destroyPopper = () => {
       if (popperInstance.value) {
         popperInstance.value.destroy();
         popperInstance.value = null;
       }
-      if (props.destroyOnClose) {
-        container.value.unmountContent();
-      }
+      // if (props.destroyOnClose) {
+      //   containerRef.value?.unmountContent?.();
+      // }
     };
 
-    const handleOnScroll = (e: WheelEvent) => {
-      const { scrollTop, clientHeight, scrollHeight } =
-        e.target as HTMLDivElement;
-      // 防止多次触发添加截流
-      const debounceOnScrollBottom = debounce(
-        (e) => props.onScrollToBottom?.({ e }),
-        100
-      );
-
-      // windows 下 scrollTop 会出现小数，这里取整
-      if (clientHeight + Math.floor(scrollTop) === scrollHeight) {
-        // touch bottom
-        debounceOnScrollBottom(e);
-      }
-      props.onScroll?.({ e });
+    const clearAllTimeout = () => {
+      clearTimeout(showTimeout.value);
+      clearTimeout(hideTimeout.value);
     };
 
-    const emitPopVisible = (
-      visible: boolean,
-      context: PopupVisibleChangeContext
-    ) => {
-      if (props.disabled || visible === !!props.visible) return;
-      if (!visible && visibleState.value > 1) return;
-      if (visible && mouseInRange.value) return;
-      props.onVisibleChange?.(visible, context);
-      if (typeof props.onVisibleChange === "function") {
-        props.onVisibleChange(visible, context);
-      }
+    const show = (ev: PopupTriggerEvent) => {
+      clearAllTimeout();
+      showTimeout.value = setTimeout(() => {
+        setVisible(true, { trigger: getTriggerType(ev) });
+        // TODO
+        popper.value.style.display = null;
+      }, normalizedDelay.value.open);
     };
 
-    const handleToggle = (context: PopupVisibleChangeContext) => {
-      emitPopVisible(!props.visible, context);
-    };
+    function hide(ev?: PopupTriggerEvent) {
+      clearAllTimeout();
+      hideTimeout.value = setTimeout(() => {
+        setVisible(false, { trigger: getTriggerType(ev), e: ev });
+        // TODO
+        popper.value.style.display = 'none';
+      }, normalizedDelay.value.close);
+    }
+    const trigger = attachListeners(triggerEl);
 
-    onMounted(() => {
-      // const instance =
-      console.log(container.value, "instance");
-      // const trigger = attachListeners(this.$el);
-      // const updateTrigger = () => {
-      //   trigger.clean();
-      //   if (hasTrigger.value.hover) {
-      //     trigger.add("mouseenter", () =>
-      //       handleOpen({ trigger: "trigger-element-hover" })
-      //     );
-      //     trigger.add("mouseleave", () =>
-      //       handleClose({ trigger: "trigger-element-hover" })
-      //     );
-      //   } else if (hasTrigger.value.focus) {
-      //     trigger.add("focusin", () =>
-      //       handleOpen({ trigger: "trigger-element-focus" })
-      //     );
-      //     trigger.add("focusout", () =>
-      //       handleClose({ trigger: "trigger-element-blur" })
-      //     );
-      //   } else if (hasTrigger.value.click) {
-      //     trigger.add("click", (e: MouseEvent) => {
-      //       handleToggle({ e, trigger: "trigger-element-click" });
-      //       // ie9-10 trigger propagation
-      //       if (getIEVersion() < 11) {
-      //         handleDocumentClick(e);
-      //       }
-      //     });
-      //   } else if (hasTrigger.value["context-menu"]) {
-      //     trigger.add("contextmenu", (e: MouseEvent) => {
-      //       e.preventDefault();
-      //       // MouseEvent.button
-      //       // 2: Secondary button pressed, usually the right button
-      //       e.button === 2 && handleToggle({ trigger: "context-menu" });
-      //     });
-      //   }
-      // };
-      // updateTrigger();
-      // TODO
-      // this.$watch("trigger", updateTrigger);
+    watch(
+      () => [props.trigger, triggerEl.value],
+      () => {
+        if (!triggerEl.value) {
+          return;
+        }
+        trigger?.clean();
+        trigger?.add(
+          (
+            {
+              'hover': 'mouseenter',
+              'focus': 'focusin',
+              'context-menu': 'contextmenu',
+              'click': 'click',
+            } as any
+          )[props.trigger],
+          (ev: MouseEvent) => {
+            if (props.disabled) {
+              return;
+            }
+
+            if (ev.type === 'contextmenu') {
+              ev.preventDefault();
+            }
+
+            if (
+              (ev.type === 'click' || ev.type === 'contextmenu')
+              && visible.value
+            ) {
+              hide(ev);
+              return;
+            }
+
+            show(ev);
+          },
+        );
+
+        trigger?.add(
+          (
+            {
+              hover: 'mouseleave',
+              focus: 'focusout',
+            } as any
+          )[props.trigger],
+          hide,
+        );
+      },
+    );
+
+    const parent = inject(parentKey, undefined);
+
+    provide(parentKey, {
+      id,
+      assertMouseLeave: onMouseLeave,
     });
+
+    expose({
+      update: updatePopper,
+      getOverlay: () => overlay.value,
+      getOverlayState: () => ({
+        hover: isOverlayHover.value,
+      }),
+      /** close is going to be deprecated. visible is enough */
+      close: () => hide(),
+    });
+
+    onUnmounted(() => {
+      destroyPopper();
+      clearAllTimeout();
+      off(document, 'mousedown', onDocumentMouseDown, true);
+    });
+
     return () => {
-      const ref = renderContent("default", "triggerElement");
-      const content = renderTNodeJSX("content");
-      const hidePopup =
-        props.hideEmptyPopup && ["", undefined, null].includes(content);
-      const overlay =
-        props.visible || !props.destroyOnClose
-          ? H(
-              "div",
-              {
-                class: [componentName.value, props.overlayClassName],
-                ref: "popper",
-                style: [
-                  hidePopup && { visibility: "hidden", pointerEvents: "none" },
-                  { zIndex: props.zIndex },
-                  getOverlayStyle(),
-                ],
-                directives: props.destroyOnClose
-                  ? undefined
-                  : [
-                      {
-                        name: "show",
-                        rawName: "v-show",
-                        value: props.visible && !hidePopup,
-                        expression: "visible",
-                      },
-                    ],
-                on: {
-                  mousedown: () => {
-                    contentClicked.value = true;
-                  },
-                  ...(hasTrigger.value.hover && {
-                    mouseenter: onMouseEnter,
-                    mouseleave: onMouseLeave,
-                  }),
-                },
-              },
-              [
-                H(
-                  "div",
-                  {
-                    class: overlayClasses.value,
-                    ref: "overlay",
-                    on: {
-                      scroll(e: WheelEvent) {
-                        handleOnScroll(e);
-                      },
-                    },
-                  },
-                  [
-                    content,
-                    props.showArrow &&
-                      H("div", { class: `${componentName.value}__arrow` }),
-                  ]
-                ),
-              ]
-            )
-          : null;
-      // return <div>111</div>;
+      const content = renderTNodeJSX('content');
+      const instance = getCurrentInstance();
+      const hidePopup
+        = props.hideEmptyPopup && ['', undefined, null].includes(content);
+
+      const overlay
+        = visible.value || !props.destroyOnClose ? (
+          <div
+            {...{
+              [POPUP_ATTR_NAME]: id,
+              [POPUP_PARENT_ATTR_NAME]: parent?.id,
+            }}
+            ref={popper}
+            class={[componentName.value, props.overlayClassName]}
+            style={[
+              { zIndex: props.zIndex },
+              getOverlayStyle(),
+              hidePopup && { visibility: 'hidden' },
+            ]}
+            onClick={onOverlayClick}
+            onMouseenter={onMouseEnter}
+            onMouseleave={onMouseLeave}
+          >
+            <div
+              class={overlayClasses.value}
+              ref="overlay"
+              // @ts-expect-error
+              onScroll={handleOnScroll}
+            >
+              {content}
+              {props.showArrow && (
+                <div class={`${componentName.value}__arrow`} />
+              )}
+            </div>
+          </div>
+        ) : null;
+
       return (
         <Container
-          ref="container"
+          forwardRef={(ref: HTMLElement) => {
+            triggerEl.value = ref;
+          }}
+          ref={containerRef}
+          forwardContentRef={(ref: HTMLDivElement) => {
+            popper.value = ref;
+          }}
           onContentMounted={() => {
-            if (props.visible) {
+            if (visible.value) {
               updatePopper();
               updateOverlayInnerStyle();
             }
           }}
           onResize={() => {
-            if (props.visible) {
+            if (visible.value) {
               updatePopper();
             }
           }}
-          // parent={this}
-          visible={props.visible}
-          // attach={() => ({ attach: props.attach, current: this.$el })}
+          parent={instance as any}
+          visible={visible.value}
+          attach={() => ({ attach: props.attach, current: triggerEl })}
+          v-slots={{
+            content: () => (
+              <transition
+                name={
+                  props.expandAnimation
+                    ? `${componentName.value}--animation-expand`
+                    : `${componentName.value}--animation`
+                }
+                appear
+              >
+                {overlay}
+              </transition>
+            ),
+            default: () => renderContent('default', 'triggerElement'),
+          }}
         >
-          <transition
-            slot="content"
-            name={
-              props.expandAnimation
-                ? `${componentName.value}--animation-expand`
-                : `${componentName.value}--animation`
-            }
-            appear
-            onBeforeEnter={onBeforeEnter}
-            onAfterEnter={onAfterEnter}
-            onLeave={onLeave}
-            onAfterLeave={onAfterLeave}
-          >
-            {overlay}
-          </transition>
-          {ref}
         </Container>
       );
     };

@@ -115,7 +115,6 @@ export {
   createApp,
   createElement,
   pluginInstall,
-  Fragment,
   isVue3,
   isVue2,
 }
