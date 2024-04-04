@@ -1,25 +1,29 @@
-import * as Vue from "vue";
-import { getCurrentInstance, h as H } from "vue";
-import type { App, Plugin, VNode } from "vue";
+import * as Vue from 'vue';
+import { h as H, getCurrentInstance } from 'vue';
+import type { App, Plugin, VNode } from 'vue';
 
-const getVNode = (node: VNode) => {
-  return node
+function getVNode(node: VNode) {
+  return node;
 }
 
-const pluginInstall = (app: App, plugin: Plugin, ...paths: string[]) => {
+function pluginInstall(app: App, plugin: Plugin, ...paths: string[]) {
   let lastObject = app.config.globalProperties;
   for (let i = 0; i < paths.length - 1; i++) {
     const path = paths[i];
-    if (!path) throw new Error(`Path ${i} is empty`);
+    if (!path) {
+      throw new Error(`Path ${i} is empty`);
+    }
     if (!(path in lastObject)) {
       lastObject[path] = {};
     }
     lastObject = lastObject[path];
   }
   const lastPath = paths[paths.length - 1];
-  if (!lastPath) throw new Error('Last path is empty');
+  if (!lastPath) {
+    throw new Error('Last path is empty');
+  }
   lastObject[lastPath] = plugin;
-};
+}
 
 const createElement = H;
 

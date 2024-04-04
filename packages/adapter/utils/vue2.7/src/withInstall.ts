@@ -1,5 +1,5 @@
 import Vue from 'vue';
-import type { VueConstructor, PluginObject } from 'vue';
+import type { PluginObject, VueConstructor } from 'vue';
 import capitalize from 'lodash/capitalize';
 
 export function withInstall<T>(comp: T, dep?: PluginObject<any>, directive?: { name: string; comp: unknown }) {
@@ -19,7 +19,7 @@ export function withInstall<T>(comp: T, dep?: PluginObject<any>, directive?: { n
     Vue.component(componentName, comp);
   };
 
-  if (dep && Vue && (Vue._installedPlugins || []).indexOf(dep) === -1) {
+  if (dep && Vue && !(Vue._installedPlugins || []).includes(dep)) {
     Vue.use(dep);
   }
 

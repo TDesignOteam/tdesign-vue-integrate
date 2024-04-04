@@ -1,1 +1,1 @@
-export * from "./src/withInstall";
+export * from './src/withInstall';
