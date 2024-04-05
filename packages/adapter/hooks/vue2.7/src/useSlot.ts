@@ -59,7 +59,6 @@ export function useChildSlots() {
   return () => {
     const instance = getCurrentInstance();
     const content = instance?.slots?.default?.(H) || [];
-    console.log(content, 'content');
     return content
       // .map(item => getVNode(item))
       // .filter((item) => {

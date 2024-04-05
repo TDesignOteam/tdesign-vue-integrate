@@ -63,7 +63,8 @@ export function useTNodeJSX() {
 
     // 同名 props 和 slot 优先处理 props
     if (isFunction(propsNode)) {
-      return propsNode(h, params);
+      // TODO
+      return propsNode(H, params);
     }
     const isPropsEmpty = [undefined, params, ''].includes(propsNode);
     if (isPropsEmpty && (instance?.$scopedSlots[camelCase(name)] || instance?.$scopedSlots[kebabCase(name)])) {

@@ -1,15 +1,14 @@
-import { createApp } from "@td/adapter-vue";
-import { createPopper } from "@popperjs/core";
-import { getAttach } from "@td/adapter-utils";
+import { nextTick } from 'node:process';
+import { createApp, pluginInstall } from '@td/adapter-vue';
+import { createPopper } from '@popperjs/core';
+import { getAttach } from '@td/adapter-utils';
 
-import { getPopperPlacement } from "./utils";
-
-import popupOverlayComponent from "./overlay";
-
-import type { TNode } from "@td/shared/interface";
-import type { TdPopupProps } from "@td/intel/components/popup/type";
-import type { Plugin, App } from "@td/adapter-vue";
-import type { Instance } from "@popperjs/core";
+import type { TNode } from '@td/shared/interface';
+import type { TdPopupProps } from '@td/intel/components/popup/type';
+import type { App, Plugin } from '@td/adapter-vue';
+import type { Instance } from '@popperjs/core';
+import popupOverlayComponent from './overlay';
+import { getPopperPlacement } from './utils';
 
 export interface PopupPluginApi {
   config: TdPopupProps;
@@ -23,11 +22,11 @@ export type PopupPluginMethod = (
 
 export type PopupPluginType = Plugin & PopupPluginMethod;
 
-let popperInstance: Instance|null;
-let overlayInstance: HTMLElement|null;
-let triggerEl: HTMLElement | Element|null;
+let popperInstance: Instance | null;
+let overlayInstance: HTMLElement | null;
+let triggerEl: HTMLElement | Element | null;
 
-const removeOverlayInstance = () => {
+function removeOverlayInstance() {
   if (overlayInstance) {
     overlayInstance.remove();
     overlayInstance = null;
@@ -36,23 +35,23 @@ const removeOverlayInstance = () => {
     popperInstance.destroy();
     popperInstance = null;
   }
-};
+}
 
 export const createPopupPlugin: PopupPluginMethod = (
   trigger,
   content,
-  popupProps
+  popupProps,
 ) => {
   const currentTriggerEl = getAttach(trigger);
 
   triggerEl = currentTriggerEl;
   removeOverlayInstance();
 
-  const overlayAttach = getAttach(popupProps?.attach || "body");
+  const overlayAttach = getAttach(popupProps?.attach || 'body');
 
-  const popupDom = document.createElement("div");
-  popupDom.style.cssText =
-    "position: absolute; top: 0px; left: 0px; width: 100%";
+  const popupDom = document.createElement('div');
+  popupDom.style.cssText
+    = 'position: absolute; top: 0px; left: 0px; width: 100%';
 
   const overlayInstance = createApp(popupOverlayComponent, {
     ...popupProps,
@@ -60,22 +59,21 @@ export const createPopupPlugin: PopupPluginMethod = (
     triggerElement: triggerEl,
   }).mount(popupDom).$el;
 
+  popupDom.appendChild(overlayInstance);
   overlayAttach.appendChild(popupDom);
-
   popperInstance = createPopper(triggerEl, overlayInstance, {
     placement: getPopperPlacement(
-      popupProps?.placement || ("top" as TdPopupProps["placement"])
+      popupProps?.placement || ('top' as TdPopupProps['placement']),
     ),
     ...popupProps?.popperOptions,
   });
   return popperInstance;
 };
 
-const PopupPlugin: PopupPluginType = createPopupPlugin as PopupPluginType;
+export const PopupPlugin: PopupPluginType = createPopupPlugin as PopupPluginType;
 
 PopupPlugin.install = (app: App) => {
-  // eslint-disable-next-line no-param-reassign
-  app.config.globalProperties.$popup = createPopupPlugin;
+  pluginInstall(app, createPopupPlugin, '$popup');
 };
 
 export default PopupPlugin;
