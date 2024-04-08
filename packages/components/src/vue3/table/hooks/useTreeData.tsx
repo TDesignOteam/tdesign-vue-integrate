@@ -4,7 +4,7 @@ import {
   AddRectangleIcon as TdAddRectangleIcon,
   MinusRectangleIcon as TdMinusRectangleIcon,
 } from 'tdesign-icons-vue-next';
-import get from 'lodash/get';
+import { get } from 'lodash-es';
 import { useConfig, useGlobalIcon } from '@td/adapter-hooks';
 import type { SwapParams } from '@td/shared/_common/js/table/tree-store';
 import TableTreeStore from '@td/shared/_common/js/table/tree-store';

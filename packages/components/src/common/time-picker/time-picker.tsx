@@ -5,7 +5,7 @@ import { TimeIcon as TdTimeIcon } from 'tdesign-icons-vue-next';
 
 import { formatInputValue, validateInputValue } from '@td/shared/_common/js/time-picker/utils';
 
-import props from '@td/intel/components/color-picker/props';
+import props from '@td/intel/components/time-picker/props';
 
 // hooks
 import { useVModel } from '@td/adapter-hooks';

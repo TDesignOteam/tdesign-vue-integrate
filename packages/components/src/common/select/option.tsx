@@ -3,7 +3,7 @@ import { computed, defineComponent, inject, onBeforeUnmount, onMounted, ref } fr
 import { useCommonClassName, useDisabled, usePrefixClass, useRipple } from '@td/adapter-hooks';
 import props from '@td/intel/components/select/option-props';
 import type { SelectValue } from '@td/intel/components/select/type';
-import Checkbox from '../checkbox/index';
+import { Checkbox } from '@td/component';
 
 // hooks
 import { getNewMultipleValue, selectInjectKey } from './helper';

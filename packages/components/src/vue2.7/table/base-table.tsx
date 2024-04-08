@@ -1,35 +1,42 @@
+import type { PropType, SetupContext } from '@td/adapter-vue';
 import {
-  computed, defineComponent, SetupContext, ref, nextTick, PropType, watch, onMounted, toRefs,
+  computed,
+  defineComponent,
+  nextTick,
+  onMounted,
+  ref,
+  toRefs,
+  watch,
 } from '@td/adapter-vue';
 import pick from 'lodash/pick';
-import { isFunction } from 'lodash-es';
-import get from 'lodash/get';
+import { get, isFunction } from 'lodash-es';
+import log from '@td/shared/_common/js/log';
+import { getIEVersion } from '@td/shared/_common/js/utils/helper';
+import type { ComponentScrollToElementParams, Styles } from '@td/shared/interface';
+import type { BaseTableCol, TableRowData } from '@td/intel/components/calendar/type';
+import useVirtualScroll from '../hooks/useVirtualScrollNew';
+import type { LoadingProps } from '../loading';
+import Loading from '../loading';
+import { renderTNodeJSX, useElementLazyRender } from '../hooks';
+import { useConfig } from '../config-provider/useConfig';
 import props from './base-table-props';
 import useTableHeader from './hooks/useTableHeader';
 import useColumnResize from './hooks/useColumnResize';
 import useFixed from './hooks/useFixed';
 import usePagination from './hooks/usePagination';
-import useVirtualScroll from '../hooks/useVirtualScrollNew';
 import useAffix from './hooks/useAffix';
-import Loading, { LoadingProps } from '../loading';
 import TBody, { extendTableProps } from './tbody';
-import { BaseTableProps } from './interface';
-import { renderTNodeJSX, useElementLazyRender } from '../hooks';
+import type { BaseTableProps } from './interface';
 import useStyle, { formatCSSUnit } from './hooks/useStyle';
 import useClassName from './hooks/useClassName';
-import { useConfig } from '../config-provider/useConfig';
 import { Affix } from '../affix';
 import { ROW_LISTENERS } from './tr';
 import THead from './thead';
 import TFoot from './tfoot';
-import log from '@td/shared/_common/js/log';
-import { getIEVersion } from '@td/shared/_common/js/utils/helper';
 import { getAffixProps } from './utils';
-import { ComponentScrollToElementParams, Styles } from '@td/shared/interface';
-import { BaseTableCol, TableRowData } from '@td/intel/components/calendar/type';
 
 export const BASE_TABLE_EVENTS = ['page-change', 'cell-click', 'scroll', 'scrollX', 'scrollY', 'column-resize-change'];
-export const BASE_TABLE_ALL_EVENTS = ROW_LISTENERS.map((t) => `row-${t}`).concat(BASE_TABLE_EVENTS);
+export const BASE_TABLE_ALL_EVENTS = ROW_LISTENERS.map(t => `row-${t}`).concat(BASE_TABLE_EVENTS);
 
 export interface TableListeners {
   [key: string]: Function;
@@ -54,11 +61,18 @@ export default defineComponent({
     const tableFootHeight = ref(0);
 
     const {
-      classPrefix, virtualScrollClasses, tableLayoutClasses, tableBaseClass, tableColFixedClasses,
+      classPrefix,
+      virtualScrollClasses,
+      tableLayoutClasses,
+      tableBaseClass,
+      tableColFixedClasses,
     } = useClassName();
     // 表格基础样式类
     const {
-      tableClasses, sizeClassNames, tableContentStyles, tableElementStyles,
+      tableClasses,
+      sizeClassNames,
+      tableContentStyles,
+      tableElementStyles,
     } = useStyle(props);
     const { global } = useConfig('table', props.locale);
     const { isMultipleHeader, spansAndLeafNodes, thList } = useTableHeader(props);
@@ -118,7 +132,10 @@ export default defineComponent({
     const { showElement } = useElementLazyRender(tableRef, lazyLoad);
 
     const {
-      dataSource, innerPagination, isPaginateData, renderPagination,
+      dataSource,
+      innerPagination,
+      isPaginateData,
+      renderPagination,
     } = usePagination(props, context);
 
     const onInnerResizeChange: BaseTableProps['onColumnResizeChange'] = (p) => {
@@ -156,12 +173,14 @@ export default defineComponent({
 
     const showRightDivider = computed(
       () => props.bordered
-        && isFixedHeader.value
-        && ((isMultipleHeader.value && isWidthOverflow.value) || !isMultipleHeader.value),
+      && isFixedHeader.value
+      && ((isMultipleHeader.value && isWidthOverflow.value) || !isMultipleHeader.value),
     );
 
     const dividerBottom = computed(() => {
-      if (!props.bordered) return 0;
+      if (!props.bordered) {
+        return 0;
+      }
       const bottomRect = bottomContentRef.value?.getBoundingClientRect();
       const paginationRect = paginationRef.value?.getBoundingClientRect();
       return (bottomRect?.height || 0) + (paginationRect?.height || 0);
@@ -233,13 +252,17 @@ export default defineComponent({
 
     // used for top margin
     const getTFootHeight = () => {
-      if (!tableElmRef.value) return;
+      if (!tableElmRef.value) {
+        return;
+      }
       tableFootHeight.value = tableElmRef.value.querySelector('tfoot')?.getBoundingClientRect().height;
     };
 
     // 对外暴露方法，修改时需谨慎（expose）
     const scrollColumnIntoView = (colKey: string) => {
-      if (!tableContentRef.value) return;
+      if (!tableContentRef.value) {
+        return;
+      }
       const thDom = tableContentRef.value.querySelector(`th[data-colkey="${colKey}"]`);
       const fixedThDom = tableContentRef.value.querySelectorAll('th.t-table__cell--fixed-left');
       let totalWidth = 0;
@@ -277,7 +300,7 @@ export default defineComponent({
           log.error('Table', 'scrollToElement: one of `index` or `key` must exist.');
           return;
         }
-        index = tableData.value?.findIndex((item) => get(item, props.rowKey) === params.key);
+        index = tableData.value?.findIndex(item => get(item, props.rowKey) === params.key);
         if (index < 0) {
           log.error('Table', `${params.key} does not exist in data, check \`rowKey\` or \`data\` please.`);
         }
@@ -407,7 +430,9 @@ export default defineComponent({
      * Affixed Header
      */
     renderFixedHeader(columns: BaseTableCol<TableRowData>[]) {
-      if (!this.showHeader) return null;
+      if (!this.showHeader) {
+        return null;
+      }
       const isVirtual = this.virtualConfig.isVirtualScroll.value;
       const barWidth = this.isWidthOverflow ? this.scrollbarWidth : 0;
       // IE 浏览器需要遮挡 header 吸顶滚动条，要减去 getBoundingClientRect.height 的滚动条高度 4 像素
@@ -494,7 +519,8 @@ export default defineComponent({
                 thWidthList={this.thWidthList}
                 footerSummary={this.footerSummary}
                 rowspanAndColspanInFooter={this.rowspanAndColspanInFooter}
-              ></TFoot>
+              >
+              </TFoot>
             </table>
           </div>
         </Affix>
@@ -504,21 +530,25 @@ export default defineComponent({
     },
 
     renderAffixedHeader(columns: BaseTableCol<TableRowData>[]) {
-      if (!props.showHeader) return null;
+      if (!props.showHeader) {
+        return null;
+      }
       return (
         !!(this.virtualConfig.isVirtualScroll.value || this.headerAffixedTop)
-        && (this.headerAffixedTop ? (
-          <Affix
-            offsetTop={0}
-            props={getAffixProps(this.headerAffixedTop, this.headerAffixProps)}
-            onFixedChange={this.onFixedChange}
-            ref="headerTopAffixRef"
-          >
-            {this.renderFixedHeader(columns)}
-          </Affix>
-        ) : (
-          this.isFixedHeader && this.renderFixedHeader(columns)
-        ))
+        && (this.headerAffixedTop
+          ? (
+            <Affix
+              offsetTop={0}
+              props={getAffixProps(this.headerAffixedTop, this.headerAffixProps)}
+              onFixedChange={this.onFixedChange}
+              ref="headerTopAffixRef"
+            >
+              {this.renderFixedHeader(columns)}
+            </Affix>
+            )
+          : (
+              this.isFixedHeader && this.renderFixedHeader(columns)
+            ))
       );
     },
   },
@@ -543,7 +573,7 @@ export default defineComponent({
 
     const translate = `translate(0, ${this.virtualConfig.scrollHeight.value}px)`;
     const virtualStyle = {
-      transform: translate,
+      'transform': translate,
       '-ms-transform': translate,
       '-moz-transform': translate,
       '-webkit-transform': translate,
@@ -576,7 +606,7 @@ export default defineComponent({
         ref="tableContentRef"
         class={this.tableBaseClass.content}
         style={this.tableContentStyles}
-        // @ts-ignore
+        // @ts-expect-error
         on={{ scroll: this.onInnerVirtualScroll }}
       >
         {this.virtualConfig.isVirtualScroll.value && (
@@ -607,7 +637,8 @@ export default defineComponent({
             rowClassName={this.rowClassName}
             footerSummary={this.footerSummary}
             rowspanAndColspanInFooter={this.rowspanAndColspanInFooter}
-          ></TFoot>
+          >
+          </TFoot>
         </table>
       </div>
     );
@@ -620,20 +651,23 @@ export default defineComponent({
         attach={this.tableRef ? () => this.tableRef : undefined}
         showOverlay
         props={{ size: 'small', ...(this.loadingProps as Partial<LoadingProps>) }}
-      ></Loading>
+      >
+      </Loading>
     );
 
     const topContent = renderTNodeJSX(this, 'topContent');
     const bottomContent = renderTNodeJSX(this, 'bottomContent');
-    const paginationContent = this.innerPagination ? (
-      <div
-        ref="paginationRef"
-        class={this.tableBaseClass.paginationWrap}
-        style={{ opacity: Number(this.showAffixPagination) }}
-      >
-        {this.renderPagination(h)}
-      </div>
-    ) : null;
+    const paginationContent = this.innerPagination
+      ? (
+        <div
+          ref="paginationRef"
+          class={this.tableBaseClass.paginationWrap}
+          style={{ opacity: Number(this.showAffixPagination) }}
+        >
+          {this.renderPagination(h)}
+        </div>
+        )
+      : null;
     const bottom = !!bottomContent && (
       <div ref="bottomContentRef" class={this.tableBaseClass.bottomContent}>
         {bottomContent}
@@ -663,7 +697,8 @@ export default defineComponent({
               bottom: this.dividerBottom ? `${this.dividerBottom}px` : undefined,
               height: `${this.tableContentRef?.getBoundingClientRect().height}px`,
             }}
-          ></div>
+          >
+          </div>
         )}
 
         {/* 吸底的滚动条 */}
@@ -693,13 +728,15 @@ export default defineComponent({
         )}
 
         {/* 吸底的分页器 */}
-        {this.paginationAffixedBottom ? (
-          <Affix offsetBottom={0} props={getAffixProps(this.paginationAffixedBottom)} ref="paginationAffixRef">
-            {paginationContent}
-          </Affix>
-        ) : (
-          paginationContent
-        )}
+        {this.paginationAffixedBottom
+          ? (
+            <Affix offsetBottom={0} props={getAffixProps(this.paginationAffixedBottom)} ref="paginationAffixRef">
+              {paginationContent}
+            </Affix>
+            )
+          : (
+              paginationContent
+            )}
 
         {/* 调整列宽时的指示线。由于层级需要比较高，因而放在根节点，避免被吸顶表头覆盖。非必要情况，请勿调整辅助线位置 */}
         <div ref="resizeLineRef" class={this.tableBaseClass.resizeLine} style={this.resizeLineStyle}></div>

@@ -1,23 +1,25 @@
+import type { SetupContext } from '@td/adapter-vue';
 import {
-  ref, computed, SetupContext, toRefs, watch,
+  computed,
+  ref,
+  toRefs,
+  watch,
 } from '@td/adapter-vue';
-import get from 'lodash/get';
+import { cloneDeep, get, isFunction } from 'lodash-es';
 import set from 'lodash/set';
-import { cloneDeep } from 'lodash-es';
-import { isFunction } from 'lodash-es';
-import { PrimaryTableProps } from '../interface';
 import { getEditableKeysMap } from '@td/shared/_common/js/table/utils';
-import { AllValidateResult } from '../../form/type';
+import type { PrimaryTableProps } from '../interface';
+import type { AllValidateResult } from '../../form/type';
 import { validate } from '../../form/form-model';
-import {
+import type {
+  PrimaryTableCellParams,
   PrimaryTableRowEditContext,
   PrimaryTableRowValidateContext,
-  TableRowData,
   TableErrorListMap,
-  PrimaryTableCellParams,
+  TableRowData,
 } from '../type';
+import type { OnEditableChangeContext } from '../editable-cell';
 import { getCellKey } from './useRowspanAndColspan';
-import { OnEditableChangeContext } from '../editable-cell';
 
 export type ErrorListObjectType = PrimaryTableRowEditContext<TableRowData> & { errorList: AllValidateResult[] };
 
@@ -55,9 +57,11 @@ export default function useRowEdit(props: PrimaryTableProps, context: SetupConte
   // 校验一行的数据
   const validateOneRowData = (rowValue: any) => {
     const rowRules = cellRuleMap.get(rowValue);
-    if (!rowRules) return;
+    if (!rowRules) {
+      return;
+    }
     const list = rowRules.map(
-      (item) => new Promise<ErrorListObjectType>((resolve) => {
+      item => new Promise<ErrorListObjectType>((resolve) => {
         const { editedRow, col } = item;
         const rules = isFunction(col.edit.rules) ? col.edit.rules(item) : col.edit.rules;
         if (!col.edit || !rules || !rules.length) {
@@ -65,14 +69,14 @@ export default function useRowEdit(props: PrimaryTableProps, context: SetupConte
           return;
         }
         validate(get(editedRow, col.colKey), rules).then((r) => {
-          resolve({ ...item, errorList: r.filter((t) => !t.result) });
+          resolve({ ...item, errorList: r.filter(t => !t.result) });
         });
       }),
     );
     return new Promise<TablePromiseErrorData>((resolve, reject) => {
       Promise.all(list).then((errors) => {
         resolve({
-          errors: errors.filter((t) => t.errorList?.length),
+          errors: errors.filter(t => t.errorList?.length),
           errorMap: getErrorListMapByErrors(errors),
         });
       }, reject);
@@ -96,12 +100,14 @@ export default function useRowEdit(props: PrimaryTableProps, context: SetupConte
   // 校验可编辑单元格
   const validateTableCellData = () => {
     const cellKeys = Object.keys(editingCells.value);
-    const promiseList = cellKeys.map((cellKey) => editingCells.value[cellKey].validateEdit('parent'));
+    const promiseList = cellKeys.map(cellKey => editingCells.value[cellKey].validateEdit('parent'));
     return new Promise((resolve, reject) => {
       Promise.all(promiseList).then((arr) => {
         const allErrorListMap: TableErrorListMap = {};
         arr.forEach((result, index) => {
-          if (result === true) return;
+          if (result === true) {
+            return;
+          }
           allErrorListMap[cellKeys[index]] = result;
         });
         resolve({ result: allErrorListMap });
@@ -153,7 +159,7 @@ export default function useRowEdit(props: PrimaryTableProps, context: SetupConte
       const rowValue = get(context.row, props.rowKey || 'id');
       const rules = cellRuleMap.get(rowValue);
       if (rules) {
-        const index = rules.findIndex((t) => t.col.colKey === context.col.colKey);
+        const index = rules.findIndex(t => t.col.colKey === context.col.colKey);
         if (index === -1) {
           rules.push(context);
         } else {
@@ -173,7 +179,7 @@ export default function useRowEdit(props: PrimaryTableProps, context: SetupConte
   const onPrimaryTableCellEditChange = (params: OnEditableChangeContext<TableRowData>) => {
     const cellKey = getCellKey(params.row, props.rowKey, params.col.colKey, params.colIndex);
     if (params.isEdit) {
-      // @ts-ignore
+      // @ts-expect-error
       editingCells.value[cellKey] = params;
     } else {
       delete editingCells.value[cellKey];

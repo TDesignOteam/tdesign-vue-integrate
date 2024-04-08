@@ -3,7 +3,7 @@ import dayjs from 'dayjs';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
 import { TimeIcon as TdTimeIcon } from 'tdesign-icons-vue-next';
 
-import type { TimeRangePickerPartial } from '@td/intel/components/calendar/type';
+import type { TimeRangePickerPartial } from '@td/intel/components/time-picker/type';
 
 import { TIME_PICKER_EMPTY } from '@td/shared/_common/js/time-picker/const';
 import { formatInputValue, validateInputValue } from '@td/shared/_common/js/time-picker/utils';

@@ -1,36 +1,5 @@
-<template>
-  <t-space direction="vertical" class="t-demo-autocomplete-option">
-    <!-- 使用 options 自定义下拉选项 -->
-    <t-auto-complete
-      v-model="value1"
-      :options="options1"
-      :popup-props="{ overlayClassName: 't-demo-autocomplete-option-list' }"
-      placeholder="使用属性自定义联想词选项内容"
-    />
-
-    <!-- 使用插槽自定义下拉选项 -->
-    <t-auto-complete
-      v-model="value2"
-      :options="options2"
-      :popup-props="{ overlayClassName: 't-demo-autocomplete-option-list' }"
-      placeholder="使用插槽自定义联想词选项内容"
-    >
-      <template #option="{ option }">
-        <div class="custom-option">
-          <img :src="option.avatar" />
-          <div class="custom-option__main">
-            <t-highlight-option :content="option.text" :keyword="value2" />
-            <small class="description">{{ option.description }}</small>
-          </div>
-        </div>
-      </template>
-    </t-auto-complete>
-  </t-space>
-</template>
-
-<!-- lang="jsx" 重要  -->
 <script setup lang="jsx">
-import { ref, computed } from 'vue';
+import { computed, ref } from 'vue';
 import { HighlightOption as THighlightOption } from 'tdesign-vue-next';
 
 const TEXTS = ['第一个默认联想词', '第二个默认联想词', '第三个默认联想词'];
@@ -56,7 +25,7 @@ const options2 = ref([
 ]);
 
 const options1 = computed(() =>
-  TEXTS.map((text) => ({
+  TEXTS.map(text => ({
     text,
     label: () => (
       <div class="custom-option">
@@ -70,6 +39,37 @@ const options1 = computed(() =>
   })),
 );
 </script>
+
+<!-- lang="jsx" 重要  -->
+<template>
+  <t-space direction="vertical" class="t-demo-autocomplete-option">
+    <!-- 使用 options 自定义下拉选项 -->
+    <t-auto-complete
+      v-model="value1"
+      :options="options1"
+      :popup-props="{ overlayClassName: 't-demo-autocomplete-option-list' }"
+      placeholder="使用属性自定义联想词选项内容"
+    />
+
+    <!-- 使用插槽自定义下拉选项 -->
+    <t-auto-complete
+      v-model="value2"
+      :options="options2"
+      :popup-props="{ overlayClassName: 't-demo-autocomplete-option-list' }"
+      placeholder="使用插槽自定义联想词选项内容"
+    >
+      <template #option="{ option }">
+        <div class="custom-option">
+          <img :src="option.avatar">
+          <div class="custom-option__main">
+            <THighlightOption :content="option.text" :keyword="value2" />
+            <small class="description">{{ option.description }}</small>
+          </div>
+        </div>
+      </template>
+    </t-auto-complete>
+  </t-space>
+</template>
 
 <style>
 .t-demo-autocomplete-option-list .t-select-option {

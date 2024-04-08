@@ -3,7 +3,7 @@
  */
 import { computed, toRefs, h, ref, watch } from '@td/adapter-vue';
 import intersection from 'lodash/intersection';
-import get from 'lodash/get';
+import { get } from 'lodash-es';
 import { isFunction } from 'lodash-es';
 import useDefaultValue from '../../hooks/useDefaultValue';
 import {

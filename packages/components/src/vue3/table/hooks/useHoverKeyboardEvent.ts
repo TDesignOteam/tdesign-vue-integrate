@@ -1,5 +1,5 @@
 import { toRefs, Ref, ref, computed } from '@td/adapter-vue';
-import get from 'lodash/get';
+import { get } from 'lodash-es';
 import { BaseTableProps } from '../interface';
 import { on, off } from '../../utils/dom';
 import { ALL_REG, ARROW_DOWN_REG, ARROW_UP_REG, CLEAR_REG, ESCAPE_REG, SPACE_REG } from '@td/shared/_common/js/common';

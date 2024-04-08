@@ -1,25 +1,28 @@
+import type { SetupContext } from '@td/adapter-vue';
 import {
-  defineComponent, SetupContext, computed, ref,
+  computed,
+  defineComponent,
+  ref,
 } from '@td/adapter-vue';
-import get from 'lodash/get';
+import { get } from 'lodash-es';
+import type {
+  DragSortContext,
+  PrimaryTableCol,
+  TableRowData,
+  TableRowState,
+  TdEnhancedTableProps,
+  TdPrimaryTableProps,
+} from '@td/intel/components/calendar/type';
+import { usePrefixClass } from '@td/adapter-hooks';
+import type { ComponentScrollToElementParams } from '@td/shared/interface';
+import log from '@td/shared/_common/js/log';
 import baseTableProps from './base-table-props';
 import primaryTableProps from './primary-table-props';
 import enhancedTableProps from './enhanced-table-props';
 import PrimaryTable, { BASE_TABLE_ALL_EVENTS } from './primary-table';
-import {
-  TdEnhancedTableProps,
-  PrimaryTableCol,
-  TableRowData,
-  DragSortContext,
-  TdPrimaryTableProps,
-  TableRowState,
-} from '@td/intel/components/calendar/type';
 import useTreeData from './hooks/useTreeData';
 import useTreeSelect from './hooks/useTreeSelect';
-import { TableListeners } from './base-table';
-import { usePrefixClass } from '@td/adapter-hooks';
-import { ComponentScrollToElementParams } from '@td/shared/interface';
-import log from '@td/shared/_common/js/log';
+import type { TableListeners } from './base-table';
 
 const PRIMARY_B_EVENTS = [
   'cell-click',
@@ -56,7 +59,12 @@ export default defineComponent({
     const classPrefix = usePrefixClass();
 
     const {
-      store, dataSource, formatTreeColumn, swapData, onExpandFoldIconClick, ...treeInstanceFunctions
+      store,
+      dataSource,
+      formatTreeColumn,
+      swapData,
+      onExpandFoldIconClick,
+      ...treeInstanceFunctions
     } = useTreeData(props, context);
 
     const treeDataMap = ref(store.value.treeDataMap);
@@ -87,7 +95,9 @@ export default defineComponent({
     });
 
     const onDragSortChange = (params: DragSortContext<TableRowData>) => {
-      if (props.beforeDragSort && !props.beforeDragSort(params)) return;
+      if (props.beforeDragSort && !props.beforeDragSort(params)) {
+        return;
+      }
       swapData({
         current: params.current,
         target: params.target,
@@ -114,8 +124,12 @@ export default defineComponent({
     };
 
     const getScrollRowIndex = (rowStateData: TableRowState, key: string | number): number => {
-      if (!rowStateData) return -1;
-      if (rowStateData.rowIndex >= 0) return rowStateData.rowIndex;
+      if (!rowStateData) {
+        return -1;
+      }
+      if (rowStateData.rowIndex >= 0) {
+        return rowStateData.rowIndex;
+      }
       if (rowStateData.rowIndex < 0) {
         return getScrollRowIndex(rowStateData.parent, key);
       }
@@ -171,7 +185,9 @@ export default defineComponent({
     getRowClassName({ row }: { row: TableRowData }) {
       const rowValue = get(row, this.rowKey || 'id');
       const rowState = this.treeDataMap.get(rowValue);
-      if (!rowState) return [this.rowClassName];
+      if (!rowState) {
+        return [this.rowClassName];
+      }
       return [`${this.classPrefix}-table-tr--level-${rowState.level}`, this.rowClassName];
     },
   },
@@ -194,7 +210,7 @@ export default defineComponent({
       'select-change': this.onInnerSelectChange,
       'drag-sort': this.onDragSortChange,
     };
-    // @ts-ignore
+    // @ts-expect-error
     if (this.tree?.expandTreeNodeOnClick) {
       on['row-click'] = this.onEnhancedTableRowClick;
     }

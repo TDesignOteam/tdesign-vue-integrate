@@ -15,7 +15,7 @@ import { isFunction } from 'lodash-es';
 import upperFirst from 'lodash/upperFirst';
 import { isString } from 'lodash-es';
 import pick from 'lodash/pick';
-import get from 'lodash/get';
+import { get } from 'lodash-es';
 import { formatClassNames, formatRowAttributes, formatRowClassNames } from './utils';
 import { getRowFixedStyles, getColumnFixedStyles } from './hooks/useFixed';
 import useClassName from './hooks/useClassName';

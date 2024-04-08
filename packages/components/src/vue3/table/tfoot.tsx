@@ -1,7 +1,7 @@
 import type { PropType, SetupContext } from '@td/adapter-vue';
 import { defineComponent, h, toRefs } from '@td/adapter-vue';
 import { isFunction, isString } from 'lodash-es';
-import get from 'lodash/get';
+import { get } from 'lodash-es';
 import type { BaseTableCellParams, RowspanColspan, TableRowData, TdBaseTableProps } from '@td/intel/components/calendar/type';
 import { useTNodeJSX } from '@td/adapter-hooks';
 import type { Styles } from '@td/shared/interface';

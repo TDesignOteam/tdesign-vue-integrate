@@ -1,5 +1,5 @@
 import { computed, ref, toRefs, watch } from '@td/adapter-vue';
-import get from 'lodash/get';
+import { get } from 'lodash-es';
 import set from 'lodash/set';
 import { cloneDeep, isFunction } from 'lodash-es';
 import type { PrimaryTableProps } from '../interface';

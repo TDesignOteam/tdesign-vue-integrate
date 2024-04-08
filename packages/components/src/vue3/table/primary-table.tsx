@@ -1,5 +1,5 @@
 import { computed, defineComponent, toRefs, h, ref, onMounted, getCurrentInstance } from '@td/adapter-vue';
-import get from 'lodash/get';
+import { get } from 'lodash-es';
 import { omit } from 'lodash-es';
 import baseTableProps from './base-table-props';
 import primaryTableProps from './primary-table-props';

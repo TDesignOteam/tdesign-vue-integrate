@@ -1,11 +1,10 @@
 import { computed, defineComponent, nextTick, onMounted, reactive, ref, toRefs, watch } from '@td/adapter-vue';
-import debounce from 'lodash/debounce';
-import range from 'lodash/range';
-import padStart from 'lodash/padStart';
+import { debounce } from 'lodash-es';
+import { range } from 'lodash-es';
+import { padStart } from 'lodash-es';
 import dayjs from 'dayjs';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
 
-import { panelColProps } from '@td/intel/components';
 import { useCommonClassName, useConfig, usePrefixClass } from '@td/adapter-hooks';
 import {
   AM,
@@ -16,6 +15,7 @@ import {
   TWELVE_HOUR_FORMAT,
 } from '@td/shared/_common/js/time-picker/const';
 import { closestLookup } from '@td/shared/_common/js/time-picker/utils';
+import { panelColProps } from './props';
 
 dayjs.extend(customParseFormat);
 

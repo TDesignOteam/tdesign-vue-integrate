@@ -63,7 +63,7 @@ export default defineConfig(({ mode }) => {
       }),
     ],
     optimizeDeps: {
-      include: ['prismjs', 'prismjs/components/prism-bash.js', 'tdesign-icons-vue-next'],
+      include: ['prismjs', 'prismjs/components/prism-bash.js', 'tdesign-icons-vue-next', 'dayjs'],
     },
   };
 });

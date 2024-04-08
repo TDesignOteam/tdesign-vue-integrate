@@ -1,8 +1,8 @@
 {
   "name": "@site/vue3",
-  "private": true,
-  "version": "0.0.0",
   "type": "module",
+  "version": "0.0.0",
+  "private": true,
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc && vite build",
@@ -13,6 +13,7 @@
     "@td/intel-vue3": "workspace:^",
     "@td/shared": "workspace:^",
     "codesandbox": "^2.2.3",
+    "dayjs": "^1.11.10",
     "lodash-es": "^4.17.21",
     "semver": "^7.6.0",
     "tdesign-icons-vue-next": "^0.2.2",

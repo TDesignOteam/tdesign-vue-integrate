@@ -19,7 +19,7 @@ export * from './notification';
 export * from './grid';
 export * from './layout';
 export * from './space';
-export * from './loading'
+export * from './loading';
 export * from './divider';
 export * from './radio';
 export * from './input';
@@ -39,3 +39,5 @@ export * from './input-adornment';
 export * from './tag-input';
 export * from './tabs';
 export * from './config-provider';
+export * from './auto-complete';
+export * from './date-picker';

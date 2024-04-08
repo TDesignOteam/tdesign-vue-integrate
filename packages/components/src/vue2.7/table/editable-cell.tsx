@@ -7,9 +7,8 @@ import {
   toRefs,
   watch,
 } from '@td/adapter-vue';
-import get from 'lodash/get';
+import { cloneDeep, get, isFunction } from 'lodash-es';
 import set from 'lodash/set';
-import { cloneDeep, isFunction } from 'lodash-es';
 import { Edit1Icon as TdEdit1Icon } from 'tdesign-icons-vue';
 import type {
   PrimaryTableCol,

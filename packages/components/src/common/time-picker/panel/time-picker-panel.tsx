@@ -2,12 +2,12 @@ import { computed, defineComponent, nextTick, onMounted, ref, toRefs, watch } fr
 import dayjs from 'dayjs';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
 
-import { panelProps } from '@td/intel/components';
 import { useConfig, usePrefixClass } from '@td/adapter-hooks';
 import { DEFAULT_FORMAT, DEFAULT_STEPS } from '@td/shared/_common/js/time-picker/const';
+import log from '@td/shared/_common/js/log';
 import TButton from '../../button/button';
 import type { TimePickerValue, TimeRangeValue } from '../type';
-import log from '@td/shared/_common/js/log';
+import { panelProps } from './props';
 import SinglePanel from './single-panel';
 
 dayjs.extend(customParseFormat);

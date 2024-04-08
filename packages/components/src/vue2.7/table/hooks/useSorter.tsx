@@ -1,10 +1,19 @@
-import {
-  CreateElement, SetupContext, computed, toRefs, ref, watch,
+import type {
+  CreateElement,
+  SetupContext,
 } from '@td/adapter-vue';
-import { isFunction } from 'lodash-es';
-import get from 'lodash/get';
 import {
-  SortInfo, TdPrimaryTableProps, PrimaryTableCol, TableRowData,
+  computed,
+  ref,
+  toRefs,
+  watch,
+} from '@td/adapter-vue';
+import { get, isFunction } from 'lodash-es';
+import type {
+  PrimaryTableCol,
+  SortInfo,
+  TableRowData,
+  TdPrimaryTableProps,
 } from '../type';
 import SorterButton from '../sorter-button';
 import useDefaultValue from '../../hooks/useDefaultValue';
@@ -23,7 +32,9 @@ export default function useSorter(props: TdPrimaryTableProps, { emit, slots }: S
 
   const sortArray = computed<Array<SortInfo>>(() => {
     const sort = tSortInfo.value;
-    if (!sort) return [];
+    if (!sort) {
+      return [];
+    }
     return Array.isArray(sort) ? sort : [sort];
   });
 
@@ -40,7 +51,6 @@ export default function useSorter(props: TdPrimaryTableProps, { emit, slots }: S
     for (let i = 0, len = columns.length; i < len; i++) {
       const col = columns[i];
       if (isFunction(col.sorter)) {
-        // eslint-disable-next-line no-param-reassign
         map[col.colKey] = col.sorter;
       }
       // 多级表头中的排序功能
@@ -53,17 +63,19 @@ export default function useSorter(props: TdPrimaryTableProps, { emit, slots }: S
 
   function handleDataSort(sortInfo: SortInfo | Array<SortInfo>) {
     const sort = sortInfo;
-    if (!Object.keys(sorterFuncMap.value).length) return;
+    if (!Object.keys(sorterFuncMap.value).length) {
+      return;
+    }
     if (!originalData.value) {
       originalData.value = tData.value;
     }
-    const isEmptyArraySort = !sort || (sort instanceof Array && !sort.length);
-    const isEmptyObjectSort = !(sort instanceof Array) && !sort?.sortBy;
+    const isEmptyArraySort = !sort || (Array.isArray(sort) && !sort.length);
+    const isEmptyObjectSort = !(Array.isArray(sort)) && !sort?.sortBy;
     if (isEmptyArraySort || isEmptyObjectSort) {
       setTData(originalData.value, { trigger: 'sort' });
       return originalData.value;
     }
-    const formattedSort = sort instanceof Array ? sort : [sort];
+    const formattedSort = Array.isArray(sort) ? sort : [sort];
     // data 为受控属性，data.slice() 浅拷贝，防止 sort 导致原数据变异
     const newData: TableRowData[] = tData.value.slice().sort((a: TableRowData, b: TableRowData) => {
       let sortResult = 0;
@@ -80,7 +92,9 @@ export default function useSorter(props: TdPrimaryTableProps, { emit, slots }: S
       return sortResult;
     });
     // Data 变化返回的是数据引用，为避免死循环，特此检测排序数据前后是否相同，如果相同则不再触发事件
-    if (JSON.stringify(newData) === JSON.stringify(tData.value)) return;
+    if (JSON.stringify(newData) === JSON.stringify(tData.value)) {
+      return;
+    }
     setTData(newData, { trigger: 'sort' });
     return newData;
   }
@@ -90,7 +104,7 @@ export default function useSorter(props: TdPrimaryTableProps, { emit, slots }: S
     if (props.multipleSort) {
       sortInfo = getMultipleNextSort(col, p);
     } else {
-      const sort = tSortInfo.value instanceof Array ? tSortInfo.value[0] : tSortInfo.value;
+      const sort = Array.isArray(tSortInfo.value) ? tSortInfo.value[0] : tSortInfo.value;
       sortInfo = getSingleNextSort(col, sort, p);
     }
     // 本地数据 data 排序，需同时抛出 data-change
@@ -105,7 +119,9 @@ export default function useSorter(props: TdPrimaryTableProps, { emit, slots }: S
   }
 
   function getSortOrder(descending: boolean) {
-    if (descending === undefined) return;
+    if (descending === undefined) {
+      return;
+    }
     return descending ? 'desc' : 'asc';
   }
 
@@ -120,7 +136,9 @@ export default function useSorter(props: TdPrimaryTableProps, { emit, slots }: S
 
   function getMultipleNextSort(col: PrimaryTableCol<TableRowData>, p: { descending: boolean }): Array<SortInfo> {
     const sort = tSortInfo.value;
-    if (!(sort instanceof Array)) return;
+    if (!(Array.isArray(sort))) {
+      return;
+    }
     const { colKey } = col;
     const result = [...sort];
     for (let i = 0, len = sort.length; i < len; i++) {
@@ -134,9 +152,10 @@ export default function useSorter(props: TdPrimaryTableProps, { emit, slots }: S
     return result;
   }
 
-  // eslint-disable-next-line
   function renderSortIcon(h: CreateElement, { col }: { col: PrimaryTableCol<TableRowData>; colIndex: number }) {
-    if (!col.sorter) return null;
+    if (!col.sorter) {
+      return null;
+    }
     const sorterButtonsProps = {
       sortType: col.sortType,
       sortOrder: getSortOrder(sortMap.value[col.colKey]?.descending),
@@ -158,12 +177,16 @@ export default function useSorter(props: TdPrimaryTableProps, { emit, slots }: S
   const isSortInfoSame = (a: SortInfo | SortInfo[], b: SortInfo | SortInfo[]) => {
     const tmpSortInfo = Array.isArray(a) ? a : [a];
     const tmpInnerSortInfo = Array.isArray(b) ? b : [b];
-    if (tmpSortInfo.length && !b) return false;
+    if (tmpSortInfo.length && !b) {
+      return false;
+    }
     // eslint-disable-next-line
     for (let i = 0, len = tmpSortInfo.length; i < len; i++) {
       const item = tmpSortInfo[i];
-      const result = tmpInnerSortInfo.find((t) => t.sortBy === item.sortBy);
-      if (!result) return false;
+      const result = tmpInnerSortInfo.find(t => t.sortBy === item.sortBy);
+      if (!result) {
+        return false;
+      }
       return item.descending === result.descending;
     }
   };
@@ -175,7 +198,9 @@ export default function useSorter(props: TdPrimaryTableProps, { emit, slots }: S
   watch(
     tSortInfo,
     () => {
-      if (!tSortInfo.value) return;
+      if (!tSortInfo.value) {
+        return;
+      }
       // isSortInfoSame 的两个参数顺序不可变
       if (!isSortInfoSame(tSortInfo.value, innerSort.value)) {
         handleDataSort(tSortInfo.value);
@@ -188,7 +213,7 @@ export default function useSorter(props: TdPrimaryTableProps, { emit, slots }: S
   watch(
     () => props.data,
     (val = [], previousVal = []) => {
-      if (val.map((t) => get(t, props.rowKey)).join() !== previousVal.map((t) => get(t, props.rowKey)).join()) {
+      if (val.map(t => get(t, props.rowKey)).join() !== previousVal.map(t => get(t, props.rowKey)).join()) {
         originalData.value = props.data;
       }
     },

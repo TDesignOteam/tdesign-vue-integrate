@@ -1,6 +1,6 @@
 import { computed, defineComponent, SetupContext, ref, nextTick, PropType, watch, onMounted, toRefs } from '@td/adapter-vue';
 import pick from 'lodash/pick';
-import get from 'lodash/get';
+import { get } from 'lodash-es';
 import props from './base-table-props';
 import useTableHeader from './hooks/useTableHeader';
 import useColumnResize from './hooks/useColumnResize';

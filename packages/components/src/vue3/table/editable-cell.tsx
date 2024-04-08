@@ -1,8 +1,7 @@
 import type { PropType, SetupContext } from '@td/adapter-vue';
 import { computed, defineComponent, onMounted, ref, toRefs, watch } from '@td/adapter-vue';
-import get from 'lodash/get';
+import { cloneDeep, get, isFunction, isObject } from 'lodash-es';
 import set from 'lodash/set';
-import { cloneDeep, isFunction, isObject } from 'lodash-es';
 import { Edit1Icon as TdEdit1Icon } from 'tdesign-icons-vue-next';
 import type {
   PrimaryTableCol,

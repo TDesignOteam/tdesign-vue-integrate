@@ -100,6 +100,7 @@ export default defineComponent({
       });
       return content;
     };
+
     return () => (
       <div class={classes.value} style={styles.value}>
         {renderContent()}

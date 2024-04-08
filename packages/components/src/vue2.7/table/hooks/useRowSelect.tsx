@@ -1,31 +1,41 @@
 // 行选中相关功能：单选 + 多选
+import type {
+  CreateElement,
+} from '@td/adapter-vue';
 import {
-  CreateElement, computed, toRefs, h, ref, watch,
+  computed,
+  h,
+  ref,
+  toRefs,
+  watch,
 } from '@td/adapter-vue';
 import intersection from 'lodash/intersection';
-import get from 'lodash/get';
-import { isFunction } from 'lodash-es';
+import { get, isFunction } from 'lodash-es';
+import { isRowSelectedDisabled } from '@td/shared/_common/js/table/utils';
+import log from '@td/shared/_common/js/log';
 import useDefaultValue from '../../hooks/useDefaultValue';
-import {
+import type {
   PrimaryTableCellParams,
   PrimaryTableCol,
   RowClassNameParams,
   TableRowData,
   TdPrimaryTableProps,
 } from '../type';
-import { isRowSelectedDisabled } from '@td/shared/_common/js/table/utils';
-import { TableClassName } from './useClassName';
 import Checkbox from '../../checkbox';
 import Radio from '../../radio';
-import { ClassName } from '../../common';
-import log from '@td/shared/_common/js/log';
+import type { ClassName } from '../../common';
+import type { TableClassName } from './useClassName';
 
 export default function useRowSelect(
   props: TdPrimaryTableProps,
   tableSelectedClasses: TableClassName['tableSelectedClasses'],
 ) {
   const {
-    selectedRowKeys, columns, data, rowKey, reserveSelectedRowOnPaginate,
+    selectedRowKeys,
+    columns,
+    data,
+    rowKey,
+    reserveSelectedRowOnPaginate,
   } = toRefs(props);
   const currentPaginateData = ref<TableRowData[]>(data.value);
   const selectedRowClassNames = ref();
@@ -45,12 +55,14 @@ export default function useRowSelect(
   // 选中的行，和所有可以选择的行，交集，用于计算 isSelectedAll 和 isIndeterminate
   const intersectionKeys = computed(() => intersection(
     tSelectedRowKeys.value,
-    canSelectedRows.value.map((t) => get(t, props.rowKey || 'id')),
+    canSelectedRows.value.map(t => get(t, props.rowKey || 'id')),
   ));
 
   const allowUncheck = computed(() => {
-    const singleSelectCol = columns.value.find((col) => col.type === 'single');
-    if (!singleSelectCol || !singleSelectCol.checkProps || !('allowUncheck' in singleSelectCol.checkProps)) return false;
+    const singleSelectCol = columns.value.find(col => col.type === 'single');
+    if (!singleSelectCol || !singleSelectCol.checkProps || !('allowUncheck' in singleSelectCol.checkProps)) {
+      return false;
+    }
     return singleSelectCol.checkProps.allowUncheck;
   });
 
@@ -65,7 +77,7 @@ export default function useRowSelect(
         return selected.has(rowId) ? tableSelectedClasses.selected : '';
       };
       const selectedRowClass = selected.size ? selectedRowClassFunc : undefined;
-      selectedRowClassNames.value = [disabledRowClass, selectedRowClass].filter((v) => v);
+      selectedRowClassNames.value = [disabledRowClass, selectedRowClass].filter(v => v);
     },
     { immediate: true },
   );
@@ -103,7 +115,6 @@ export default function useRowSelect(
     };
   }
 
-  // eslint-disable-next-line
   function renderSelectCell(h: CreateElement, p: PrimaryTableCellParams<TableRowData>) {
     const { col: column, row = {} } = p;
     const checked = tSelectedRowKeys.value.includes(get(row, props.rowKey || 'id'));
@@ -123,7 +134,9 @@ export default function useRowSelect(
         change: () => handleSelectChange(row),
       },
     };
-    if (column.type === 'single') return <Radio {...selectBoxProps} />;
+    if (column.type === 'single') {
+      return <Radio {...selectBoxProps} />;
+    }
     if (column.type === 'multiple') {
       const isIndeterminate = props.indeterminateSelectedRowKeys?.length
         ? props.indeterminateSelectedRowKeys.includes(get(row, props.rowKey))
@@ -148,7 +161,7 @@ export default function useRowSelect(
       return;
     }
     setTSelectedRowKeys(selectedRowKeys, {
-      selectedRowData: selectedRowKeys.map((t) => selectedRowDataMap.value.get(t)),
+      selectedRowData: selectedRowKeys.map(t => selectedRowDataMap.value.get(t)),
       currentRowKey: id,
       currentRowData: row,
       type: isExisted ? 'uncheck' : 'check',
@@ -157,11 +170,11 @@ export default function useRowSelect(
 
   function handleSelectAll(checked: boolean) {
     const reRowKey = props.rowKey || 'id';
-    const canSelectedRowKeys = canSelectedRows.value.map((record) => get(record, reRowKey));
-    const disabledSelectedRowKeys = selectedRowKeys.value?.filter((id) => !canSelectedRowKeys.includes(id)) || [];
+    const canSelectedRowKeys = canSelectedRows.value.map(record => get(record, reRowKey));
+    const disabledSelectedRowKeys = selectedRowKeys.value?.filter(id => !canSelectedRowKeys.includes(id)) || [];
     const allIds = checked ? [...disabledSelectedRowKeys, ...canSelectedRowKeys] : [...disabledSelectedRowKeys];
     setTSelectedRowKeys(allIds, {
-      selectedRowData: checked ? allIds.map((t) => selectedRowDataMap.value.get(t)) : [],
+      selectedRowData: checked ? allIds.map(t => selectedRowDataMap.value.get(t)) : [],
       type: checked ? 'check' : 'uncheck',
       currentRowKey: 'CHECK_ALL_BOX',
     });
@@ -169,7 +182,9 @@ export default function useRowSelect(
 
   function formatToRowSelectColumn(col: PrimaryTableCol) {
     const isSelection = ['multiple', 'single'].includes(col.type);
-    if (!isSelection) return col;
+    if (!isSelection) {
+      return col;
+    }
     return {
       ...col,
       width: col.width || 64,
@@ -180,15 +195,19 @@ export default function useRowSelect(
   }
 
   const onInnerSelectRowClick: TdPrimaryTableProps['onRowClick'] = ({ row, index }) => {
-    const selectedColIndex = props.columns.findIndex((item) => item.colKey === 'row-select');
-    if (selectedColIndex === -1) return;
+    const selectedColIndex = props.columns.findIndex(item => item.colKey === 'row-select');
+    if (selectedColIndex === -1) {
+      return;
+    }
     const { disabled } = getRowSelectDisabledData({
       row,
       rowIndex: index,
       col: props.columns[selectedColIndex],
       colIndex: selectedColIndex,
     });
-    if (disabled) return;
+    if (disabled) {
+      return;
+    }
     handleSelectChange(row);
   };
 

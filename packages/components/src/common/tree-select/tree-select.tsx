@@ -1,6 +1,6 @@
 import { computed, defineComponent, onMounted, ref, toRefs, watch } from '@td/adapter-vue';
 import { isArray, isEmpty, isFunction, isNil } from 'lodash-es';
-import isBoolean from 'lodash/isBoolean';
+import { isBoolean } from 'lodash-es';
 
 import type { TreeOptionData } from '@td/shared/interface';
 import { useConfig, useDefaultValue, useDisabled, usePrefixClass, useVModel } from '@td/adapter-hooks';

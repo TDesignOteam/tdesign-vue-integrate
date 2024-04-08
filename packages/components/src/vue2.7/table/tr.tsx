@@ -1,26 +1,36 @@
+import type { CreateElement, PropType, SetupContext } from '@td/adapter-vue';
 import {
-  defineComponent, PropType, SetupContext, h, ref, reactive, computed, toRefs, watch, CreateElement,
+  computed,
+  defineComponent,
+  h,
+  reactive,
+  ref,
+  toRefs,
+  watch,
 } from '@td/adapter-vue';
-import { isFunction } from 'lodash-es';
+import { get, isFunction, isString } from 'lodash-es';
 import upperFirst from 'lodash/upperFirst';
-import { isString } from 'lodash-es';
 import pick from 'lodash/pick';
-import get from 'lodash/get';
-import { ScopedSlotReturnValue } from 'vue/types/vnode';
+import type { ScopedSlotReturnValue } from 'vue/types/vnode';
+import type {
+  BaseTableCellParams,
+  RowspanColspan,
+  TableRowData,
+  TdBaseTableProps,
+  TdPrimaryTableProps,
+} from '@td/intel/components/calendar/type';
+import type { AttachNode } from '@td/shared/interface';
+import useLazyLoad from '../hooks/useLazyLoad';
+import type { PaginationProps } from '../pagination';
+import type { VirtualScrollConfig } from '../hooks/useVirtualScrollNew';
 import { formatClassNames, formatRowAttributes, formatRowClassNames } from './utils';
-import { getRowFixedStyles, getColumnFixedStyles } from './hooks/useFixed';
-import { RowAndColFixedPosition } from './interface';
+import { getColumnFixedStyles, getRowFixedStyles } from './hooks/useFixed';
+import type { RowAndColFixedPosition } from './interface';
 import useClassName from './hooks/useClassName';
 import TEllipsis from './ellipsis';
 import baseTableProps from './base-table-props';
-import { getCellKey, SkipSpansValue } from './hooks/useRowspanAndColspan';
-import useLazyLoad from '../hooks/useLazyLoad';
-import { PaginationProps } from '../pagination';
-import { VirtualScrollConfig } from '../hooks/useVirtualScrollNew';
-import {
-  BaseTableCellParams, TableRowData, RowspanColspan, TdPrimaryTableProps, TdBaseTableProps,
-} from '@td/intel/components/calendar/type';
-import { AttachNode } from '@td/shared/interface';
+import type { SkipSpansValue } from './hooks/useRowspanAndColspan';
+import { getCellKey } from './hooks/useRowspanAndColspan';
 
 export interface RenderTdExtra {
   rowAndColFixedPosition: RowAndColFixedPosition;
@@ -94,7 +104,10 @@ export function renderCell(
   // support serial number column
   if (col.colKey === 'serial-number') {
     const {
-      current, pageSize, defaultCurrent, defaultPageSize,
+      current,
+      pageSize,
+      defaultCurrent,
+      defaultPageSize,
     } = extra?.pagination || {};
     const tCurrent = current || defaultCurrent;
     const tPageSize = pageSize || defaultPageSize;
@@ -117,7 +130,9 @@ export function renderCell(
   }
   const r = get(row, col.colKey);
   // 0 和 false 属于正常可用之，不能使用兜底逻辑 cellEmptyContent
-  if (![undefined, '', null].includes(r)) return r;
+  if (![undefined, '', null].includes(r)) {
+    return r;
+  }
   // cellEmptyContent 作为空数据兜底显示，用户可自定义
   if (extra?.cellEmptyContent) {
     return isFunction(extra.cellEmptyContent) ? extra.cellEmptyContent(h, params) : extra.cellEmptyContent;
@@ -253,8 +268,8 @@ export default defineComponent({
       }
       return (
         <TEllipsis
-          placement={'top'}
-          // @ts-ignore
+          placement="top"
+          // @ts-expect-error
           attach={this.attach || (this.tableElm ? () => this.tableElm : undefined)}
           tooltipContent={content && (() => content)}
           tooltipProps={tooltipProps}
@@ -299,7 +314,7 @@ export default defineComponent({
       const normalAttrs = isFunction(col.attrs) ? col.attrs({ ...params, type: 'td' }) : col.attrs;
       const attrs: { [key: string]: any } = { ...normalAttrs, ...cellSpans };
       return (
-        // @ts-ignore
+        // @ts-expect-error
         <td class={classes} attrs={attrs} style={{ ...tdStyles.style, ...attrs.style }} onClick={onClick}>
           {col.ellipsis ? this.renderEllipsisCell(h, params, { cellNode }) : cellNode}
         </td>
@@ -309,7 +324,10 @@ export default defineComponent({
 
   render(h) {
     const {
-      row, rowIndex, dataLength, rowAndColFixedPosition,
+      row,
+      rowIndex,
+      dataLength,
+      rowAndColFixedPosition,
     } = this;
     const columnVNodeList = this.columns?.map((col, colIndex) => {
       const cellSpans: RowspanColspan = {};
@@ -325,7 +343,9 @@ export default defineComponent({
         spanState = this.skipSpansMap.get(cellKey) || {};
         spanState?.rowspan > 1 && (cellSpans.rowspan = spanState.rowspan);
         spanState?.colspan > 1 && (cellSpans.colspan = spanState.colspan);
-        if (spanState.skipped) return null;
+        if (spanState.skipped) {
+          return null;
+        }
       }
       return this.renderTd(h, params, {
         dataLength,
@@ -339,7 +359,7 @@ export default defineComponent({
     return (
       <tr
         ref="trRef"
-        // @ts-ignore
+        // @ts-expect-error
         attrs={attrs}
         style={this.trStyles?.style}
         class={this.classes}

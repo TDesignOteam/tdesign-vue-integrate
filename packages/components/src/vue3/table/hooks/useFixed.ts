@@ -10,7 +10,7 @@ import {
   onBeforeUnmount,
   Ref,
 } from '@td/adapter-vue';
-import get from 'lodash/get';
+import { get } from 'lodash-es';
 import debounce from 'lodash/debounce';
 import xorWith from 'lodash/xorWith';
 import log from '@td/shared/_common/js/log';

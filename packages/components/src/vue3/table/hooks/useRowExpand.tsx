@@ -1,7 +1,7 @@
 import type { SetupContext, h } from '@td/adapter-vue';
 import { computed, toRefs } from '@td/adapter-vue';
 import { ChevronRightCircleIcon as TdChevronRightCircleIcon } from 'tdesign-icons-vue-next';
-import get from 'lodash/get';
+import { get } from 'lodash-es';
 
 import { useConfig, useGlobalIcon, useTNodeJSX } from '@td/adapter-hooks';
 import type {

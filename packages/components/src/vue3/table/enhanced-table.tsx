@@ -13,7 +13,7 @@ import {
 } from '@td/intel/components/calendar/type';
 import useTreeData from './hooks/useTreeData';
 import useTreeSelect from './hooks/useTreeSelect';
-import get from 'lodash/get';
+import { get } from 'lodash-es';
 import { ComponentScrollToElementParams } from '@td/shared/interface';
 import log from '@td/shared/_common/js/log';
 import { usePrefixClass } from '../hooks';

@@ -4,7 +4,7 @@ import {
   toRefs,
 } from '@td/adapter-vue';
 import { ChevronRightCircleIcon as TdChevronRightCircleIcon } from 'tdesign-icons-vue';
-import get from 'lodash/get';
+import { get } from 'lodash-es';
 import { useGlobalIcon, useTNodeJSX } from '@td/adapter-hooks';
 import type {
   PrimaryTableCellParams,

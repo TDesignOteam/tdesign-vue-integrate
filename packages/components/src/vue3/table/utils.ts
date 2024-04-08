@@ -1,5 +1,5 @@
 import { isFunction } from 'lodash-es';
-import get from 'lodash/get';
+import { get } from 'lodash-es';
 import { isObject } from 'lodash-es';
 import { CellData, RowClassNameParams, TableColumnClassName, TableRowData, TdBaseTableProps } from '@td/intel/components/calendar/type';
 import { ClassName, HTMLElementAttributes } from '@td/shared/interface';

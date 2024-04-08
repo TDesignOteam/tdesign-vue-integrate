@@ -1,6 +1,6 @@
 import { defineComponent, computed, PropType, toRefs } from '@td/adapter-vue';
 import camelCase from 'lodash/camelCase';
-import get from 'lodash/get';
+import { get } from 'lodash-es';
 import pick from 'lodash/pick';
 import TrElement, { ROW_LISTENERS, TABLE_PROPS } from './tr';
 import { useConfig } from '@td/adapter-hooks';

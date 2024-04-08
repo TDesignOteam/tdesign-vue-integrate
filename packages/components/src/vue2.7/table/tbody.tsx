@@ -1,18 +1,22 @@
-import {
-  CreateElement, defineComponent, computed, PropType, SetupContext, toRefs,
+import type {
+  CreateElement,
+  PropType,
+  SetupContext,
 } from '@td/adapter-vue';
+import { computed, defineComponent, toRefs } from '@td/adapter-vue';
 import camelCase from 'lodash/camelCase';
-import get from 'lodash/get';
+import { get } from 'lodash-es';
 import pick from 'lodash/pick';
-import TrElement, { TrProps, ROW_LISTENERS, TABLE_PROPS } from './tr';
-import { useConfig } from '../config-provider/useConfig';
 import { useTNodeJSX } from '@td/adapter-hooks';
+import type { TdBaseTableProps } from '@td/intel/components/calendar/type';
+import { useConfig } from '../config-provider/useConfig';
+import type { VirtualScrollConfig } from '../hooks/useVirtualScrollNew';
+import type { TrProps } from './tr';
+import TrElement, { ROW_LISTENERS, TABLE_PROPS } from './tr';
 import useClassName from './hooks/useClassName';
 import baseTableProps from './base-table-props';
 import useRowspanAndColspan from './hooks/useRowspanAndColspan';
-import { BaseTableProps, RowAndColFixedPosition } from './interface';
-import { TdBaseTableProps } from '@td/intel/components/calendar/type';
-import { VirtualScrollConfig } from '../hooks/useVirtualScrollNew';
+import type { BaseTableProps, RowAndColFixedPosition } from './interface';
 
 export const ROW_AND_TD_LISTENERS = ROW_LISTENERS.concat('cell-click');
 export interface TableBodyProps extends BaseTableProps {
@@ -74,7 +78,7 @@ export default defineComponent({
     tableWidth: Number,
     isWidthOverflow: Boolean,
     virtualConfig: Object as PropType<VirtualScrollConfig>,
-    // eslint-disable-next-line
+
     tableContentElm: {},
     handleRowMounted: Function as PropType<TableBodyProps['handleRowMounted']>,
     renderExpandedRow: Function as PropType<TableBodyProps['renderExpandedRow']>,
@@ -83,11 +87,13 @@ export default defineComponent({
     ...pick(baseTableProps, extendTableProps),
   },
 
-  // eslint-disable-next-line
   setup(props, { emit }: SetupContext) {
     const renderTNode = useTNodeJSX();
     const {
-      data, columns, rowKey, rowspanAndColspan,
+      data,
+      columns,
+      rowKey,
+      rowspanAndColspan,
     } = toRefs(props);
     const { t, global } = useConfig('table', props.locale);
     const { tableFullRowClasses, tableBaseClass } = useClassName();
@@ -96,7 +102,7 @@ export default defineComponent({
     const tbodyClasses = computed(() => [tableBaseClass.body]);
 
     const isFixedLeftColumn = computed(
-      () => props.isWidthOverflow && !!props.columns.find((col) => col.fixed === 'left'),
+      () => props.isWidthOverflow && !!props.columns.find(col => col.fixed === 'left'),
     );
 
     const getTrListeners = () => {
@@ -127,7 +133,6 @@ export default defineComponent({
   },
 
   render(h) {
-    // eslint-disable-next-line
     const renderEmpty = (h: CreateElement, columns: TableBodyProps['columns']) => {
       // 小于 100 属于异常宽度，不显示
       const showEmptyText = Boolean(this.tableWidth && this.tableWidth > 100) || process.env.NODE_ENV === 'test';
@@ -147,14 +152,16 @@ export default defineComponent({
     };
 
     const getFullRow = (
-      // eslint-disable-next-line
+
       h: CreateElement,
       columnLength: number,
       type: 'first-full-row' | 'last-full-row',
     ) => {
       const tType = camelCase(type);
       const fullRowNode = this.renderTNode(tType);
-      if (['', null, undefined, false].includes(fullRowNode)) return null;
+      if (['', null, undefined, false].includes(fullRowNode)) {
+        return null;
+      }
       // const isFixedToLeft = this.isWidthOverflow && this.columns.find((col) => col.fixed === 'left');
       const classes = [this.tableFullRowClasses.base, this.tableFullRowClasses[tType]];
       const tableWidth = this.bordered ? this.tableWidth - 2 : this.tableWidth;
@@ -163,9 +170,9 @@ export default defineComponent({
         <tr class={classes}>
           <td colspan={columnLength}>
             <div
-              // @ts-ignore
+              // @ts-expect-error
               class={{ [this.tableFullRowClasses.innerFullRow]: this.isFixedToLeft }}
-              // @ts-ignore
+              // @ts-expect-error
               style={this.isFixedToLeft ? { width: `${tableWidth}px` } : {}}
             >
               <div class={this.tableFullRowClasses.innerFullElement}>{fullRowNode}</div>
@@ -191,7 +198,7 @@ export default defineComponent({
     ];
 
     this.data?.forEach((row, rowIndex) => {
-      // @ts-ignore
+      // @ts-expect-error
       const trProps: TrProps = {
         ...pick(this.$props, TABLE_PROPS),
         row,
@@ -218,7 +225,8 @@ export default defineComponent({
           key={get(row, this.rowKey || 'id')}
           on={on}
           props={trProps}
-        ></TrElement>
+        >
+        </TrElement>
       );
       trNodeList.push(trNode);
 
@@ -247,11 +255,11 @@ export default defineComponent({
     const translate = `translateY(${this.virtualConfig?.translateY.value}px)`;
     const posStyle = this.virtualConfig?.isVirtualScroll.value
       ? {
-        transform: translate,
-        '-ms-transform': translate,
-        '-moz-transform': translate,
-        '-webkit-transform': translate,
-      }
+          'transform': translate,
+          '-ms-transform': translate,
+          '-moz-transform': translate,
+          '-webkit-transform': translate,
+        }
       : undefined;
     return (
       <tbody class={this.tbodyClasses} style={{ ...posStyle }}>
