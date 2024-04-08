@@ -45,4 +45,6 @@ export * from './select';
 export * from './tooltip';
 export * from './pagination';
 // export * from './tree';
+export * from './sticky-tool';
+// export * from './tree';
 // export * from './tree-select';
