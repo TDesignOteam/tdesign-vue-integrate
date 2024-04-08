@@ -1,4 +1,4 @@
-import { Fragment, computed, defineComponent, ref, toRefs } from '@td/adapter-vue';
+import { computed, defineComponent, ref, toRefs } from '@td/adapter-vue';
 import { CloseCircleFilledIcon as TdCloseCircleFilledIcon } from 'tdesign-icons-vue-next';
 
 import { isArray } from 'lodash-es';
@@ -210,10 +210,11 @@ export default defineComponent({
         `${classPrefix.value}-is-${props.status}`,
       ];
       return (
-        <Fragment>
-          {RangeInputContent}
-          {tips && <div class={tipsClasses}>{tips}</div>}
-        </Fragment>
+        // vue23:!
+        [
+          RangeInputContent,
+          tips && <div class={tipsClasses}>{tips}</div>,
+        ]
       );
     };
   },

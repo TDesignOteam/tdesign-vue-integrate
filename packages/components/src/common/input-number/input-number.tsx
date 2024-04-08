@@ -2,16 +2,16 @@ import { defineComponent } from '@td/adapter-vue';
 import type { SetupContext } from '@td/adapter-vue';
 import {
   AddIcon as TdAddIcon,
-  RemoveIcon as TdRemoveIcon,
   ChevronDownIcon as TdChevronDownIcon,
   ChevronUpIcon as TdChevronUpIcon,
+  RemoveIcon as TdRemoveIcon,
 } from 'tdesign-icons-vue-next';
 import { Button as TButton } from '@td/component';
-import TInput from '../input';
 import props from '@td/intel/components/input-number/props';
 import type { TdInputNumberProps } from '@td/intel/components/input-number/type';
+import { useGlobalIcon, useTNodeJSX } from '@td/adapter-hooks';
+import TInput from '../input';
 import useInputNumber from './hooks/useInputNumber';
-import { useTNodeJSX, useGlobalIcon } from '@td/adapter-hooks';
 
 export default defineComponent({
   name: 'TInputNumber',
@@ -31,8 +31,8 @@ export default defineComponent({
     context.expose({ ...p });
 
     return () => {
-      const reduceIcon =
-        props.theme === 'column' ? <ChevronDownIcon size={props.size} /> : <RemoveIcon size={props.size} />;
+      const reduceIcon
+        = props.theme === 'column' ? <ChevronDownIcon size={props.size} /> : <RemoveIcon size={props.size} />;
       const addIcon = props.theme === 'column' ? <ChevronUpIcon size={props.size} /> : <AddIcon size={props.size} />;
       const status = p.isError.value ? 'error' : props.status;
       const classPrefix = p.classPrefix.value;

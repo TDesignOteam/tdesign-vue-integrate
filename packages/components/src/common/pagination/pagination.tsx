@@ -9,7 +9,7 @@ import {
   PageFirstIcon as TdPageFirstIcon,
   PageLastIcon as TdPageLastIcon,
 } from 'tdesign-icons-vue-next';
-import props from '@td/intel/components/color-picker/props';
+import props from '@td/intel/components/pagination/props';
 import { useConfig, useDefaultValue, useEmitEvent, useGlobalIcon, usePrefixClass, useTNodeJSX, useVModel } from '@td/adapter-hooks';
 import type { TdPaginationProps } from '@td/intel/components/pagination/type';
 import TInputNumber from '../input-number';

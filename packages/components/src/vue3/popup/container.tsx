@@ -1,6 +1,8 @@
 import {
-  Comment,
   Fragment,
+} from 'vue';
+import {
+  Comment,
   Teleport,
   Text,
   defineComponent,
