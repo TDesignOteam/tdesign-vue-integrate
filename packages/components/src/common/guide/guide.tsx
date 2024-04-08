@@ -7,7 +7,7 @@ import setStyle from '@td/shared/_common/js/utils/set-style';
 import { addClass, getWindowScroll, isFixed, removeClass } from '@td/adapter-utils';
 import { useConfig, usePrefixClass, useTNodeJSX, useVModel } from '@td/adapter-hooks';
 import Button from '../button';
-import Popup from '../popup';
+import { Popup } from '@td/component';
 import { getRelativePosition, getTargetElm, scrollToElm, scrollToParentVisibleArea } from './utils';
 import type { GuideCrossProps } from './interface';
 

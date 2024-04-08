@@ -16,6 +16,3 @@ export default {
   install,
   version: typeof PKG_VERSION === 'undefined' ? '' : PKG_VERSION,
 };
-
-// plugins
-// export { NotifyPlugin } from './src/common/notification';

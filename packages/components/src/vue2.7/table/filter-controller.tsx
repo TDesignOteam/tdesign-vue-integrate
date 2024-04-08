@@ -12,7 +12,7 @@ import type { FilterValue, PrimaryTableCol } from '@td/intel/components/calendar
 import log from '@td/shared/_common/js/log';
 import type { AttachNode } from '@td/shared/interface';
 import type { PopupProps } from '../popup';
-import Popup from '../popup';
+import { Popup } from '@td/component';
 import { CheckboxGroup } from '../checkbox';
 import { RadioGroup } from '../radio';
 import Input from '../input';

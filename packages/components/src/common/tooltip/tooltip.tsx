@@ -4,7 +4,7 @@ import props from '@td/intel/components/tooltip/props';
 import popupProps from '@td/intel/components/popup/props';
 import type { PopupVisibleChangeContext } from '@td/intel/components/popup/type';
 import { useContent, usePrefixClass, useTNodeJSX, useVModel } from '@td/adapter-hooks';
-import Popup from '../popup';
+import { Popup } from '@td/component';
 import { useMouse } from './utils';
 
 export default defineComponent({

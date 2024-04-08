@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import TDesign from '@td/components/vue2.7';
+import { registerLocaleChange } from 'tdesign-site-components';
 import routes from './routes';
 import App from './App.vue';
 
@@ -13,24 +14,18 @@ import '@td/shared/_common/style/web/_global.less';
 import '@td/shared/_common/style/web/theme/_index.less';
 import '@td/shared/_common/style/web/docs.less';
 
-import 'tdesign-site-components';
 import 'tdesign-site-components/lib/styles/style.css';
 import 'tdesign-site-components/lib/styles/prism-theme.less';
 import 'tdesign-site-components/lib/styles/prism-theme-dark.less';
 
 // import site webcomponents
 import 'tdesign-site-components';
-import 'tdesign-site-components/lib/styles/style.css';
-import 'tdesign-site-components/lib/styles/prism-theme.less';
-import 'tdesign-site-components/lib/styles/prism-theme-dark.less';
 
 // import icons webcomponents
 import 'tdesign-icons-view';
 
 // 主题生成器挂件
 import 'tdesign-theme-generator';
-
-import { registerLocaleChange } from 'tdesign-site-components';
 
 registerLocaleChange();
 
@@ -64,6 +59,6 @@ router.afterEach(() => {
 
 new Vue({
   el: '#app',
-  render: (h) => h(App),
+  render: h => h(App),
   router,
 });

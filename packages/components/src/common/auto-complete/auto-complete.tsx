@@ -6,7 +6,7 @@ import type { TdAutoCompleteProps } from '@td/intel/components/auto-complete/typ
 import props from '@td/intel/components/auto-complete/props';
 import type { InputProps, StrInputProps } from '../input';
 import Input from '../input';
-import Popup from '../popup';
+import { Popup } from '@td/component';
 import AutoCompleteOptionList from './option-list';
 
 export default defineComponent({

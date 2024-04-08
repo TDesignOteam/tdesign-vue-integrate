@@ -1,25 +1,25 @@
-import * as path from 'path';
-import vue from '@vitejs/plugin-vue'
+import * as path from 'node:path';
+import vue from '@vitejs/plugin-vue';
 import vueJsx from '@vitejs/plugin-vue-jsx';
 import { VitePWA } from 'vite-plugin-pwa';
-import { defineConfig, searchForWorkspaceRoot } from 'vite'
+import { defineConfig, searchForWorkspaceRoot } from 'vite';
 
 import TDocPlugin from './plugins/doc';
-import PWA from "./configs/pwa";
+import PWA from './configs/pwa';
 
-const workspaceRoot = searchForWorkspaceRoot(process.cwd())
-const getRootPath = (...args: string[]) => path.posix.resolve(workspaceRoot, ...args)
+const workspaceRoot = searchForWorkspaceRoot(process.cwd());
+const getRootPath = (...args: string[]) => path.posix.resolve(workspaceRoot, ...args);
 
-
-const resolveAlias = (vueVersion: number) => {
+function resolveAlias(vueVersion: number) {
   return {
     '@adapter/vue': getRootPath(`packages/adapter/vue/vue${vueVersion}`),
     '@adapter/hooks': getRootPath(`packages/adapter/hooks/vue${vueVersion}`),
     '@adapter/utils': getRootPath(`packages/adapter/utils/vue${vueVersion}`),
     '@td/intel': getRootPath(`packages/intel/vue${vueVersion}`),
+    '@td/component': getRootPath(`packages/components/vue${vueVersion}`),
     'tdesign-vue-next/es': getRootPath(`packages/components/src`),
     'tdesign-vue-next': getRootPath(`packages/components/vue${vueVersion}`),
-  }
+  };
 }
 
 const publicPathMap = {
@@ -29,7 +29,7 @@ const publicPathMap = {
 };
 
 // ! vue-next 中是从 ../script/vite.base.config 引入
-const isCustomElement = (tag) => tag.startsWith('td-') || tag.startsWith('tdesign-theme');
+const isCustomElement = tag => tag.startsWith('td-') || tag.startsWith('tdesign-theme');
 
 export default defineConfig(({ mode }) => {
   return {
@@ -38,7 +38,7 @@ export default defineConfig(({ mode }) => {
       alias: {
         '@': path.resolve(__dirname),
         ...resolveAlias(3),
-      }
+      },
     },
     server: {
       host: '0.0.0.0',
@@ -65,5 +65,5 @@ export default defineConfig(({ mode }) => {
     optimizeDeps: {
       include: ['prismjs', 'prismjs/components/prism-bash.js', 'tdesign-icons-vue-next'],
     },
-  }
-})
+  };
+});

@@ -4,7 +4,7 @@
 
 import type { AttachNode, TNode } from '@td/shared/interface';
 import type { ButtonProps } from '../button';
-import type { TdPopupProps } from '../popup/type';
+import type { TdPopupProps } from '@td/intel/components/popup/type';
 
 export interface TdGuideProps {
   /**

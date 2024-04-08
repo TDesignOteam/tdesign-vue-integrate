@@ -26,7 +26,12 @@
       "@td/intel/*": [
         "packages/intel/vue3/*"
       ],
-      "@td/shared/*": ["packages/shared/*"]
+      "@td/component": [
+        "packages/components/vue3"
+      ],
+      "@td/shared/*": [
+        "packages/shared/*"
+      ]
     }
   }
 }

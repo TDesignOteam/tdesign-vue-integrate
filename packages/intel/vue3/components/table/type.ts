@@ -22,7 +22,7 @@ import type { PageInfo, TdPaginationProps } from '../pagination/type';
 import type { TdTooltipProps } from '../tooltip/type';
 import type { CheckboxGroupValue, TdCheckboxGroupProps, TdCheckboxProps } from '../checkbox/type';
 import type { TdRadioProps } from '../radio/type';
-import type { TdPopupProps } from '../popup/type';
+import type { TdPopupProps } from '@td/intel/components/popup/type';
 import type { TdInputProps } from '../input/type';
 import type { TdButtonProps } from '../button/type';
 import type { TdDialogProps } from '../dialog/type';

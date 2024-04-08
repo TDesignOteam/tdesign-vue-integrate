@@ -5,8 +5,8 @@ import TdStickyToolProps from '@td/intel/components/sticky-tool/props';
 import type { TdStickyItemProps } from '@td/intel/components/sticky-tool/type';
 import { usePrefixClass, useTNodeJSX } from '@td/adapter-hooks';
 import type { Styles } from '@td/shared/interface';
-import Popup from '../popup';
-import type { TdPopupProps } from '../popup/type';
+import type { TdPopupProps } from '@td/intel/components/popup/type';
+import { Popup } from '@td/component';
 
 export default defineComponent({
   name: 'TStickyItem',

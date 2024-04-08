@@ -4,7 +4,7 @@ import type { TdSelectInputProps } from '@td/intel/components/select-input/type'
 import props from '@td/intel/components/select-input/props';
 import { usePrefixClass, useTNodeJSX } from '@td/adapter-hooks';
 import type { PopupInstanceFunctions, PopupProps, PopupVisibleChangeContext } from '../popup';
-import Popup from '../popup';
+import { Popup } from '@td/component';
 
 import type { SelectInputValueDisplayOptions } from './hooks/useSingle';
 import useSingle from './hooks/useSingle';

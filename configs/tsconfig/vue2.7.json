@@ -23,6 +23,9 @@
       "@td/intel": [
         "packages/intel/vue2.7"
       ],
+      "@td/component": [
+        "packages/components/vue2.7"
+      ],
       "@td/intel/*": [
         "packages/intel/vue2.7/*"
       ]
