@@ -1,15 +1,18 @@
-import { SetupContext, computed, CreateElement } from '@td/adapter-vue';
-import { isString } from 'lodash-es';
-import { isFunction } from 'lodash-es';
-import {
-  BaseTableCol, PrimaryTableCol, TableRowData, TdBaseTableProps,
-} from '../type';
-import { getThRowspanAndColspan, getThList } from './useMultiHeader';
-import { BaseTableColumns } from '../interface';
-import useClassName from './useClassName';
-import { TNodeReturnValue }  from '@td/shared/interface';
-import TEllipsis from '../ellipsis';
+import type { CreateElement, SetupContext } from '@td/adapter-vue';
+import { computed } from '@td/adapter-vue';
+import { isFunction, isString } from 'lodash-es';
+import type { TNodeReturnValue } from '@td/shared/interface';
 import log from '@td/shared/_common/js/log';
+import type {
+  BaseTableCol,
+  PrimaryTableCol,
+  TableRowData,
+  TdBaseTableProps,
+} from '@td/intel/components/table/type';
+import type { BaseTableColumns } from '../interface';
+import TEllipsis from '../ellipsis';
+import { getThList, getThRowspanAndColspan } from './useMultiHeader';
+import useClassName from './useClassName';
 
 // 渲染表头的通用方法
 export function renderTitle(h: CreateElement, slots: SetupContext['slots'], col: BaseTableColumns[0], index: number) {
@@ -51,7 +54,6 @@ export default function useTableHeader(props: TdBaseTableProps) {
   const thList = computed(() => getThList(props.columns));
   const isMultipleHeader = computed(() => thList.value.length > 1);
 
-  // eslint-disable-next-line
   const renderTitleWidthIcon = (
     h: CreateElement,
     [title, sortIcon, filterIcon]: TNodeReturnValue[],
@@ -73,20 +75,22 @@ export default function useTableHeader(props: TdBaseTableProps) {
     return (
       <div class={classes}>
         <div class={tableSortClasses.title}>
-          {isEllipsis ? (
-            <TEllipsis
-              placement="bottom"
-              attach={props.attach || (attach ? () => attach : undefined)}
-              tooltipContent={content && (() => content)}
-              tooltipProps={typeof ellipsisTitle === 'object' ? ellipsisTitle : undefined}
-              classPrefix={extra?.classPrefix}
-              overlayClassName={extra?.ellipsisOverlayClassName}
-            >
-              {title}
-            </TEllipsis>
-          ) : (
-            <div>{title}</div>
-          )}
+          {isEllipsis
+            ? (
+              <TEllipsis
+                placement="bottom"
+                attach={props.attach || (attach ? () => attach : undefined)}
+                tooltipContent={content && (() => content)}
+                tooltipProps={typeof ellipsisTitle === 'object' ? ellipsisTitle : undefined}
+                classPrefix={extra?.classPrefix}
+                overlayClassName={extra?.ellipsisOverlayClassName}
+              >
+                {title}
+              </TEllipsis>
+              )
+            : (
+              <div>{title}</div>
+              )}
           {Boolean(sortIcon || filterIcon) && (
             <div class={tableFilterClasses.iconWrap}>
               {sortIcon}

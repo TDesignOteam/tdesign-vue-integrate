@@ -1,7 +1,7 @@
 import type { PropType, SetupContext } from '@td/adapter-vue';
 import { computed, defineComponent, nextTick, onMounted, ref, toRefs, watch } from '@td/adapter-vue';
 import { get, isFunction, pick } from 'lodash-es';
-import { useConfig, useElementLazyRender, useTNodeJSX, useVirtualScrollNew } from '@td/adapter-hooks';
+import { useConfig, useElementLazyRender, useTNodeJSX, useVirtualScroll } from '@td/adapter-hooks';
 import type { ComponentScrollToElementParams, Styles } from '@td/shared/interface';
 import { getIEVersion } from '@td/shared/_common/js/utils/helper';
 import type { BaseTableInstanceFunctions } from '@td/intel/components/table/type';
@@ -206,7 +206,7 @@ export default defineComponent({
       data: props.data,
       scroll: props.scroll,
     }));
-    const virtualConfig = useVirtualScrollNew(tableContentRef, virtualScrollParams);
+    const virtualConfig = useVirtualScroll(tableContentRef, virtualScrollParams);
 
     let lastScrollY = -1;
     const onInnerVirtualScroll = (e: WheelEvent) => {

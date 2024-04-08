@@ -19,7 +19,7 @@ export { Loading as TLoading } from '../loading';
 export { useConfig, usePrefixClass } from '@td/adapter-hooks';
 export { useGlobalIcon } from '@td/adapter-hooks';
 export { default as useLazyLoad } from '../hooks/useLazyLoad';
-export { default as useVirtualScroll } from '../hooks/useVirtualScrollNew';
+export { default as useVirtualScroll } from '@td/adapter-hooks';
 export { TreeNode, privateKey } from '@td/shared/_common/js/tree/tree-node';
 export type TypeVModel = ReturnType<typeof tdUseVModel>;
 

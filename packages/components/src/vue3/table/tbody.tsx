@@ -11,7 +11,7 @@ import { TNodeReturnValue } from '@td/shared/interface';
 import useRowspanAndColspan from './hooks/useRowspanAndColspan';
 import { BaseTableProps, RowAndColFixedPosition } from './interface';
 import { TdBaseTableProps } from '@td/intel/components/table/type';
-import { VirtualScrollConfig } from '../hooks/useVirtualScrollNew';
+import { VirtualScrollConfig } from '@td/adapter-hooks';
 
 export const ROW_AND_TD_LISTENERS = ROW_LISTENERS.concat('cell-click');
 export interface TableBodyProps extends BaseTableProps {
