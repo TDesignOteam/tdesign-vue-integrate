@@ -45,6 +45,7 @@ export * from './select';
 export * from './tooltip';
 export * from './sticky-tool';
 export * from './pagination';
+export * from './select-input';
 // export * from './tree';
 // export * from './tree';
 // export * from './tree-select';

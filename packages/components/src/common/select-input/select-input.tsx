@@ -3,8 +3,8 @@ import { computed, defineComponent, onBeforeUnmount, onMounted, ref, toRefs, wat
 import type { TdSelectInputProps } from '@td/intel/components/select-input/type';
 import props from '@td/intel/components/select-input/props';
 import { usePrefixClass, useTNodeJSX } from '@td/adapter-hooks';
-import type { PopupInstanceFunctions, PopupProps, PopupVisibleChangeContext } from '../popup';
 import { Popup } from '@td/component';
+import type { PopupInstanceFunctions, TdPopupProps as PopupProps, PopupVisibleChangeContext } from '@td/intel/components/popup/type';
 
 import type { SelectInputValueDisplayOptions } from './hooks/useSingle';
 import useSingle from './hooks/useSingle';
@@ -105,68 +105,51 @@ export default defineComponent({
       }
     };
 
-    return {
-      classPrefix,
-      NAME_CLASS,
-      innerPopupVisible,
-      commonInputProps,
-      tOverlayInnerStyle,
-      selectInputRef,
-      popupRef,
-      classes,
-      onInnerClear,
-      renderTNodeJSX,
-      renderSelectSingle,
-      renderSelectMultiple,
-      onOverlayClick,
-      onInnerPopupVisibleChange,
+    return () => {
+      // 浮层显示的受控与非受控
+      const visibleProps = { visible: props.popupVisible ?? innerPopupVisible.value };
+
+      const mainContent = (
+        <Popup
+          ref="popupRef"
+          trigger={(props.popupProps as TdSelectInputProps['popupProps'])?.trigger || 'click'}
+          placement="bottom-left"
+          {...visibleProps}
+          content={props.panel}
+          v-slots={{ ...context.slots, content: context.slots.panel }}
+          hideEmptyPopup={true}
+          {...{
+            onVisibleChange: onInnerPopupVisibleChange,
+            onOverlayClick,
+            ...(props.popupProps as TdSelectInputProps['popupProps']),
+            overlayInnerStyle: tOverlayInnerStyle.value,
+          }}
+        >
+          {props.multiple
+            ? renderSelectMultiple({
+              commonInputProps: commonInputProps.value,
+              onInnerClear,
+              popupVisible: visibleProps.visible,
+              allowInput: props.allowInput,
+            })
+            : renderSelectSingle(visibleProps.visible)}
+        </Popup>
+      );
+
+      const tipsNode = renderTNodeJSX('tips');
+
+      const tipsClasses = [
+        `${classPrefix.value}-input__tips`,
+        `${classPrefix.value}-tips`,
+        `${classPrefix.value}-is-${props.status}`,
+      ];
+
+      return (
+        <div ref={selectInputRef} class={classes.value}>
+          {mainContent}
+          {tipsNode && <div class={tipsClasses}>{tipsNode}</div>}
+        </div>
+      );
     };
-  },
-
-  render() {
-    // 浮层显示的受控与非受控
-    const visibleProps = { visible: this.popupVisible ?? this.innerPopupVisible };
-
-    const mainContent = (
-      <Popup
-        ref="popupRef"
-        trigger={(this.popupProps as TdSelectInputProps['popupProps'])?.trigger || 'click'}
-        placement="bottom-left"
-        {...visibleProps}
-        content={this.panel}
-        v-slots={{ ...this.$slots, content: this.$slots.panel }}
-        hideEmptyPopup={true}
-        {...{
-          onVisibleChange: this.onInnerPopupVisibleChange,
-          onOverlayClick: this.onOverlayClick,
-          ...(this.popupProps as TdSelectInputProps['popupProps']),
-          overlayInnerStyle: this.tOverlayInnerStyle,
-        }}
-      >
-        {this.multiple
-          ? this.renderSelectMultiple({
-            commonInputProps: this.commonInputProps,
-            onInnerClear: this.onInnerClear,
-            popupVisible: visibleProps.visible,
-            allowInput: this.allowInput,
-          })
-          : this.renderSelectSingle(visibleProps.visible)}
-      </Popup>
-    );
-
-    const tipsNode = this.renderTNodeJSX('tips');
-
-    const tipsClasses = [
-      `${this.classPrefix}-input__tips`,
-      `${this.classPrefix}-tips`,
-      `${this.classPrefix}-is-${this.status}`,
-    ];
-
-    return (
-      <div ref="selectInputRef" class={this.classes}>
-        {mainContent}
-        {tipsNode && <div class={tipsClasses}>{tipsNode}</div>}
-      </div>
-    );
   },
 });
