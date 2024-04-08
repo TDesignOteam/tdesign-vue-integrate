@@ -3,7 +3,7 @@ import { computed, toRefs } from '@td/adapter-vue';
 import { ChevronRightCircleIcon as TdChevronRightCircleIcon } from 'tdesign-icons-vue-next';
 import { get } from 'lodash-es';
 
-import { useConfig, useGlobalIcon, useTNodeJSX } from '@td/adapter-hooks';
+import { useConfig, useDefaultValue, useGlobalIcon, useTNodeJSX } from '@td/adapter-hooks';
 import type {
   PrimaryTableCellParams,
   PrimaryTableCol,
@@ -11,8 +11,7 @@ import type {
   TableExpandedRowParams,
   TableRowData,
   TdPrimaryTableProps,
-} from '../type';
-import useDefaultValue from '../../hooks/useDefaultValue';
+} from '@td/intel/components/table/type';
 import useClassName from './useClassName';
 
 export default function useRowExpand(props: TdPrimaryTableProps, context: SetupContext) {

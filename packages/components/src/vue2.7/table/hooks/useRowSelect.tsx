@@ -13,7 +13,7 @@ import intersection from 'lodash/intersection';
 import { get, isFunction } from 'lodash-es';
 import { isRowSelectedDisabled } from '@td/shared/_common/js/table/utils';
 import log from '@td/shared/_common/js/log';
-import useDefaultValue from '../../hooks/useDefaultValue';
+import { useDefaultValue } from '@td/adapter-hooks';
 import type {
   PrimaryTableCellParams,
   PrimaryTableCol,
@@ -21,9 +21,9 @@ import type {
   TableRowData,
   TdPrimaryTableProps,
 } from '../type';
-import Checkbox from '../../checkbox';
-import Radio from '../../radio';
-import type { ClassName } from '../../common';
+import { Checkbox } from '@td/component';
+import { Radio } from '@td/component';
+import type { ClassName } '@td/shared/interface';
 import type { TableClassName } from './useClassName';
 
 export default function useRowSelect(

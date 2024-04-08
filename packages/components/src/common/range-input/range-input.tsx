@@ -5,7 +5,7 @@ import { isArray } from 'lodash-es';
 import { useCommonClassName, useDisabled, useGlobalIcon, usePrefixClass, useTNodeJSX, useVModel } from '@td/adapter-hooks';
 import type { RangeInputPosition, RangeInputValue } from '@td/intel/components/range-input/type';
 import props from '@td/intel/components/range-input/props';
-import Input from '../input';
+import { Input } from '@td/component';
 
 function calcArrayValue(value: unknown | Array<unknown>) {
   if (isArray(value)) {

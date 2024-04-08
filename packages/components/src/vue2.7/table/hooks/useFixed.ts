@@ -13,13 +13,13 @@ import {
   watch,
 } from '@td/adapter-vue';
 import { get } from 'lodash-es';
-import xorWith from 'lodash/xorWith';
-import debounce from 'lodash/debounce';
-import pick from 'lodash/pick';
+import { xorWith } from 'lodash-es';
+import { debounce } from 'lodash-es';
+import { pick } from 'lodash-es';
 import log from '@td/shared/_common/js/log';
 import { getScrollbarWidthWithCSS } from '@td/shared/_common/js/utils/getScrollbarWidth';
 import { getIEVersion } from '@td/shared/_common/js/utils/helper';
-import type { ClassName, Styles } from '../../common';
+import type { ClassName, Styles } '@td/shared/interface';
 import type { BaseTableCol, TableRowData, TdBaseTableProps } from '../type';
 import { off, on } from '../../utils/dom';
 import type {

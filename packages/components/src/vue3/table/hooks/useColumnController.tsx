@@ -4,18 +4,15 @@
 import type { SetupContext } from '@td/adapter-vue';
 import { computed, h, ref, toRefs, watch } from '@td/adapter-vue';
 import { SettingIcon as TdSettingIcon } from 'tdesign-icons-vue-next';
-// import intersection from 'lodash/intersection';
+// import { intersection } from 'lodash-es';
 import { isFunction } from 'lodash-es';
-import { useConfig, useGlobalIcon } from '@td/adapter-hooks';
-import type { CheckboxGroupChangeContext, CheckboxGroupValue, CheckboxOptionObj } from '../../checkbox';
-import { DialogPlugin } from '../../dialog/plugin';
-import type { PrimaryTableCol, TdPrimaryTableProps } from '../type';
-import useDefaultValue from '../../hooks/useDefaultValue';
+import { useConfig, useDefaultValue, useGlobalIcon, useTNodeJSX } from '@td/adapter-hooks';
+import type { PrimaryTableCol, TdPrimaryTableProps } from '@td/intel/components/table/type';
+import { DialogPlugin, Button as TButton } from '@td/component';
+import type { DialogInstance } from '@td/intel/components/dialog/type';
+import type { CheckboxGroupChangeContext, CheckboxGroupValue, CheckboxOptionObj } from '@td/intel/components/checkbox/type';
 import { getCurrentRowByKey } from '../utils';
-import type { DialogInstance } from '../../dialog';
-import TButton from '../../button';
 import ColumnCheckboxGroup from '../column-checkbox-group';
-import { useTNodeJSX } from '../../hooks';
 import { renderTitle } from './useTableHeader';
 
 export function getColumnKeys(columns: PrimaryTableCol[], keys = new Set<string>()) {

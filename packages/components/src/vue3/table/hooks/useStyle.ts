@@ -1,7 +1,6 @@
 import { computed, toRefs } from '@td/adapter-vue';
-import { useConfig } from '@td/adapter-hooks';
-import type { TdBaseTableProps } from '../type';
-import useCommonClassName from '../../hooks/useCommonClassName';
+import { useCommonClassName, useConfig } from '@td/adapter-hooks';
+import type { TdBaseTableProps } from '@td/intel/components/table/type';
 import useClassName from './useClassName';
 
 export function formatCSSUnit(unit: string | number) {

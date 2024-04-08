@@ -3,8 +3,8 @@ import type { PropType } from '@td/adapter-vue';
 import type dayjs from 'dayjs';
 
 import { EPickerCols } from '@td/shared/_common/js/time-picker/const';
-import * as Props from '../props';
-import type { TdTimePickerProps, TdTimeRangePickerProps } from '../type';
+import * as Props from '@td/intel/components/time-picker/props';
+import type { TdTimePickerProps, TdTimeRangePickerProps } from '@td/intel/components/time-picker/type';
 
 // 布尔类型
 const BooleanType = {

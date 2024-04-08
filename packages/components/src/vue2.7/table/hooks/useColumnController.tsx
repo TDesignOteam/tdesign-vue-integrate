@@ -12,15 +12,14 @@ import {
 import { SettingIcon as TdSettingIcon } from 'tdesign-icons-vue';
 // import intersection from 'lodash/intersection';
 import { isFunction } from 'lodash-es';
-import { useGlobalIcon, useTNodeJSX } from '@td/adapter-hooks';
+import { useDefaultValue, useGlobalIcon, useTNodeJSX } from '@td/adapter-hooks';
+import { Button as TButton } from '@td/component';
 import type { CheckboxGroupChangeContext, CheckboxGroupValue, CheckboxOptionObj } from '../../checkbox';
-import { DialogPlugin } from '../../dialog/plugin';
+import { DialogPlugin } from '@td/component';
 import type { PrimaryTableCol, TdPrimaryTableProps } from '../type';
 import { useConfig } from '../../config-provider/useConfig';
-import useDefaultValue from '../../hooks/useDefaultValue';
 import { getCurrentRowByKey } from '../utils';
-import type { DialogInstance } from '../../dialog';
-import TButton from '../../button';
+import type { DialogInstance } from '@td/intel/components/dialog/type';
 import ColumnCheckboxGroup from '../column-checkbox-group';
 import { renderTitle } from './useTableHeader';
 

@@ -5,5 +5,5 @@ import './style';
 
 export const Tree = withInstall(_TdTree);
 
-export * from './tree-types';
+export * from '@td/intel/components/tree/tree-types';
 export default Tree;

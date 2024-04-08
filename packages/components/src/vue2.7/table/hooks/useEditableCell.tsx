@@ -1,5 +1,5 @@
-import { CreateElement, SetupContext } from '@td/adapter-vue';
-import { TableRowData, PrimaryTableCellParams, TdPrimaryTableProps } from '../type';
+import type { CreateElement, SetupContext } from '@td/adapter-vue';
+import type { PrimaryTableCellParams, TableRowData, TdPrimaryTableProps } from '../type';
 import EditableCell from '../editable-cell';
 
 // 必须使用这个 Hook，否则无法在 setup 中渲染

@@ -1,5 +1,5 @@
 import { usePrefixClass, TypeCreateElement, TreeNode, TypeVNode } from '../adapt';
-import { TypeTreeItemState } from '../tree-types';
+import { TypeTreeItemState } from '@td/intel/components/tree/tree-types';
 import { getTNode } from '../util';
 
 // 渲染节点连线

@@ -12,16 +12,16 @@ import {
   onMounted,
 } from '@td/adapter-vue';
 import { isFunction } from 'lodash-es';
-import upperFirst from 'lodash/upperFirst';
+import { upperFirst } from 'lodash-es';
 import { isString } from 'lodash-es';
-import pick from 'lodash/pick';
+import { pick } from 'lodash-es';
 import { get } from 'lodash-es';
 import { formatClassNames, formatRowAttributes, formatRowClassNames } from './utils';
 import { getRowFixedStyles, getColumnFixedStyles } from './hooks/useFixed';
 import useClassName from './hooks/useClassName';
 import TEllipsis from './ellipsis';
-import { BaseTableCellParams, TableRowData, RowspanColspan, TdPrimaryTableProps, TdBaseTableProps } from '@td/intel/components/calendar/type';
-import baseTableProps from './base-table-props';
+import { BaseTableCellParams, TableRowData, RowspanColspan, TdPrimaryTableProps, TdBaseTableProps } from '@td/intel/components/table/type';
+import baseTableProps from '@td/intel/components/table/base-table-props';
 import useLazyLoad from './hooks/useLazyLoad';
 import { RowAndColFixedPosition } from './interface';
 import { getCellKey, SkipSpansValue } from './hooks/useRowspanAndColspan';

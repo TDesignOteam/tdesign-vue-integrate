@@ -1,5 +1,5 @@
 import { onMounted, reactive, TypeCreateElement, usePrefixClass, useLazyLoad, TypeVNode } from '../adapt';
-import { TypeTreeItemState } from '../tree-types';
+import { TypeTreeItemState } from '@td/intel/components/tree/tree-types';
 import useItemEvents from './useItemEvents';
 import useRenderIcon from './useRenderIcon';
 import useRenderLabel from './useRenderLabel';

@@ -8,9 +8,7 @@ import {
   toRefs,
   watch,
 } from '@td/adapter-vue';
-import { get, isFunction, isString } from 'lodash-es';
-import upperFirst from 'lodash/upperFirst';
-import pick from 'lodash/pick';
+import { get, isFunction, isString, pick, upperFirst } from 'lodash-es';
 import type { ScopedSlotReturnValue } from 'vue/types/vnode';
 import type {
   BaseTableCellParams,
@@ -18,17 +16,17 @@ import type {
   TableRowData,
   TdBaseTableProps,
   TdPrimaryTableProps,
-} from '@td/intel/components/calendar/type';
+} from '@td/intel/components/table/type';
 import type { AttachNode } from '@td/shared/interface';
+import baseTableProps from '@td/intel/components/table/base-table-props';
 import useLazyLoad from '../hooks/useLazyLoad';
 import type { PaginationProps } from '../pagination';
-import type { VirtualScrollConfig } from '../hooks/useVirtualScrollNew';
+import type { VirtualScrollConfig } from '@td/adapter-hooks';
 import { formatClassNames, formatRowAttributes, formatRowClassNames } from './utils';
 import { getColumnFixedStyles, getRowFixedStyles } from './hooks/useFixed';
 import type { RowAndColFixedPosition } from './interface';
 import useClassName from './hooks/useClassName';
 import TEllipsis from './ellipsis';
-import baseTableProps from './base-table-props';
 import type { SkipSpansValue } from './hooks/useRowspanAndColspan';
 import { getCellKey } from './hooks/useRowspanAndColspan';
 

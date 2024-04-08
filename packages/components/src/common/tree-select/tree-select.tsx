@@ -1,20 +1,17 @@
 import { computed, defineComponent, onMounted, ref, toRefs, watch } from '@td/adapter-vue';
-import { isArray, isEmpty, isFunction, isNil } from 'lodash-es';
-import { isBoolean } from 'lodash-es';
+import { isArray, isBoolean, isEmpty, isFunction, isNil } from 'lodash-es';
 
 import type { TreeOptionData } from '@td/shared/interface';
-import { useConfig, useDefaultValue, useDisabled, usePrefixClass, useVModel } from '@td/adapter-hooks';
-import props from '@td/intel/components/color-picker/props';
-import type { TdTreeSelectProps, TreeSelectValue, TreeSelectValueChangeTrigger } from '@td/intel/components/calendar/type';
+import { useConfig, useDefaultValue, useDisabled, usePrefixClass, useTNodeDefault, useTNodeJSX, useVModel } from '@td/adapter-hooks';
+import props from '@td/intel/components/tree-select/props';
+import type { TdTreeSelectProps, TreeSelectValue, TreeSelectValueChangeTrigger } from '@td/intel/components/tree-select/type';
+import type { PopupVisibleChangeContext } from '@td/intel/components/popup/type';
 import type { TreeNodeModel, TreeNodeValue, TreeProps } from '../tree';
 import Tree from '../tree';
 import type { TdSelectInputProps } from '../select-input';
 import SelectInput from '../select-input';
 import FakeArrow from '../common-components/fake-arrow';
-import type { PopupVisibleChangeContext } from '../popup';
 
-// hooks
-import { useTNodeDefault, useTNodeJSX } from '../hooks/tnode';
 import type { INodeOptions } from './interface';
 
 export default defineComponent({
@@ -25,7 +22,7 @@ export default defineComponent({
     const renderDefaultTNode = useTNodeDefault();
     const classPrefix = usePrefixClass();
     const { globalConfig } = useConfig('treeSelect');
-    const formDisabled = useFormDisabled();
+    const formDisabled = useDisabled();
 
     // ref
     const treeRef = ref(null);

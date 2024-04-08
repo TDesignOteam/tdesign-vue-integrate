@@ -4,17 +4,14 @@ import type {
   SetupContext,
 } from '@td/adapter-vue';
 import { computed, defineComponent, toRefs } from '@td/adapter-vue';
-import camelCase from 'lodash/camelCase';
-import { get } from 'lodash-es';
-import pick from 'lodash/pick';
-import { useTNodeJSX } from '@td/adapter-hooks';
-import type { TdBaseTableProps } from '@td/intel/components/calendar/type';
-import { useConfig } from '../config-provider/useConfig';
-import type { VirtualScrollConfig } from '../hooks/useVirtualScrollNew';
+import { camelCase, get, pick } from 'lodash-es';
+import { useConfig, useTNodeJSX } from '@td/adapter-hooks';
+import type { TdBaseTableProps } from '@td/intel/components/table/type';
+import baseTableProps from '@td/intel/components/table/base-table-props';
+import type { VirtualScrollConfig } from '@td/adapter-hooks';
 import type { TrProps } from './tr';
 import TrElement, { ROW_LISTENERS, TABLE_PROPS } from './tr';
 import useClassName from './hooks/useClassName';
-import baseTableProps from './base-table-props';
 import useRowspanAndColspan from './hooks/useRowspanAndColspan';
 import type { BaseTableProps, RowAndColFixedPosition } from './interface';
 

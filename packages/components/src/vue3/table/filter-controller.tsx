@@ -2,17 +2,12 @@ import type { PropType } from '@td/adapter-vue';
 import { defineComponent, h, ref } from '@td/adapter-vue';
 import { FilterIcon as TdFilterIcon } from 'tdesign-icons-vue-next';
 import { isEmpty, isFunction } from 'lodash-es';
-import type { FilterValue, PrimaryTableCol } from '@td/intel/components/calendar/type';
-import { useConfig, useGlobalIcon } from '@td/adapter-hooks';
+import type { FilterValue, PrimaryTableCol } from '@td/intel/components/table/type';
+import { useConfig, useGlobalIcon, useTNodeDefault } from '@td/adapter-hooks';
 import type { AttachNode } from '@td/shared/interface';
-import type { PopupProps } from '../popup';
-import { Popup } from '@td/component';
-import { CheckboxGroup } from '../checkbox';
-import { RadioGroup } from '../radio';
-import Input from '../input';
-import TButton from '../button';
-import { useTNodeDefault } from '../hooks/tnode';
-import type { TableConfig } from '../config-provider';
+import { CheckboxGroup, Input, Popup, RadioGroup, Button as TButton } from '@td/component';
+import type { TableConfig } from '@td/intel/components/config-provider/type';
+import type { TdPopupProps as PopupProps } from '@td/intel/components/popup/type';
 
 export interface TableFilterControllerProps {
   locale: TableConfig;

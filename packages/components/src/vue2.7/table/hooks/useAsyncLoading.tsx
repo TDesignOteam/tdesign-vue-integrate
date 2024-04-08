@@ -1,10 +1,11 @@
 import { isString } from 'lodash-es';
-import { computed, SetupContext, CreateElement } from '@td/adapter-vue';
+import type { CreateElement, SetupContext } from '@td/adapter-vue';
+import { computed } from '@td/adapter-vue';
 import { useTNodeJSX } from '@td/adapter-hooks';
-import { TdPrimaryTableProps } from '../type';
-import Loading from '../../loading';
-import useClassName from './useClassName';
+import { Loading } from '@td/component';
+import type { TdPrimaryTableProps } from '../type';
 import { useConfig } from '../../config-provider/useConfig';
+import useClassName from './useClassName';
 
 export default function useAsyncLoading(props: TdPrimaryTableProps, context: SetupContext) {
   const renderTNode = useTNodeJSX();
@@ -20,7 +21,9 @@ export default function useAsyncLoading(props: TdPrimaryTableProps, context: Set
   ]);
 
   function onLoadClick() {
-    if (typeof props.asyncLoading !== 'string') return;
+    if (typeof props.asyncLoading !== 'string') {
+      return;
+    }
     props.onAsyncLoadingClick?.({ status: props.asyncLoading });
     // Vue3 ignore next line
     context.emit('async-loading-click', { status: props.asyncLoading });
@@ -33,11 +36,11 @@ export default function useAsyncLoading(props: TdPrimaryTableProps, context: Set
       const { asyncLoading } = props;
       const loadingText = {
         'load-more': global.value.loadingMoreText,
-        loading: global.value.loadingText,
+        'loading': global.value.loadingText,
       }[String(asyncLoading)];
       return (
         <div class={classes.value} onClick={onLoadClick}>
-          {<Loading indicator={asyncLoading === 'loading'} loading={!!asyncLoading} size="small" text={loadingText} />}
+          <Loading indicator={asyncLoading === 'loading'} loading={!!asyncLoading} size="small" text={loadingText} />
         </div>
       );
     }

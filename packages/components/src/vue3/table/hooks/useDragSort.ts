@@ -2,10 +2,10 @@
 import { SetupContext, computed, toRefs, ref, watch, h, ComputedRef } from '@td/adapter-vue';
 import Sortable, { SortableEvent, SortableOptions, MoveEvent } from 'sortablejs';
 import { isFunction } from 'lodash-es';
-import { TableRowData, TdPrimaryTableProps, DragSortContext, PrimaryTableCol } from '../type';
+import { TableRowData, TdPrimaryTableProps, DragSortContext, PrimaryTableCol } from '@td/intel/components/table/type';
 import useClassName from './useClassName';
 import log from '@td/shared/_common/js/log';
-import { hasClass } from '../../utils/dom';
+import { hasClass } from '@td/adapter-utils';
 import swapDragArrayElement from '@td/shared/_common/js/utils/swapDragArrayElement';
 import { BaseTableColumns } from '../interface';
 import { getColumnDataByKey, getColumnIndexByKey } from '@td/shared/_common/js/table/utils';

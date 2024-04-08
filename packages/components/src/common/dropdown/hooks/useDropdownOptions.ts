@@ -2,7 +2,7 @@ import type { Component, ComputedRef, Slots, VNode } from '@td/adapter-vue';
 import { computed, getCurrentInstance } from '@td/adapter-vue';
 import { isString } from 'lodash-es';
 import { isArray } from 'lodash-es';
-import camelCase from 'lodash/camelCase';
+import { camelCase } from 'lodash-es';
 
 import { useChildComponentSlots } from '../../hooks/slot';
 import type { DropdownOption, TdDropdownProps } from '../type';

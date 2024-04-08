@@ -5,7 +5,7 @@ import type { TdSelectInputProps } from '@td/intel/components/select-input/type'
 import { useDefaultValue, useDisabled, usePrefixClass, useTNodeJSX } from '@td/adapter-hooks';
 import type { StrInputProps } from '../../input';
 import Input from '../../input';
-import Loading from '../../loading';
+import { Loading } from '@td/component';
 
 import type { PopupInstanceFunctions } from '../popup';
 import type { SelectInputCommonProperties } from '../interface';

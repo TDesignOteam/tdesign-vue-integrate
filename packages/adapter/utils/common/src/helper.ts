@@ -1,4 +1,4 @@
-import camelCase from 'lodash/camelCase';
+import { camelCase } from 'lodash-es';
 import { isArray, isNumber, isString, isUndefined } from 'lodash-es';
 import isNull from 'lodash/isNull';
 

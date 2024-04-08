@@ -1,10 +1,6 @@
 import { computed, ref, toRefs, watch } from '@td/adapter-vue';
-import { get } from 'lodash-es';
-import set from 'lodash/set';
-import { cloneDeep, isFunction } from 'lodash-es';
-import type { PrimaryTableProps } from '../interface';
+import { cloneDeep, get, isFunction, set } from 'lodash-es';
 import { getEditableKeysMap } from '@td/shared/_common/js/table/utils';
-import { validate } from '../../form/form-model';
 import type {
   ErrorListObjectType,
   PrimaryTableCellParams,
@@ -12,7 +8,9 @@ import type {
   PrimaryTableRowEditContext,
   TableErrorListMap,
   TableRowData,
-} from '../type';
+} from '@td/intel/components/table/type';
+import type { PrimaryTableProps } from '../interface';
+import { validate } from '../../../common/form/form-model';
 import type { OnEditableChangeContext } from '../editable-cell';
 import { getCellKey } from './useRowspanAndColspan';
 

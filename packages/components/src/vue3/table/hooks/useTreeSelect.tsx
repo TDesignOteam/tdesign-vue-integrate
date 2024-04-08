@@ -1,9 +1,9 @@
-import { computed, toRefs, ref, Ref, watch } from '@td/adapter-vue';
-import { get } from 'lodash-es';
-import intersection from 'lodash/intersection';
-import { TdEnhancedTableProps, TdPrimaryTableProps, TableRowData, PrimaryTableCol } from '../type';
-import { KeysType, TableTreeDataMap, TreeDataMapType } from '@td/shared/_common/js/table/tree-store';
-import useDefaultValue from '../../hooks/useDefaultValue';
+import type { Ref } from '@td/adapter-vue';
+import { computed, ref, toRefs, watch } from '@td/adapter-vue';
+import { get, intersection } from 'lodash-es';
+import type { PrimaryTableCol, TableRowData, TdEnhancedTableProps, TdPrimaryTableProps } from '@td/intel/components/table/type';
+import type { KeysType, TableTreeDataMap, TreeDataMapType } from '@td/shared/_common/js/table/tree-store';
+import { useDefaultValue } from '@td/adapter-hooks';
 
 export interface GetChildrenDataReturnValue {
   allChildren: Array<any>;
@@ -20,10 +20,14 @@ export function getChildrenData(
   keys: { childrenKey: string; rowKey: string },
   r?: GetChildrenDataReturnValue,
 ): GetChildrenDataReturnValue {
-  if (childrenMap.get(data)) return childrenMap.get(data);
+  if (childrenMap.get(data)) {
+    return childrenMap.get(data);
+  }
   const result = r || { allChildren: [], allChildrenKeys: [], leafNodeKeys: [] };
   const children = get(data, keys.childrenKey);
-  if (!children || !children.length) return result;
+  if (!children || !children.length) {
+    return result;
+  }
   const selectableChildren = children.filter(
     (item: TableRowData) => !treeDataMap.get(get(item, keys.rowKey))?.disabled,
   );
@@ -116,12 +120,16 @@ export default function useTreeSelect(props: TdEnhancedTableProps, treeDataMap: 
   }));
 
   watch([tree, treeDataMap, data, tSelectedRowKeys], ([tree, treeDataMap]) => {
-    if (!tree || !treeDataMap.size || tree.checkStrictly) return;
+    if (!tree || !treeDataMap.size || tree.checkStrictly) {
+      return;
+    }
     updateIndeterminateState();
   });
 
   function updateIndeterminateState() {
-    if (!tree.value || tree.value.checkStrictly) return;
+    if (!tree.value || tree.value.checkStrictly) {
+      return;
+    }
     if (!tSelectedRowKeys.value.length) {
       tIndeterminateSelectedRowKeys.value = [];
       return;
@@ -131,7 +139,9 @@ export default function useTreeSelect(props: TdEnhancedTableProps, treeDataMap: 
     for (let i = 0, len = tSelectedRowKeys.value.length; i < len; i++) {
       const rowValue = tSelectedRowKeys.value[i];
       const state = treeDataMap.value.get(rowValue);
-      if (!state) continue;
+      if (!state) {
+        continue;
+      }
       const children = get(state.row, rowDataKeys.value.childrenKey);
       // 根据选中的叶子结点计算父节点半选状态
       if (!children || !children.length) {
@@ -162,7 +172,9 @@ export default function useTreeSelect(props: TdEnhancedTableProps, treeDataMap: 
     currentRowKey: string | number,
     type: 'check' | 'uncheck',
   ) {
-    if (!tree.value || tree.value.checkStrictly) return;
+    if (!tree.value || tree.value.checkStrictly) {
+      return;
+    }
     const keys = [...selectedKeys];
     const state = treeDataMap.value.get(currentRowKey);
     let parentTmp = state.parent;

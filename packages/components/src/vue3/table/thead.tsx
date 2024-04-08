@@ -2,7 +2,7 @@ import { defineComponent, computed, SetupContext, PropType, ref, Ref, h, CSSProp
 import { isFunction } from 'lodash-es';
 import { getColumnFixedStyles } from './hooks/useFixed';
 import useClassName from './hooks/useClassName';
-import { BaseTableCol, TableRowData, TdBaseTableProps } from '@td/intel/components/calendar/type';
+import { BaseTableCol, TableRowData, TdBaseTableProps } from '@td/intel/components/table/type';
 import { renderTitle } from './hooks/useTableHeader';
 import TEllipsis from './ellipsis';
 import { formatClassNames } from './utils';

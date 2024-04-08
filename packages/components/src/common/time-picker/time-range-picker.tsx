@@ -8,16 +8,11 @@ import type { TimeRangePickerPartial } from '@td/intel/components/time-picker/ty
 import { TIME_PICKER_EMPTY } from '@td/shared/_common/js/time-picker/const';
 import { formatInputValue, validateInputValue } from '@td/shared/_common/js/time-picker/utils';
 
-// interfaces
-// hooks
-import { useVModel } from '@td/adapter-hooks';
-import { useCommonClassName, useConfig, usePrefixClass } from '@td/adapter-hooks';
-import { useDisabled } from '@td/adapter-hooks';
-import { useGlobalIcon } from '@td/adapter-hooks';
+import { useCommonClassName, useConfig, useDisabled, useGlobalIcon, usePrefixClass, useVModel } from '@td/adapter-hooks';
+import props from '@td/intel/components/time-picker/time-range-picker-props';
 import { RangeInputPopup } from '../range-input';
 import type { RangeInputPosition } from '../range-input';
 import type { TimeRangeValue } from './interface';
-import props from './time-range-picker-props';
 import TimePickerPanel from './panel/time-picker-panel';
 
 dayjs.extend(customParseFormat);

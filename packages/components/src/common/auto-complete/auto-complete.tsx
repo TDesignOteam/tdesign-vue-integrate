@@ -5,7 +5,7 @@ import type { ClassName } from '@td/shared/interface';
 import type { TdAutoCompleteProps } from '@td/intel/components/auto-complete/type';
 import props from '@td/intel/components/auto-complete/props';
 import type { InputProps, StrInputProps } from '../input';
-import Input from '../input';
+import { Input } from '@td/component';
 import { Popup } from '@td/component';
 import AutoCompleteOptionList from './option-list';
 

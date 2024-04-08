@@ -1,5 +1,5 @@
 import { ref, watch, TypeCreateElement, privateKey, TypeVNode } from '../adapt';
-import { TypeTreeRow, TypeTreeNode, TypeTreeState } from '../tree-types';
+import { TypeTreeRow, TypeTreeNode, TypeTreeState } from '@td/intel/components/tree/tree-types';
 import TreeItem from '../tree-item';
 import useTreeEvents from './useTreeEvents';
 

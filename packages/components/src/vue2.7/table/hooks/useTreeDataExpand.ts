@@ -1,10 +1,14 @@
-import {
-  ComputedRef, nextTick, ref, Ref, SetupContext, toRefs, watch,
+import type {
+  ComputedRef,
+  Ref,
+  SetupContext,
 } from '@td/adapter-vue';
-import { TdEnhancedTableProps, TableRowData } from '../type';
-import useDefaultValue from '../../hooks/useDefaultValue';
-import TableTreeStore, { diffExpandedTreeNode, getUniqueRowValue } from '@td/shared/_common/js/table/tree-store';
-import { TableTreeExpandType } from '../interface';
+import { nextTick, ref, toRefs, watch } from '@td/adapter-vue';
+import { useDefaultValue } from '@td/adapter-hooks';
+import type TableTreeStore from '@td/shared/_common/js/table/tree-store';
+import { diffExpandedTreeNode, getUniqueRowValue } from '@td/shared/_common/js/table/tree-store';
+import type { TableRowData, TdEnhancedTableProps } from '../type';
+import type { TableTreeExpandType } from '../interface';
 
 export function useTreeDataExpand(
   props: TdEnhancedTableProps,
@@ -40,7 +44,7 @@ export function useTreeDataExpand(
   function expandAll(type: 'expand-all' | 'default-expand-all' = 'expand-all', list?: TableRowData[]) {
     const newData = list || data.value;
     dataSource.value = store.value.expandAll(newData, rowDataKeys.value);
-    const expandedNode = dataSource.value.map((t) => getUniqueRowValue(t, rowDataKeys.value.rowKey));
+    const expandedNode = dataSource.value.map(t => getUniqueRowValue(t, rowDataKeys.value.rowKey));
     setTExpandedTreeNode(expandedNode, {
       row: undefined,
       rowState: undefined,
@@ -116,7 +120,9 @@ export function useTreeDataExpand(
   }
 
   watch([tExpandedTreeNode, data], ([tExpandedTreeNode], [oldExpandedTreeNode]) => {
-    if (!store.value.treeDataMap.size || !data.value.length) return;
+    if (!store.value.treeDataMap.size || !data.value.length) {
+      return;
+    }
     if (changedExpandTreeNode.value.type === 'user-reaction-change') {
       const { row, rowIndex } = changedExpandTreeNode.value || {};
       dataSource.value = store.value.toggleExpandData({ row, rowIndex }, dataSource.value, rowDataKeys.value);

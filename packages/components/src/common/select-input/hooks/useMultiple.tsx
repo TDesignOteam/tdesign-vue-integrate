@@ -6,7 +6,7 @@ import { useDefaultValue, useDisabled, usePrefixClass } from '@td/adapter-hooks'
 import type { SelectInputCommonProperties } from '../interface';
 import type { TagInputProps, TagInputValue } from '../../tag-input';
 import TagInput from '../../tag-input';
-import Loading from '../../loading';
+import { Loading } from '@td/component';
 import type { PopupInstanceFunctions } from '../popup';
 
 export interface RenderSelectMultipleParams {

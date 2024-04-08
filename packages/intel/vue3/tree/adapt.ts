@@ -1,25 +1,25 @@
 // 在这个文件，解决 vue2/vue3 tree 组件依赖的差异问题
 // 除此文件之外的其他组件文件，可从 vue2 项目直接复制到 vue3 项目进行维护
-import * as Vue from '@td/adapter-vue';
-import type { ComponentPublicInstance, PropType, Ref, SetupContext, ToRefs, UnwrapNestedRefs, VNode } from '@td/adapter-vue';
-import type { ClassName, Styles, TNode, TNodeReturnValue, TScroll, TreeOptionData } from '@td/shared/interface';
+import * as Vue from 'vue';
+import type { ComponentPublicInstance, PropType, Ref, SetupContext, ToRefs, UnwrapNestedRefs, VNode } from 'vue';
+import type { CheckboxProps } from '../checkbox';
+import type { ClassName, Styles, TNode, TNodeReturnValue, TScroll, TreeOptionData } from '../common';
 import type { TypeTreeEventState as TreeEventState } from '@td/shared/_common/js/tree/types';
-import type { TdTreeProps, TreeInstanceFunctions } from '@td/intel/components/calendar/type';
-import type { TreeStore } from '@td/shared/_common/js/tree/tree-store';
-import { withInstall as tdWithInstall } from '@td/adapter-utils';
-import type { CheckboxProps } from '@td/intel/components/checkbox/type';
 import type { VirtualScrollConfig } from '@td/adapter-hooks';
-import { useDefaultValue as tdUseDefaultValue, useVModel as tdUseVModel } from '@td/adapter-hooks';
+import tdWithInstall from '../utils/withInstall';
+import tdUseVModel from '../hooks/useVModel';
+import tdUseDefaultValue from '../hooks/useDefaultValue';
+import type { TreeStore } from '@td/shared/_common/js/tree/tree-store';
+import type { TdTreeProps, TreeInstanceFunctions } from './type';
 
-export { ref, reactive, computed, watch, onMounted, toRefs, defineComponent, TransitionGroup } from '@td/adapter-vue';
+export { ref, reactive, computed, watch, onMounted, toRefs, defineComponent, TransitionGroup } from 'vue';
 export { CaretRightSmallIcon as TdCaretRightSmallIcon } from 'tdesign-icons-vue-next';
-export { Checkbox as TCheckBox } from '@td/component';
+export { Checkbox as TCheckBox } from '../checkbox';
 export { Loading as TLoading } from '../loading';
 export { useConfig, usePrefixClass } from '@td/adapter-hooks';
 export { useGlobalIcon } from '@td/adapter-hooks';
-// vue23:!
-// export { useLazyLoad } from '@td/adapter-hooks';
-export { useVirtualScroll } from '@td/adapter-hooks';
+export { default as useLazyLoad } from '../hooks/useLazyLoad';
+export { default as useVirtualScroll } from '../hooks/useVirtualScrollNew';
 export { TreeNode, privateKey } from '@td/shared/_common/js/tree/tree-node';
 export type TypeVModel = ReturnType<typeof tdUseVModel>;
 

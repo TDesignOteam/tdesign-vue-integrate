@@ -6,7 +6,7 @@ import {
   TypeExpandEventContext,
   TypeActiveEventContext,
   TypeChangeEventContext,
-} from '../tree-types';
+} from '@td/intel/components/tree/tree-types';
 import { getNode, pathMatchClass } from '../util';
 
 // tree 组件节点状态设置

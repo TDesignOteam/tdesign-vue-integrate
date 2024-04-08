@@ -7,7 +7,7 @@ import {
 import { getThRowspanAndColspan, getThList } from './useMultiHeader';
 import { BaseTableColumns } from '../interface';
 import useClassName from './useClassName';
-import { TNodeReturnValue } from '../../common';
+import { TNodeReturnValue }  from '@td/shared/interface';
 import TEllipsis from '../ellipsis';
 import log from '@td/shared/_common/js/log';
 

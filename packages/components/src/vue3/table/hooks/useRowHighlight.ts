@@ -1,18 +1,19 @@
-import { ref, Ref, toRefs } from '@td/adapter-vue';
+import type { Ref } from '@td/adapter-vue';
+import { ref, toRefs } from '@td/adapter-vue';
 import { get } from 'lodash-es';
-import useDefaultValue from '../../hooks/useDefaultValue';
-import { BaseTableProps } from '../interface';
-import { RowEventContext, TableRowData } from '../type';
-import { on, off } from '../../utils/dom';
+import { useDefaultValue } from '@td/adapter-hooks';
+import type { RowEventContext, TableRowData } from '@td/intel/components/table/type';
+import { off, on } from '@td/adapter-utils';
 import {
+  ALL_REG,
   ARROW_DOWN_REG,
   ARROW_UP_REG,
-  ESCAPE_REG,
-  SPACE_REG,
-  SHIFT_REG,
   CLEAR_REG,
-  ALL_REG,
+  ESCAPE_REG,
+  SHIFT_REG,
+  SPACE_REG,
 } from '@td/shared/_common/js/common';
+import type { BaseTableProps } from '../interface';
 
 /**
  * 行高亮功能，支持键盘操作
@@ -42,7 +43,7 @@ export function useRowHighlight(props: BaseTableProps, tableRef: Ref<HTMLDivElem
         currentRowData: row,
       });
     } else if (activeRowType.value === 'multiple') {
-      const newActiveRowKeys = tActiveRow.value.filter((t) => t !== rowValue);
+      const newActiveRowKeys = tActiveRow.value.filter(t => t !== rowValue);
       const activeRowList: { row: TableRowData; rowIndex: number }[] = [];
       for (let i = 0, len = data.value.length; i < len; i++) {
         const row = data.value[i];
@@ -94,7 +95,7 @@ export function useRowHighlight(props: BaseTableProps, tableRef: Ref<HTMLDivElem
     for (let i = startIndex; i <= endIndex; i++) {
       newActiveRowData.push({ row: data.value[i], rowIndex: i });
     }
-    const newActiveRowKeys = newActiveRowData.map((item) => get(item.row, props.rowKey));
+    const newActiveRowKeys = newActiveRowData.map(item => get(item.row, props.rowKey));
     setTActiveRow(newActiveRowKeys, {
       activeRowList: newActiveRowData,
       type: 'active',
@@ -115,7 +116,9 @@ export function useRowHighlight(props: BaseTableProps, tableRef: Ref<HTMLDivElem
   };
 
   const onHighlightRow = (ctx: RowEventContext<TableRowData>, extra?: { action?: 'active' | 'inactive' }) => {
-    if (!activeRowType.value) return;
+    if (!activeRowType.value) {
+      return;
+    }
     const { row, index } = ctx;
     const rowValue = get(row, props.rowKey);
     // 如果是连续选中
@@ -147,7 +150,7 @@ export function useRowHighlight(props: BaseTableProps, tableRef: Ref<HTMLDivElem
   };
 
   const setAllActive = () => {
-    const activeKeys = data.value.map((item) => get(item, props.rowKey));
+    const activeKeys = data.value.map(item => get(item, props.rowKey));
     const activeRowList = data.value.map((row, rowIndex) => ({ row, rowIndex }));
     setTActiveRow(activeKeys, {
       activeRowList,

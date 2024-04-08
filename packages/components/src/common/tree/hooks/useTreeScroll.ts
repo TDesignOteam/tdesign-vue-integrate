@@ -1,5 +1,5 @@
 import { computed, onMounted, TypeRef, useVirtualScroll, TypeScroll, TreeNode } from '../adapt';
-import { TypeTreeState, TypeTimer } from '../tree-types';
+import { TypeTreeState, TypeTimer } from '@td/intel/components/tree/tree-types';
 
 // tree 虚拟滚动整合
 export default function useTreeScroll(state: TypeTreeState) {

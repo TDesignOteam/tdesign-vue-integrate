@@ -1,15 +1,15 @@
 import { computed, defineComponent, toRefs, h, ref, onMounted, getCurrentInstance } from '@td/adapter-vue';
 import { get } from 'lodash-es';
 import { omit } from 'lodash-es';
-import baseTableProps from './base-table-props';
-import primaryTableProps from './primary-table-props';
+import baseTableProps from '@td/intel/components/table/base-table-props';
+import primaryTableProps from '@td/intel/components/table/primary-table-props';
 import BaseTable from './base-table';
 import { useTNodeJSX } from '@td/adapter-hooks';
 import useColumnController from './hooks/useColumnController';
 import useRowExpand from './hooks/useRowExpand';
 import useTableHeader, { renderTitle } from './hooks/useTableHeader';
 import useRowSelect from './hooks/useRowSelect';
-import { TdPrimaryTableProps, PrimaryTableCol, TableRowData, PrimaryTableCellParams } from '@td/intel/components/calendar/type';
+import { TdPrimaryTableProps, PrimaryTableCol, TableRowData, PrimaryTableCellParams } from '@td/intel/components/table/type';
 import useSorter from './hooks/useSorter';
 import useFilter from './hooks/useFilter';
 import useDragSort from './hooks/useDragSort';

@@ -5,7 +5,7 @@ import {
   MinusRectangleIcon as TdMinusRectangleIcon,
 } from 'tdesign-icons-vue-next';
 import { get } from 'lodash-es';
-import { useConfig, useGlobalIcon } from '@td/adapter-hooks';
+import { useConfig, useGlobalIcon, useTNodeDefault } from '@td/adapter-hooks';
 import type { SwapParams } from '@td/shared/_common/js/table/tree-store';
 import TableTreeStore from '@td/shared/_common/js/table/tree-store';
 import type {
@@ -15,9 +15,8 @@ import type {
   TableRowState,
   TableRowValue,
   TdEnhancedTableProps,
-} from '../type';
+} from '@td/intel/components/table/type';
 import { renderCell } from '../tr';
-import { useTNodeDefault } from '../../hooks';
 import useClassName from './useClassName';
 import useTreeDataExpand from './useTreeDataExpand';
 

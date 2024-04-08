@@ -1,10 +1,14 @@
-import {
-  CreateElement, computed, Ref, ref, SetupContext, toRefs, watch,
+import type {
+  CreateElement,
+  Ref,
+  SetupContext,
 } from '@td/adapter-vue';
-import { useConfig } from '../../config-provider/useConfig';
-import Pagination, { PageInfo, PaginationProps } from '../../pagination';
-import { TdBaseTableProps, TableRowData } from '../type';
+import { computed, ref, toRefs, watch } from '@td/adapter-vue';
 import log from '@td/shared/_common/js/log';
+import { useConfig } from '../../config-provider/useConfig';
+import type { PageInfo, PaginationProps } from '../../pagination';
+import Pagination from '../../pagination';
+import type { TableRowData, TdBaseTableProps } from '../type';
 
 const DEFAULT_PAGE_SIZE = 10;
 
@@ -29,7 +33,9 @@ export function usePaginationValue(
   watch(
     () => ({ ...pagination.value }),
     (pagination) => {
-      if (!pagination) return [innerPagination, setInnerPagination];
+      if (!pagination) {
+        return [innerPagination, setInnerPagination];
+      }
       const isControlled = Boolean(pagination?.current);
       if (isControlled) {
         innerPagination.value = pagination;
@@ -104,7 +110,9 @@ export default function usePagination(props: TdBaseTableProps, context: SetupCon
 
   // eslint-disable-next-line
   const renderPagination = (h: CreateElement) => {
-    if (!innerPagination.value) return null;
+    if (!innerPagination.value) {
+      return null;
+    }
     return (
       <div class={`${classPrefix.value}-table__pagination`}>
         <Pagination

@@ -7,8 +7,7 @@ import {
   toRefs,
   watch,
 } from '@td/adapter-vue';
-import { cloneDeep, get, isFunction } from 'lodash-es';
-import set from 'lodash/set';
+import { cloneDeep, get, isFunction, set } from 'lodash-es';
 import { Edit1Icon as TdEdit1Icon } from 'tdesign-icons-vue';
 import type {
   PrimaryTableCol,
@@ -17,12 +16,12 @@ import type {
   TableEditableCellPropsParams,
   TableRowData,
   TdBaseTableProps,
-} from '@td/intel/components/calendar/type';
+} from '@td/intel/components/table/type';
 import { useGlobalIcon } from '@td/adapter-hooks';
 import log from '@td/shared/_common/js/log';
-import { validate } from '../form/form-model';
-import type { AllValidateResult } from '../form/type';
-import { off, on } from '../utils/dom';
+import type { AllValidateResult } from '@td/intel/components/form/type';
+import { off, on } from '@td/adapter-utils';
+import { validate } from '../../common/form/form-model';
 import { usePrefixClass } from '../config-provider/useConfig';
 import { renderCell } from './tr';
 import type { TableClassName } from './hooks/useClassName';

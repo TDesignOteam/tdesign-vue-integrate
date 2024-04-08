@@ -5,7 +5,7 @@ import { ChevronLeftIcon as TdChevronLeftIcon, ChevronRightIcon as TdChevronRigh
 import { isArray, isFunction, isString } from 'lodash-es';
 import { useGlobalIcon, usePrefixClass } from '@td/adapter-hooks';
 import Button from '../../button';
-import type { TNode } from '../../common';
+import type { TNode } '@td/shared/interface';
 import props from '../props';
 
 export default defineComponent({

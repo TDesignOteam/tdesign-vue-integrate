@@ -1,16 +1,16 @@
-import { TNodeReturnValue } from '@td/shared/interface';
-import {
-  TdBaseTableProps,
+import type { TNodeReturnValue } from '@td/shared/interface';
+import type {
+  BaseTableCol,
+  BaseTableInstanceFunctions,
+  PrimaryTableCol,
+  PrimaryTableInstanceFunctions,
+  RowspanColspan,
   TableExpandedRowParams,
   TableRowData,
-  TdPrimaryTableProps,
+  TdBaseTableProps,
   TdEnhancedTableProps,
-  RowspanColspan,
-  BaseTableCol,
-  PrimaryTableInstanceFunctions,
-  PrimaryTableCol,
-  BaseTableInstanceFunctions,
-} from '@td/intel/components/calendar/type';
+  TdPrimaryTableProps,
+} from '@td/intel/components/table/type';
 
 export interface BaseTableProps extends TdBaseTableProps {
   /**

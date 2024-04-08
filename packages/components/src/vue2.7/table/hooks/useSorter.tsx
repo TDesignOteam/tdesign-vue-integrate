@@ -16,7 +16,7 @@ import type {
   TdPrimaryTableProps,
 } from '../type';
 import SorterButton from '../sorter-button';
-import useDefaultValue from '../../hooks/useDefaultValue';
+import { useDefaultValue } from '@td/adapter-hooks';
 
 export type SortMap = Record<string, SortInfo & { index: number }>;
 

@@ -1,18 +1,20 @@
 /** 超出省略显示 */
-import { defineComponent, PropType, ref, computed } from '@td/adapter-vue';
-import debounce from 'lodash/debounce';
-import { AttachNode, TNode } from '@td/shared/interface';
-import { renderContent } from '../utils/render-tnode';
-import { isNodeOverflow } from '../utils/dom';
-import TTooltip, { TooltipProps } from '../tooltip';
+import type { PropType } from '@td/adapter-vue';
+import { computed, defineComponent, ref } from '@td/adapter-vue';
+import { debounce } from 'lodash-es';
+import type { AttachNode, TNode } from '@td/shared/interface';
+import { renderContent } from '@td/adapter-hooks';
+import { isNodeOverflow } from '@td/adapter-utils';
+import { Tooltip as TTooltip } from '@td/component';
+import type { TdTooltipProps } from '@td/intel/components/tooltip/type';
 
 export interface EllipsisProps {
   content: string | TNode;
   default: string | TNode;
   tooltipContent: string | number | TNode;
-  placement: TooltipProps['placement'];
+  placement: TdTooltipProps['placement'];
   attach?: AttachNode;
-  tooltipProps: TooltipProps;
+  tooltipProps: TdTooltipProps;
   zIndex: number;
 }
 
@@ -55,19 +57,23 @@ export default defineComponent({
       `${props.classPrefix}-text-ellipsis`,
     ]);
 
-    const innerEllipsisClassName = computed<TooltipProps['overlayClassName']>(() => [
+    const innerEllipsisClassName = computed<TdTooltipProps['overlayClassName']>(() => [
       `${props.classPrefix}-table__ellipsis-content`,
       props.overlayClassName,
     ]);
 
     // 当表格数据量大时，不希望默认渲染全量的 Tooltip，期望在用户 mouseenter 的时候再显示
     const onTriggerMouseenter = () => {
-      if (!root.value) return;
+      if (!root.value) {
+        return;
+      }
       isOverflow.value = isNodeOverflow(root.value);
     };
 
     const onTriggerMouseleave = () => {
-      if (!root.value) return;
+      if (!root.value) {
+        return;
+      }
       isOverflow.value = isNodeOverflow(root.value);
     };
 

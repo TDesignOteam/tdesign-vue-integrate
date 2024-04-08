@@ -1,6 +1,6 @@
 import { isBoolean } from 'lodash-es';
 import { usePrefixClass, TypeCreateElement, computed, TCheckBox, TypeVNode } from '../adapt';
-import { TypeTreeItemState } from '../tree-types';
+import { TypeTreeItemState } from '@td/intel/components/tree/tree-types';
 import { getTNode } from '../util';
 import useItemEvents from './useItemEvents';
 

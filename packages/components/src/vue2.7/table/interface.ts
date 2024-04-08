@@ -1,13 +1,13 @@
-import { CreateElement } from '@td/adapter-vue';
-import {
-  TdBaseTableProps,
+import type { CreateElement } from '@td/adapter-vue';
+import type {
+  BaseTableCol,
+  RowspanColspan,
   TableExpandedRowParams,
   TableRowData,
-  TdPrimaryTableProps,
+  TdBaseTableProps,
   TdEnhancedTableProps,
-  RowspanColspan,
-  BaseTableCol,
-} from '@td/intel/components/calendar/type';
+  TdPrimaryTableProps,
+} from '@td/intel/components/table/type';
 
 export interface BaseTableProps extends TdBaseTableProps {
   /**

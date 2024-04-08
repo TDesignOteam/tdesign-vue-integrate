@@ -8,13 +8,13 @@ import {
 import { get } from 'lodash-es';
 import intersection from 'lodash/intersection';
 import type { KeysType, TableTreeDataMap, TreeDataMapType } from '@td/shared/_common/js/table/tree-store';
+import { useDefaultValue } from '@td/adapter-hooks';
 import type {
   PrimaryTableCol,
   TableRowData,
   TdEnhancedTableProps,
   TdPrimaryTableProps,
 } from '../type';
-import useDefaultValue from '../../hooks/useDefaultValue';
 
 export interface GetChildrenDataReturnValue {
   allChildren: Array<any>;

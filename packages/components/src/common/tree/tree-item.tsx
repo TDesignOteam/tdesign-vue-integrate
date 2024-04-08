@@ -1,13 +1,15 @@
-import {
-  TypePropType,
-  defineComponent,
+import type { TypeTreeItemProps } from '@td/intel/components/tree/tree-types';
+import type {
   TypeCreateElement,
-  ref,
-  TreeItemDefinition,
-  useRipple,
-  getCreateElement,
+  TypePropType,
 } from './adapt';
-import { TypeTreeItemProps } from './tree-types';
+import {
+  TreeItemDefinition,
+  defineComponent,
+  getCreateElement,
+  ref,
+  useRipple,
+} from './adapt';
 import useItemState from './hooks/useItemState';
 import useTreeItem from './hooks/useTreeItem';
 

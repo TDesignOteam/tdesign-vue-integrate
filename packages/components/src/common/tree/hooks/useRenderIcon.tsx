@@ -1,5 +1,5 @@
 import { usePrefixClass, useGlobalIcon, TypeCreateElement, TLoading, TdCaretRightSmallIcon } from '../adapt';
-import { TypeTreeItemState } from '../tree-types';
+import { TypeTreeItemState } from '@td/intel/components/tree/tree-types';
 import { getTNode } from '../util';
 
 // 渲染节点图标

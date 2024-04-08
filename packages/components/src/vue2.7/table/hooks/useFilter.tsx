@@ -5,8 +5,9 @@ import type {
 import { computed, ref, toRefs, watch,
 } from '@td/adapter-vue';
 import { isFunction } from 'lodash-es';
-import { useConfig, useTNodeDefault } from '@td/adapter-hooks';
-import TButton from '../../button';
+import { useConfig, useDefaultValue, useTNodeDefault } from '@td/adapter-hooks';
+import { Button as TButton } from '@td/component';
+import { getColumnsResetValue } from '@td/shared/_common/js/table/utils';
 import type {
   FilterValue,
   PrimaryTableCol,
@@ -14,9 +15,7 @@ import type {
   TableRowData,
   TdPrimaryTableProps,
 } from '../type';
-import useDefaultValue from '../../hooks/useDefaultValue';
 import TableFilterController from '../filter-controller';
-import { getColumnsResetValue } from '@td/shared/_common/js/table/utils';
 import useClassName from './useClassName';
 import { renderTitle } from './useTableHeader';
 

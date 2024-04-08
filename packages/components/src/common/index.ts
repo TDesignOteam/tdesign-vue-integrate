@@ -41,3 +41,8 @@ export * from './tabs';
 export * from './config-provider';
 export * from './auto-complete';
 export * from './date-picker';
+export * from './select';
+export * from './tooltip';
+export * from './pagination';
+// export * from './tree';
+// export * from './tree-select';

@@ -1,4 +1,4 @@
-import { TreeProps, TypeTreeState, TypeEventState } from '../tree-types';
+import { TreeProps, TypeTreeState, TypeEventState } from '@td/intel/components/tree/tree-types';
 import { getMark, emitEvent } from '../util';
 import useTreeAction from './useTreeAction';
 

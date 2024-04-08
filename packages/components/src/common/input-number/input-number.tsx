@@ -6,7 +6,7 @@ import {
   ChevronDownIcon as TdChevronDownIcon,
   ChevronUpIcon as TdChevronUpIcon,
 } from 'tdesign-icons-vue-next';
-import TButton from '../button';
+import { Button as TButton } from '@td/component';
 import TInput from '../input';
 import props from '@td/intel/components/input-number/props';
 import type { TdInputNumberProps } from '@td/intel/components/input-number/type';

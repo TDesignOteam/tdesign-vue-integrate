@@ -1,11 +1,11 @@
+import { withInstall } from '@td/adapter-utils';
 import _BaseTable from './base-table';
 import _PrimaryTable from './primary-table';
 import _EnhancedTable from './enhanced-table';
-import { withInstall } from '@td/adapter-utils';
 
 import './style';
 
-export * from '@td/intel/components/calendar/type';
+export * from '@td/intel/components/table/type';
 export * from './interface';
 
 export const BaseTable = withInstall(_BaseTable);

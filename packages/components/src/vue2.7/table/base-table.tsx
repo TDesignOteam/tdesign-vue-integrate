@@ -8,18 +8,15 @@ import {
   toRefs,
   watch,
 } from '@td/adapter-vue';
-import pick from 'lodash/pick';
-import { get, isFunction } from 'lodash-es';
+import { get, isFunction, pick } from 'lodash-es';
 import log from '@td/shared/_common/js/log';
 import { getIEVersion } from '@td/shared/_common/js/utils/helper';
 import type { ComponentScrollToElementParams, Styles } from '@td/shared/interface';
-import type { BaseTableCol, TableRowData } from '@td/intel/components/calendar/type';
-import useVirtualScroll from '../hooks/useVirtualScrollNew';
-import type { LoadingProps } from '../loading';
-import Loading from '../loading';
-import { renderTNodeJSX, useElementLazyRender } from '../hooks';
-import { useConfig } from '../config-provider/useConfig';
-import props from './base-table-props';
+import type { BaseTableCol, TableRowData } from '@td/intel/components/table/type';
+import props from '@td/intel/components/table/base-table-props';
+import { renderTNodeJSX, useConfig, useElementLazyRender, useVirtualScroll } from '@td/adapter-hooks';
+import { Affix, Loading } from '@td/component';
+import type { TdLoadingProps as LoadingProps } from '@td/intel/components/loading/type';
 import useTableHeader from './hooks/useTableHeader';
 import useColumnResize from './hooks/useColumnResize';
 import useFixed from './hooks/useFixed';
@@ -29,7 +26,6 @@ import TBody, { extendTableProps } from './tbody';
 import type { BaseTableProps } from './interface';
 import useStyle, { formatCSSUnit } from './hooks/useStyle';
 import useClassName from './hooks/useClassName';
-import { Affix } from '../affix';
 import { ROW_LISTENERS } from './tr';
 import THead from './thead';
 import TFoot from './tfoot';

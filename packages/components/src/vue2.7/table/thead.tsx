@@ -1,15 +1,18 @@
+import type { CreateElement, PropType, SetupContext } from '@td/adapter-vue';
 import {
-  defineComponent, computed, SetupContext, PropType, ref, CreateElement,
+  computed,
+  defineComponent,
+  ref,
 } from '@td/adapter-vue';
 import { isFunction } from 'lodash-es';
+import type { BaseTableCol, TableRowData, TdBaseTableProps } from '@td/intel/components/table/type';
+import type { AttachNode } from '@td/shared/interface';
 import { getColumnFixedStyles } from './hooks/useFixed';
-import { RowAndColFixedPosition, BaseTableColumns, ThRowspanAndColspan } from './interface';
+import type { BaseTableColumns, RowAndColFixedPosition, ThRowspanAndColspan } from './interface';
 import useClassName from './hooks/useClassName';
-import { BaseTableCol, TableRowData, TdBaseTableProps } from '@td/intel/components/calendar/type';
 import { renderTitle } from './hooks/useTableHeader';
 import TEllipsis from './ellipsis';
 import { formatClassNames } from './utils';
-import { AttachNode } from '@td/shared/interface';
 
 export interface TheadProps {
   classPrefix?: string;
@@ -34,7 +37,7 @@ export interface TheadProps {
     onColumnMouseover: (e: MouseEvent, col: BaseTableCol<TableRowData>) => void;
     onColumnMousedown: (e: MouseEvent, col: BaseTableCol<TableRowData>, index: number) => void;
   };
-  resizable?: Boolean;
+  resizable?: boolean;
   attach?: AttachNode;
   showColumnShadow?: { left: boolean; right: boolean };
 }
@@ -112,7 +115,6 @@ export default defineComponent({
   },
 
   render(h) {
-    // eslint-disable-next-line
     const renderThNodeList = (
       h: CreateElement,
       rowAndColFixedPosition: RowAndColFixedPosition,
@@ -124,7 +126,9 @@ export default defineComponent({
       return this.thList.map((row, rowIndex) => {
         const thRow = row.map((col: BaseTableColumns[0], index: number) => {
           // 因合并单行表头，跳过
-          if (this.colspanSkipMap[col.colKey]) return null;
+          if (this.colspanSkipMap[col.colKey]) {
+            return null;
+          }
           const rowspanAndColspan = thRowspanAndColspan.get(col);
           if (index === 0 && rowspanAndColspan.rowspan > 1) {
             for (let j = rowIndex + 1; j < rowIndex + rowspanAndColspan.rowspan; j++) {
@@ -160,23 +164,23 @@ export default defineComponent({
           const innerTh = renderTitle(h, this.slots, col, index);
           const resizeColumnListener = this.resizable || !canDragSort
             ? {
-              mousedown: (e: MouseEvent) => {
-                e.stopPropagation();
-                if (this.resizable) {
-                  this.columnResizeParams?.onColumnMousedown?.(e, col, index);
-                }
-                if (!canDragSort) {
-                  const timer = setTimeout(() => {
-                    const thList = this.theadRef.querySelectorAll('th');
-                    thList[index]?.removeAttribute('draggable');
-                    clearTimeout(timer);
-                  }, 10);
-                }
-              },
-              mousemove: (e: MouseEvent) => {
-                this.resizable && this.columnResizeParams?.onColumnMouseover?.(e, col);
-              },
-            }
+                mousedown: (e: MouseEvent) => {
+                  e.stopPropagation();
+                  if (this.resizable) {
+                    this.columnResizeParams?.onColumnMousedown?.(e, col, index);
+                  }
+                  if (!canDragSort) {
+                    const timer = setTimeout(() => {
+                      const thList = this.theadRef.querySelectorAll('th');
+                      thList[index]?.removeAttribute('draggable');
+                      clearTimeout(timer);
+                    }, 10);
+                  }
+                },
+                mousemove: (e: MouseEvent) => {
+                  this.resizable && this.columnResizeParams?.onColumnMouseover?.(e, col);
+                },
+              }
             : {};
           const content = isFunction(col.ellipsisTitle) ? col.ellipsisTitle(h, { col, colIndex: index }) : undefined;
           const isEllipsis = col.ellipsisTitle !== undefined ? Boolean(col.ellipsisTitle) : Boolean(col.ellipsis);
@@ -190,26 +194,28 @@ export default defineComponent({
               data-colkey={col.colKey}
               class={thClasses}
               style={styles}
-              // @ts-ignore
+              // @ts-expect-error
               attrs={{ ...attrs, ...rowspanAndColspan }}
-              // @ts-ignore
+              // @ts-expect-error
               on={resizeColumnListener}
             >
               <div class={this.tableBaseClass.thCellInner}>
-                {isEllipsis ? (
-                  <TEllipsis
-                    placement="bottom"
-                    attach={this.attach || (this.theadRef ? () => this.getTableNode(this.theadRef) : undefined)}
-                    tooltipContent={content && (() => content)}
-                    tooltipProps={typeof col.ellipsisTitle === 'object' ? col.ellipsisTitle : undefined}
-                    overlayClassName={this.ellipsisOverlayClassName}
-                    classPrefix={this.classPrefix}
-                  >
-                    {innerTh}
-                  </TEllipsis>
-                ) : (
-                  innerTh
-                )}
+                {isEllipsis
+                  ? (
+                    <TEllipsis
+                      placement="bottom"
+                      attach={this.attach || (this.theadRef ? () => this.getTableNode(this.theadRef) : undefined)}
+                      tooltipContent={content && (() => content)}
+                      tooltipProps={typeof col.ellipsisTitle === 'object' ? col.ellipsisTitle : undefined}
+                      overlayClassName={this.ellipsisOverlayClassName}
+                      classPrefix={this.classPrefix}
+                    >
+                      {innerTh}
+                    </TEllipsis>
+                    )
+                  : (
+                      innerTh
+                    )}
               </div>
             </th>
           );

@@ -1,10 +1,13 @@
 import {
-  computed, ref, watch, onBeforeUnmount,
+  computed,
+  onBeforeUnmount,
+  ref,
+  watch,
 } from '@td/adapter-vue';
-import debounce from 'lodash/debounce';
-import { TdBaseTableProps } from '../type';
-import { on, off } from '../../utils/dom';
-import { AffixProps } from '../../affix';
+import { debounce } from 'lodash-es';
+import type { TdBaseTableProps } from '../type';
+import { off, on } from '../../utils/dom';
+import type { AffixProps } from '../../affix';
 
 /**
  * 1. 表头吸顶（普通表头吸顶 和 虚拟滚动表头吸顶）
@@ -42,16 +45,22 @@ export default function useAffix(props: TdBaseTableProps) {
 
   let lastScrollLeft = 0;
   const onHorizontalScroll = (scrollElement?: HTMLElement) => {
-    if (!isAffixed.value && !isVirtualScroll.value) return;
+    if (!isAffixed.value && !isVirtualScroll.value) {
+      return;
+    }
     let target = scrollElement;
     if (!target && tableContentRef.value) {
       lastScrollLeft = 0;
       target = tableContentRef.value;
     }
-    if (!target) return;
+    if (!target) {
+      return;
+    }
     const left = target.scrollLeft;
     // 如果 lastScrollLeft 等于 left，说明不是横向滚动，不需要更新横向滚动距离
-    if (lastScrollLeft === left) return;
+    if (lastScrollLeft === left) {
+      return;
+    }
     lastScrollLeft = left;
     // 表格内容、吸顶表头、吸底表尾、吸底横向滚动更新
     const toUpdateScrollElement = [
@@ -76,14 +85,20 @@ export default function useAffix(props: TdBaseTableProps) {
     && isAffixedBottomElementShow(elementRect, tableRect, headerHeight);
 
   const getOffsetTop = (props: boolean | AffixProps) => {
-    if (typeof props === 'boolean') return 0;
+    if (typeof props === 'boolean') {
+      return 0;
+    }
     return props.offsetTop || 0;
   };
 
   const updateAffixHeaderOrFooter = () => {
-    if (!isAffixed.value && !isVirtualScroll.value) return;
+    if (!isAffixed.value && !isVirtualScroll.value) {
+      return;
+    }
     const pos = tableContentRef.value?.getBoundingClientRect();
-    if (!pos) return;
+    if (!pos) {
+      return;
+    }
     const headerRect = tableContentRef.value?.querySelector('thead')?.getBoundingClientRect();
     const headerHeight = headerRect?.height || 0;
     const footerRect = affixFooterRef.value?.getBoundingClientRect();
@@ -144,7 +159,9 @@ export default function useAffix(props: TdBaseTableProps) {
   };
 
   const onHeaderMouseLeave = () => {
-    if (!isMousedown) off(affixHeaderRef.value, 'scroll', onHeaderScroll);
+    if (!isMousedown) {
+      off(affixHeaderRef.value, 'scroll', onHeaderScroll);
+    }
     onMouseLeaveScrollableArea();
   };
 
@@ -162,7 +179,9 @@ export default function useAffix(props: TdBaseTableProps) {
   };
 
   const onTableContentMouseLeave = () => {
-    if (!isMousedown) off(tableContentRef.value, 'scroll', onTableContentScroll);
+    if (!isMousedown) {
+      off(tableContentRef.value, 'scroll', onTableContentScroll);
+    }
     onMouseLeaveScrollableArea();
   };
 
@@ -229,7 +248,7 @@ export default function useAffix(props: TdBaseTableProps) {
     function onElementTouchStart(e: UIEvent) {
       if (e.composedPath().includes(element)) {
         // 下一次 touch 清理所有的 scroll，不同于 pc 端的 enter，触碰打断是合理的
-        activatingTouchScrollListenerCleanups.forEach((cleanup) => cleanup());
+        activatingTouchScrollListenerCleanups.forEach(cleanup => cleanup());
         activatingTouchScrollListenerCleanups.length = 0;
         // 即使是相同元素也重新绑定，因为 touch 必定带来滑动停止
         on(element, 'scroll', onElementTouchScroll);
@@ -255,7 +274,7 @@ export default function useAffix(props: TdBaseTableProps) {
   // 清理所有 touch 相关的逻辑
   const elementTouchScrollCleanups: Array<() => void> = [];
   const cleanupElementTouchScroll = () => {
-    elementTouchScrollCleanups.forEach((cleanup) => cleanup());
+    elementTouchScrollCleanups.forEach(cleanup => cleanup());
     elementTouchScrollCleanups.length = 0;
   };
 
@@ -292,7 +311,9 @@ export default function useAffix(props: TdBaseTableProps) {
   };
 
   const addVerticalScrollListener = () => {
-    if (!isAffixed.value && !props.paginationAffixedBottom) return;
+    if (!isAffixed.value && !props.paginationAffixedBottom) {
+      return;
+    }
     const timer = setTimeout(() => {
       if (isAffixed.value || props.paginationAffixedBottom) {
         on(document, 'scroll', onDocumentScroll);

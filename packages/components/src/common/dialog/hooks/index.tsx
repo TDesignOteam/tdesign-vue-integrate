@@ -4,7 +4,7 @@ import { isObject } from 'lodash-es';
 import { getCurrentInstance } from '@td/adapter-vue';
 import { useTNodeJSX } from '@td/adapter-hooks';
 
-import TButton from '../../button';
+import { Button as TButton } from '@td/component';
 import type { ButtonProps } from '../../button';
 // vue23:* 
 // import type { PopconfirmConfig, DialogConfig, DrawerConfig } from '../config-provider';

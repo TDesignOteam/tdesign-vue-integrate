@@ -5,12 +5,11 @@ import {
   toRefs,
   watch,
 } from '@td/adapter-vue';
-import { cloneDeep, get, isFunction } from 'lodash-es';
-import set from 'lodash/set';
+import { cloneDeep, get, isFunction, set } from 'lodash-es';
 import { getEditableKeysMap } from '@td/shared/_common/js/table/utils';
 import type { PrimaryTableProps } from '../interface';
 import type { AllValidateResult } from '../../form/type';
-import { validate } from '../../form/form-model';
+import { validate } from '../../../common/form/form-model';
 import type {
   PrimaryTableCellParams,
   PrimaryTableRowEditContext,

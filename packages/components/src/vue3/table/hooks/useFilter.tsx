@@ -1,12 +1,11 @@
 import type { SetupContext } from '@td/adapter-vue';
 import { computed, h, ref, toRefs, watch } from '@td/adapter-vue';
-import { useConfig, useTNodeDefault } from '@td/adapter-hooks';
+import { useConfig, useDefaultValue, useTNodeDefault } from '@td/adapter-hooks';
 import { isFunction } from 'lodash-es';
-import TButton from '../../button';
-import type { FilterValue, PrimaryTableCol, TableFilterChangeContext, TableRowData, TdPrimaryTableProps } from '../type';
-import useDefaultValue from '../../hooks/useDefaultValue';
-import TableFilterController from '../filter-controller';
+import type { FilterValue, PrimaryTableCol, TableFilterChangeContext, TableRowData, TdPrimaryTableProps } from '@td/intel/components/table/type';
 import { getColumnsResetValue } from '@td/shared/_common/js/table/utils';
+import { Button as TButton } from '@td/component';
+import TableFilterController from '../filter-controller';
 import useClassName from './useClassName';
 import { renderTitle } from './useTableHeader';
 
