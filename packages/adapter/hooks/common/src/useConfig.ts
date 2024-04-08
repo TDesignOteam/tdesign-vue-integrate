@@ -12,12 +12,6 @@ export interface ConfigProviderProps {
   globalConfig: GlobalConfigProvider;
 }
 
-export enum EAnimationType {
-  ripple = 'ripple',
-  expand = 'expand',
-  fade = 'fade',
-}
-
 // 这是为了解决在非component里调用useConfig hook时发出的警告
 // https://github.com/Tencent/tdesign-vue-next/issues/2025
 const globalConfigCopy = ref<GlobalConfigProvider>();
