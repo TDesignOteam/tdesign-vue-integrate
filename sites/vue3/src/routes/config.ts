@@ -320,14 +320,14 @@ export const docs = [
         component: () => import('@td/intel/components/radio/radio.md'),
         componentEn: () => import('@td/intel/components/radio/radio.en-US.md'),
       },
-      //     {
-      //       title: 'RangeInput 范围输入框',
-      //       titleEn: 'RangeInput',
-      //       name: 'range-input',
-      //       path: '/vue-next/components/range-input',
-      //       component: () => import('@td/intel/components/range-input/range-input.md'),
-      //       componentEn: () => import('@td/intel/components/range-input/range-input.en-US.md'),
-      //     },
+      {
+        title: 'RangeInput 范围输入框',
+        titleEn: 'RangeInput',
+        name: 'range-input',
+        path: '/vue-next/components/range-input',
+        component: () => import('@td/intel/components/range-input/range-input.md'),
+        componentEn: () => import('@td/intel/components/range-input/range-input.en-US.md'),
+      },
       //     {
       //       title: 'Select 选择器',
       //       titleEn: 'Select',
