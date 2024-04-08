@@ -1,12 +1,12 @@
 import type { InjectionKey } from '@td/adapter-vue';
-import { ref, computed, watch, nextTick, toRefs, inject } from '@td/adapter-vue';
+import { computed, inject, nextTick, ref, toRefs, watch } from '@td/adapter-vue';
 
 import type { InputValue, TdInputProps } from '@td/intel/components/input/type';
 
 // import { FormItemInjectionKey } from '../form/const';
-import { useVModel, useEmitEvent } from '@td/adapter-hooks';
+import { useEmitEvent, useVModel } from '@td/adapter-hooks';
 // vue23:!
-// import { useDisabled } from '@td/adapter-hooks';
+import { useDisabled } from '@td/adapter-hooks';
 import useLengthLimit from './useLengthLimit';
 
 // vue23:! 这个也一样好吧
@@ -34,11 +34,10 @@ export default function useInput(props: ExtendsTdInputProps, expose: (exposed: R
   const clearIconRef = ref(null);
   const innerClickElement = ref();
   // vue23:!
-  //   // vue23:! 
+  //   // vue23:!
   const disabled = useDisabled();
-  const disabled = ref(false);
   const [innerValue, setInnerValue] = useVModel(value, modelValue, props.defaultValue, props.onChange);
-  const emitEvent = useEmitEvent()
+  const emitEvent = useEmitEvent();
 
   const isHover = ref(false);
   const focused = ref(false);
@@ -57,8 +56,8 @@ export default function useInput(props: ExtendsTdInputProps, expose: (exposed: R
 
   const showClear = computed(() => {
     return (
-      ((innerValue.value && !disabled.value && props.clearable && !props.readonly) || props.showClearIconOnEmpty) &&
-      isHover.value
+      ((innerValue.value && !disabled.value && props.clearable && !props.readonly) || props.showClearIconOnEmpty)
+      && isHover.value
     );
   });
 
@@ -73,18 +72,22 @@ export default function useInput(props: ExtendsTdInputProps, expose: (exposed: R
   };
 
   const emitFocus = (e: FocusEvent) => {
-    if (isHover.value && focused.value) return;
+    if (isHover.value && focused.value) {
+      return;
+    }
     inputValue.value = innerValue.value;
-    if (props.disabled) return;
+    if (props.disabled) {
+      return;
+    }
     focused.value = true;
-    emitEvent('focus', innerValue.value, { e })
+    emitEvent('focus', innerValue.value, { e });
   };
 
   const emitClear = ({ e }: { e: MouseEvent }) => {
     const val = props.type === 'number' ? undefined : '';
     setInnerValue(val, { e, trigger: 'clear' });
     // vue23:*
-    emitEvent('clear', { e })
+    emitEvent('clear', { e });
   };
 
   const onClearIconMousedown = (e: MouseEvent) => {
@@ -98,7 +101,9 @@ export default function useInput(props: ExtendsTdInputProps, expose: (exposed: R
 
   const setInputElValue = (v: InputValue = '') => {
     const inputEl = inputRef.value as HTMLInputElement;
-    if (!inputEl) return;
+    if (!inputEl) {
+      return;
+    }
     const sV = String(v);
     if (!inputEl.value) {
       return;
@@ -135,7 +140,9 @@ export default function useInput(props: ExtendsTdInputProps, expose: (exposed: R
 
   const isClearIcon = () => {
     let tmp = innerClickElement.value;
-    if (!tmp || !tmp.tagName || !clearIconRef.value?.$el || !['path', 'svg'].includes(tmp.tagName)) return false;
+    if (!tmp || !tmp.tagName || !clearIconRef.value?.$el || !['path', 'svg'].includes(tmp.tagName)) {
+      return false;
+    }
     while (tmp) {
       if (clearIconRef.value?.$el === tmp) {
         return true;
@@ -147,11 +154,13 @@ export default function useInput(props: ExtendsTdInputProps, expose: (exposed: R
 
   const formItem = inject(FormItemInjectionKey, undefined);
   const formatAndEmitBlur = (e: FocusEvent) => {
-    if (isHover.value) return;
+    if (isHover.value) {
+      return;
+    }
     if (!isClearIcon()) {
       if (props.format) {
-        inputValue.value =
-          typeof innerValue.value === 'number' || props.type === 'number'
+        inputValue.value
+          = typeof innerValue.value === 'number' || props.type === 'number'
             ? innerValue.value
             : props.format(innerValue.value);
       }

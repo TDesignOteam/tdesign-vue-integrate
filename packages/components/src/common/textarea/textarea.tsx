@@ -23,7 +23,7 @@ import setStyle from '@td/shared/_common/js/utils/set-style';
 // hooks
 import { useCommonClassName, useEmitEvent, usePrefixClass, useTNodeJSX, useVModel } from '@td/adapter-hooks';
 // ! 1. 为啥要到 form 取，2. 是不是考虑全局
-// import { useDisabled } from '@td/adapter-hooks';
+import { useDisabled } from '@td/adapter-hooks';
 
 import props from '@td/intel/components/textarea/props';
 import type { TdTextareaProps, TextareaValue } from '@td/intel/components/textarea/type';
@@ -59,8 +59,6 @@ export default defineComponent({
     const [innerValue, setInnerValue] = useVModel(value, modelValue, props.defaultValue, props.onChange);
     //   // vue23:!
     const disabled = useDisabled();
-    // ! wwwww
-    const disabled = ref(false);
     const textareaStyle = ref<CSSProperties>({});
 
     const refTextareaElem = ref<HTMLTextAreaElement>();

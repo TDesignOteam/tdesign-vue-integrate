@@ -1,13 +1,13 @@
-import { defineComponent, ref, watch, Transition, computed, onBeforeMount } from '@td/adapter-vue';
-import {isFunction,isObject,debounce,isString} from 'lodash-es';
+import { Transition, computed, defineComponent, onBeforeMount, ref, watch } from '@td/adapter-vue';
+import { debounce, isFunction, isObject, isString } from 'lodash-es';
 
-import { useCommonClassName, usePrefixClass,useTNodeJSX } from '@td/adapter-hooks';
+import { useCommonClassName, usePrefixClass, useTNodeJSX } from '@td/adapter-hooks';
 import { off, on, once } from '@td/adapter-utils';
-import { getTriggerType } from './utils';
 
 import props from '@td/intel/components/popup/props';
 
-import type { PopupTriggerEvent } from "@td/intel/components/popup/type";
+import type { PopupTriggerEvent } from '@td/intel/components/popup/type';
+import { getTriggerType } from './utils';
 
 export default defineComponent({
   props: {
@@ -19,8 +19,8 @@ export default defineComponent({
     const renderTNodeJSX = useTNodeJSX();
 
     const { STATUS: commonCls } = useCommonClassName();
-    const overlayEl = ref<HTMLElement|null>(null);
-    const popperEl = ref<HTMLElement|null>(null);
+    const overlayEl = ref<HTMLElement | null>(null);
+    const popperEl = ref<HTMLElement | null>(null);
     const overlayVisible = ref(false);
 
     let showTimeout: NodeJS.Timeout;
@@ -56,7 +56,9 @@ export default defineComponent({
     const getOverlayStyle = () => {
       const { overlayStyle } = props;
 
-      if (!props.triggerElement || !overlayEl.value) return;
+      if (!props.triggerElement || !overlayEl.value) {
+        return;
+      }
       if (isFunction(overlayStyle)) {
         return overlayStyle(props.triggerElement as HTMLElement, overlayEl.value);
       }
@@ -67,7 +69,9 @@ export default defineComponent({
     const onDocumentMouseDown = (ev: MouseEvent) => {
       const isClickContent = popperEl.value?.contains(ev.target as Node);
       const isClickTriggerElement = (props.triggerElement as HTMLElement)?.contains(ev.target as Node);
-      if (isClickContent || isClickTriggerElement) return;
+      if (isClickContent || isClickTriggerElement) {
+        return;
+      }
 
       hide(ev);
     };
@@ -96,7 +100,7 @@ export default defineComponent({
     const handleOnScroll = (e: WheelEvent) => {
       const { scrollTop, clientHeight, scrollHeight } = e.target as HTMLDivElement;
 
-      const debounceOnScrollBottom = debounce((e) => props.onScrollToBottom?.({ e }), 100);
+      const debounceOnScrollBottom = debounce(e => props.onScrollToBottom?.({ e }), 100);
 
       if (clientHeight + Math.floor(scrollTop) === scrollHeight) {
         debounceOnScrollBottom(e);
@@ -132,16 +136,17 @@ export default defineComponent({
     const content = this.renderTNodeJSX('content');
     const hidePopup = this.hideEmptyPopup && ['', undefined, null].includes(content);
 
-    return this.overlayVisible ? (
-      <Transition name={`${this.prefixCls}--animation${this.expandAnimation ? '-expand' : ''}`} appear>
-        <div
-          class={[this.prefixCls, this.overlayClassName]}
-          ref="popperEl"
-          style={[{ zIndex: this.zIndex }, this.getOverlayStyle(), hidePopup && { visibility: 'hidden' }]}
-          onClick={this.onOverlayClick}
-        >
+    return this.overlayVisible
+      ? (
+        <Transition name={`${this.prefixCls}--animation${this.expandAnimation ? '-expand' : ''}`} appear>
           <div
-            class={[
+            class={[this.prefixCls, this.overlayClassName]}
+            ref="popperEl"
+            style={[{ zIndex: this.zIndex }, this.getOverlayStyle(), hidePopup && { visibility: 'hidden' }]}
+            onClick={this.onOverlayClick}
+          >
+            <div
+              class={[
               `${this.prefixCls}__content`,
               {
                 [`${this.prefixCls}__content--text`]: isString(this.content),
@@ -149,15 +154,16 @@ export default defineComponent({
                 [this.commonCls.disabled]: this.disabled,
               },
               this.overlayInnerClassName,
-            ]}
-            ref="overlayEl"
-            onScroll={this.handleOnScroll}
-          >
-            {content}
-            {this.showArrow && <div class={`${this.prefixCls}__arrow`} />}
+              ]}
+              ref="overlayEl"
+              onScroll={this.handleOnScroll}
+            >
+              {content}
+              {this.showArrow && <div class={`${this.prefixCls}__arrow`} />}
+            </div>
           </div>
-        </div>
-      </Transition>
-    ) : null;
+        </Transition>
+        )
+      : null;
   },
 });

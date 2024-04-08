@@ -1,6 +1,7 @@
-import { createPopper } from "@popperjs/core";
-import { isFunction, isObject, debounce, isString } from "lodash-es";
+import { createPopper } from '@popperjs/core';
+import { debounce, isFunction, isObject, isString } from 'lodash-es';
 import {
+  Transition,
   computed,
   defineComponent,
   inject,
@@ -9,31 +10,30 @@ import {
   provide,
   ref,
   toRefs,
-  Transition,
   watch,
-} from "@td/adapter-vue";
+} from '@td/adapter-vue';
 import {
-  useContent,
-  useTNodeJSX,
   useCommonClassName,
+  useContent,
   usePrefixClass,
+  useTNodeJSX,
   useVModel,
-} from "@td/adapter-hooks";
-import { off, on, once, setStyle } from "@td/adapter-utils";
-import Container from "./container";
+} from '@td/adapter-hooks';
+import { off, on, once, setStyle } from '@td/adapter-utils';
 
-import props from "@td/intel/components/popup/props";
+import props from '@td/intel/components/popup/props';
+
+import type { PopupTriggerEvent } from '@td/intel/components/popup/type';
+import type { InjectionKey } from '@td/adapter-vue';
 import {
-  getPopperTree,
-  getPopperPlacement,
-  attachListeners,
   POPUP_ATTR_NAME,
   POPUP_PARENT_ATTR_NAME,
+  attachListeners,
+  getPopperPlacement,
+  getPopperTree,
   getTriggerType,
-} from "./utils";
-
-import type { PopupTriggerEvent } from "@td/intel/components/popup/type";
-import type { InjectionKey } from "@td/adapter-vue";
+} from './utils';
+import Container from './container';
 
 const parentKey = Symbol() as InjectionKey<{
   id: string;
@@ -41,7 +41,7 @@ const parentKey = Symbol() as InjectionKey<{
 }>;
 
 export default defineComponent({
-  name: "TPopup",
+  name: 'TPopup',
 
   props: {
     ...props,
@@ -56,7 +56,7 @@ export default defineComponent({
       modelValue,
       props.defaultVisible,
       props.onVisibleChange,
-      "visible"
+      'visible',
     );
     const renderTNodeJSX = useTNodeJSX();
     const renderContent = useContent();
@@ -73,9 +73,9 @@ export default defineComponent({
     const containerRef = ref<typeof Container | null>(null);
     const isOverlayHover = ref(false);
 
-    const id =
-      typeof process !== "undefined" && process.env?.TEST
-        ? ""
+    const id
+      = typeof process !== 'undefined' && process.env?.TEST
+        ? ''
         : Date.now().toString(36);
     const parent = inject(parentKey, undefined);
 
@@ -84,11 +84,11 @@ export default defineComponent({
       assertMouseLeave: onMouseLeave,
     });
 
-    const prefixCls = usePrefixClass("popup");
+    const prefixCls = usePrefixClass('popup');
     const { STATUS: commonCls } = useCommonClassName();
     const delay = computed(() => {
-      const delay =
-        props.trigger !== "hover"
+      const delay
+        = props.trigger !== 'hover'
           ? [0, 0]
           : [].concat(props.delay ?? [250, 150]);
       return {
@@ -102,47 +102,51 @@ export default defineComponent({
     watch(
       () => [props.trigger, triggerEl.value],
       () => {
-        if (!triggerEl.value) return;
+        if (!triggerEl.value) {
+          return;
+        }
         trigger.clean();
 
         trigger.add(
           (
             {
-              hover: "mouseenter",
-              focus: "focusin",
-              "context-menu": "contextmenu",
-              click: "click",
+              'hover': 'mouseenter',
+              'focus': 'focusin',
+              'context-menu': 'contextmenu',
+              'click': 'click',
             } as any
           )[props.trigger],
           (ev: MouseEvent) => {
-            if (props.disabled) return;
+            if (props.disabled) {
+              return;
+            }
 
-            if (ev.type === "contextmenu") {
+            if (ev.type === 'contextmenu') {
               ev.preventDefault();
             }
 
             if (
-              (ev.type === "click" || ev.type === "contextmenu") &&
-              visible.value
+              (ev.type === 'click' || ev.type === 'contextmenu')
+              && visible.value
             ) {
               hide(ev);
               return;
             }
 
             show(ev);
-          }
+          },
         );
 
         trigger.add(
           (
             {
-              hover: "mouseleave",
-              focus: "focusout",
+              hover: 'mouseleave',
+              focus: 'focusout',
             } as any
           )[props.trigger],
-          hide
+          hide,
         );
-      }
+      },
     );
 
     watch(
@@ -150,7 +154,7 @@ export default defineComponent({
       () => {
         updateOverlayInnerStyle();
         updatePopper();
-      }
+      },
     );
 
     watch(
@@ -158,20 +162,20 @@ export default defineComponent({
       () => {
         destroyPopper();
         updatePopper();
-      }
+      },
     );
 
     watch(
       () => visible.value,
       (visible) => {
         if (visible) {
-          on(document, "mousedown", onDocumentMouseDown, true);
-          if (props.trigger === "focus") {
-            once(triggerEl.value, "keydown", (ev: KeyboardEvent) => {
-              const code =
-                typeof process !== "undefined" && process.env?.TEST
-                  ? "27"
-                  : "Escape";
+          on(document, 'mousedown', onDocumentMouseDown, true);
+          if (props.trigger === 'focus') {
+            once(triggerEl.value, 'keydown', (ev: KeyboardEvent) => {
+              const code
+                = typeof process !== 'undefined' && process.env?.TEST
+                  ? '27'
+                  : 'Escape';
               if (ev.code === code) {
                 hide(ev);
               }
@@ -179,14 +183,14 @@ export default defineComponent({
           }
           return;
         }
-        off(document, "mousedown", onDocumentMouseDown, true);
-      }
+        off(document, 'mousedown', onDocumentMouseDown, true);
+      },
     );
 
     onUnmounted(() => {
       destroyPopper();
       clearAllTimeout();
-      off(document, "mousedown", onDocumentMouseDown, true);
+      off(document, 'mousedown', onDocumentMouseDown, true);
     });
 
     expose({
@@ -202,7 +206,9 @@ export default defineComponent({
     function getOverlayStyle() {
       const { overlayStyle } = props;
 
-      if (!triggerEl.value || !overlayEl.value) return;
+      if (!triggerEl.value || !overlayEl.value) {
+        return;
+      }
       if (isFunction(overlayStyle)) {
         return overlayStyle(triggerEl.value, overlayEl.value);
       }
@@ -214,11 +220,13 @@ export default defineComponent({
     function updateOverlayInnerStyle() {
       const { overlayInnerStyle } = props;
 
-      if (!triggerEl.value || !overlayEl.value) return;
+      if (!triggerEl.value || !overlayEl.value) {
+        return;
+      }
       if (isFunction(overlayInnerStyle)) {
         setStyle(
           overlayEl.value,
-          overlayInnerStyle(triggerEl.value, overlayEl.value)
+          overlayInnerStyle(triggerEl.value, overlayEl.value),
         );
       } else if (isObject(overlayInnerStyle)) {
         setStyle(overlayEl.value, overlayInnerStyle);
@@ -226,21 +234,23 @@ export default defineComponent({
     }
 
     function updatePopper() {
-      if (!popperEl.value || !visible.value) return;
+      if (!popperEl.value || !visible.value) {
+        return;
+      }
       if (popper) {
         const rect = triggerEl.value.getBoundingClientRect();
         let parent = triggerEl.value;
         while (parent && parent !== document.body) {
           parent = parent.parentElement;
         }
-        const isHidden =
-          parent !== document.body || (rect.width === 0 && rect.height === 0);
+        const isHidden
+          = parent !== document.body || (rect.width === 0 && rect.height === 0);
         if (!isHidden) {
           popper.state.elements.reference = triggerEl.value;
           popper.update();
         } else {
           setVisible(false, {
-            trigger: getTriggerType({ type: "mouseenter" } as MouseEvent),
+            trigger: getTriggerType({ type: 'mouseenter' } as MouseEvent),
           });
         }
         return;
@@ -296,15 +306,15 @@ export default defineComponent({
       }
 
       // ignore upwards
-      const activedPopper = getPopperTree(id).find((el) =>
-        el.contains(ev.target as Node)
+      const activedPopper = getPopperTree(id).find(el =>
+        el.contains(ev.target as Node),
       );
       if (
-        activedPopper &&
-        getPopperTree(
+        activedPopper
+        && getPopperTree(
           activedPopper.getAttribute(POPUP_PARENT_ATTR_NAME),
-          true
-        ).some((el) => el === popperEl.value)
+          true,
+        ).includes(popperEl.value)
       ) {
         return;
       }
@@ -315,19 +325,20 @@ export default defineComponent({
     function onMouseLeave(ev: MouseEvent) {
       isOverlayHover.value = false;
       if (
-        props.trigger !== "hover" ||
-        triggerEl.value.contains(ev.target as Node)
-      )
+        props.trigger !== 'hover'
+        || triggerEl.value.contains(ev.target as Node)
+      ) {
         return;
+      }
 
       const isCursorOverlaps = getPopperTree(id).some((el) => {
         const rect = el.getBoundingClientRect();
 
         return (
-          ev.x > rect.x &&
-          ev.x < rect.x + rect.width &&
-          ev.y > rect.y &&
-          ev.y < rect.y + rect.height
+          ev.x > rect.x
+          && ev.x < rect.x + rect.width
+          && ev.y > rect.y
+          && ev.y < rect.y + rect.height
         );
       });
       if (!isCursorOverlaps) {
@@ -338,7 +349,7 @@ export default defineComponent({
 
     function onMouseenter() {
       isOverlayHover.value = true;
-      if (visible.value && props.trigger === "hover") {
+      if (visible.value && props.trigger === 'hover') {
         clearAllTimeout();
       }
     }
@@ -347,16 +358,16 @@ export default defineComponent({
       props.onOverlayClick?.({ e });
     }
 
-    const updateScrollTop = inject("updateScrollTop", undefined);
+    const updateScrollTop = inject('updateScrollTop', undefined);
 
     function handleOnScroll(e: WheelEvent) {
-      const { scrollTop, clientHeight, scrollHeight } =
-        e.target as HTMLDivElement;
+      const { scrollTop, clientHeight, scrollHeight }
+        = e.target as HTMLDivElement;
 
       // 防止多次触发添加截流
       const debounceOnScrollBottom = debounce(
-        (e) => props.onScrollToBottom?.({ e }),
-        100
+        e => props.onScrollToBottom?.({ e }),
+        100,
       );
 
       // windows 下 scrollTop 会出现小数，这里取整
@@ -372,58 +383,60 @@ export default defineComponent({
         if (visible.value && overlayEl.value && updateScrollTop) {
           updateScrollTop?.(overlayEl.value);
         }
-      }
+      },
     );
 
     return () => {
-      const content = renderTNodeJSX("content");
-      const hidePopup =
-        props.hideEmptyPopup && ["", undefined, null].includes(content);
+      const content = renderTNodeJSX('content');
+      const hidePopup
+        = props.hideEmptyPopup && ['', undefined, null].includes(content);
 
-      const overlay =
-        visible.value || !props.destroyOnClose ? (
-          <div
-            {...{
-              [POPUP_ATTR_NAME]: id,
-              [POPUP_PARENT_ATTR_NAME]: parent?.id,
-            }}
-            class={[prefixCls.value, props.overlayClassName]}
-            ref={(ref: HTMLElement) => (popperEl.value = ref)}
-            style={[
-              { zIndex: props.zIndex },
-              getOverlayStyle(),
-              hidePopup && { visibility: "hidden" },
-            ]}
-            vShow={visible.value}
-            onClick={onOverlayClick}
-            onMouseenter={onMouseenter}
-            onMouseleave={onMouseLeave}
-          >
+      const overlay
+        = visible.value || !props.destroyOnClose
+          ? (
             <div
-              class={[
+              {...{
+                [POPUP_ATTR_NAME]: id,
+                [POPUP_PARENT_ATTR_NAME]: parent?.id,
+              }}
+              class={[prefixCls.value, props.overlayClassName]}
+              ref={(ref: HTMLElement) => (popperEl.value = ref)}
+              style={[
+                { zIndex: props.zIndex },
+                getOverlayStyle(),
+                hidePopup && { visibility: 'hidden' },
+              ]}
+              vShow={visible.value}
+              onClick={onOverlayClick}
+              onMouseenter={onMouseenter}
+              onMouseleave={onMouseLeave}
+            >
+              <div
+                class={[
                 `${prefixCls.value}__content`,
                 {
                   [`${prefixCls.value}__content--text`]: isString(
-                    props.content
+                    props.content,
                   ),
                   [`${prefixCls.value}__content--arrow`]: props.showArrow,
                   [commonCls.value.disabled]: props.disabled,
                 },
                 props.overlayInnerClassName,
-              ]}
-              ref={overlayEl}
-              onScroll={handleOnScroll}
-            >
-              {content}
-              {props.showArrow && <div class={`${prefixCls.value}__arrow`} />}
+                ]}
+                ref={overlayEl}
+                onScroll={handleOnScroll}
+              >
+                {content}
+                {props.showArrow && <div class={`${prefixCls.value}__arrow`} />}
+              </div>
             </div>
-          </div>
-        ) : null;
+            )
+          : null;
 
       return (
         <Container
           ref={(ref: any) => (containerRef.value = ref)}
-          forwardRef={(ref) => (triggerEl.value = ref)}
+          forwardRef={ref => (triggerEl.value = ref)}
           onContentMounted={() => {
             if (visible.value) {
               updatePopper();
@@ -446,7 +459,7 @@ export default defineComponent({
           {{
             content: () => (
               <Transition
-                name={`${prefixCls.value}--animation${props.expandAnimation ? "-expand" : ""}`}
+                name={`${prefixCls.value}--animation${props.expandAnimation ? '-expand' : ''}`}
                 appear
                 onEnter={updatePopper}
                 onAfterLeave={destroyPopper}
@@ -454,7 +467,7 @@ export default defineComponent({
                 {overlay}
               </Transition>
             ),
-            default: () => renderContent("default", "triggerElement"),
+            default: () => renderContent('default', 'triggerElement'),
           }}
         </Container>
       );

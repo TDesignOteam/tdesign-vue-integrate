@@ -1,24 +1,24 @@
 import {
+  Comment,
+  Fragment,
+  Teleport,
+  Text,
   defineComponent,
   getCurrentInstance,
   onMounted,
-  ref,
-  Fragment,
-  Text,
-  watch,
-  Teleport,
   onUpdated,
-  Comment,
+  ref,
+  watch,
 } from '@td/adapter-vue';
 import type {
+  ComponentInternalInstance,
   PropType,
   VNode,
-  ComponentInternalInstance,
 } from '@td/adapter-vue';
 import props from '@td/intel/components/popup/props';
 import { useResizeObserver } from '@td/adapter-hooks';
 import { isArray } from 'lodash-es';
-import { getSSRAttach, getAttach } from '@td/adapter-utils';
+import { getAttach, getSSRAttach } from '@td/adapter-utils';
 
 function filterEmpty(children: VNode[] = []) {
   const vnodes: VNode[] = [];
@@ -32,20 +32,24 @@ function filterEmpty(children: VNode[] = []) {
     }
   });
   return vnodes.filter(
-    (c) =>
+    c =>
       !(
-        c &&
-        (c.type === Comment ||
-          (c.type === Fragment && c.children.length === 0) ||
-          (c.type === Text && (c.children as string).trim() === ''))
+        c
+        && (c.type === Comment
+        || (c.type === Fragment && c.children.length === 0)
+        || (c.type === Text && (c.children as string).trim() === ''))
       ),
   );
 }
 
 function isRectChanged(rect1: DOMRectReadOnly, rect2: DOMRectReadOnly) {
-  if (!rect1 && !rect2) return false;
-  if (!rect1 || !rect2) return true;
-  if (['width', 'height', 'x', 'y'].some((k) => rect1[k] !== rect2[k])) {
+  if (!rect1 && !rect2) {
+    return false;
+  }
+  if (!rect1 || !rect2) {
+    return true;
+  }
+  if (['width', 'height', 'x', 'y'].some(k => rect1[k] !== rect2[k])) {
     return true;
   }
   return false;
@@ -68,7 +72,6 @@ function useElement<T = HTMLElement>(getter: (instance: ComponentInternalInstanc
   return el;
 }
 
-// eslint-disable-next-line vue/one-component-per-file
 const Trigger = defineComponent({
   name: 'TPopupTrigger',
   props: {
@@ -77,13 +80,12 @@ const Trigger = defineComponent({
   emits: ['resize'],
   setup(props, { emit, slots }) {
     const el = useElement((vm) => {
-
       const containerNode = vm.parent.vnode;
-       console.log(containerNode,'el')
+      console.log(containerNode, 'el');
       // skip the first text node due to `Fragment`
       return containerNode.el.nextElementSibling;
     });
-   
+
     const contentRect = ref<DOMRectReadOnly>();
 
     watch(el, () => {
@@ -110,12 +112,11 @@ const Trigger = defineComponent({
   },
 });
 
-// eslint-disable-next-line vue/one-component-per-file
 const Content = defineComponent({
   name: 'TPopupContent',
   emits: ['resize'],
   setup(props, { emit, slots }) {
-    const contentEl = useElement((vm) => vm.vnode.el.children[0]);
+    const contentEl = useElement(vm => vm.vnode.el.children[0]);
     useResizeObserver(contentEl, () => {
       emit('resize');
     });
@@ -126,7 +127,6 @@ const Content = defineComponent({
   },
 });
 
-// eslint-disable-next-line vue/one-component-per-file
 export default defineComponent({
   name: 'TPopupContainer',
   inheritAttrs: false,

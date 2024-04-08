@@ -23,6 +23,9 @@ export default defineComponent({
   props: {
     ...props,
     triggerElement: Object,
+    expandAnimation: {
+      type: Boolean,
+    },
   },
   setup(props, { expose }) {
     const prefixCls = usePrefixClass('popup');
@@ -46,6 +49,29 @@ export default defineComponent({
         hide: delay[1] ?? delay[0],
       };
     });
+
+    const hide = (ev?: PopupTriggerEvent) => {
+      clearAllTimeout();
+      hideTimeout = setTimeout(() => {
+        overlayVisible.value = false;
+        props.onVisibleChange?.(
+          false,
+          ev ? { trigger: getTriggerType(ev), e: ev } : null,
+        );
+      }, delay.value.hide);
+    };
+
+    const onDocumentMouseDown = (ev: MouseEvent) => {
+      const isClickContent = popperEl.value?.contains(ev.target as Node);
+      const isClickTriggerElement = (
+        props.triggerElement as HTMLElement
+      )?.contains(ev.target as Node);
+      if (isClickContent || isClickTriggerElement) {
+        return;
+      }
+
+      hide(ev);
+    };
 
     watch(
       () => overlayVisible.value,
@@ -88,28 +114,6 @@ export default defineComponent({
       if (isObject(overlayStyle)) {
         return overlayStyle;
       }
-    };
-    const onDocumentMouseDown = (ev: MouseEvent) => {
-      const isClickContent = popperEl.value?.contains(ev.target as Node);
-      const isClickTriggerElement = (
-        props.triggerElement as HTMLElement
-      )?.contains(ev.target as Node);
-      if (isClickContent || isClickTriggerElement) {
-        return;
-      }
-
-      hide(ev);
-    };
-
-    const hide = (ev?: PopupTriggerEvent) => {
-      clearAllTimeout();
-      hideTimeout = setTimeout(() => {
-        overlayVisible.value = false;
-        props.onVisibleChange?.(
-          false,
-          ev ? { trigger: getTriggerType(ev), e: ev } : null,
-        );
-      }, delay.value.hide);
     };
 
     const show = (ev?: PopupTriggerEvent) => {
@@ -155,58 +159,46 @@ export default defineComponent({
       overlayVisible.value = true;
     });
 
-    return {
-      prefixCls,
-      commonCls,
-      popperEl,
-      overlayEl,
-      getOverlayStyle,
-      handleOnScroll,
-      onOverlayClick,
-      overlayVisible,
-    };
-  },
-  render() {
-    const renderTNodeJSX = useTNodeJSX();
+    return () => {
+      const content = renderTNodeJSX('content');
+      const hidePopup = props.hideEmptyPopup && ['', undefined, null].includes(content);
 
-    const content = renderTNodeJSX('content');
-    const hidePopup
-      = this.hideEmptyPopup && ['', undefined, null].includes(content);
-    return this.overlayVisible
-      ? (
-        <transition
-          name={`${this.prefixCls}--animation${this.expandAnimation ? '-expand' : ''}`}
-          appear
-        >
-          <div
-            class={[this.prefixCls, this.overlayClassName]}
-            ref="popperEl"
-            style={[
-              { zIndex: this.zIndex },
-              this.getOverlayStyle(),
-              hidePopup && { visibility: 'hidden' },
-            ]}
-            onClick={this.onOverlayClick}
+      return overlayVisible.value
+        ? (
+          <transition
+            name={`${prefixCls.value}--animation${props.expandAnimation ? '-expand' : ''}`}
+            appear
           >
             <div
-              class={[
-              `${this.prefixCls}__content`,
-              {
-                [`${this.prefixCls}__content--text`]: isString(this.content),
-                [`${this.prefixCls}__content--arrow`]: this.showArrow,
-                [this.commonCls.disabled]: this.disabled,
-              },
-              this.overlayInnerClassName,
+              class={[prefixCls.value, props.overlayClassName]}
+              ref="popperEl"
+              style={[
+                { zIndex: props.zIndex },
+                getOverlayStyle(),
+                hidePopup && { visibility: 'hidden' },
               ]}
-              ref="overlayEl"
-              onScroll={this.handleOnScroll}
+              onClick={onOverlayClick}
             >
-              {content}
-              {this.showArrow && <div class={`${this.prefixCls}__arrow`} />}
+              <div
+                class={[
+              `${prefixCls.value}__content`,
+              {
+                [`${prefixCls.value}__content--text`]: isString(props.content),
+                [`${prefixCls.value}__content--arrow`]: props.showArrow,
+                [commonCls.value.disabled]: props.disabled,
+              },
+              props.overlayInnerClassName,
+                ]}
+                ref="overlayEl"
+                onScroll={handleOnScroll}
+              >
+                {content}
+                {props.showArrow && <div class={`${prefixCls.value}__arrow`} />}
+              </div>
             </div>
-          </div>
-        </transition>
-        )
-      : null;
+          </transition>
+          )
+        : null;
+    };
   },
 });

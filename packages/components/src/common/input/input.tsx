@@ -10,7 +10,7 @@ import props from '@td/intel/components/input/props';
 import type { PlainObject } from '@td/shared/interface';
 
 // vue23:!
-// import { useDisabled } from '@td/adapter-hooks';
+import { useDisabled } from '@td/adapter-hooks';
 
 import { useCommonClassName, useConfig, useGlobalIcon, usePrefixClass, useTNodeJSX } from '@td/adapter-hooks';
 import { useInput, useInputEventHandler, useInputWidth } from './hooks';
@@ -53,9 +53,8 @@ export default defineComponent({
       CloseCircleFilledIcon: TdCloseCircleFilledIcon,
     });
     // vue23:!
-    //   // vue23:! 
-  const disabled = useDisabled();
-    const disabled = ref(false);
+    //   // vue23:!
+    const disabled = useDisabled();
     const COMPONENT_NAME = usePrefixClass('input');
     const INPUT_WRAP_CLASS = usePrefixClass('input__wrap');
     const INPUT_TIPS_CLASS = usePrefixClass('input__tips');

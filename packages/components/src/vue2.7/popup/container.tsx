@@ -1,32 +1,28 @@
-import Vue, {
-  getCurrentInstance,
-  defineComponent,
-  ref,
-  onMounted,
-  onBeforeUnmount,
-  watch,
-  onUpdated,
-} from "@td/adapter-vue";
-import raf from "raf";
-import { isFunction } from "lodash-es";
-import { useResizeObserver } from "@td/adapter-hooks";
-import { getAttach, removeDom } from "@td/adapter-utils";
-import type { TdPopupProps } from "@td/intel/components/popup/type";
+import Vue, { defineComponent, getCurrentInstance, onBeforeUnmount, onMounted, onUpdated, ref, watch } from '@td/adapter-vue';
+import raf from 'raf';
+import { isFunction } from 'lodash-es';
+import { useResizeObserver } from '@td/adapter-hooks';
+import { getAttach, removeDom } from '@td/adapter-utils';
+import type { TdPopupProps } from '@td/intel/components/popup/type';
 
-import type { PropType, ComponentInternalInstance } from "@td/adapter-vue";
+import type { ComponentInternalInstance, PropType } from '@td/adapter-vue';
 
 function isRectChanged(rect1?: DOMRectReadOnly, rect2?: DOMRectReadOnly) {
-  if (!rect1 && !rect2) return false;
-  if (!rect1 || !rect2) return true;
-  if (["width", "height", "x", "y"].some((k) => rect1[k] !== rect2[k])) {
+  if (!rect1 && !rect2) {
+    return false;
+  }
+  if (!rect1 || !rect2) {
+    return true;
+  }
+  if (['width', 'height', 'x', 'y'].some(k => rect1[k] !== rect2[k])) {
     return true;
   }
   return false;
 }
 
 const Trigger = defineComponent({
-  name: "TPopupTrigger",
-  emits: ["resize"],
+  name: 'TPopupTrigger',
+  emits: ['resize'],
   props: {
     forwardRef: Function as PropType<(el: HTMLElement) => void>,
   },
@@ -37,7 +33,6 @@ const Trigger = defineComponent({
     onMounted(() => {
       const instance = getCurrentInstance();
       // TODO
-      // @ts-ignore
       triggerEl.value = instance?.$el as HTMLElement;
     });
 
@@ -51,16 +46,17 @@ const Trigger = defineComponent({
 
     watch(contentRect, (newRect, oldRect) => {
       if (isRectChanged(newRect, oldRect)) {
-        emit("resize");
+        emit('resize');
       }
     });
 
     onUpdated(() => {
       const instance = getCurrentInstance();
       // TODO
-      // @ts-ignore
       const newEl = instance?.$el;
-      if (triggerEl.value !== newEl) triggerEl.value = newEl;
+      if (triggerEl.value !== newEl) {
+        triggerEl.value = newEl;
+      }
     });
 
     return () => {
@@ -74,15 +70,15 @@ const Trigger = defineComponent({
 });
 
 const Container = defineComponent({
-  name: "TPopupContainer",
-  emits: ["resize", "contentMounted"],
+  name: 'TPopupContainer',
+  emits: ['resize', 'contentMounted'],
   props: {
     parent: Object,
     visible: Boolean,
     // support attach to current node when current is equal to `CURRENT_NODE`
     attach: [Function] as PropType<
       () => {
-        attach: TdPopupProps["attach"];
+        attach: TdPopupProps['attach'];
         current: HTMLElement;
       }
     >,
@@ -100,7 +96,7 @@ const Container = defineComponent({
         if (visible) {
           mountContent();
         }
-      }
+      },
     );
 
     onMounted(() => {
@@ -110,27 +106,30 @@ const Container = defineComponent({
     });
 
     onBeforeUnmount(() => {
-      if (typeof process !== "undefined" && process.env?.NODE_ENV === "test")
+      if (typeof process !== 'undefined' && process.env?.NODE_ENV === 'test') {
         return;
+      }
       unmountContent();
     });
 
     const emitResize = () => {
-      emit("resize");
+      emit('resize');
     };
 
     const mountContent = () => {
-      if (content.value) return;
+      if (content.value) {
+        return;
+      }
       const parent = props?.parent;
 
-      const elm = document.createElement("div");
-      elm.style.cssText =
-        "position: absolute; top: 0px; left: 0px; width: 100%";
-      elm.appendChild(document.createElement("div"));
+      const elm = document.createElement('div');
+      elm.style.cssText
+        = 'position: absolute; top: 0px; left: 0px; width: 100%';
+      elm.appendChild(document.createElement('div'));
 
       content.value = Vue.createApp({
         mounted() {
-          emit("contentMounted");
+          emit('contentMounted');
         },
         destroyed() {
           // parent?.props.content = null;
@@ -143,10 +142,10 @@ const Container = defineComponent({
       props.forwardContentRef?.(content.value.$el);
 
       // TODO
-      // @ts-ignore
+      // @ts-expect-error
       const { attach, current } = props.attach?.();
-      const currentAttach = attach === "CURRENT_NODE" ? current : attach;
-      // @ts-ignore
+      const currentAttach = attach === 'CURRENT_NODE' ? current : attach;
+      // @ts-expect-error
       getAttach(currentAttach, triggerRef.value).appendChild(elm);
       content.value.$mount(elm.children[0]);
     };
