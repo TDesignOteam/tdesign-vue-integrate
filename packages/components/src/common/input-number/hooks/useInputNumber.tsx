@@ -5,17 +5,16 @@ import {
   canAddNumber,
   canInputNumber,
   canReduceNumber,
+  canSetValue,
+  formatThousandths,
+  formatUnCompleteNumber,
   getMaxOrMinValidateResult,
   getStepValue,
-  formatThousandths,
-  canSetValue,
-  formatUnCompleteNumber,
   largeNumberToFixed,
 } from '@td/shared/_common/js/input-number/number';
 // vue23:!
-import type { StrInputProps } from '../../input';
-
 import { useCommonClassName, usePrefixClass, useVModel } from '@td/adapter-hooks';
+import type { StrInputProps } from '../../input';
 
 /**
  * 独立一个组件 Hook 方便用户直接使用相关逻辑 自定义任何样式的数字输入框
@@ -23,7 +22,7 @@ import { useCommonClassName, usePrefixClass, useVModel } from '@td/adapter-hooks
 export default function useInputNumber(props: TdInputNumberProps) {
   const { SIZE, STATUS } = useCommonClassName();
   const classPrefix = usePrefixClass();
-  
+
   const { value, modelValue, max, min } = toRefs(props);
   // 统一处理受控、非受控、语法糖 v-model 等
   const [tValue, setTValue] = useVModel(value, modelValue, props.defaultValue, props.onChange);
@@ -64,7 +63,9 @@ export default function useInputNumber(props: TdInputNumberProps) {
   ]);
 
   const getUserInput = (value: InputNumberValue) => {
-    if (!value && value !== 0) return '';
+    if (!value && value !== 0) {
+      return '';
+    }
     let inputStr = value || value === 0 ? String(value) : '';
     if (!inputRef.value?.inputRef?.contains(document.activeElement)) {
       const num = formatUnCompleteNumber(inputStr, {
@@ -87,14 +88,14 @@ export default function useInputNumber(props: TdInputNumberProps) {
       const inputValue = [undefined, null].includes(val) ? '' : String(val);
       // userInput.value 为非合法数字，则表示用户正在输入，此时无需处理
       if (!largeNumber && !Number.isNaN(userInput.value)) {
-        if (parseFloat(userInput.value) !== val) {
+        if (Number.parseFloat(userInput.value) !== val) {
           userInput.value = getUserInput(inputValue);
         }
         const fixedNumber = Number(largeNumberToFixed(inputValue, decimalPlaces, largeNumber));
         if (
-          decimalPlaces !== undefined &&
-          ![undefined, null].includes(val) &&
-          Number(fixedNumber) !== Number(tValue.value)
+          decimalPlaces !== undefined
+          && ![undefined, null].includes(val)
+          && Number(fixedNumber) !== Number(tValue.value)
         ) {
           setTValue(fixedNumber, { type: 'props', e: undefined });
         }
@@ -112,8 +113,10 @@ export default function useInputNumber(props: TdInputNumberProps) {
   watch(
     [tValue, max, min],
     () => {
-      // @ts-ignore 没有输入完成，则无需校验
-      if ([undefined, '', null].includes(tValue.value)) return;
+      // @ts-expect-error 没有输入完成，则无需校验
+      if ([undefined, '', null].includes(tValue.value)) {
+        return;
+      }
       const { max, min, largeNumber } = props;
       const error = getMaxOrMinValidateResult({
         value: tValue.value,
@@ -150,16 +153,24 @@ export default function useInputNumber(props: TdInputNumberProps) {
   };
 
   const handleReduce = (e: KeyboardEvent | MouseEvent) => {
-    if (disabledReduce.value || props.readonly) return;
+    if (disabledReduce.value || props.readonly) {
+      return;
+    }
     const r = handleStepValue('reduce');
-    if (r.overLimit && !props.allowInputOverLimit) return;
+    if (r.overLimit && !props.allowInputOverLimit) {
+      return;
+    }
     setTValue(r.newValue, { type: 'reduce', e });
   };
 
   const handleAdd = (e: KeyboardEvent | MouseEvent) => {
-    if (disabledAdd.value || props.readonly) return;
+    if (disabledAdd.value || props.readonly) {
+      return;
+    }
     const r = handleStepValue('add');
-    if (r.overLimit && !props.allowInputOverLimit) return;
+    if (r.overLimit && !props.allowInputOverLimit) {
+      return;
+    }
     setTValue(r.newValue, { type: 'add', e });
   };
 
@@ -167,7 +178,9 @@ export default function useInputNumber(props: TdInputNumberProps) {
     // 千分位处理
     const val = formatThousandths(inputValue);
 
-    if (!canInputNumber(val, props.largeNumber)) return;
+    if (!canInputNumber(val, props.largeNumber)) {
+      return;
+    }
 
     userInput.value = val;
 
@@ -215,7 +228,9 @@ export default function useInputNumber(props: TdInputNumberProps) {
   };
 
   const handleKeydown = (value: string, ctx: { e: KeyboardEvent }) => {
-    if (tDisabled.value) return;
+    if (tDisabled.value) {
+      return;
+    }
     const { e } = ctx;
     const keyEvent = {
       ArrowUp: handleAdd,

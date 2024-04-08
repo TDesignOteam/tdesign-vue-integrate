@@ -13,7 +13,7 @@ import props from '@td/intel/components/pagination/props';
 import { useConfig, useDefaultValue, useEmitEvent, useGlobalIcon, usePrefixClass, useTNodeJSX, useVModel } from '@td/adapter-hooks';
 import type { TdPaginationProps } from '@td/intel/components/pagination/type';
 import TInputNumber from '../input-number';
-import { Select } from '../select';
+import Select from '../select';
 import TInputAdornment from '../input-adornment';
 import usePaginationClasses from './usePaginationClasses';
 import useMoreAction from './useMoreAction';
@@ -76,7 +76,7 @@ export default defineComponent({
 
     const sizeOptions = computed<Array<{ label: string; value: number }>>(() => {
       const pageSizeOptions = props.pageSizeOptions as TdPaginationProps['pageSizeOptions'];
-      const options = pageSizeOptions.map(option =>
+      const options = pageSizeOptions?.map(option =>
         isObject(option)
           ? option
           : {
@@ -84,7 +84,7 @@ export default defineComponent({
               value: Number(option),
             },
       );
-      return options.sort((a, b) => a.value - b.value);
+      return options?.sort((a, b) => a.value - b.value);
     });
 
     const isMidEllipsis = computed(() => {
@@ -230,10 +230,11 @@ export default defineComponent({
       }
 
       const Jumper = (
+        // vue23:! 这里有问题
         <div class={CLASS_MAP.jumperClass.value}>
           {t(globalConfig.value.jumpTo)}
           <TInputAdornment append={`/ ${pageCount.value} ${t(globalConfig.value.page)}`}>
-            <TInputNumber
+            {/* <TInputNumber
               class={CLASS_MAP.jumperInputClass.value}
               v-model={jumpIndex.value}
               onBlur={onJumperChange}
@@ -244,7 +245,7 @@ export default defineComponent({
               disabled={disabled}
               theme="normal"
               placeholder=""
-            />
+            /> */}
           </TInputAdornment>
         </div>
       );

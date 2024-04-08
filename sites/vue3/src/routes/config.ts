@@ -192,14 +192,14 @@ export const docs = [
       //       component: () => import('@td/intel/components/menu/menu.md'),
       //       componentEn: () => import('@td/intel/components/menu/menu.en-US.md'),
       //     },
-      //     {
-      //       title: 'Pagination 分页',
-      //       titleEn: 'Pagination',
-      //       name: 'pagination',
-      //       path: '/vue-next/components/pagination',
-      //       component: () => import('@td/intel/components/pagination/pagination.md'),
-      //       componentEn: () => import('@td/intel/components/pagination/pagination.en-US.md'),
-      //     },
+      {
+        title: 'Pagination 分页',
+        titleEn: 'Pagination',
+        name: 'pagination',
+        path: '/vue-next/components/pagination',
+        component: () => import('@td/intel/components/pagination/pagination.md'),
+        componentEn: () => import('@td/intel/components/pagination/pagination.en-US.md'),
+      },
       {
         title: 'Steps 步骤条',
         titleEn: 'Steps',
