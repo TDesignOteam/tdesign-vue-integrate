@@ -5,8 +5,7 @@ import {
   toRefs,
   watch,
 } from '@td/adapter-vue';
-import { get } from 'lodash-es';
-import intersection from 'lodash/intersection';
+import { get, intersection } from 'lodash-es';
 import type { KeysType, TableTreeDataMap, TreeDataMapType } from '@td/shared/_common/js/table/tree-store';
 import { useDefaultValue } from '@td/adapter-hooks';
 import type {
@@ -14,7 +13,7 @@ import type {
   TableRowData,
   TdEnhancedTableProps,
   TdPrimaryTableProps,
-} from '../type';
+} from '@td/intel/components/table/type';
 
 export interface GetChildrenDataReturnValue {
   allChildren: Array<any>;

@@ -17,12 +17,11 @@ import type {
   TableRowData,
   TdBaseTableProps,
 } from '@td/intel/components/table/type';
-import { useGlobalIcon } from '@td/adapter-hooks';
+import { useGlobalIcon, usePrefixClass } from '@td/adapter-hooks';
 import log from '@td/shared/_common/js/log';
 import type { AllValidateResult } from '@td/intel/components/form/type';
 import { off, on } from '@td/adapter-utils';
 import { validate } from '../../common/form/form-model';
-import { usePrefixClass } from '../config-provider/useConfig';
 import { renderCell } from './tr';
 import type { TableClassName } from './hooks/useClassName';
 

@@ -7,16 +7,16 @@ import {
 } from '@td/adapter-vue';
 import { cloneDeep, get, isFunction, set } from 'lodash-es';
 import { getEditableKeysMap } from '@td/shared/_common/js/table/utils';
-import type { PrimaryTableProps } from '../interface';
-import type { AllValidateResult } from '../../form/type';
-import { validate } from '../../../common/form/form-model';
 import type {
   PrimaryTableCellParams,
   PrimaryTableRowEditContext,
   PrimaryTableRowValidateContext,
   TableErrorListMap,
   TableRowData,
-} from '../type';
+} from '@td/intel/components/table/type';
+import type { AllValidateResult } from '@td/intel/components/form/type';
+import type { PrimaryTableProps } from '../interface';
+import { validate } from '../../../common/form/form-model';
 import type { OnEditableChangeContext } from '../editable-cell';
 import { getCellKey } from './useRowspanAndColspan';
 

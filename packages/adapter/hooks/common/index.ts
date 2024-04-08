@@ -13,3 +13,4 @@ export * from './src/useVirtualScroll';
 export * from './src/useImagePreviewUrl';
 export * from './src/usePopupManager';
 export * from './src/useElementLazyRender';
+export * from './src/useLazyLoad';

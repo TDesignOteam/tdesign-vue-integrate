@@ -6,7 +6,7 @@ import { computed, onUnmounted, ref, shallowRef, toRefs, watch,
 } from '@td/adapter-vue';
 import { AddRectangleIcon as TdAddRectangleIcon, MinusRectangleIcon as TdMinusRectangleIcon } from 'tdesign-icons-vue';
 import { get } from 'lodash-es';
-import { useGlobalIcon, useTNodeDefault } from '@td/adapter-hooks';
+import { useConfig, useGlobalIcon, useTNodeDefault } from '@td/adapter-hooks';
 import type { SwapParams } from '@td/shared/_common/js/table/tree-store';
 import TableTreeStore from '@td/shared/_common/js/table/tree-store';
 import type {
@@ -16,9 +16,8 @@ import type {
   TableRowState,
   TableRowValue,
   TdEnhancedTableProps,
-} from '../type';
+} from '@td/intel/components/table/type';
 import { renderCell } from '../tr';
-import { useConfig } from '../../config-provider/useConfig';
 import useClassName from './useClassName';
 import useTreeDataExpand from './useTreeDataExpand';
 

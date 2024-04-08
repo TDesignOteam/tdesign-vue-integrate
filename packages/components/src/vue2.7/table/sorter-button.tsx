@@ -2,12 +2,11 @@ import type { PropType } from '@td/adapter-vue';
 import { computed, defineComponent } from '@td/adapter-vue';
 import { ChevronDownIcon as TdChevronDownIcon } from 'tdesign-icons-vue';
 import type { SortType } from '@td/intel/components/table/type';
-import { useGlobalIcon, useTNodeDefault } from '@td/adapter-hooks';
+import { useConfig, useGlobalIcon, useTNodeDefault } from '@td/adapter-hooks';
 import type { TNode } from '@td/shared/interface';
 import type { TdTooltipProps as TooltipProps } from '@td/intel/components/tooltip/type';
 import { Tooltip } from '@td/component';
 import type { TableConfig } from '@td/intel/components/config-provider/type';
-import { useConfig } from '@td/adapter-hooks';
 import useClassName from './hooks/useClassName';
 
 type SortTypeEnums = Array<'desc' | 'asc'>;

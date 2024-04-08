@@ -3,7 +3,7 @@ import { computed, defineComponent, ref } from '@td/adapter-vue';
 import { useConfig, usePrefixClass } from '@td/adapter-hooks';
 import type { TdDatePickerProps } from '@td/intel/components/date-picker/type';
 import type { JumperTrigger } from '@td/intel/components/pagination/type';
-import { PaginationMini } from '../../pagination';
+import { PaginationMini } from '@td/component';
 import TSelect from '../../select';
 
 export default defineComponent({

@@ -14,7 +14,7 @@ import { getIEVersion } from '@td/shared/_common/js/utils/helper';
 import type { ComponentScrollToElementParams, Styles } from '@td/shared/interface';
 import type { BaseTableCol, TableRowData } from '@td/intel/components/table/type';
 import props from '@td/intel/components/table/base-table-props';
-import { renderTNodeJSX, useConfig, useElementLazyRender, useVirtualScroll } from '@td/adapter-hooks';
+import { useConfig, useElementLazyRender, useTNodeJSX, useVirtualScroll } from '@td/adapter-hooks';
 import { Affix, Loading } from '@td/component';
 import type { TdLoadingProps as LoadingProps } from '@td/intel/components/loading/type';
 import useTableHeader from './hooks/useTableHeader';
@@ -651,8 +651,10 @@ export default defineComponent({
       </Loading>
     );
 
-    const topContent = renderTNodeJSX(this, 'topContent');
-    const bottomContent = renderTNodeJSX(this, 'bottomContent');
+    const renderTNodeJSX = useTNodeJSX();
+
+    const topContent = renderTNodeJSX('topContent');
+    const bottomContent = renderTNodeJSX('bottomContent');
     const paginationContent = this.innerPagination
       ? (
         <div

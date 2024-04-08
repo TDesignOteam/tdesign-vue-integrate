@@ -1,4 +1,4 @@
-import { useConfig } from '../../config-provider/useConfig';
+import { useConfig } from '@td/adapter-hooks';
 
 export default function useClassName() {
   const { classPrefix } = useConfig();

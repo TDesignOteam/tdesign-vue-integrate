@@ -42,7 +42,7 @@ export function useDefaultValue<T, P extends any[]>(
   defaultValue: T,
   onChange: ChangeHandler<T, P>,
   propsName: string,
-  eventName: string,
+  eventName: string = 'change',
 ): [Ref<T>, ChangeHandler<T, P>] {
   return useDefaultValueVue3<T, P>(value, defaultValue, onChange, propsName);
 }

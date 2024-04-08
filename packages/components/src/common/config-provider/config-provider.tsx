@@ -1,6 +1,6 @@
 import { defineComponent, isVue3 } from '@td/adapter-vue';
 import type { PropType } from '@td/adapter-vue';
-import { useTNodeJSX, useProvideConfig } from '@td/adapter-hooks';
+import { useProvideConfig, useTNodeJSX } from '@td/adapter-hooks';
 
 import type { GlobalConfigProvider } from '@td/intel/components/config-provider/type';
 
@@ -8,9 +8,9 @@ export const configProviderProps = {
   globalConfig: Object as PropType<GlobalConfigProvider>,
 };
 
-export type ConfigProviderProps = {
+export interface ConfigProviderProps {
   globalConfig: GlobalConfigProvider;
-};
+}
 
 export default defineComponent({
   name: 'TConfigProvider',
@@ -23,8 +23,8 @@ export default defineComponent({
 
     return () => {
       const defaultNode = renderTNodeJSX('default');
-      
-      if(isVue3) {
+
+      if (isVue3) {
         return defaultNode;
       }
 

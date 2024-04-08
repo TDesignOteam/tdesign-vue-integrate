@@ -1,5 +1,5 @@
-import { computed, defineComponent, getCurrentInstance, ref, toRefs, watch } from '@td/adapter-vue';
 import { isNaN, isObject } from 'lodash-es';
+import { computed, defineComponent, ref, toRefs, watch } from '@td/adapter-vue';
 import {
   ChevronLeftDoubleIcon as TdChevronLeftDoubleIcon,
   ChevronLeftIcon as TdChevronLeftIcon,
@@ -10,7 +10,7 @@ import {
   PageLastIcon as TdPageLastIcon,
 } from 'tdesign-icons-vue-next';
 import props from '@td/intel/components/color-picker/props';
-import { useConfig, useDefaultValue, useGlobalIcon, usePrefixClass, useTNodeJSX, useVModel } from '@td/adapter-hooks';
+import { useConfig, useDefaultValue, useEmitEvent, useGlobalIcon, usePrefixClass, useTNodeJSX, useVModel } from '@td/adapter-hooks';
 import type { TdPaginationProps } from '@td/intel/components/pagination/type';
 import TInputNumber from '../input-number';
 import { Select } from '../select';
@@ -23,10 +23,8 @@ const min = 1;
 export default defineComponent({
   name: 'TPagination',
   props,
-
   setup(props: TdPaginationProps) {
-    const { emit } = getCurrentInstance();
-
+    const emitEvent = useEmitEvent();
     const { modelValue, pageSize, current } = toRefs(props);
     const renderTNodeJSX = useTNodeJSX();
     const [innerCurrent, setInnerCurrent] = useVModel(
@@ -167,7 +165,7 @@ export default defineComponent({
           props.onChange?.(pageInfo);
         } else {
           // 非主动更改时应仅更新modelValue不触发onCurrentChange事件
-          emit('update:modelValue', current);
+          emitEvent('update:modelValue', current);
         }
       }
     };
@@ -254,10 +252,12 @@ export default defineComponent({
       return (
         <div class={CLASS_MAP.paginationClass.value}>
           {/* 数据统计区 */}
-          {renderTNodeJSX(
-            'totalContent',
-            <div class={CLASS_MAP.totalClass.value}>{t(globalConfig.value.total, { total })}</div>,
-          )}
+          {
+            renderTNodeJSX(
+              'totalContent',
+              <div class={CLASS_MAP.totalClass.value}>{t(globalConfig.value.total, { total })}</div>,
+            )
+          }
           {/* 分页器 */}
           {showPageSize && pageSizeOptions.length > 0 && (
             <Select

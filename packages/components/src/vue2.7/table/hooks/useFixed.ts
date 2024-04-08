@@ -12,22 +12,14 @@ import {
   toRefs,
   watch,
 } from '@td/adapter-vue';
-import { get } from 'lodash-es';
-import { xorWith } from 'lodash-es';
-import { debounce } from 'lodash-es';
-import { pick } from 'lodash-es';
+import { debounce, get, pick, xorWith } from 'lodash-es';
 import log from '@td/shared/_common/js/log';
 import { getScrollbarWidthWithCSS } from '@td/shared/_common/js/utils/getScrollbarWidth';
 import { getIEVersion } from '@td/shared/_common/js/utils/helper';
-import type { ClassName, Styles } '@td/shared/interface';
-import type { BaseTableCol, TableRowData, TdBaseTableProps } from '../type';
-import { off, on } from '../../utils/dom';
-import type {
-  FixedColumnInfo,
-  RowAndColFixedPosition,
-  TableColFixedClasses,
-  TableRowFixedClasses,
-} from '../interface';
+import type { ClassName, Styles } from '@td/shared/interface';
+import type { BaseTableCol, TableRowData, TdBaseTableProps } from '@td/intel/components/table/type';
+import { off, on } from '@td/adapter-utils';
+import type { FixedColumnInfo, RowAndColFixedPosition, TableColFixedClasses, TableRowFixedClasses } from '../interface';
 
 // 固定列相关类名处理
 export function getColumnFixedStyles(

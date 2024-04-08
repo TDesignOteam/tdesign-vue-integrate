@@ -9,8 +9,7 @@ import {
   toRefs,
   watch,
 } from '@td/adapter-vue';
-import intersection from 'lodash/intersection';
-import { get, isFunction } from 'lodash-es';
+import { get, intersection, isFunction } from 'lodash-es';
 import { isRowSelectedDisabled } from '@td/shared/_common/js/table/utils';
 import log from '@td/shared/_common/js/log';
 import { useDefaultValue } from '@td/adapter-hooks';
@@ -20,10 +19,9 @@ import type {
   RowClassNameParams,
   TableRowData,
   TdPrimaryTableProps,
-} from '../type';
-import { Checkbox } from '@td/component';
-import { Radio } from '@td/component';
-import type { ClassName } '@td/shared/interface';
+} from '@td/intel/components/table/type';
+import { Checkbox, Radio } from '@td/component';
+import type { ClassName } from '@td/shared/interface';
 import type { TableClassName } from './useClassName';
 
 export default function useRowSelect(

@@ -3,7 +3,7 @@ import { mount } from '@vue/test-utils';
 import { expect, vi } from 'vitest';
 import { CheckCircleFilledIcon, CloseCircleFilledIcon, InfoCircleIcon } from 'tdesign-icons-vue-next';
 import isObject from 'lodash/isObject';
-import omit from 'lodash/omit';
+import { omit } from 'lodash-es';
 import { FormItem, Form } from '../index.ts';
 import { Input, InputNumber } from '@/src/index.ts';
 import { useFormDisabled } from '../hooks';

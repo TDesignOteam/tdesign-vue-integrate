@@ -1,10 +1,9 @@
 import { isString } from 'lodash-es';
 import type { CreateElement, SetupContext } from '@td/adapter-vue';
 import { computed } from '@td/adapter-vue';
-import { useTNodeJSX } from '@td/adapter-hooks';
+import { useConfig, useTNodeJSX } from '@td/adapter-hooks';
 import { Loading } from '@td/component';
-import type { TdPrimaryTableProps } from '../type';
-import { useConfig } from '../../config-provider/useConfig';
+import type { TdPrimaryTableProps } from '@td/intel/components/table/type';
 import useClassName from './useClassName';
 
 export default function useAsyncLoading(props: TdPrimaryTableProps, context: SetupContext) {

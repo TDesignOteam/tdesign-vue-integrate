@@ -11,15 +11,15 @@ import { get, isFunction } from 'lodash-es';
 import log from '@td/shared/_common/js/log';
 import swapDragArrayElement from '@td/shared/_common/js/utils/swapDragArrayElement';
 import { getColumnDataByKey, getColumnIndexByKey } from '@td/shared/_common/js/table/utils';
-import { hasClass } from '../../utils/dom';
 import type {
   DragSortContext,
   PrimaryTableCol,
   TableRowData,
   TdPrimaryTableProps,
-} from '../type';
+} from '@td/intel/components/table/type';
+import { hasClass } from '@td/adapter-utils';
+import type { TdPaginationProps as PaginationProps } from '@td/intel/components/pagination/type';
 import type { SimplePageInfo } from '../interface';
-import type { PaginationProps } from '../../pagination';
 import useClassName from './useClassName';
 
 export default function useDragSort(

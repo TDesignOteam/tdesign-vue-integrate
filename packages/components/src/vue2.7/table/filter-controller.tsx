@@ -4,17 +4,14 @@ import type {
 } from '@td/adapter-vue';
 import { defineComponent, ref } from '@td/adapter-vue';
 import { SearchIcon, FilterIcon as TdFilterIcon } from 'tdesign-icons-vue';
-import { isEmpty, isFunction, isObject } from 'lodash-es';
-import lowerFirst from 'lodash/lowerFirst';
-import escapeRegExp from 'lodash/escapeRegExp';
-import { useGlobalIcon, useTNodeDefault } from '@td/adapter-hooks';
+import { escapeRegExp, isEmpty, isFunction, isObject, lowerFirst } from 'lodash-es';
+import { useConfig, useGlobalIcon, useTNodeDefault } from '@td/adapter-hooks';
 import type { FilterValue, PrimaryTableCol } from '@td/intel/components/table/type';
 import log from '@td/shared/_common/js/log';
 import type { AttachNode } from '@td/shared/interface';
 import { CheckboxGroup, Input, Popup, RadioGroup, Button as TButton } from '@td/component';
 import type { TableConfig } from '@td/intel/components/config-provider/type';
 import type { TdPopupProps as PopupProps } from '@td/intel/components/popup/type';
-import { useConfig } from '@td/adapter-hooks';
 
 type Params = Parameters<CreateElement>;
 type FirstParams = Params[0];

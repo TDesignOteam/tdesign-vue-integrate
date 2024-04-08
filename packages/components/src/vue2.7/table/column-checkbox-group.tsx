@@ -4,10 +4,10 @@ import {
   defineComponent,
   toRefs,
 } from '@td/adapter-vue';
-import intersection from 'lodash/intersection';
-import type { CheckboxGroupChangeContext, CheckboxGroupProps, CheckboxProps } from '../checkbox';
-import Checkbox, { CheckboxGroup } from '../checkbox';
-import { usePrefixClass } from '../hooks';
+import { intersection } from 'lodash-es';
+import { usePrefixClass } from '@td/adapter-hooks';
+import type { CheckboxGroupChangeContext, TdCheckboxGroupProps as CheckboxGroupProps, TdCheckboxProps as CheckboxProps } from '@td/intel/components/checkbox/type';
+import { Checkbox, CheckboxGroup } from '@td/component';
 
 export type ColumnCheckboxGroupProps = Pick<CheckboxGroupProps, 'value' | 'onChange' | 'options'> & {
   checkboxProps: CheckboxGroupProps;

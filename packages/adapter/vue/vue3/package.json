@@ -10,11 +10,11 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
-    "lodash": "^4.17.21"
+    "lodash-es": "^4.17.21"
   },
   "devDependencies": {
     "@td/ts-config": "workspace:^",
-    "@types/lodash": "^4.14.202",
+    "@types/lodash-es": "^4.17.12",
     "vue": "^3.4.15"
   }
 }

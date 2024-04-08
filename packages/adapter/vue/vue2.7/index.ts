@@ -1,9 +1,6 @@
 import Vue, { h as H, getCurrentInstance as getCurrentInstanceInner } from 'vue';
 import type { Ref, VNode, VueConstructor } from 'vue';
-import clone from 'lodash/clone';
-import merge from 'lodash/merge';
-import omit from 'lodash/omit';
-import lowerFirst from 'lodash/lowerFirst';
+import { clone, lowerFirst, merge, omit } from 'lodash-es';
 import Teleport from './components/Teleport';
 
 function getCurrentInstance() {

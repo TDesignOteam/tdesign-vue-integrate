@@ -10,16 +10,14 @@ import {
   watch,
 } from '@td/adapter-vue';
 import { SettingIcon as TdSettingIcon } from 'tdesign-icons-vue';
-// import intersection from 'lodash/intersection';
+// import { intersection } from 'lodash-es';
 import { isFunction } from 'lodash-es';
-import { useDefaultValue, useGlobalIcon, useTNodeJSX } from '@td/adapter-hooks';
-import { Button as TButton } from '@td/component';
-import type { CheckboxGroupChangeContext, CheckboxGroupValue, CheckboxOptionObj } from '../../checkbox';
-import { DialogPlugin } from '@td/component';
-import type { PrimaryTableCol, TdPrimaryTableProps } from '../type';
-import { useConfig } from '../../config-provider/useConfig';
-import { getCurrentRowByKey } from '../utils';
+import { useConfig, useDefaultValue, useGlobalIcon, useTNodeJSX } from '@td/adapter-hooks';
+import { DialogPlugin, Button as TButton } from '@td/component';
+import type { PrimaryTableCol, TdPrimaryTableProps } from '@td/intel/components/table/type';
 import type { DialogInstance } from '@td/intel/components/dialog/type';
+import type { CheckboxGroupChangeContext, CheckboxGroupValue, CheckboxOptionObj } from '../../checkbox';
+import { getCurrentRowByKey } from '../utils';
 import ColumnCheckboxGroup from '../column-checkbox-group';
 import { renderTitle } from './useTableHeader';
 

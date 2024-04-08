@@ -19,9 +19,9 @@ import type {
 } from '@td/intel/components/table/type';
 import type { AttachNode } from '@td/shared/interface';
 import baseTableProps from '@td/intel/components/table/base-table-props';
-import useLazyLoad from '../hooks/useLazyLoad';
-import type { PaginationProps } from '../pagination';
 import type { VirtualScrollConfig } from '@td/adapter-hooks';
+import { useLazyLoad } from '@td/adapter-hooks';
+import type { TdPaginationProps as PaginationProps } from '@td/intel/components/pagination/type';
 import { formatClassNames, formatRowAttributes, formatRowClassNames } from './utils';
 import { getColumnFixedStyles, getRowFixedStyles } from './hooks/useFixed';
 import type { RowAndColFixedPosition } from './interface';

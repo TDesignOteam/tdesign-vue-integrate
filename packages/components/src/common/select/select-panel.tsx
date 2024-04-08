@@ -138,34 +138,22 @@ export default defineComponent({
         {!isEmpty.value && !props.loading && renderOptionsContent(options)}
       </div>
     );
-    return {
-      renderPanel,
-      panelStyle,
-      cursorStyle,
-      isVirtual,
-      displayOptions,
-      visibleData,
-      renderTNodeJSX,
-    };
-  },
-  render() {
-    return this.isVirtual
-      ? (
-        <>
-          {this.renderTNodeJSX('panelTopContent')}
+
+    return () => {
+      return isVirtual.value
+        ? [
+            renderTNodeJSX('panelTopContent'),
           <div>
-            <div style={this.cursorStyle}></div>
-            {this.renderPanel(this.visibleData, this.panelStyle)}
-          </div>
-          {this.renderTNodeJSX('panelBottomContent')}
-        </>
-        )
-      : (
-        <>
-          {this.renderTNodeJSX('panelTopContent')}
-          {this.renderPanel(this.displayOptions)}
-          {this.renderTNodeJSX('panelBottomContent')}
-        </>
-        );
+            <div style={cursorStyle.value}></div>
+            {renderPanel(visibleData?.value, panelStyle.value)}
+          </div>,
+          renderTNodeJSX('panelBottomContent'),
+          ]
+        : [
+            renderTNodeJSX('panelTopContent'),
+            renderPanel(displayOptions.value),
+            renderTNodeJSX('panelBottomContent'),
+          ];
+    };
   },
 });

@@ -1,18 +1,25 @@
 import { computed, toRefs } from '@td/adapter-vue';
-import { TdBaseTableProps } from '../type';
-import { ClassName, Styles } '@td/shared/interface';
+import type { TdBaseTableProps } from '@td/intel/components/table/type';
+import type { ClassName, Styles } from '@td/shared/interface';
+import { useCommonClassName, useConfig } from '@td/adapter-hooks';
 import useClassName from './useClassName';
-import { useCommonClassName } from '@td/adapter-hooks';
-import { useConfig } from '../../config-provider/useConfig';
 
 export function formatCSSUnit(unit: string | number) {
-  if (!unit) return unit;
+  if (!unit) {
+    return unit;
+  }
   return isNaN(Number(unit)) ? unit : `${unit}px`;
 }
 
 export default function useStyle(props: TdBaseTableProps) {
   const {
-    bordered, stripe, hover, verticalAlign, height, maxHeight, tableContentWidth,
+    bordered,
+    stripe,
+    hover,
+    verticalAlign,
+    height,
+    maxHeight,
+    tableContentWidth,
   } = toRefs(props);
 
   const { tableBaseClass, tableAlignClasses } = useClassName();
