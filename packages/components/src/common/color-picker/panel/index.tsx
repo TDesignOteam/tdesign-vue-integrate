@@ -2,7 +2,7 @@ import { computed, defineComponent, ref, toRefs, watch } from '@td/adapter-vue';
 import { cloneDeep } from 'lodash-es';
 import props from '@td/intel/components/color-picker/props';
 import type { ColorPickerChangeTrigger, TdColorPickerProps } from '@td/intel/components/color-picker/type';
-import { useCommonClassName, useConfig } from '@td/adapter-hooks';
+import { useCommonClassName, useConfig, useDefaultValue, useVModel } from '@td/adapter-hooks';
 import {
   DEFAULT_COLOR,
   DEFAULT_LINEAR_GRADIENT,
@@ -13,8 +13,6 @@ import type { GradientColorPoint } from '../utils';
 import { Color, getColorObject } from '../utils';
 import type { TdColorModes } from '../interfaces';
 import { useBaseClassName } from '../hooks';
-import useVModel from '../../hooks/useVModel';
-import { useDefaultValue } from '@td/adapter-hooks';
 import PanelHeader from './header';
 import LinearGradient from './linear-gradient';
 import SaturationPanel from './saturation';
@@ -300,33 +298,31 @@ export default defineComponent({
         return null;
       }
       return (
-        <>
-          <div class={`${baseClassName}__swatches-wrap`}>
-            {showUsedColors
-              ? (
-                <SwatchesPanel
-                  {...baseProps}
-                  title={t(globalConfig.recentColorTitle)}
-                  editable
-                  colors={this.recentlyUsedColors as string[]}
-                  handleAddColor={this.addRecentlyUsedColor}
-                  onSetColor={(color: string) => this.handleSetColor('used', color)}
-                  onChange={this.handleRecentlyUsedColorsChange}
-                />
-                )
-              : null}
-            {showSystemColors
-              ? (
-                <SwatchesPanel
-                  {...baseProps}
-                  title={t(globalConfig.swatchColorTitle)}
-                  colors={systemColors}
-                  onSetColor={(color: string) => this.handleSetColor('system', color)}
-                />
-                )
-              : null}
-          </div>
-        </>
+        <div class={`${baseClassName}__swatches-wrap`}>
+          {showUsedColors
+            ? (
+              <SwatchesPanel
+                {...baseProps}
+                title={t(globalConfig.recentColorTitle)}
+                editable
+                colors={this.recentlyUsedColors as string[]}
+                handleAddColor={this.addRecentlyUsedColor}
+                onSetColor={(color: string) => this.handleSetColor('used', color)}
+                onChange={this.handleRecentlyUsedColorsChange}
+              />
+              )
+            : null}
+          {showSystemColors
+            ? (
+              <SwatchesPanel
+                {...baseProps}
+                title={t(globalConfig.swatchColorTitle)}
+                colors={systemColors}
+                onSetColor={(color: string) => this.handleSetColor('system', color)}
+              />
+              )
+            : null}
+        </div>
       );
     };
 

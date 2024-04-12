@@ -1,5 +1,5 @@
 import type { Ref, VNodeNormalizedChildren } from '@td/adapter-vue';
-import type { MenuValue } from '@td/intel/components/calendar/type';
+import type { MenuValue } from '@td/intel/components/menu/type';
 import type VMenu from './v-menu';
 
 export interface TdMenuItem {

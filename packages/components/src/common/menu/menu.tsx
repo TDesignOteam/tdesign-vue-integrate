@@ -3,8 +3,8 @@ import { isArray, isNumber } from 'lodash-es';
 import type { MenuValue } from '@td/intel/components/menu/type';
 import props from '@td/intel/components/menu/props';
 import log from '@td/shared/_common/js/log/log';
-import { useDefaultValue, usePrefixClass, useVModel } from '@td/adapter-hooks';
-import { renderContent, renderTNodeJSX } from '../utils/render-tnode';
+import { useContent, useDefaultValue, usePrefixClass, useTNodeJSX, useVModel } from '@td/adapter-hooks';
+
 import type { TdMenuInterface, TdOpenType } from './const';
 import VMenu from './v-menu';
 
@@ -13,11 +13,15 @@ export default defineComponent({
   props: { ...props, onCollapsed: Function },
   setup(props, ctx) {
     const classPrefix = usePrefixClass();
+    const renderContent = useContent();
+    const renderTNodeJSX = useTNodeJSX();
+
     watchEffect(() => {
       if (ctx.slots.options) {
         log.warnOnce('TMenu', '`options` slot is going to be deprecated, please use `operations` for slot instead.');
       }
     });
+
     const mode = ref(props.expandType);
     const theme = computed(() => props.theme);
     const isMutex = computed(() => props.expandMutex);
@@ -36,7 +40,6 @@ export default defineComponent({
       if (isArray(width)) {
         return width.map(item => format(item));
       }
-
       return [format(width), '64px'];
     });
 
@@ -47,6 +50,7 @@ export default defineComponent({
 
     const { value, modelValue, expanded } = toRefs(props);
     const [activeValue, setActiveValue] = useVModel(value, modelValue, props.defaultValue, props.onChange);
+
     const [expandValues, setExpand] = useDefaultValue(expanded, props.defaultExpanded, props.onExpand, 'expanded');
     const activeValues = ref([]);
 
@@ -56,6 +60,7 @@ export default defineComponent({
     });
 
     const vMenu = new VMenu({ isMutex, expandValues: expandValues.value ? [...expandValues.value] : [] });
+
     provide<TdMenuInterface>('TdMenu', {
       activeValue,
       activeValues,
@@ -87,13 +92,13 @@ export default defineComponent({
       },
     });
 
-    // watch
     watch(
       () => props.expanded,
       (value) => {
         vMenu.expandValues = new Set(value);
       },
     );
+
     watch(
       () => props.collapsed,
       (newValue, oldValue) => {
@@ -107,34 +112,26 @@ export default defineComponent({
     const updateActiveValues = (value: MenuValue) => {
       activeValues.value = vMenu.select(value);
     };
+
     watch(activeValue, updateActiveValues);
 
-    // timelifes
     onMounted(() => {
       activeValues.value = vMenu.select(activeValue.value);
     });
 
-    return {
-      styles,
-      classPrefix,
-      menuClass,
-      innerClasses,
-      activeValue,
-      activeValues,
-      expandValues,
-    };
-  },
-  render() {
-    const operations = renderContent(this, 'operations', 'options');
-    const logo = renderTNodeJSX(this, 'logo');
-    return (
-      <div class={this.menuClass} style={this.styles}>
-        <div class={`${this.classPrefix}-default-menu__inner`}>
-          {logo && <div class={`${this.classPrefix}-menu__logo`}>{logo}</div>}
-          <ul class={this.innerClasses}>{renderContent(this, 'default', 'content')}</ul>
-          {operations && <div class={`${this.classPrefix}-menu__operations`}>{operations}</div>}
+    return () => {
+      const operations = renderContent('operations', 'options');
+      const logo = renderTNodeJSX('logo');
+
+      return (
+        <div class={menuClass.value} style={styles.value}>
+          <div class={`${classPrefix.value}-default-menu__inner`}>
+            {logo && <div class={`${classPrefix.value}-menu__logo`}>{logo}</div>}
+            <ul class={innerClasses.value}>{renderContent('default', 'content')}</ul>
+            {operations && <div class={`${classPrefix.value}-menu__operations`}>{operations}</div>}
+          </div>
         </div>
-      </div>
-    );
+      );
+    };
   },
 });

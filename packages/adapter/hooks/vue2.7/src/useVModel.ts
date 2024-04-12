@@ -44,6 +44,8 @@ export function useVModelVue27<T, P extends any[]>(
       (newValue, ...args) => {
         // input 事件为 v-model 语法糖
         instance?.emit?.('input', newValue, ...args);
+        // support .sync
+        instance?.emit(`update:${propName}`, newValue, ...args);
         onChange?.(newValue, ...args);
         if (eventName && eventName !== 'input') {
           instance?.emit?.(eventName, newValue, ...args);

@@ -5,9 +5,9 @@ import type { GuideStep, TdGuideProps } from '@td/intel/components/guide/type';
 import props from '@td/intel/components/guide/props';
 import setStyle from '@td/shared/_common/js/utils/set-style';
 import { addClass, getWindowScroll, isFixed, removeClass } from '@td/adapter-utils';
-import { useConfig, usePrefixClass, useTNodeJSX, useVModel } from '@td/adapter-hooks';
-import Button from '../button';
+import { useConfig, useEmitEvent, usePrefixClass, useTNodeJSX, useVModel } from '@td/adapter-hooks';
 import { Popup } from '@td/component';
+import Button from '../button';
 import { getRelativePosition, getTargetElm, scrollToElm, scrollToParentVisibleArea } from './utils';
 import type { GuideCrossProps } from './interface';
 
@@ -19,6 +19,7 @@ export default defineComponent({
     const COMPONENT_NAME = usePrefixClass('guide');
     const LOCK_CLASS = usePrefixClass('guide--lock');
     const { globalConfig } = useConfig('guide');
+    const emitEvent = useEmitEvent();
 
     const { current, modelValue, hideCounter, hidePrev, hideSkip, steps, zIndex } = toRefs(props);
     const [innerCurrent, setInnerCurrent] = useVModel(
@@ -198,13 +199,19 @@ export default defineComponent({
       const total = stepsTotal.value;
       actived.value = false;
       setInnerCurrent(-1, { e, total });
-      props.onSkip?.({ e, current: innerCurrent.value, total });
+      emitEvent('skip', { e, current: innerCurrent.value, total });
     };
 
     const handlePrev = (e: MouseEvent) => {
       const total = stepsTotal.value;
       setInnerCurrent(innerCurrent.value - 1, { e, total });
-      props.onPrevStepClick?.({
+      // props.onPrevStepClick?.({
+      //   e,
+      //   prev: innerCurrent.value - 1,
+      //   current: innerCurrent.value,
+      //   total,
+      // });
+      emitEvent('prevStepClick', {
         e,
         prev: innerCurrent.value - 1,
         current: innerCurrent.value,
@@ -215,19 +222,26 @@ export default defineComponent({
     const handleNext = (e: MouseEvent) => {
       const total = stepsTotal.value;
       setInnerCurrent(innerCurrent.value + 1, { e, total });
-      props.onNextStepClick?.({
+      emitEvent('nextStepClick', {
         e,
         next: innerCurrent.value + 1,
         current: innerCurrent.value,
         total,
       });
+      // props.onNextStepClick?.({
+      //   e,
+      //   next: innerCurrent.value + 1,
+      //   current: innerCurrent.value,
+      //   total,
+      // });
     };
 
     const handleFinish = (e: MouseEvent) => {
       const total = stepsTotal.value;
       actived.value = false;
       setInnerCurrent(-1, { e, total });
-      props.onFinish?.({ e, current: innerCurrent.value, total });
+      // props.onFinish?.({ e, current: innerCurrent.value, total });
+      emitEvent('finish', { e, current: innerCurrent.value, total });
     };
 
     const initGuide = () => {
@@ -286,7 +300,7 @@ export default defineComponent({
             {popupSlotCounter || `${innerCurrent.value + 1}/${stepsTotal.value}`}
           </div>
         );
-        return <>{!hideCounter.value && popupDefaultCounter}</>;
+        return !hideCounter.value && popupDefaultCounter;
       };
 
       const renderAction = (mode: TdGuideProps['mode']) => {
@@ -366,12 +380,7 @@ export default defineComponent({
         }
         const desc = <div class={`${COMPONENT_NAME.value}__desc`}>{descBody}</div>;
 
-        return (
-          <>
-            {title}
-            {desc}
-          </>
-        );
+        return [title, desc];
       };
 
       const renderPopupContent = () => {
@@ -456,33 +465,29 @@ export default defineComponent({
         ];
         const footerClasses = [`${COMPONENT_NAME.value}__footer`, `${COMPONENT_NAME.value}__footer--popup`];
         return (
-          <>
-            <div ref={dialogWrapperRef} class={wrapperClasses} style={style}>
-              <div ref={dialogTooltipRef} class={dialogClasses}>
-                {renderTooltipBody()}
-                <div class={footerClasses}>
-                  {renderCounter()}
-                  {renderAction('dialog')}
-                </div>
+          <div ref={dialogWrapperRef} class={wrapperClasses} style={style}>
+            <div ref={dialogTooltipRef} class={dialogClasses}>
+              {renderTooltipBody()}
+              <div class={footerClasses}>
+                {renderCounter()}
+                {renderAction('dialog')}
               </div>
             </div>
-          </>
+          </div>
         );
       };
 
       const renderGuide = () => {
         return (
-          <>
-            <Teleport to="body">
-              {renderOverlayLayer()}
-              {renderHighlightLayer()}
-              {isPopup.value ? renderPopupGuide() : renderDialogGuide()}
-            </Teleport>
-          </>
+          <Teleport to="body">
+            {renderOverlayLayer()}
+            {renderHighlightLayer()}
+            {isPopup.value ? renderPopupGuide() : renderDialogGuide()}
+          </Teleport>
         );
       };
 
-      return <>{actived.value && renderGuide()}</>;
+      return actived.value && renderGuide();
     };
   },
 });

@@ -1,6 +1,5 @@
 import { getCurrentInstance } from '@td/adapter-vue';
-import { isFunction } from 'lodash-es';
-import { camelCase } from 'lodash-es';
+import { camelCase, isFunction } from 'lodash-es';
 
 // import { getPropsApiByEvent } from './helper';
 export type EmitEventName = { event: string; method: string } | string; // ! 这种是什么意思呢？

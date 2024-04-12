@@ -1,25 +1,23 @@
 import { computed, defineComponent, nextTick, ref, toRefs } from '@td/adapter-vue';
 import type { TdPopupProps } from '@td/intel/components/popup/type';
-import { useCommonClassName, useConfig, useContent, useTNodeJSX, useVModel } from '@td/adapter-hooks';
+import { useCommonClassName, useConfig, useContent, usePrefixClass, useTNodeJSX, useVModel } from '@td/adapter-hooks';
 import type { ClassName } from '@td/shared/interface';
 import type { TdAutoCompleteProps } from '@td/intel/components/auto-complete/type';
 import props from '@td/intel/components/auto-complete/props';
+import { Input, Popup } from '@td/component';
 import type { InputProps, StrInputProps } from '../input';
-import { Input } from '@td/component';
-import { Popup } from '@td/component';
 import AutoCompleteOptionList from './option-list';
 
 export default defineComponent({
   name: 'TAutoComplete',
-
   props,
-
   setup(props: TdAutoCompleteProps, { slots }) {
     const { value, modelValue } = toRefs(props);
     const [tValue, setTValue] = useVModel(value, modelValue, props.defaultValue, props.onChange);
     const renderContent = useContent();
     const renderTNodeJSX = useTNodeJSX();
-    const { classPrefix, sizeClassNames } = useCommonClassName();
+    const classPrefix = usePrefixClass();
+    const { SIZE } = useCommonClassName();
     const { globalConfig: global } = useConfig('input');
 
     const popupVisible = ref();
@@ -132,7 +130,7 @@ export default defineComponent({
           value={tValue.value}
           options={props.options}
           size={props.size}
-          sizeClassNames={sizeClassNames}
+          sizeClassNames={SIZE.value}
           onSelect={onInnerSelect}
           popupVisible={popupVisible.value}
           highlightKeyword={props.highlightKeyword}

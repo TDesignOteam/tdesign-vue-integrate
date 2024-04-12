@@ -1,11 +1,9 @@
 import type { Component, ComputedRef, Slots, VNode } from '@td/adapter-vue';
 import { computed, getCurrentInstance } from '@td/adapter-vue';
-import { isString } from 'lodash-es';
-import { isArray } from 'lodash-es';
-import { camelCase } from 'lodash-es';
+import { camelCase, isArray, isString } from 'lodash-es';
 
-import { useChildComponentSlots } from '../../hooks/slot';
-import type { DropdownOption, TdDropdownProps } from '../type';
+import type { DropdownOption, TdDropdownProps } from '@td/intel/components/dropdown/type';
+import { useChildComponentSlots } from '@td/adapter-hooks';
 
 export function getOptionsFromChildren(menuNode: VNode | VNode[]): DropdownOption[] {
   if (!menuNode) {

@@ -1,8 +1,6 @@
-import { computed, defineComponent, getCurrentInstance, inject, onMounted, ref, toRefs } from '@td/adapter-vue';
+import { computed, defineComponent, getCurrentInstance, inject, onMounted, ref, toRefs, watch } from '@td/adapter-vue';
 import props from '@td/intel/components/menu/menu-item-props';
-import { usePrefixClass, useRipple } from '@td/adapter-hooks';
-import { emitEvent } from '@td/adapter-utils';
-import { renderContent, renderTNodeJSX } from '../utils/render-tnode';
+import { useContent, useEmitEvent, usePrefixClass, useRipple, useTNodeJSX } from '@td/adapter-hooks';
 import { Tooltip } from '@td/component';
 import type { TdMenuInterface, TdSubMenuInterface } from './const';
 
@@ -11,7 +9,6 @@ export default defineComponent({
   props: { ...props },
   emits: ['click'],
   setup(props, ctx) {
-    const { href, target } = toRefs(props);
     const classPrefix = usePrefixClass();
     const menu = inject<TdMenuInterface>('TdMenu');
     const itemRef = ref<HTMLElement>();
@@ -28,35 +25,23 @@ export default defineComponent({
         [`${classPrefix.value}-submenu__item`]: !!submenu && !menu.isHead,
       },
     ]);
-    // lifetimes
-    onMounted(() => {
-      menu?.vMenu?.add({ value: props.value, parent: submenu?.value, vnode: ctx.slots.default, ...props });
-    });
 
-    return {
-      classPrefix,
-      menu,
-      active,
-      collapsed,
-      classes,
-      itemRef,
-      href,
-      target,
-      submenu,
-    };
-  },
-  methods: {
-    handleClick(e: MouseEvent) {
+    const renderContent = useContent();
+    const renderTNodeJSX = useTNodeJSX();
+    const emitEvent = useEmitEvent();
+    // vue23:!!! $router 要怎么写
+    const router = computed(() => props.router || getCurrentInstance()?.$router);
+
+    const handleClick = (e: MouseEvent) => {
       e.stopPropagation();
-      if (this.disabled) {
+      if (props.disabled) {
         return;
       }
-      this.menu.select(this.value);
-      emitEvent(this, 'click', { e, value: this.value });
-      if (this.to || (this.routerLink && this.href)) {
-        const router = this.router || this.$router;
-        const methods: string = this.replace ? 'replace' : 'push';
-        router[methods](this.to || this.href).catch((err: Error) => {
+      menu?.select(props.value);
+      emitEvent('click', { e, value: props.value });
+      if (props.to || (props.routerLink && props.href)) {
+        const methods: string = props.replace ? 'replace' : 'push';
+        router.value[methods](props.to || props.href).catch((err: Error) => {
           // vue-router 3.1.0+ push/replace cause NavigationDuplicated error
           // https://github.com/vuejs/vue-router/issues/2872
           // 当前path和目标path相同时，会抛出NavigationDuplicated的错误
@@ -68,53 +53,57 @@ export default defineComponent({
           }
         });
       }
-      this.submenu?.closeParentPopup?.(e);
-    },
-  },
-  render() {
-    const router = this.router || this.$router;
+      submenu?.closeParentPopup?.(e);
+    };
+
+    // lifetimes
+    onMounted(() => {
+      menu?.vMenu?.add({ value: props.value, parent: submenu?.value, vnode: ctx.slots.default, ...props });
+    });
 
     const liContent = (
-      <li ref="itemRef" class={this.classes} onClick={this.handleClick}>
-        {renderTNodeJSX(this, 'icon')}
-        {this.routerLink
+      <li ref="itemRef" class={classes.value} onClick={handleClick}>
+        {renderTNodeJSX('icon')}
+        {props.routerLink
           ? (
             <a
-              href={this.href ? this.href : this.to ? router?.resolve(this.to).href : ''}
-              target={this.target}
-              class={`${this.classPrefix}-menu__item-link`}
+              href={props.href ? props.href : props.to ? router.value?.resolve(props.to).href : ''}
+              target={props.target}
+              class={`${classPrefix.value}-menu__item-link`}
               onClick={e => e.preventDefault()}
             >
-              <span class={`${this.classPrefix}-menu__content`}>{renderContent(this, 'default', 'content')}</span>
+              <span class={`${classPrefix.value}-menu__content`}>{renderContent('default', 'content')}</span>
             </a>
             )
-          : this.href
+          : props.href
             ? (
               <a
-                href={this.href}
-                target={this.target}
-                class={`${this.classPrefix}-menu__item-link`}
-                onClick={e => this.disabled && e.preventDefault()}
+                href={props.href}
+                target={props.target}
+                class={`${classPrefix.value}-menu__item-link`}
+                onClick={e => props.disabled && e.preventDefault()}
               >
-                <span class={`${this.classPrefix}-menu__content`}>{renderContent(this, 'default', 'content')}</span>
+                <span class={`${classPrefix.value}-menu__content`}>{renderContent('default', 'content')}</span>
               </a>
               )
             : (
-              <span class={`${this.classPrefix}-menu__content`}>{renderContent(this, 'default', 'content')}</span>
+              <span class={`${classPrefix.value}-menu__content`}>{renderContent('default', 'content')}</span>
               )}
       </li>
     );
 
-    const instance = getCurrentInstance();
-    const node = instance.parent;
-    // 菜单收起，且只有本身为一级菜单才需要显示 tooltip
-    if (this.collapsed && /tmenu/i.test(node?.type.name)) {
-      return (
-        <Tooltip content={() => renderContent(this, 'default', 'content')} placement="right">
-          {liContent}
-        </Tooltip>
-      );
-    }
-    return liContent;
+    return () => {
+      const instance = getCurrentInstance();
+      const node = instance?.parent;
+      // 菜单收起，且只有本身为一级菜单才需要显示 tooltip
+      if (collapsed.value && /tmenu/i.test(node?.type.name)) {
+        return (
+          <Tooltip content={() => renderContent('default', 'content')} placement="right">
+            {liContent}
+          </Tooltip>
+        );
+      }
+      return liContent;
+    };
   },
 });

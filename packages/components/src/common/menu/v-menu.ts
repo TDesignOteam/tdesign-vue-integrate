@@ -20,7 +20,7 @@ interface VMenuItem extends TdMenuItemProps {
 
 function getTreePaths(node: VMenuData, val: MenuValue, ans: MenuValue[]): MenuValue[] {
   if (!node) {
-    return;
+    return [];
   }
   for (let i = 0; i < node.children.length; ++i) {
     const child = node.children[i];

@@ -9,7 +9,7 @@ import props from '@td/intel/components/popconfirm/props';
 import type { TdDialogProps } from '@td/intel/components/dialog/type';
 import { useConfig, useContent, useGlobalIcon, usePrefixClass, useTNodeDefault, useTNodeJSX, useVModel } from '@td/adapter-hooks';
 import type { PopupVisibleChangeContext, TdPopupProps } from '@td/intel/components/popup/type';
-import Popup from '../popup/index';
+import { Popup } from '@td/component';
 import { useAction } from '../dialog/hooks';
 
 export default defineComponent({

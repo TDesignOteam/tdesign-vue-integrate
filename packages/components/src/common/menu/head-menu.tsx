@@ -7,6 +7,7 @@ import {
   defineComponent,
   getCurrentInstance,
   h,
+  nextTick,
   onMounted,
   provide,
   reactive,
@@ -39,7 +40,7 @@ export default defineComponent({
       }
     });
     const { value, modelValue, expanded } = toRefs(props);
-    const [activeValue, setActiveValue] = useVModel(value, modelValue, props.defaultValue, props.onChange);
+    const [activeValue, setActiveValue] = useVModel<MenuValue>(value, modelValue, props.defaultValue, props.onChange);
     const [expandValues, setExpanded] = useDefaultValue(expanded, props.defaultExpanded, props.onExpand, 'expanded');
     const activeValues = ref([]);
     const theme = computed(() => props.theme);

@@ -2,8 +2,8 @@ import { defineComponent } from '@td/adapter-vue';
 import { FileCopyIcon as TdFileCopyIcon } from 'tdesign-icons-vue-next';
 import props from '@td/intel/components/anchor/anchor-target-props';
 import { useConfig, useGlobalIcon, usePrefixClass } from '@td/adapter-hooks';
-import Message from '../message/plugin';
 import { Popup } from '@td/component';
+import Message from '../message/plugin';
 import { copyText } from './utils';
 
 export default defineComponent({

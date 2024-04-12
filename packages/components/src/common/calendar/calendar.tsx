@@ -9,6 +9,7 @@ import { useConfig, useContent } from '@td/adapter-hooks';
 
 // 子组件
 import type { CalendarCell } from '@td/intel/components/calendar/type';
+import props from '@td/intel/components/color-picker/props';
 import { Select as TSelect } from '../select';
 import { RadioButton as TRadioButton, RadioGroup as TRadioGroup } from '../radio';
 import { Button as TButton } from '../button';
@@ -16,7 +17,6 @@ import { CheckTag as TCheckTag } from '../tag';
 import { COMPONENT_NAME, DEFAULT_YEAR_CELL_NUMINROW, FIRST_MONTH_OF_YEAR, LAST_MONTH_OF_YEAR, MIN_YEAR } from './const';
 import { useCalendarClass, useColHeaders, useState, userController } from './hook';
 import * as utils from './utils';
-import props from '@td/intel/components/color-picker/props';
 import CalendarCellItem from './calendar-cell';
 
 // 组件相关类型

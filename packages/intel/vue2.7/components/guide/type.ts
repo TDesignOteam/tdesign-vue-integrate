@@ -3,8 +3,8 @@
  */
 
 import type { AttachNode, TNode } from '@td/shared/interface';
-import type { ButtonProps } from '../button';
-import type { TdPopupProps } from '@td/intel/components/popup/type';
+import type { TdButtonProps } from '../button/type';
+import type { TdPopupProps } from '../popup/type';
 
 export interface TdGuideProps {
   /**
@@ -20,9 +20,13 @@ export interface TdGuideProps {
    */
   defaultCurrent?: number;
   /**
+   * 当前步骤，即整个引导的进度。-1 则不展示，用于需要中断展示的场景
+   */
+  modelValue?: number;
+  /**
    * 透传 完成 的全部属性，示例：`{ content: '完成', theme: 'primary' }`
    */
-  finishButtonProps?: ButtonProps;
+  finishButtonProps?: TdButtonProps;
   /**
    * 是否隐藏计数
    * @default false
@@ -51,11 +55,11 @@ export interface TdGuideProps {
   /**
    * 透传 下一步按钮 的全部属性，示例：{ content: '下一步', theme: 'primary' }
    */
-  nextButtonProps?: ButtonProps;
+  nextButtonProps?: TdButtonProps;
   /**
    * 透传 上一步按钮 的全部属性，示例：{ content: '上一步', theme: 'default' }
    */
-  prevButtonProps?: ButtonProps;
+  prevButtonProps?: TdButtonProps;
   /**
    * 是否出现遮罩层
    * @default true
@@ -64,7 +68,7 @@ export interface TdGuideProps {
   /**
    * 透传 跳过按钮 的全部属性，{ content: '跳过', theme: 'default' }
    */
-  skipButtonProps?: ButtonProps;
+  skipButtonProps?: TdButtonProps;
   /**
    * 用于定义每个步骤的内容，包括高亮的节点、相对位置和具体的文案内容等。
    */
@@ -124,7 +128,7 @@ export interface GuideStep {
   /**
    * 用于自定义当前引导框的下一步按钮的内容
    */
-  nextButtonProps?: ButtonProps;
+  nextButtonProps?: TdButtonProps;
   /**
    * 【讨论确认中】相对于 placement 的偏移量，示例：[-10, 20] 或 ['10px', '8px']
    */
@@ -137,11 +141,11 @@ export interface GuideStep {
   /**
    * 透传全部属性到 Popup 组件。`mode=popup` 时有效
    */
-  popupProps?: PopupProps;
+  popupProps?: TdPopupProps;
   /**
    * 用于自定义当前引导框的上一步按钮的内容
    */
-  prevButtonProps?: ButtonProps;
+  prevButtonProps?: TdButtonProps;
   /**
    * 是否出现遮罩层
    * @default true
@@ -150,7 +154,7 @@ export interface GuideStep {
   /**
    * 用于自定义当前步骤引导框的跳过按钮的内容
    */
-  skipButtonProps?: ButtonProps;
+  skipButtonProps?: TdButtonProps;
   /**
    * 覆盖引导框的类名
    * @default ''
