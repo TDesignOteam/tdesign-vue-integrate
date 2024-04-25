@@ -90,14 +90,14 @@ TD 目前 vue2 和 vue3 的仓库均相对完善，所以为了尽量减少整�
 在详细介绍这 3 种方案之前，我们先来看看 vue 的整个生命过程。
 
 <div align="center">
-  <img src="../images/sfc-to-dom.png" alt="image-20230925172041578" style="zoom:36%;" width="50%"/>
+  <img src="./images/sfc-to-dom.png" alt="image-20230925172041578" style="zoom:36%;" width="50%"/>
   <p>
     图1：vue sfc-to-dom
   </p>
 </div>
 
 <div align="center">
-  <img src="../images/sfc-ast-render-dom.png" alt="image-20230925172041578" style="zoom:36%;" width="60%"/>
+  <img src="./images/sfc-ast-render-dom.png" alt="image-20230925172041578" style="zoom:36%;" width="60%"/>
   <p>
     图2：vue sfc-ast-render-dom
   </p>
@@ -499,7 +499,7 @@ instance._setupContext.slots;
   vue23 运行时实例抛出的属性不一致，而上层使用又希望一致，这不是典型的**适配器设计模式**哇。
 
   <div align="center">
-    <img src="../images/adapter.png" alt="image-20230925172041578" style="zoom:44%;" />
+    <img src="./images/adapter.png" alt="image-20230925172041578" style="zoom:44%;" />
     <p>
       图3：vue adapter
     </p>
@@ -530,7 +530,7 @@ instance._setupContext.slots;
   可以看到，同样是在实例上做判断，那么直接适配即可
 
   <div align="center">
-    <img src="../images/adapter-props.png" alt="image-20230925172041578" style="zoom:70%;" />
+    <img src="./images/adapter-props.png" alt="image-20230925172041578" style="zoom:70%;" />
     <p>
       图4：vue adapter-props
     </p>
@@ -729,14 +729,14 @@ export function useVModel<T, P extends any[]>(
 所以，目前看来，只能写两份，即 vue23 分开写。
 
 <div align="center">
-  <img src="../images/hooks-vmodel.png" alt="image-20230925172041578" style="zoom:50%;" width="26%;"/>
+  <img src="./images/hooks-vmodel.png" alt="image-20230925172041578" style="zoom:50%;" width="26%;"/>
   <p>
     图5：vue hooks-vmodel
   </p>
 </div>
 
 <div align="center">
-  <img src="../images/hooks-vmodel-adapter.png" alt="image-20230925172041578" style="zoom:50%;" />
+  <img src="./images/hooks-vmodel-adapter.png" alt="image-20230925172041578" style="zoom:50%;" />
   <p>
     图6：vue hooks-vmodel-adapter
   </p>
