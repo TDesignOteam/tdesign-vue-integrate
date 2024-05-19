@@ -2,22 +2,20 @@
   "name": "tdesign-vue-integrate",
   "type": "module",
   "private": true,
-  "packageManager": "pnpm@8.9.0",
+  "packageManager": "pnpm@9.1.0",
   "engines": {
     "node": ">=18"
   },
   "scripts": {
-    "build": "turbo build",
-    "dev": "turbo dev --filter='./sites/*'",
-    "lint": "turbo lint",
-    "format": "prettier --write \"**/*.{ts,tsx,md}\""
+    "build": "pnpm run -r build",
+    "dev": "pnpm run -r dev --filter='./sites/*'",
+    "lint": "pnpm run -r lint"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^2.11.6",
     "@td/ts-config": "workspace:^",
     "eslint": "^8.57.0",
     "eslint-plugin-format": "^0.1.0",
-    "prettier": "^3.2.5",
-    "turbo": "~1.11.3"
+    "prettier": "^3.2.5"
   }
 }
